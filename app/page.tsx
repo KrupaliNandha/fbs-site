@@ -8,12 +8,17 @@ import { useEffect, useState, useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import SmoothScroll from "@/app/Components/SmoothScroll";
+import Link from "next/link";
 
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { PiLessThanBold } from "react-icons/pi";
 import { PiGreaterThanBold } from "react-icons/pi";
 
 import Slider from "./Components/Slider";
+
+import { FaRocket } from "react-icons/fa";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { FaWallet } from "react-icons/fa";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -27,212 +32,201 @@ export default function Home() {
     });
   }, []);
 
-  function useCountUp(target: number, speed = 20) {
+  function useCountUp(target: number, duration = 2000) {
     const [count, setCount] = useState(0);
-    const started = useRef(false);
 
     useEffect(() => {
-      if (started.current) return;
-      started.current = true;
+      let start: number | null = null;
+      let animationFrame: number;
 
-      let current = 0;
-      const interval = setInterval(() => {
-        current += 1;
-        setCount(current);
+      const step = (timestamp: number) => {
+        if (!start) start = timestamp;
+        const progress = timestamp - start;
+        const progressRatio = Math.min(progress / duration, 1);
+        setCount(Math.floor(progressRatio * target));
 
-        if (current >= target) {
-          clearInterval(interval);
+        if (progress < duration) {
+          animationFrame = requestAnimationFrame(step);
+        } else {
+          setCount(target); // ensure final value is exact
         }
-      }, speed);
+      };
 
-      return () => clearInterval(interval);
-    }, [target, speed]);
+      animationFrame = requestAnimationFrame(step);
+
+      return () => cancelAnimationFrame(animationFrame);
+    }, [target, duration]);
 
     return count;
   }
 
-  const projects = useCountUp(150, 10);
-  const experience = useCountUp(25, 80);
-  const funding = useCountUp(20, 80);
+  const projects = useCountUp(150, 1000);
+  const experience = useCountUp(25, 800);
+  const funding = useCountUp(20, 900);
+
+  const ourservies = [
+    {
+      img: "/Services-1.jpeg",
+      title: "PRINT ON PRODUCT",
+      des: "CUSTOMIZED PRINT",
+      href: "/services/Printing-Product",
+    },
+    {
+      img: "/Services-2.jpeg",
+      title: "DIRECT MAILING",
+      des: "MARKETING",
+      href: "/services/Signage",
+    },
+    {
+      img: "/Services-3.jpeg",
+      title: "SIGNAGE PRINTING",
+      des: "ViSIBLE YOUR BUSINESS",
+      href: "/services/Direct-MaIilintg",
+    },
+    {
+      img: "/Services-4.jpeg",
+      title: "WEBSITE DESIGN",
+      des: "GROW ONLINE",
+      href: "/services/Web-Design",
+    },
+    {
+      img: "/Services-5.jpeg",
+      title: "SEO SERVICES",
+      des: "OPTIMIZE YOUR BUSINESS ONLINE",
+      href: "/services/SEO",
+    },
+  ];
 
   return (
     <>
       <Navbar />
       <SmoothScroll>
         {/* Hero Section */}
-        <section className="pt-10 px-4">
-          <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 place-items-center max-w-7xl mx-auto">
-            {/* Hero Image */}
-            <div className="w-full relative" data-aos="fade-right">
-              <div className="w-70 h-50 top-105 right-89 xl:block hidden absolute border-2 rounded border-blue"></div>
-              <div className="w-70 h-50 bottom-105 left-89 xl:block hidden absolute border-2 rounded border-blue"></div>
+        <section className="pt-10">
+          <div className="container mx-auto relative w-full overflow-hidden rounded-2xl">
+            {/* HERO IMAGE */}
+            <Image
+              src="/Home-Hero.jpg"
+              alt="Printing Service"
+              width={1400}
+              height={700}
+              priority
+              className="
+        w-full
+        h-[420px] sm:h-[480px] md:h-[550px] lg:h-[620px]
+        object-cover
+        rounded-2xl
+      "
+            />
 
-              <Image
-                src="/Home-Hero.jpg"
-                alt="Printing Service"
-                width={500}
-                height={500}
-                className="w-130 h-100 md:w-145 md:h-150 object-fit relative justify-self-center lg:justify-start shadow-lg"
-              />
-            </div>
+            {/* DARK OVERLAY */}
+            <div className="absolute inset-0 bg-black/55 rounded-2xl"></div>
 
-            {/* Hero Content */}
-            <div className="flex h-full items-center justify-self-center text-center text-black px-4">
-              <div data-aos="fade-left">
-                <p className="mb-2 text-md">
+            {/* HERO CONTENT */}
+            <div className="absolute inset-0 z-10 flex items-center justify-center text-center px-4">
+              <div
+                data-aos="fade-up"
+                className="text-white max-w-3xl space-y-3 sm:space-y-4"
+              >
+                <p className="text-sm sm:text-base md:text-lg font-medium">
                   We place a great value on the caliber of our goods.
                 </p>
-                <p className="mb-2 text-md">
+
+                <p className="text-sm sm:text-base md:text-lg font-medium">
                   FBS blends quick turnaround time with a keen eye towards
                   quality.
                 </p>
-                <p className="mb-2 text-md">
+
+                <p className="text-sm sm:text-base md:text-lg font-medium">
                   For companies of all sizes, we are committed to offering
                   premium printing, graphic design, and signage solutions.
                 </p>
 
-                <h1 className="text-4xl font-bold md:text-6xl">
-                  PRICE GUARANTEE <br />
+                <h1
+                  className="pt-4 font-bold leading-tight
+          text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
+                >
+                  <span className="text-pink-500">PRICE GUARANTEE</span>
+                  <br />
                   FOR ALL OF OUR SERVICES
                 </h1>
 
-                <p className="mt-6 text-yellow-400 font-semibold">
+                <p className="text-yellow-400 font-semibold text-sm sm:text-base pt-2">
                   GET YOUR PRINT NOW
                 </p>
 
-                <button className="mt-6 rounded-full bg-gradient-to-r from-pink-700 to-green-400 px-8 py-3 font-semibold text-white hover:scale-105 transition-transform duration-300">
-                  Contact Us
-                </button>
+                <div className="pt-5">
+                  <Link
+                    href="/contact"
+                    className="
+              inline-block
+              bg-gradient-to-r from-pink-500 to-green-400
+              px-8 py-3
+              text-sm sm:text-base
+              font-semibold text-white
+              rounded-full
+              transition-transform duration-300
+              hover:scale-105
+            "
+                  >
+                    Contact Us
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Section-2: Services */}
-        <section className="pt-10">
+        <section className="container section-padding mx-auto">
           <div className="px-4">
             <h1
               data-aos="fade-up"
-              className="uppercase text-5xl text-center  font-bold"
+              className="uppercase p-5 text-5xl text-center text-pink-700 font-bold"
             >
               Look At Our Service
             </h1>
           </div>
-          <div className="px-4 mt-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
-              {/* Service card - 1 */}
-              <div
-                className="relative group overflow-hidden"
-                data-aos="zoom-in"
-                data-aos-delay="100"
-              >
-                <Image
-                  src="/Services-1.jpeg"
-                  alt="Print On Product"
-                  width={500}
-                  height={500}
-                  className="w-full h-80 object-cover shadow-lg rounded-2xl"
-                />
 
-                <div className="absolute inset-0 flex flex-col text-center items-center justify-center rounded-2xl bg-black/40 text-white translate-y-[-100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
-                  <h3 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 uppercase">
-                    Print On <br /> Product
-                  </h3>
-                  <p className="text-lg px-4 text-center">CUSTOMIZED PRINT</p>
+          <div className="">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-7">
+              {ourservies.map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-200 p-3 rounded-2xl relative w-full shadow-lg transition-transform duration-300 hover:scale-105"
+                >
+                  {/* IMAGE */}
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-[320px] object-cover rounded-xl"
+                  />
+
+                  {/* CONTENT */}
+                  <div className="mt-5 pb-3">
+                    <h2 className="text-2xl font-semibold">{item.title}</h2>
+                    <p className="text-md text-gray-600">{item.des}</p>
+                  </div>
+
+                  {/* ARROW BUTTON */}
+                  <Link href={item.href}>
+                    <div
+                      className="absolute bg-white rounded-full flex justify-center items-center
+          origin-bottom-right -rotate-45
+          w-14 h-14 bottom-4 -right-3
+          md:w-12 md:h-12 cursor-pointer"
+                    >
+                      <div
+                        className="bg-pink-700 text-white rounded-full text-xl flex justify-center items-center
+            shadow-md hover:scale-110 transition-transform
+            w-11 h-11 md:w-9 md:h-9"
+                      >
+                        →
+                      </div>
+                    </div>
+                  </Link>
                 </div>
-              </div>
-
-              {/* Service card - 2 */}
-              <div
-                className="relative group overflow-hidden"
-                data-aos="zoom-in"
-                data-aos-delay="200"
-              >
-                <Image
-                  src="/Services-2.jpeg"
-                  alt="Direct Mailing"
-                  width={500}
-                  height={500}
-                  className="w-full h-80 object-cover shadow-lg rounded-2xl"
-                />
-
-                <div className="absolute inset-0 flex flex-col text-center items-center justify-center rounded-2xl bg-black/40 text-white translate-y-[-100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
-                  <h3 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 uppercase">
-                    Direct <br /> Mailing
-                  </h3>
-                  <p className="text-lg px-4 text-center">MARKETING</p>
-                </div>
-              </div>
-
-              {/* Service card - 3 */}
-              <div
-                className="relative group overflow-hidden"
-                data-aos="zoom-in"
-                data-aos-delay="300"
-              >
-                <Image
-                  src="/Services-3.jpeg"
-                  alt="Signage Printing"
-                  width={500}
-                  height={500}
-                  className="w-full h-80 object-cover shadow-lg rounded-2xl"
-                />
-
-                <div className="absolute inset-0 flex flex-col text-center items-center justify-center rounded-2xl bg-black/40 text-white translate-y-[-100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
-                  <h3 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 uppercase">
-                    SignAge <br /> Printing
-                  </h3>
-                  <p className="text-lg px-4 text-center">
-                    VISIBLE YOUR BUSINESS
-                  </p>
-                </div>
-              </div>
-
-              {/* Service card - 4 */}
-              <div
-                className="relative group overflow-hidden"
-                data-aos="zoom-in"
-                data-aos-delay="400"
-              >
-                <Image
-                  src="/Services-4.jpeg"
-                  alt="Website Design"
-                  width={500}
-                  height={500}
-                  className="w-full h-80 object-cover shadow-lg rounded-2xl"
-                />
-
-                <div className="absolute inset-0 flex flex-col text-center items-center justify-center rounded-2xl bg-black/40 text-white translate-y-[-100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
-                  <h3 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 uppercase">
-                    Website <br /> Design
-                  </h3>
-                  <p className="text-lg px-4 text-center">GROW ONLINE</p>
-                </div>
-              </div>
-
-              {/* Service card - 5 */}
-              <div
-                className="relative group overflow-hidden"
-                data-aos="zoom-in"
-                data-aos-delay="500"
-              >
-                <Image
-                  src="/Services-5.jpeg"
-                  alt="SEO Services"
-                  width={500}
-                  height={500}
-                  className="w-full h-80 object-cover shadow-lg rounded-2xl"
-                />
-
-                <div className="absolute inset-0 flex flex-col text-center items-center justify-center rounded-2xl bg-black/40 text-white translate-y-[-100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
-                  <h3 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 uppercase">
-                    SEO <br /> Services
-                  </h3>
-                  <p className="text-lg px-4 text-center">
-                    OPTIMIZE YOUR BUSINESS ONLINE
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -264,207 +258,271 @@ export default function Home() {
         </section>
 
         {/* Section - 4 */}
-        <section className="pt-10 px-4 overflow-x-hidden">
-          <div className="bg-gray-200 rounded-xl p-5">
-            <div className="px-4">
-              <h1 className="text-center text-7xl font-bold text-pink-700">
-                Our Work
-              </h1>
-            </div>
-            <div className="grid grid-col-1 lg:grid-cols-2 gap-10 pt-5 max-w-7xl mx-auto">
-              <div className="text-xl">
-                <p data-aos="fade-right" className="text-center lg:text-start">
+        <section className="container section-padding overflow-x-hidden">
+          <div className="rounded-2xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* LEFT CONTENT */}
+              <div>
+                <h1
+                  className="
+            font-bold text-pink-700
+            text-3xl sm:text-4xl md:text-5xl lg:text-7xl
+            text-center lg:text-left
+          "
+                >
+                  Our Work
+                </h1>
+
+                {/* underline */}
+                <div className="pt-5 flex justify-center lg:justify-start">
+                  <div className="w-16 h-[3px] bg-pink-700 rounded-full"></div>
+                </div>
+
+                <p
+                  data-aos="fade-right"
+                  className="pt-6 text-sm sm:text-base md:text-lg text-gray-700 text-center lg:text-left"
+                >
                   Over the years, we’ve turned countless ideas into high-quality
                   prints that leave a lasting impression. From small personal
                   projects to large corporate campaigns, our team blends
                   creativity with precision to deliver outstanding results every
                   time.
                 </p>
-              </div>
 
-              <div className="text-xl">
-                <p data-aos="fade-left" className="text-center lg:text-start">
+                <p
+                  data-aos="fade-left"
+                  className="pt-5 text-sm sm:text-base md:text-lg text-gray-700 text-center lg:text-left"
+                >
                   With decades of experience and a passion for excellence, we’ve
                   completed over 150 projects for clients across industries.
                   Every design, every print, and every detail reflects our
                   commitment to quality, innovation, and customer satisfaction.
                 </p>
               </div>
-            </div>
-            <div className="max-w-7xl mx-auto flex grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-5 ">
-              <div className="text-center">
-                <h1 className="text-5xl font-bold text-pink-700">{projects}+</h1>
-                <p className="text-lg font-semibold">Project Done</p>
-              </div>
 
-              <div className="text-center">
-                <h1 className="text-5xl font-bold text-pink-700">
-                  {experience}
-                </h1>
-                <p className="text-lg font-semibold">year of Exprince</p>
-              </div>
+              {/* RIGHT STATS */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* PROJECTS */}
+                <div className="bg-white rounded-2xl shadow-lg shadow-pink-100 p-6 flex items-start justify-between">
+                  <div>
+                    <h2 className="text-3xl sm:text-4xl font-bold text-pink-700">
+                      {projects}+
+                    </h2>
+                    <p className="text-sm sm:text-base font-medium text-gray-600 mt-2">
+                      Projects Done
+                    </p>
+                  </div>
 
-              <div className="text-center">
-                <h1 className="text-5xl font-bold text-pink-700">{funding}M</h1>
-                <p className="text-lg font-semibold">Total Funding</p>
+                  <div className="bg-pink-100 p-3 rounded-xl">
+                    <FaRocket className="text-pink-600 text-xl sm:text-2xl" />
+                  </div>
+                </div>
+
+                {/* EXPERIENCE */}
+                <div className="bg-white rounded-2xl shadow-lg shadow-pink-100 p-6 flex items-start justify-between">
+                  <div>
+                    <h2 className="text-3xl sm:text-4xl font-bold text-pink-700">
+                      {experience}
+                    </h2>
+                    <p className="text-sm sm:text-base font-medium text-gray-600 mt-2">
+                      Years of Experience
+                    </p>
+                  </div>
+
+                  <div className="bg-pink-100 p-3 rounded-xl">
+                    <FaRegCalendarAlt className="text-pink-600 text-xl sm:text-2xl" />
+                  </div>
+                </div>
+
+                {/* FUNDING */}
+                <div className="bg-white rounded-2xl shadow-lg shadow-pink-100 p-6 flex items-start justify-between sm:col-span-2">
+                  <div>
+                    <h2 className="text-3xl sm:text-4xl font-bold text-pink-700">
+                      {funding}M
+                    </h2>
+                    <p className="text-sm sm:text-base font-medium text-gray-600 mt-2">
+                      Total Funding
+                    </p>
+                  </div>
+
+                  <div className="bg-pink-100 p-3 rounded-xl">
+                    <FaWallet className="text-pink-600 text-xl sm:text-2xl" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Section - 5 */}
-        <section className="pt-10 px-4 overflow-x-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 justify-center items-center">
-            <div className="text-center" data-aos="fade-right">
-              <h1 className="uppercase text-5xl font-bold">
+        <section className="container section-padding overflow-x-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            {/* TEXT CONTENT */}
+            <div data-aos="fade-right" className="text-center md:text-left">
+              <h1 className="uppercase text-lg sm:text-xl md:text-3xl font-semibold">
                 Customized Printing to
               </h1>
-              <h2 className="uppercase text-5xl font-bold text-pink-700 pt-3">
-                achieve your Business goals
+
+              <h2
+                className="
+          uppercase font-bold text-pink-700
+          text-4xl sm:text-6xl md:text-7xl lg:text-8xl
+          pt-3 leading-tight
+        "
+              >
+                achieve your <span className="text-black">Business goals</span>
               </h2>
-              <p className="text-lg pt-3">
+
+              <p className="text-sm sm:text-base md:text-lg pt-4 text-gray-700">
                 We create tailored printing solutions designed to make your
                 brand stand out and your message clear. From eye-catching
                 designs to premium materials, every print is crafted to support
                 your marketing goals, engage your audience, and drive real
                 results for your business.
               </p>
+
+              <div className="pt-6 flex justify-center md:justify-start">
+                <div className="w-16 h-[3px] bg-pink-700 rounded-full"></div>
+              </div>
             </div>
 
+            {/* IMAGE */}
             <div className="relative" data-aos="fade-left">
               <Image
-                src="/Section - 5.jpeg"
+                src="/Printing Gols.png"
                 alt="Printing Service"
                 width={800}
                 height={500}
-                className="w-full h-96 md:h-[500px] object-cover"
+                className="
+          w-full
+          h-[220px] sm:h-[300px] md:h-[400px] lg:h-[500px]
+          object-cover
+          rounded-2xl
+          shadow-xl shadow-pink-200
+        "
               />
-
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                <div className="bg-black opacity-70 p-10 items-center justify-center">
-                  <h1 className="text-white text-3xl font-bold text-center">
-                    Customized <br /> Printing <br /> Goals
-                  </h1>
-                </div>
-              </div>
             </div>
           </div>
         </section>
 
         {/* Section - 6 */}
-        <section
-          data-aos="fade-up"
-          className="max-w-7xl mx-auto pt-10 px-4 relative overflow-x-hidden"
-        >
-          {/* FORM SECTION */}
-          <div className="bg-black rounded-lg p-6 md:p-15">
-            <h1 className="text-white text-2xl md:text-3xl font-bold">
-              Contact Us If You Need A <br /> Custom Design Without Delay!
-            </h1>
-
-            <p className="text-lg md:text-xl text-yellow-400 pt-5 font-semibold">
-              To Make An Appointment, Please Call Us. We Would Love To Pamper
-              You!
-            </p>
-
-            {/* FORM GRID */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-5">
-              <div className="text-white flex flex-col">
-                <label>First Name</label>
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="bg-white w-full p-3 rounded-lg text-black"
-                />
+        <section className="container py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-3 rounded-3xl shadow-xl overflow-hidden">
+            {/* LEFT CONTACT INFO */}
+            <div className="bg-[#1c1c1c] text-white flex flex-col justify-center gap-14 p-10">
+              <div className="flex flex-col items-center text-center gap-3">
+                <FaMapMarkerAlt className="text-pink-600 text-3xl" />
+                <p className="text-lg font-medium">Illinois, USA</p>
               </div>
 
-              <div className="text-white flex flex-col">
-                <label>Last Name</label>
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="bg-white w-full p-3 rounded-lg text-black"
-                />
+              <div className="flex flex-col items-center text-center gap-3">
+                <FaPhoneAlt className="text-pink-600 text-3xl" />
+                <p className="text-lg font-medium">+1-855-222-1133</p>
               </div>
 
-              <div className="text-white flex flex-col">
-                <label>Email Id</label>
-                <input
-                  type="email"
-                  placeholder="Email Id"
-                  className="bg-white w-full p-3 rounded-lg text-black"
-                />
-              </div>
-
-              <div className="text-white flex flex-col">
-                <label>Company Name</label>
-                <input
-                  type="text"
-                  placeholder="Company Name"
-                  className="bg-white w-full p-3 rounded-lg text-black"
-                />
+              <div className="flex flex-col items-center text-center gap-3">
+                <FaEnvelope className="text-pink-600 text-3xl" />
+                <p className="text-lg font-medium">info@fbsprints.com</p>
               </div>
             </div>
 
-            {/* TEXTAREA */}
-            <div className="pt-5">
-              <div className="text-white flex flex-col">
-                <label>Comments / Questions</label>
-                <textarea
-                  placeholder="Comments / Questions"
-                  className="bg-white w-full min-h-[120px] p-3 rounded-lg text-black"
-                />
+            {/* RIGHT FORM */}
+            <div className="lg:col-span-2 bg-white p-5">
+              {/* Heading */}
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-bold text-gray-900">
+                  Contact Us If You Need A Custom
+                  <span className="block text-pink-600">
+                    Design Without Delay!
+                  </span>
+                </h2>
+                <p className="mt-4 text-gray-600">
+                  To make an appointment, please call us. We’d love to pamper
+                  you!
+                </p>
               </div>
+
+              {/* Form */}
+              <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your first name"
+                    className="mt-2 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your last name"
+                    className="mt-2 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Email Id
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="Enter your email id"
+                    className="mt-2 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Company Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your company name"
+                    className="mt-2 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="text-sm font-medium text-gray-700">
+                    Comments / Questions
+                  </label>
+                  <textarea
+                    rows={5}
+                    placeholder="Enter your message here..."
+                    className="mt-2 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-500"
+                  ></textarea>
+                </div>
+
+                <div className="md:col-span-2 text-sm text-gray-500">
+                  By filling this form, you agree to our
+                  <span className="text-pink-600 font-medium">
+                    {" "}
+                    Terms & Conditions{" "}
+                  </span>
+                  and
+                  <span className="text-pink-600 font-medium">
+                    {" "}
+                    Privacy Policy
+                  </span>
+                </div>
+
+                <div className="md:col-span-2 flex justify-center lg:justify-end">
+                  <button
+                    type="submit"
+                    className="rounded-full bg-gradient-to-r from-pink-500 to-green-400 px-8 py-3 text-white font-semibold shadow-lg hover:scale-105 transition"
+                  >
+                    Send Message
+                  </button>
+                </div>
+              </form>
             </div>
-
-            <p className="text-white pt-5 text-sm">
-              By filling this form, you have read, understood and agreed to
-              Terms and Condition and Privacy Policy
-            </p>
-
-            <button className="mt-6 rounded-full bg-gradient-to-r from-pink-700 to-green-400 px-8 py-3 font-semibold text-white hover:scale-105 transition-transform duration-300">
-              Send Message
-            </button>
           </div>
-
-          {/* RIGHT SIDE ARROW BUTTON */}
-          <button
-            onClick={() => setOpen(!open)}
-            className="hidden md:flex absolute top-1/2 -right-3 bg-black text-white w-20 h-20 rounded-full items-center justify-center text-2xl"
-          >
-            {open ? <PiLessThanBold /> : <PiGreaterThanBold />}
-          </button>
-
-          {/* RIGHT SIDE CONTACT PANEL */}
-          {open && (
-            <div className="hidden md:block absolute top-62 right-14 bg-white p-6 rounded-lg w-72 shadow-2xl">
-              <div className="space-y-5 text-center">
-                <Image
-                  src="/FBS-LOGO.png"
-                  alt="Logo"
-                  width={70}
-                  height={50}
-                  className="mx-auto"
-                />
-
-                <div>
-                  <FaMapMarkerAlt className="text-pink-700 text-3xl mx-auto" />
-                  <p className="font-semibold">Illinois, USA</p>
-                </div>
-
-                <div>
-                  <FaPhoneAlt className="text-pink-700 text-3xl mx-auto" />
-                  <p className="font-semibold">+91 98765 43210</p>
-                </div>
-
-                <div>
-                  <FaEnvelope className="text-pink-700 text-3xl mx-auto" />
-                  <p className="font-semibold">info@example.com</p>
-                </div>
-              </div>
-            </div>
-          )}
         </section>
 
         {/* Section - 7 */}

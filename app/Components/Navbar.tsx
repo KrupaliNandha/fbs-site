@@ -4,81 +4,101 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { FiArrowUpRight } from "react-icons/fi";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [serviceOpen, setServiceOpen] = useState(false);
 
+  /* ================= CLASSES ================= */
+
   const linkClass = (path: string) =>
     pathname === path
-      ? "bg-gradient-to-r from-pink-700 to-green-400 text-white px-4 py-2 rounded-full"
-      : "px-4 py-2 text-black rounded-full transition hover:bg-gray-200";
+      ? "bg-gradient-to-r from-pink-700 to-green-400 text-white px-3 py-2 rounded-full"
+      : "px-3 py-2 text-black border border-gray-200 rounded-full transition";
+
+  const parentLinkClass = (path: string) =>
+    pathname.startsWith(path)
+      ? "bg-gradient-to-r from-pink-700 to-green-400 text-white px-3 py-2 rounded-full"
+      : "px-3 py-2 text-black border border-gray-200 rounded-full transition";
+
+  const dropdownLinkClass = (path: string) =>
+    pathname === path
+      ? "block px-4 py-2 bg-gradient-to-r from-pink-700 to-green-400 text-white rounded-lg"
+      : "block px-4 py-2 text-black hover:bg-gray-100 rounded-lg";
+
+  const mobileLinkClass = (path: string) =>
+    pathname === path
+      ? "block w-full bg-gradient-to-r from-pink-700 to-green-400 text-white px-4 py-3 rounded-xl"
+      : "block w-full px-4 py-3 text-black border border-gray-200 rounded-xl";
+
+  /* ================= JSX ================= */
 
   return (
-    <header className="top-0 z-50 w-full shadow-md bg-white px-4 py-2">
-      <nav className="flex items-center justify-between  max-w-7xl mx-auto">
+    <header className="top-0 z-50 w-full shadow-md bg-white py-2">
+      <nav className="flex items-center justify-between container mx-auto section-padding-header">
         {/* LOGO */}
         <Image
           src="/FBS-LOGO.png"
           alt="Printing Service"
           width={70}
           height={50}
-          className="w-auto h-auto"
+          className="w-25 h-auto"
         />
 
         {/* DESKTOP MENU */}
-        <ul className="hidden lg:flex items-center gap-2 text-lg bg-gray-100 p-4 rounded-full font-medium">
+        <ul className="hidden lg:flex items-center gap-2 text-md font-medium">
           <li>
             <Link href="/" className={linkClass("/")}>
               Home
             </Link>
           </li>
-
           <li>
             <Link href="/about" className={linkClass("/about")}>
               About Us
             </Link>
           </li>
 
-          {/* SERVICES DROPDOWN */}
+          {/* SERVICES */}
           <li className="relative group">
             <span
-              className={`${linkClass("/services")} flex items-center gap-1 cursor-pointer`}
+              className={`${parentLinkClass(
+                "/services",
+              )} flex items-center gap-1 cursor-pointer`}
             >
               Services ▾
             </span>
 
-            {/* DROPDOWN */}
-            <ul className="absolute top-12 left-0 w-52 bg-white shadow-xl rounded-xl py-3 opacity-0 invisible translate-y-2 transition-all duration-300 ease-in group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-50">
+            <ul className="absolute top-12 left-0 w-52 bg-white shadow-xl rounded-xl py-3 opacity-0 invisible translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-50">
               <li>
                 <Link
                   href="/services/Printing-Product"
-                  className="block px-4 py-2 hover:bg-gray-100"
+                  className={dropdownLinkClass("/services/Printing-Product")}
                 >
-                  Printing Product{" "}
+                  Printing Product
                 </Link>
               </li>
               <li>
                 <Link
                   href="/services/Signage"
-                  className="block px-4 py-2 hover:bg-gray-100"
+                  className={dropdownLinkClass("/services/Signage")}
                 >
                   Signage
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/services/Direct-MaIilintg"
-                  className="block px-4 py-2 hover:bg-gray-100"
+                  href="/services/Direct-Mailing"
+                  className={dropdownLinkClass("/services/Direct-Mailing")}
                 >
-                  Direct MaIilintg
+                  Direct Mailing
                 </Link>
               </li>
               <li>
                 <Link
                   href="/services/Web-Design"
-                  className="block px-4 py-2 hover:bg-gray-100"
+                  className={dropdownLinkClass("/services/Web-Design")}
                 >
                   Web Design
                 </Link>
@@ -86,7 +106,7 @@ export default function Navbar() {
               <li>
                 <Link
                   href="/services/SEO"
-                  className="block px-4 py-2 hover:bg-gray-100"
+                  className={dropdownLinkClass("/services/SEO")}
                 >
                   SEO
                 </Link>
@@ -99,7 +119,6 @@ export default function Navbar() {
               Know Your Sign
             </Link>
           </li>
-
           <li>
             <Link href="/contact" className={linkClass("/contact")}>
               Contact Us
@@ -107,11 +126,14 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* RIGHT SIDE */}
-        <div className="hidden lg:flex items-center gap-4">
+        {/* DESKTOP RIGHT */}
+        <div className="hidden lg:flex items-center gap-3">
           <img src="/100-percent.gif" alt="gif" className="w-24" />
-          <button className="rounded bg-yellow-400 px-6 py-2 font-semibold text-white">
-            Custom Print <br /> Order Now
+          <button className="flex items-center gap-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-3 py-2 rounded-full rounded-tr-[100px] shadow-md transition">
+            <span>BOOK A SERVICE</span>
+            <span className="flex items-center justify-center w-10 h-10 bg-pink-700 text-white rounded-full">
+              <FiArrowUpRight />
+            </span>
           </button>
         </div>
 
@@ -126,50 +148,95 @@ export default function Navbar() {
 
       {/* MOBILE MENU */}
       {menuOpen && (
-        <div className="lg:hidden bg-white px-4 py-4 text-lg">
-          <Link href="/" onClick={() => setMenuOpen(false)}>
+        <div className="lg:hidden bg-white px-8 py-4 space-y-3">
+          <Link
+            href="/"
+            className={mobileLinkClass("/")}
+            onClick={() => setMenuOpen(false)}
+          >
             Home
-          </Link>{" "}
-          <br />
-          <Link href="/about" onClick={() => setMenuOpen(false)}>
+          </Link>
+
+          <Link
+            href="/about"
+            className={mobileLinkClass("/about")}
+            onClick={() => setMenuOpen(false)}
+          >
             About Us
           </Link>
+
           {/* MOBILE SERVICES */}
           <div>
             <button
               onClick={() => setServiceOpen(!serviceOpen)}
-              className="font-semibold"
+              className="w-full px-4 py-3 border border-gray-200 rounded-xl font-semibold flex justify-between"
             >
               Services ▾
             </button>
 
             {serviceOpen && (
-              <div className="ml-4">
-                <Link href="/services/Printing-Product">Printing Product</Link>
-                <br />
-                <Link href="/services/Signage">Signage</Link>
-                <br />
-                <Link href="/services/Direct-MaIilintg">Direct MaIilintg</Link>
-                <br />
-                <Link href="/services/Web-Design">Web Design</Link>
-                <br />
-                <Link href="/services/SEO">SEO</Link>
+              <div className="mt-2 space-y-2 pl-4">
+                <Link
+                  href="/services/Printing-Product"
+                  className="block w-full px-4 py-2 rounded-lg hover:bg-gray-100"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Printing Product
+                </Link>
+                <Link
+                  href="/services/Signage"
+                  className="block w-full px-4 py-2 rounded-lg hover:bg-gray-100"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Signage
+                </Link>
+                <Link
+                  href="/services/Direct-Mailing"
+                  className="block w-full px-4 py-2 rounded-lg hover:bg-gray-100"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Direct Mailing
+                </Link>
+                <Link
+                  href="/services/Web-Design"
+                  className="block w-full px-4 py-2 rounded-lg hover:bg-gray-100"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Web Design
+                </Link>
+                <Link
+                  href="/services/SEO"
+                  className="block w-full px-4 py-2 rounded-lg hover:bg-gray-100"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  SEO
+                </Link>
               </div>
             )}
           </div>
-          <Link href="/contact" onClick={() => setMenuOpen(false)}>
+
+          <Link
+            href="/know-you"
+            className={mobileLinkClass("/know-you")}
+            onClick={() => setMenuOpen(false)}
+          >
+            Know Your Sign
+          </Link>
+
+          <Link
+            href="/contact"
+            className={mobileLinkClass("/contact")}
+            onClick={() => setMenuOpen(false)}
+          >
             Contact Us
           </Link>
-          <div className="items-center gap-4">
-            <div>
-              <img src="/100-percent.gif" alt="gif" className="w-24" />
-            </div>
-            <div className="pt-5">
-              <button className="rounded bg-yellow-400 px-6 py-2 font-semibold text-white">
-                Custom Print <br /> Order Now
-              </button>
-            </div>
-          </div>
+
+          <button className="flex items-center gap-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-3 py-2 rounded-full rounded-tr-[100px] shadow-md transition">
+            <span>BOOK A SERVICE</span>
+            <span className="flex items-center justify-center w-10 h-10 bg-pink-700 text-white rounded-full">
+              <FiArrowUpRight />
+            </span>
+          </button>
         </div>
       )}
     </header>
