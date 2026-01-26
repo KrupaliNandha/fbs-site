@@ -23,6 +23,13 @@ export default function Footer() {
     { name: "Behance", Icon: FaBehance, url: "https://behance.net" },
   ];
 
+  const quickLinks = [
+    { name: "Home", href: "/" },
+    { name: "About Us", href: "/about" },
+    { name: "Contact Us", href: "/contact" },
+    { name: "Know you", href: "/know-you" },
+  ];
+
   return (
     <footer className="pt-10 relative overflow-hidden">
       {/* ===== CTA SECTION ===== */}
@@ -82,20 +89,13 @@ export default function Footer() {
                 Quick Links
               </h4>
               <ul className="space-y-2 font-medium">
-                {[
-                  "Home",
-                  "Services",
-                  "Project",
-                  "About Us",
-                  "Blog",
-                  "Contact Us",
-                ].map((item) => (
-                  <li key={item}>
+                {quickLinks.map((link) => (
+                  <li key={link.name}>
                     <Link
-                      href={`/${item === "Home" ? "" : item.toLowerCase().replace(" ", "")}`}
+                      href={link.href}
                       className="hover:text-pink-600 transition"
                     >
-                      {item}
+                      {link.name}
                     </Link>
                   </li>
                 ))}
