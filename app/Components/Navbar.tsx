@@ -89,7 +89,7 @@ export default function Navbar() {
               </li>
               <li>
                 <Link
-                  href="/services/Direct-Mailing"
+                  href="/services/Direct-MaIilintg"
                   className={dropdownLinkClass("/services/Direct-Mailing")}
                 >
                   Direct Mailing
@@ -191,7 +191,7 @@ export default function Navbar() {
                   Signage
                 </Link>
                 <Link
-                  href="/services/Direct-Mailing"
+                  href="/services/Direct-MaIilintg"
                   className="block w-full px-4 py-2 rounded-lg hover:bg-gray-100"
                   onClick={() => setMenuOpen(false)}
                 >

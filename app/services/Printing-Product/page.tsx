@@ -90,18 +90,6 @@ export default function Page() {
     },
   ];
 
-  const services = [
-    { icon: <TiBusinessCard />, label: "Business Card" },
-    { icon: <FaRegNewspaper />, label: "Brochures" },
-    { icon: <ImFilesEmpty />, label: "Copy services" },
-    { icon: <FaTshirt />, label: "T-shirt Prints" },
-    { icon: <FaCalendarAlt />, label: "Calendars" },
-    { icon: <FaSign />, label: "Banners" },
-    { icon: <RiBillLine />, label: "Carbonless Forms" },
-    { icon: <RiBillLine />, label: "Carryout Menus" },
-    { icon: <FaRegFileImage />, label: "Canvas" },
-  ];
-
   return (
     <>
       <Navbar />
@@ -197,7 +185,7 @@ export default function Page() {
                 <div
                   key={item.id}
                   className="
-            group hidden lg:flex h-[220px] bg-gray-200
+            group flex h-[220px] bg-gray-200
             rounded-2xl items-center justify-center
              overflow-hidden cursor-pointer
             border-4 border-transparent
@@ -232,46 +220,51 @@ export default function Page() {
         </section>
 
         {/* Section - 4 */}
-        <section className="px-4 pt-10">
-          <div className="bg-black">
-            <div data-aos="fade-up" className="max-w-7xl mx-auto  p-5">
-              <p className="text-5xl text-center text-white font-bold">
-                What We Print
-              </p>
-              <p className="text-xl text-center text-white pt-3">
-                Every project is different, and we at our organization work
-                closely with our clients to make sure we match their particular
-                demands and specifications. Graphic design, big format printing,
-                car wraps, and other services are among the many printing and
-                signage solutions we provide. We have the knowledge and
-                experience to complete any task, whether it’s a straightforward
-                banner or a complicated advertising campaign.
-              </p>
-              <div data-aos="fade-up" className="pt-5">
-                <div className="flex justify-center">
-                  {/* CARD */}
-                  <div className="flex justify-center">
-                    <div className="w-full max-w-4xl bg-white shadow-2xl rounded-xl p-6">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                        {services.map((service, index) => (
-                          <div
-                            key={index}
-                            className="group flex flex-col items-center justify-center gap-3
-                     p-6 rounded-lg cursor-pointer
-                     hover:bg-gray-100 transition duration-300"
-                          >
-                            <span className="text-3xl text-pink-700 group-hover:scale-110 transition">
-                              {service.icon}
-                            </span>
+        <section data-aos="fade-up" className="container bg-white py-16">
+          <div className="absolute -top-5 -left-20 w-72 h-72 bg-pink-300/30 rounded-full blur-3xl" />
+          <div className="absolute top-60 -right-0 w-72 h-72 bg-green-300/30 rounded-full blur-3xl" />
+          <div className="">
+            {/* Heading */}
+            <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900">
+              What We Print
+            </h2>
 
-                            <span className="font-medium text-gray-800 text-center">
-                              {service.label}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
+            <p className="max-w-4xl mx-auto text-center text-gray-600 text-lg mt-4 leading-relaxed">
+              Every project is different, and we at our organization work
+              closely with our clients to make sure we match their particular
+              demands and specifications. Graphic design, big format printing,
+              car wraps, and other services are among the many printing and
+              signage solutions we provide. We have the knowledge and experience
+              to complete any task, whether it’s a straightforward banner or a
+              complicated advertising campaign.
+            </p>
+
+            {/* Services Card */}
+            <div className="flex justify-center">
+              <div className="w-full bg-white rounded-2xl shadow-xl p-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+                  {steps.map((steps, index) => (
+                    <div
+                      data-aos="fade-up"
+                      data-aos-delay={index * 150} // 👈 IMPORTANT
+                      data-aos-duration="600"
+                      key={index}
+                      className="group flex items-center justify-center
+                         gap-3 p-3 rounded-xl
+                         border border-gray-100
+                         hover:shadow-md hover:-translate-y-1
+                         transition-all duration-300 bg-gray-5 bg-gradient-to-r from-gray-200 to-gray-200 "
+                    >
+                      <span className="text-3xl text-pink-600 group-hover:scale-110 transition">
+                        <steps.Icon />
+                      </span>
+
+                      <span className="font-medium text-gray-800 text-center">
+                        {steps.text}
+                      </span>
+                      <span className="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-pink-500 to-green-400 group-hover:w-full transition-all duration-300 rounded-full" />
                     </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

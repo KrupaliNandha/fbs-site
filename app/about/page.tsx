@@ -84,8 +84,8 @@ export default function Page() {
                 <div className="h-1 w-14 bg-pink-600 rounded-full mb-5"></div>
 
                 <p className="mt-5 text-gray-600 font-bold text-4xl md:text-5xl lg:text-6xl text-center lg:text-start">
-                  ABout
-                  <span className="text-pink-600">US</span>
+                  About
+                  <span className="text-pink-600"> US</span>
                 </p>
 
                 <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed max-w-md">
@@ -266,6 +266,8 @@ export default function Page() {
 
         {/* Section - 5 */}
         <section data-aos="fade-up" className="container bg-white py-16">
+          <div className="absolute -top-5 -left-20 w-72 h-72 bg-pink-300/30 rounded-full blur-3xl" />
+          <div className="absolute top-60 -right-0 w-72 h-72 bg-green-300/30 rounded-full blur-3xl" />
           <div className="">
             {/* Heading */}
             <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900">
@@ -285,7 +287,7 @@ export default function Page() {
             {/* Services Card */}
             <div className="flex justify-center">
               <div className="w-full bg-white rounded-2xl shadow-xl p-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                   {services.map((service, index) => (
                     <div
                       data-aos="fade-up"
@@ -293,7 +295,7 @@ export default function Page() {
                       data-aos-duration="600"
                       key={index}
                       className="group flex items-center justify-center
-                         gap-3 p-6 rounded-xl
+                         gap-3 p-3 rounded-xl
                          border border-gray-100
                          hover:shadow-md hover:-translate-y-1
                          transition-all duration-300 bg-gray-5 bg-gradient-to-r from-gray-200 to-gray-200 "
@@ -305,6 +307,7 @@ export default function Page() {
                       <span className="font-medium text-gray-800 text-center">
                         {service.label}
                       </span>
+                      <span className="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-pink-500 to-green-400 group-hover:w-full transition-all duration-300 rounded-full" />
                     </div>
                   ))}
                 </div>
