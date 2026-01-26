@@ -102,73 +102,55 @@ export default function Home() {
       <Navbar />
       <SmoothScroll>
         {/* Hero Section */}
-        <section className="pt-10">
-          <div className="container mx-auto relative w-full overflow-hidden rounded-2xl">
-            {/* HERO IMAGE */}
-            <Image
-              src="/Home-Hero.jpg"
-              alt="Printing Service"
-              width={1400}
-              height={700}
-              priority
-              className="
-        w-full
-        h-[420px] sm:h-[480px] md:h-[550px] lg:h-[620px]
-        object-cover
-        rounded-2xl
-      "
-            />
-
-            {/* DARK OVERLAY */}
-            <div className="absolute inset-0 bg-black/55 rounded-2xl"></div>
-
-            {/* HERO CONTENT */}
-            <div className="absolute inset-0 z-10 flex items-center justify-center text-center px-4">
+        <section className="container mx-auto px-4 pt-14">
+          <div className="relative bg-white rounded-[32px] shadow-xl overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
+              {/* RIGHT IMAGE – MOBILE FIRST */}
               <div
-                data-aos="fade-up"
-                className="text-white max-w-3xl space-y-3 sm:space-y-4"
+                data-aos="fade-left"
+                className="
+          relative h-[260px] sm:h-[360px] md:h-[440px] lg:h-[560px]
+          order-1 lg:order-2
+        "
               >
-                <p className="text-sm sm:text-base md:text-lg font-medium">
+                <Image
+                  src="/Home-Hero.jpg"
+                  alt="Printing Service"
+                  fill
+                  priority
+                  className="object-cover rounded-t-[32px] lg:rounded-r-[32px] lg:rounded-t-none"
+                />
+
+                <div className="absolute inset-0 rounded-t-[32px] lg:rounded-r-[32px] lg:rounded-t-none bg-gradient-to-l from-black/50 to-transparent"></div>
+              </div>
+
+              {/* LEFT CONTENT */}
+              <div
+                data-aos="fade-right"
+                className=" relative z-10 bg-white border-l-4 border-pink-600 p-5 sm:p-5 md:p-5 lg:p-8 lg:ml-14 lg:-mr-24 rounded-b-[32px] lg:rounded-2xl shadow-lg order-2 lg:order-1">
+                <div className="h-1 w-14 bg-pink-600 rounded-full mb-5 justify-self-center lg:justify-self-start"></div>
+
+                <h1 className="text-2xl text-center lg:text-start font-semibold leading-tight text-gray-900">
                   We place a great value on the caliber of our goods.
-                </p>
-
-                <p className="text-sm sm:text-base md:text-lg font-medium">
-                  FBS blends quick turnaround time with a keen eye towards
-                  quality.
-                </p>
-
-                <p className="text-sm sm:text-base md:text-lg font-medium">
-                  For companies of all sizes, we are committed to offering
-                  premium printing, graphic design, and signage solutions.
-                </p>
-
-                <h1
-                  className="pt-4 font-bold leading-tight
-          text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
-                >
-                  <span className="text-pink-500">PRICE GUARANTEE</span>
                   <br />
-                  FOR ALL OF OUR SERVICES
+                  <span className="text-pink-600">
+                    FBS blends quick turnaround time with a keen eye towards
+                    quality.
+                  </span>
+                  <br />
+                  <span>
+                    For companies of all sizes, we are committed to offering
+                    premium printing, graphic design, and signage solutions.
+                  </span>
                 </h1>
 
-                <p className="text-yellow-400 font-semibold text-sm sm:text-base pt-2">
-                  GET YOUR PRINT NOW
+                <p className="mt-5 text-gray-600 font-bold text-4xl md:text-5xl lg:text-6xl text-center lg:text-start">
+                  Price Guarantee <br />
+                  <span className="text-pink-700">for all of our Services</span>
                 </p>
 
-                <div className="pt-5">
-                  <Link
-                    href="/contact"
-                    className="
-              inline-block
-              bg-gradient-to-r from-pink-500 to-green-400
-              px-8 py-3
-              text-sm sm:text-base
-              font-semibold text-white
-              rounded-full
-              transition-transform duration-300
-              hover:scale-105
-            "
-                  >
+                <div className="mt-7  justify-self-center lg:justify-self-start">
+                  <Link href="/contact" className="rounded-full bg-gradient-to-r from-pink-600 to-pink-700 px-8 py-3 text-white font-semibold shadow-md hover:shadow-xl hover:scale-105 transition">
                     Contact Us
                   </Link>
                 </div>
@@ -188,7 +170,7 @@ export default function Home() {
             </h1>
           </div>
 
-          <div className="">
+          <div className="pt-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-7">
               {ourservies.map((item, index) => (
                 <div
@@ -232,7 +214,7 @@ export default function Home() {
         </section>
 
         {/* Section-3: Video Section */}
-        <section className="pt-10 px-4 overflow-x-hidden">
+        <section className="container section-padding overflow-x-hidden">
           <div className="relative group overflow-hidden shadow-lg rounded-2xl">
             <Image
               src="/AdobeStock.png"
@@ -406,7 +388,7 @@ export default function Home() {
         </section>
 
         {/* Section - 6 */}
-        <section className="container py-20">
+        <section className="container section-padding py-20">
           <div className="grid grid-cols-1 lg:grid-cols-3 rounded-3xl shadow-xl overflow-hidden">
             {/* LEFT CONTACT INFO */}
             <div className="bg-[#1c1c1c] text-white flex flex-col justify-center gap-14 p-10">
@@ -526,7 +508,10 @@ export default function Home() {
         </section>
 
         {/* Section - 7 */}
-        <section data-aos="fade-up" className="pt-10 px-4">
+        <section
+          data-aos="fade-up"
+          className="container section-padding pt-10 px-4"
+        >
           <div className=" rounded-xl overflow-hidden shadow-lg">
             <iframe
               src="https://www.google.com/maps?q=Chicago,USA&output=embed"

@@ -48,7 +48,7 @@ export default function Slider() {
   }, []);
 
   return (
-    <div data-aos="fade-up" className="w-full overflow-hidden pt-10 px-4">
+    <div data-aos="fade-up" className="container section-padding w-full overflow-hidden">
       <div>
         <h1 className="text-5xl font-bold text-center">Trusted by Leading Brands</h1>
       </div>

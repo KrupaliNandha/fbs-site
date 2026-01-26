@@ -107,29 +107,22 @@ export default function Page() {
       <Navbar />
       <SmoothScroll>
         {/* Section - 1 */}
-        <section className="pt-10 px-4">
-          <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 place-items-center max-w-7xl mx-auto">
-            {/* Hero Image */}
-            <div className="w-full relative" data-aos="fade-right">
-              <div className="w-70 h-50 top-105 right-89 xl:block hidden absolute border-2 rounded border-blue"></div>
-              <div className="w-70 h-50 bottom-105 left-89 xl:block hidden absolute border-2 rounded border-blue"></div>
+        <section className="container mx-auto px-4 pt-14">
+          <div className="relative bg-white rounded-[32px] shadow-xl overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
+              {/* LEFT CONTENT */}
+              <div
+                data-aos="fade-right"
+                className=" relative z-10 bg-white border-l-4 border-pink-600 p-5 sm:p-5 md:p-5 lg:p-8 lg:ml-14 lg:-mr-24 rounded-b-[32px] lg:rounded-2xl shadow-lg order-2 lg:order-1"
+              >
+                <div className="h-1 w-14 bg-pink-600 rounded-full mb-5"></div>
 
-              <Image
-                src="/Section-1-About-3.jpg"
-                alt="Printing Service"
-                width={600}
-                height={500}
-                className="w-130 h-100 md:w-145 md:h-150 object-fit relative justify-self-center lg:justify-start shadow-lg"
-              />
-            </div>
-
-            {/* Hero Content */}
-            <div className="flex h-full items-center justify-self-center text-center text-black px-4">
-              <div data-aos="fade-left">
-                <p className="mb-2 text-7xl font-semibold uppercase">
-                  Printing Products
+                <p className="mt-5 text-gray-600 font-bold text-4xl md:text-5xl lg:text-6xl text-center lg:text-start">
+                  Printing
+                  <span className="text-pink-600">Products</span>
                 </p>
-                <p className="mb-2 w-full text-xl">
+
+                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed max-w-md">
                   We offer a comprehensive range of printing services for
                   products like business cards, brochures, flyers, posters, and
                   more. To ensure that your printed items are of the greatest
@@ -139,24 +132,49 @@ export default function Page() {
                   your project is finished to your satisfaction.
                 </p>
               </div>
+
+              {/* RIGHT IMAGE */}
+              <div
+                data-aos="fade-left"
+                className="
+          relative h-[300px] sm:h-[400px] md:h-[480px] lg:h-[560px]
+          order-1 lg:order-2
+        "
+              >
+                <Image
+                  src="/Section-1-About-2.jpg"
+                  alt="Printing Service"
+                  fill
+                  priority
+                  className="object-cover rounded-t-[32px] lg:rounded-r-[32px] lg:rounded-t-none"
+                />
+
+                <div className="absolute inset-0 rounded-t-[32px] lg:rounded-r-[32px] lg:rounded-t-none bg-gradient-to-l from-black/50 to-transparent"></div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Section - 2 */}
-        <section className="px-4 pt-10">
-          <div className="bg-pink-700 p-5 text-white">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center max-w-7xl mx-auto">
-              <p data-aos="fade-right" className="text-4xl font-bold">
-                Get your <br />
-                <span className="text-black hover:text-yellow-400">
-                  Printing Product
-                </span>{" "}
-                <br />
-                in Best Price.
-              </p>
-              <div data-aos="fade-left" className="text-whit">
-                <p className="text-md">
+        <section className="container section-padding">
+          <div className="bg-gradient-to-r from-pink-600 to-pink-700 rounded-2xl px-6 py-12 text-white">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
+              {/* Left Content */}
+              <div data-aos="fade-right">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+                  Get your
+                  <br />
+                  <span className="text-black hover:text-yellow-300">
+                    Printing Product
+                  </span>
+                  <br />
+                  in Best Price.
+                </h2>
+              </div>
+
+              {/* Right Content */}
+              <div data-aos="fade-left">
+                <p className="text-base md:text-lg text-pink-100 leading-relaxed">
                   We offer a complete range of printing solutions to meet every
                   need – from business cards, brochures, and banners to t-shirt
                   prints, calendars, and custom canvas. Whether it’s carryout
@@ -170,8 +188,8 @@ export default function Page() {
         </section>
 
         {/* Section - 3 */}
-        <section data-aos="zoom-in" className="px-4 pt-10">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section data-aos="zoom-in" className="container">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {steps.map((item) => {
               const Icon = item.Icon;
 
