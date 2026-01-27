@@ -166,7 +166,7 @@ export default function Home() {
               data-aos="fade-up"
               className="uppercase p-5 text-5xl text-center text-pink-700 font-bold"
             >
-              Look At Our Service
+              Look <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">At Our</span> Service
             </h1>
           </div>
 
@@ -252,7 +252,7 @@ export default function Home() {
             text-center lg:text-left
           "
                 >
-                  Our Work
+                  Our <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Work</span>
                 </h1>
 
                 {/* underline */}
@@ -352,7 +352,7 @@ export default function Home() {
           pt-3 leading-tight
         "
               >
-                achieve your <span className="text-black">Business goals</span>
+                achieve  <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Your</span> <span className="text-black">Business goals</span>
               </h2>
 
               <p className="text-sm sm:text-base md:text-lg pt-4 text-gray-700">
@@ -415,7 +415,7 @@ export default function Home() {
                 <h2 className="text-4xl font-bold text-gray-900">
                   Contact Us If You Need A Custom
                   <span className="block text-pink-600">
-                    Design Without Delay!
+                    Design <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Without</span> Delay!
                   </span>
                 </h2>
                 <p className="mt-4 text-gray-600">

@@ -225,8 +225,8 @@ export default function Page() {
           <div className="absolute top-60 -right-0 w-72 h-72 bg-green-300/30 rounded-full blur-3xl" />
           <div className="">
             {/* Heading */}
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900">
-              What We Print
+            <h2 className="text-4xl md:text-5xl font-bold text-center text-pink-700">
+              What <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">We</span> Print
             </h2>
 
             <p className="max-w-4xl mx-auto text-center text-gray-600 text-lg mt-4 leading-relaxed">

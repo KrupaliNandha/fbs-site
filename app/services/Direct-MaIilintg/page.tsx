@@ -7,11 +7,6 @@ import { useEffect } from "react";
 import "aos/dist/aos.css";
 import SmoothScroll from "@/app/Components/SmoothScroll";
 
-import { FaUsers } from "react-icons/fa";
-import { IoPrintSharp } from "react-icons/io5";
-import { IoIosSettings } from "react-icons/io";
-import { MdMailOutline } from "react-icons/md";
-
 export default function Page() {
   useEffect(() => {
     const initAOS = async () => {
@@ -87,7 +82,7 @@ export default function Page() {
                 <div className="h-1 w-14 bg-pink-600 rounded-full mb-5"></div>
 
                 <p className="mt-5 text-gray-600 font-bold text-4xl md:text-5xl lg:text-6xl text-center lg:text-start">
-                  DIRECT MAILING
+                  DIRECT <span className="text-pink-700">MAILING</span>
                 </p>
 
                 <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed max-w-md">
@@ -151,86 +146,129 @@ export default function Page() {
         </section>
 
         {/* Section - 3 */}
-        <section className="container">
-          <div>
-            <h2 className="text-5xl font-bold text-center mb-8">
-              We Offer <span className="text-pink-700">3 Level</span> of
-              Services
-            </h2>
-            <p className="text-xl text-center font-semibold max-w-5xl mx-auto">
-              We provide other services like email marketing and digital
-              advertising in addition to developing and implementing direct mail
-              campaigns, which may be combined with direct mail to form a full
-              marketing strategy. Businesses who work with us stand to gain a
-              number of advantages. One benefit is that hiring industry
-              professionals to handle the design and mailing processes can save
-              time and money. Additionally, it can guarantee that the mailing
-              campaign is of the greatest caliber and complies with all relevant
-              requirements.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 pt-5 gap-5 lg:gap-10  max-w-7xl mx-auto">
-            <div className="bg-yellow-400 p-5 rounded-xl justify-center items-center my-auto">
-              <p className="text-center text-4xl lg:text-5xl font-semibold">
-                FBS Handles Design & Print Only
-              </p>
-              <p className="text-center text-xl pt-5 max-w-5xl justify-center mx-auto">
-                We provide other services like email marketing and digital
-                advertising in addition to developing and implementing direct
-                mail campaigns, which may be combined with direct mail to form a
-                full marketing strategy. Businesses who work with us stand to
-                gain a number of advantages. One benefit is that hiring industry
-                professionals to handle the design and mailing processes can
-                save time and money. Additionally, it can guarantee that the
-                mailing campaign is of the greatest caliber and complies with
-                all relevant requirements.
+        <section className="bg-white container section-padding">
+          <div className=" mx-auto px-6 space-y-5">
+            {/* SECTION HEADING */}
+            <div className="text-center max-w-4xl mx-auto space-y-6">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">
+                We Offer <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">3 Levels</span> of
+                Services
+              </h2>
+
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+                Beyond direct mail campaigns, we combine email marketing and
+                digital advertising to create a complete strategy that saves
+                time, reduces cost, and ensures top-quality results.
               </p>
             </div>
-            <div>
+
+            {/* LEVEL 1 – DESIGN & PRINT */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+              <div className="bg-gradient-to-br from-yellow-400 to-yellow-300 rounded-3xl p-10 shadow-xl hover:scale-105 transition-transform duration-300">
+                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 text-center">
+                  FBS Handles Design & Print Only
+                </h3>
+
+                <p className="mt-6 text-lg text-gray-800 leading-relaxed text-center">
+                  We provide other services like email marketing and digital
+                  advertising in addition to developing and implementing direct
+                  mail campaigns, which may be combined with direct mail to form
+                  a full marketing strategy. Businesses who work with us stand
+                  to gain a number of advantages. One benefit is that hiring
+                  industry professionals to handle the design and mailing
+                  processes can save time and money. Additionally, it can
+                  guarantee that the mailing campaign is of the greatest caliber
+                  and complies with all relevant requirements.
+                </p>
+              </div>
+
               <Image
                 src="/Section-1-About-2.jpg"
-                alt="fbhbh"
+                alt="Design & Print"
+                width={600}
                 height={500}
-                width={500}
-                className="w-full h-full rounded-xl my-auto"
+                className="rounded-3xl shadow-xl h-full w-full object-cover"
               />
             </div>
-          </div>
 
-          <div className="flex flex-col lg:flex-row pt-10 gap-10">
-            <div className="my-auto justify-center item-center">
-              <h2 className="text-center text-3xl font-semibold">
-                FBS handles Printing, Paperwork & Bundling
-              </h2>
-              <div className="pt-3">
-                <div className="h-1 w-14 bg-pink-700 rounded-full -mb-1 justify-center items-center mx-auto"></div>
+            {/* LEVEL 2 – PRINTING, PAPERWORK & BUNDLING */}
+            <div className="pt-5">
+              <div className="text-center max-w-3xl mx-auto space-y-6">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">
+                  Printing, <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Paperwork </span>  & Bundling
+                </h2>
+
+                <div className="flex justify-center">
+                  <span className="h-1 w-20 bg-pink-600 rounded-full"></span>
+                </div>
+
+                <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+                  We design your printing materials, guide you through USPS EDDM
+                  registration, and deliver perfectly formatted EDDM print jobs
+                  — all handled by FBS.
+                </p>
               </div>
-              <p className="text-center text-xl pt-5 max-w-5xl justify-center mx-auto">
-                We design your printing material Send you the EDDM printed
-                material. You register for an account on USPS EDDM website. You
-                do all of the above mentioned in option 1 on your own. In
-                essence you are simply ordering a properly EDDM formatted print
-                job from FBS.
-              </p>
             </div>
-            <div className="">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
-                {services.map((item, index) => (
-                  <div key={index} className="mb-4 bg-gray-50 p-5">
-                    {item.image && (
-                      <div className="shrink-0">
-                        <Image
-                          src={item.image}
-                          alt={"Service Icon"}
-                          width={40}
-                          height={40}
-                          className="object-contain"
-                        />
-                      </div>
-                    )}
-                    <p className="text-xl max-w-4xl pt-3">{item.description}</p>
+
+            {/* SERVICES GRID */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto pt-5">
+              {services.map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-3xl p-8 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-2 border-gray-200"
+                >
+                  <div className="w-16 h-16 bg-pink-50 rounded-xl  flex items-center justify-self-center justify-center mx-auto">
+                    <Image
+                      src={item.image}
+                      alt="Service Icon"
+                      width={32}
+                      height={32}
+                    />
                   </div>
-                ))}
+
+                  <p className="mt-6 text-gray-700 text-lg leading-relaxed text-center">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* LEVEL 3 – FULL SERVICE */}
+            <div className="pt-5">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/service-3.1.jpeg"
+                  alt="Full Service"
+                  width={1400}
+                  height={700}
+                  className="w-full h-[600px] object-cover"
+                />
+
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+
+                <div className="absolute inset-0 flex items-center justify-center px-6">
+                  <div className="max-w-5xl text-center space-y-6">
+                    <h2 className="text-3xl md:text-5xl font-extrabold text-white">
+                      From Design to Your Customer’s Mailbox
+                    </h2>
+
+                    <div className="bg-white/10 backdrop-blur-lg border border-white/50 rounded-3xl p-8">
+                      <p className="text-white text-lg md:text-xl leading-relaxed">
+                        With the launch of EDDM in 2011, FBS has been involved.
+                        We have a thorough understanding of the programme and
+                        have mailed millions of items throughout the country.
+                        Our approach offers a remarkable return on your
+                        investment and is inexpensive. Do you desire more
+                        clients? FBS can assist you! The most effective direct
+                        mail item for restaurants is their menu. For several of
+                        our customers, mailing menus has helped increase sales
+                        by a factor of two, three, even four. Every year, we
+                        print and mail millions of menus, so we are well aware
+                        of your requirements for success.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

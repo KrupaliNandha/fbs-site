@@ -31,7 +31,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="pt-10 relative overflow-hidden">
+    <footer className="pt-5 relative overflow-hidden">
       {/* ===== CTA SECTION ===== */}
       <section className="relative h-[420px] flex items-center justify-center">
         <Image

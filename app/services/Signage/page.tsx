@@ -247,15 +247,16 @@ export default function Page() {
         </section>
 
         {/* Section - 4 */}
-        <section data-aos="fade-up" className="container bg-white py-16">
+        <section data-aos="fade-up" className="container py-10">
           <div className="absolute -top-5 -left-20 w-72 h-72 bg-pink-300/30 rounded-full blur-3xl" />
           <div className="absolute top-60 -right-0 w-72 h-72 bg-green-300/30 rounded-full blur-3xl" />
-          <div className="">
-            {/* Heading */}
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900">
-              What We Print
-            </h2>
 
+          <div className=" ">
+            {/* Heading */}
+            <p
+              className="text-4xl md:text-5xl font-bold text-center text-pink-700">
+              What <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">We</span> Print
+            </p>
             <p className="max-w-4xl mx-auto text-center text-gray-600 text-lg mt-4 leading-relaxed">
               Every project is different, and we at our organization work
               closely with our clients to make sure we match their particular

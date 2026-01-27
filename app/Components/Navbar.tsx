@@ -9,7 +9,8 @@ import { FiArrowUpRight } from "react-icons/fi";
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [serviceOpen, setServiceOpen] = useState(false);
+  const [serviceOpen, setServiceOpen] = useState(false); // mobile
+  const [desktopServiceOpen, setDesktopServiceOpen] = useState(false); // desktop + responsive
 
   /* ================= CLASSES ================= */
 
@@ -54,23 +55,36 @@ export default function Navbar() {
               Home
             </Link>
           </li>
+
           <li>
             <Link href="/about" className={linkClass("/about")}>
               About Us
             </Link>
           </li>
 
-          {/* SERVICES */}
-          <li className="relative group">
-            <span
+          {/* SERVICES (FIXED) */}
+          <li
+            className="relative"
+            onMouseEnter={() => setDesktopServiceOpen(true)}
+            onMouseLeave={() => setDesktopServiceOpen(false)}
+          >
+            <button
+              onClick={() => setDesktopServiceOpen(!desktopServiceOpen)}
               className={`${parentLinkClass(
-                "/services",
+                "/services"
               )} flex items-center gap-1 cursor-pointer`}
             >
               Services ▾
-            </span>
+            </button>
 
-            <ul className="absolute top-12 left-0 w-52 bg-white shadow-xl rounded-xl py-3 opacity-0 invisible translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-50">
+            <ul
+              className={`absolute top-12 left-0 w-52 bg-white shadow-xl rounded-xl py-3 transition-all duration-300 z-50
+              ${
+                desktopServiceOpen
+                  ? "opacity-100 visible translate-y-0"
+                  : "opacity-0 invisible translate-y-2"
+              }`}
+            >
               <li>
                 <Link
                   href="/services/Printing-Product"
@@ -119,6 +133,7 @@ export default function Navbar() {
               Know Your Sign
             </Link>
           </li>
+
           <li>
             <Link href="/contact" className={linkClass("/contact")}>
               Contact Us
@@ -149,19 +164,11 @@ export default function Navbar() {
       {/* MOBILE MENU */}
       {menuOpen && (
         <div className="lg:hidden bg-white px-8 py-4 space-y-3">
-          <Link
-            href="/"
-            className={mobileLinkClass("/")}
-            onClick={() => setMenuOpen(false)}
-          >
+          <Link href="/" className={mobileLinkClass("/")} onClick={() => setMenuOpen(false)}>
             Home
           </Link>
 
-          <Link
-            href="/about"
-            className={mobileLinkClass("/about")}
-            onClick={() => setMenuOpen(false)}
-          >
+          <Link href="/about" className={mobileLinkClass("/about")} onClick={() => setMenuOpen(false)}>
             About Us
           </Link>
 
@@ -176,67 +183,32 @@ export default function Navbar() {
 
             {serviceOpen && (
               <div className="mt-2 space-y-2 pl-4">
-                <Link
-                  href="/services/Printing-Product"
-                  className="block w-full px-4 py-2 rounded-lg hover:bg-gray-100"
-                  onClick={() => setMenuOpen(false)}
-                >
+                <Link href="/services/Printing-Product" className="block px-4 py-2 rounded-lg hover:bg-gray-100">
                   Printing Product
                 </Link>
-                <Link
-                  href="/services/Signage"
-                  className="block w-full px-4 py-2 rounded-lg hover:bg-gray-100"
-                  onClick={() => setMenuOpen(false)}
-                >
+                <Link href="/services/Signage" className="block px-4 py-2 rounded-lg hover:bg-gray-100">
                   Signage
                 </Link>
-                <Link
-                  href="/services/Direct-MaIilintg"
-                  className="block w-full px-4 py-2 rounded-lg hover:bg-gray-100"
-                  onClick={() => setMenuOpen(false)}
-                >
+                <Link href="/services/Direct-MaIilintg" className="block px-4 py-2 rounded-lg hover:bg-gray-100">
                   Direct Mailing
                 </Link>
-                <Link
-                  href="/services/Web-Design"
-                  className="block w-full px-4 py-2 rounded-lg hover:bg-gray-100"
-                  onClick={() => setMenuOpen(false)}
-                >
+                <Link href="/services/Web-Design" className="block px-4 py-2 rounded-lg hover:bg-gray-100">
                   Web Design
                 </Link>
-                <Link
-                  href="/services/SEO"
-                  className="block w-full px-4 py-2 rounded-lg hover:bg-gray-100"
-                  onClick={() => setMenuOpen(false)}
-                >
+                <Link href="/services/SEO" className="block px-4 py-2 rounded-lg hover:bg-gray-100">
                   SEO
                 </Link>
               </div>
             )}
           </div>
 
-          <Link
-            href="/know-you"
-            className={mobileLinkClass("/know-you")}
-            onClick={() => setMenuOpen(false)}
-          >
+          <Link href="/know-you" className={mobileLinkClass("/know-you")}>
             Know Your Sign
           </Link>
 
-          <Link
-            href="/contact"
-            className={mobileLinkClass("/contact")}
-            onClick={() => setMenuOpen(false)}
-          >
+          <Link href="/contact" className={mobileLinkClass("/contact")}>
             Contact Us
           </Link>
-
-          <button className="flex items-center gap-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-3 py-2 rounded-full rounded-tr-[100px] shadow-md transition">
-            <span>BOOK A SERVICE</span>
-            <span className="flex items-center justify-center w-10 h-10 bg-pink-700 text-white rounded-full">
-              <FiArrowUpRight />
-            </span>
-          </button>
         </div>
       )}
     </header>
