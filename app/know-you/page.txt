@@ -1,0 +1,156 @@
+"use client";
+
+import Navbar from "@/app/Components/Navbar";
+import Footer from "@/app/Components/Footer";
+import Image from "next/image";
+import { useEffect } from "react";
+import "aos/dist/aos.css";
+import SmoothScroll from "@/app/Components/SmoothScroll";
+import Slider from "../Components/Slider";
+
+/* ✅ MAP ICON */
+function MapIcon({
+  top,
+  left,
+  img,
+}: {
+  top: string;
+  left: string;
+  img: string;
+}) {
+  return (
+    <div
+      className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
+      style={{ top, left }}
+    >
+      <div className="relative w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12">
+        {/* Pulse */}
+        <span className="absolute inset-0 rounded-full bg-pink-500 opacity-30 animate-ping"></span>
+
+        {/* Icon */}
+        <div className="relative w-full h-full rounded-full bg-pink-700 shadow-lg overflow-hidden z-10">
+          <Image src={img} alt="Location" fill className="object-contain p-2" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ✅ PAGE */
+export default function Page() {
+  useEffect(() => {
+    const initAOS = async () => {
+      const AOS = (await import("aos")).default;
+      AOS.init({
+        duration: 1200,
+        once: true,
+        easing: "ease-in-out",
+        offset: 100,
+      });
+    };
+    initAOS();
+  }, []);
+
+  /* ✅ MAP DATA */
+  const map1Markers = [
+    { top: "17%", left: "17%", img: "/icons/text-tool.png" },
+    { top: "60%", left: "56%", img: "/icons/pylon.png" },
+    { top: "41%", left: "71%", img: "/icons/text-tool.png" },
+    { top: "66%", left: "24%", img: "/icons/stand.png" },
+    { top: "12%", left: "50%", img: "/icons/board-stand.png" },
+    { top: "34%", left: "32%", img: "/icons/text-tool.png" },
+  ];
+
+  const map2Markers = [
+    { top: "27%", left: "23%", img: "/icons/text-tool.png" },
+    { top: "86%", left: "27%", img: "/icons/stand.png" },
+    { top: "27%", left: "65%", img: "/icons/text-tool.png" },
+    { top: "70%", left: "71%", img: "/icons/stand.png" },
+    { top: "10%", left: "42%", img: "/icons/board-stand.png" },
+    { top: "62%", left: "40%", img: "/icons/stand.png" },
+  ];
+
+  return (
+    <>
+      <Navbar />
+      <SmoothScroll>
+        {/* SECTION 1 */}
+        <section className="container">
+          <div className="relative bg-white rounded-[32px] shadow-xl overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
+              <div
+                data-aos="fade-right"
+                className="bg-white border-l-4 border-pink-600 p-6 lg:p-10 lg:ml-14 lg:-mr-24 rounded-2xl shadow-lg order-2 lg:order-1"
+              >
+                <div className="h-1 w-14 bg-pink-600 rounded-full mb-5"></div>
+
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700">
+                  Know Your <span className="text-pink-700">Signs</span>
+                </h2>
+
+                <p className="mt-5 text-gray-600 max-w-md">
+                  FBS Prints & Signs showcases an extensive collection of
+                  business signage, awnings, and vehicle wraps.
+                </p>
+              </div>
+
+              <div
+                data-aos="fade-left"
+                className="relative aspect-[4/3] lg:aspect-auto lg:h-[560px] order-1 lg:order-2"
+              >
+                <Image
+                  src="/Knowyouimg1.jpg"
+                  alt="Printing Service"
+                  fill
+                  priority
+                  className="object-cover rounded-t-[32px] lg:rounded-r-[32px]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-l from-black/50 to-transparent"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ✅ SECTION 2 - MAP (FIXED) */}
+        <section className="section-padding">
+          <div className="relative w-full overflow-hidden">
+            {/* MAP 1 */}
+            <div className="relative aspect-[29/10] w-full">
+              <Image
+                src="/Scene-4-01.jpg"
+                alt="City Map 1"
+                fill
+                className="object-contain bg-white"
+              />
+
+              <div className="absolute inset-0">
+                {map1Markers.map((m, i) => (
+                  <MapIcon key={`m1-${i}`} {...m} />
+                ))}
+              </div>
+            </div>
+
+            {/* MAP 2 */}
+            <div className="relative aspect-[29/10] w-full">
+              <Image
+                src="/Scene-4-02.jpg"
+                alt="City Map 2"
+                fill
+                className="object-contain bg-white"
+              />
+
+              <div className="absolute inset-0">
+                {map2Markers.map((m, i) => (
+                  <MapIcon key={`m2-${i}`} {...m} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <Slider />
+        <Footer />
+      </SmoothScroll>
+    </>
+  );
+}

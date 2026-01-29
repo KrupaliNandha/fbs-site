@@ -3,9 +3,11 @@
 import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "aos/dist/aos.css";
 import SmoothScroll from "@/app/Components/SmoothScroll";
+
+import PageLoader from "../../Components/Preloader";
 
 export default function Page() {
   useEffect(() => {
@@ -110,7 +112,7 @@ export default function Page() {
     },
     {
       id: 18,
-      text: "And More",
+      text: "And More...",
       image: "/icons/And More.png",
     },
   ];
@@ -126,10 +128,11 @@ export default function Page() {
 
   return (
     <>
+      <PageLoader />
       <Navbar />
       <SmoothScroll>
         {/* Section - 1 */}
-        <section className="container mx-auto px-4 pt-14">
+        <section className="container">
           <div className="relative bg-white rounded-[32px] shadow-xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
               {/* LEFT CONTENT */}
@@ -143,7 +146,7 @@ export default function Page() {
                   Signage
                 </p>
 
-                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed max-w-md">
+                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed lg:max-w-md text-center lg:text-start">
                   Any business needs signage services since they are so
                   significant for bringing in consumers, enhancing brand
                   recognition, and conveying important messages.
@@ -208,7 +211,7 @@ export default function Page() {
         </section>
 
         {/* Section - 3 */}
-        <section data-aos="zoom-in" className="container">
+        <section data-aos="zoom-in" className="container section-padding">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {steps.map((item) => {
               return (
@@ -247,100 +250,100 @@ export default function Page() {
         </section>
 
         {/* Section - 4 */}
-        <section data-aos="fade-up" className="container py-10">
-          <div className="absolute -top-5 -left-20 w-72 h-72 bg-pink-300/30 rounded-full blur-3xl" />
-          <div className="absolute top-60 -right-0 w-72 h-72 bg-green-300/30 rounded-full blur-3xl" />
-
-          <div className=" ">
+        <section data-aos="fade-up" className="container section-padding">
+          <div className="max-w-6xl mx-auto">
             {/* Heading */}
-            <p
-              className="text-4xl md:text-5xl font-bold text-center text-pink-700">
-              What <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">We</span> Print
-            </p>
-            <p className="max-w-4xl mx-auto text-center text-gray-600 text-lg mt-4 leading-relaxed">
-              Every project is different, and we at our organization work
-              closely with our clients to make sure we match their particular
-              demands and specifications. Graphic design, big format printing,
-              car wraps, and other services are among the many printing and
-              signage solutions we provide. We have the knowledge and experience
-              to complete any task, whether it’s a straightforward banner or a
-              complicated advertising campaign.
-            </p>
-
-            {/* Services Card */}
-            <div className="flex justify-center">
-              <div className="w-full bg-white rounded-2xl shadow-xl p-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
-                  {steps.map((steps, index) => (
-                    <div
-                      data-aos="fade-up"
-                      data-aos-delay={index * 150} // 👈 IMPORTANT
-                      data-aos-duration="600"
-                      key={index}
-                      className="group flex items-center justify-center
-                         gap-3 p-3 rounded-xl
-                         border border-gray-100
-                         hover:shadow-md hover:-translate-y-1
-                         transition-all duration-300 bg-gray-5 bg-gradient-to-r from-gray-200 to-gray-200 "
-                    >
-                      <span className="text-3xl text-pink-600 group-hover:scale-110 transition">
-                        <img
-                          src={steps.image}
-                          alt={steps.text}
-                          className="w-8 h-8"
-                        />
-                      </span>
-
-                      <span className="font-medium text-gray-800 text-center">
-                        {steps.text}
-                      </span>
-                      <span className="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-pink-500 to-green-400 group-hover:w-full transition-all duration-300 rounded-full" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-15">
-              <p className="text-center text-xl font-semibold">
-                Allow Us to make your imagination com true! FBS SIGNS is a
-                well-respected sign fabricator nationwide. We know how to take
-                our clients’ input and make it come alive. Our illuminated signs
-                are with the brightest leds and highest quality which will draw
-                customers into your business. Most popular signage are channel
-                letters, which are illuminated signs. They are beneficial for
-                companies located in shopping centers because we can install
-                low-wattage LED lights. We can design your channel letters based
-                on your design ideas and landlord specifications, and municipal
-                regulations. Most importantly, we understand the importance of
-                professionalism and hard work. You can trust us to get the job
-                done front start to finish.
+            <div className="text-center mb-10">
+              <h2 className="text-5xl font-bold text-pink-700">
+                What{" "}
+                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  {" "}
+                  We
+                </span>{" "}
+                Print
+              </h2>
+              <p className="text-gray-500 mt-3 text-xl">
+                Every project is different, and we at our organization work
+                closely with our clients to make sure we match their particular
+                demands and specifications. Graphic design, big format printing,
+                car wraps, and other services are among the many printing and
+                signage solutions we provide. We have the knowledge and
+                experience to complete any task, whether it’s a straightforward
+                banner or a complicated advertising campaign.
               </p>
             </div>
 
-            <div className="pt-15">
-              <div className="px-4">
-                <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                  {services.map((item, index) => (
-                    <div
-                      key={index}
-                      className="bg-white rounded-2xl p-4 text-center shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(0,0,0,0.12)] transition-all duration-300"
-                    >
-                      <div className="relative w-full h-[250px] rounded-xl overflow-hidden">
-                        <Image
-                          src={item.img}
-                          alt={item.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
+            {/* Services */}
+            <div className="grid md:grid-cols-2 gap-x-14 gap-y-6">
+              {steps.map((item, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-4 border-b pb-4 group hover:translate-x-2 transition-all duration-300"
+                >
+                  <div className="w-11 h-11 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center">
+                    <Image
+                      src={item.image}
+                      alt={item.text}
+                      width={20}
+                      height={20}
+                      className="object-contain"
+                    />{" "}
+                  </div>
 
-                      <h3 className="mt-4 text-lg font-semibold text-gray-700">
-                        {item.title}
-                      </h3>
-                    </div>
-                  ))}
+                  <h4 className="text-lg font-semibold text-gray-800 group-hover:text-pink-600">
+                    {item.text}
+                  </h4>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="container section-padding">
+          <div data-aos="fade-up" className="pt-5">
+            <p className="text-center text-xl font-semibold">
+              Allow Us to make your imagination com true! FBS SIGNS is a
+              well-respected sign fabricator nationwide. We know how to take our
+              clients’ input and make it come alive. Our illuminated signs are
+              with the brightest leds and highest quality which will draw
+              customers into your business. Most popular signage are channel
+              letters, which are illuminated signs. They are beneficial for
+              companies located in shopping centers because we can install
+              low-wattage LED lights. We can design your channel letters based
+              on your design ideas and landlord specifications, and municipal
+              regulations. Most importantly, we understand the importance of
+              professionalism and hard work. You can trust us to get the job
+              done front start to finish.
+            </p>
+          </div>
+
+          <div className="pt-15">
+            <div className="px-4">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="1500"
+                data-aos-delay="100"
+                className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+              >
+                {services.map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-2xl p-4 text-center shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(0,0,0,0.12)] transition-all duration-300"
+                  >
+                    <div className="relative w-full h-[250px] rounded-xl overflow-hidden">
+                      <Image
+                        src={item.img}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+
+                    <h3 className="mt-4 text-lg font-semibold text-gray-700">
+                      {item.title}
+                    </h3>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

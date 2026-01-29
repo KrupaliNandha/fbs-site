@@ -16,17 +16,17 @@ export default function Navbar() {
 
   const linkClass = (path: string) =>
     pathname === path
-      ? "bg-gradient-to-r from-pink-700 to-green-400 text-white px-3 py-2 rounded-full"
+      ? "bg-gradient-to-r from-pink-500 to-green-400 text-white px-3 py-2 rounded-full"
       : "px-3 py-2 text-black border border-gray-200 rounded-full transition";
 
   const parentLinkClass = (path: string) =>
     pathname.startsWith(path)
-      ? "bg-gradient-to-r from-pink-700 to-green-400 text-white px-3 py-2 rounded-full"
+      ? "bg-gradient-to-r from-pink-500 to-green-400 text-white px-3 py-2 rounded-full"
       : "px-3 py-2 text-black border border-gray-200 rounded-full transition";
 
   const dropdownLinkClass = (path: string) =>
     pathname === path
-      ? "block px-4 py-2 bg-gradient-to-r from-pink-700 to-green-400 text-white rounded-lg"
+      ? "block px-4 py-2 bg-gradient-to-r from-pink-500 to-green-400 text-white rounded-lg"
       : "block px-4 py-2 text-black hover:bg-gray-100 rounded-lg";
 
   const mobileLinkClass = (path: string) =>
@@ -42,10 +42,11 @@ export default function Navbar() {
         {/* LOGO */}
         <Image
           src="/FBS-LOGO.png"
-          alt="Printing Service"
-          width={70}
-          height={50}
-          className="w-25 h-auto"
+          alt="FBS Logo"
+          width={160}
+          height={60}
+          priority
+          style={{ height: "75px", width: "auto" }}
         />
 
         {/* DESKTOP MENU */}
@@ -71,7 +72,7 @@ export default function Navbar() {
             <button
               onClick={() => setDesktopServiceOpen(!desktopServiceOpen)}
               className={`${parentLinkClass(
-                "/services"
+                "/services",
               )} flex items-center gap-1 cursor-pointer`}
             >
               Services ▾
@@ -164,11 +165,19 @@ export default function Navbar() {
       {/* MOBILE MENU */}
       {menuOpen && (
         <div className="lg:hidden bg-white px-8 py-4 space-y-3">
-          <Link href="/" className={mobileLinkClass("/")} onClick={() => setMenuOpen(false)}>
+          <Link
+            href="/"
+            className={mobileLinkClass("/")}
+            onClick={() => setMenuOpen(false)}
+          >
             Home
           </Link>
 
-          <Link href="/about" className={mobileLinkClass("/about")} onClick={() => setMenuOpen(false)}>
+          <Link
+            href="/about"
+            className={mobileLinkClass("/about")}
+            onClick={() => setMenuOpen(false)}
+          >
             About Us
           </Link>
 
@@ -183,19 +192,34 @@ export default function Navbar() {
 
             {serviceOpen && (
               <div className="mt-2 space-y-2 pl-4">
-                <Link href="/services/Printing-Product" className="block px-4 py-2 rounded-lg hover:bg-gray-100">
+                <Link
+                  href="/services/Printing-Product"
+                  className="block px-4 py-2 rounded-lg hover:bg-gray-100"
+                >
                   Printing Product
                 </Link>
-                <Link href="/services/Signage" className="block px-4 py-2 rounded-lg hover:bg-gray-100">
+                <Link
+                  href="/services/Signage"
+                  className="block px-4 py-2 rounded-lg hover:bg-gray-100"
+                >
                   Signage
                 </Link>
-                <Link href="/services/Direct-MaIilintg" className="block px-4 py-2 rounded-lg hover:bg-gray-100">
+                <Link
+                  href="/services/Direct-MaIilintg"
+                  className="block px-4 py-2 rounded-lg hover:bg-gray-100"
+                >
                   Direct Mailing
                 </Link>
-                <Link href="/services/Web-Design" className="block px-4 py-2 rounded-lg hover:bg-gray-100">
+                <Link
+                  href="/services/Web-Design"
+                  className="block px-4 py-2 rounded-lg hover:bg-gray-100"
+                >
                   Web Design
                 </Link>
-                <Link href="/services/SEO" className="block px-4 py-2 rounded-lg hover:bg-gray-100">
+                <Link
+                  href="/services/SEO"
+                  className="block px-4 py-2 rounded-lg hover:bg-gray-100"
+                >
                   SEO
                 </Link>
               </div>

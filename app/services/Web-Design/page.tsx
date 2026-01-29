@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import "aos/dist/aos.css";
 import SmoothScroll from "@/app/Components/SmoothScroll";
 
+import PageLoader from "../../Components/Preloader";
+
 export default function Page() {
   useEffect(() => {
     const initAOS = async () => {
@@ -93,10 +95,11 @@ export default function Page() {
 
   return (
     <>
+      <PageLoader />
       <Navbar />
       <SmoothScroll>
         {/* Section - 1 */}
-        <section className="container mx-auto px-4 pt-14">
+        <section className="container">
           <div className="relative bg-white rounded-[32px] shadow-xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
               {/* LEFT CONTENT */}
@@ -110,7 +113,7 @@ export default function Page() {
                   Web <span className="text-pink-700">Designing</span>
                 </p>
 
-                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed max-w-md">
+                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed lg:max-w-md text-center lg:text-start">
                   At FBS Prints, we create modern, user-friendly websites that
                   not only look great but also work seamlessly across all
                   devices. Our web design blends creativity with functionality -
@@ -138,6 +141,7 @@ export default function Page() {
           </div>
         </section>
 
+        {/* Section - 2 */}
         <section className="container section-padding">
           <div className="bg-gradient-to-r from-pink-600 to-pink-700 rounded-2xl px-6 py-12 text-white">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
@@ -168,14 +172,14 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Section - 2 */}
-        <section className="relative overflow-hidden bg-white py-10">
+        {/* Section - 3 */}
+        <section className="container relative bg-white py-10">
           {/* Soft background shapes */}
           <div className="absolute -top-32 -left-32 w-96 h-96 bg-pink-200 rounded-full blur-3xl opacity-40"></div>
           <div className="absolute top-1/2 -right-32 w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-40"></div>
 
-          <div className="container mx-auto px-6 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-20">
+          <div className="relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-20 ">
               <div
                 data-aos="fade-right"
                 className="relative flex justify-center"
@@ -183,9 +187,7 @@ export default function Page() {
                 {/* Floating card */}
                 <div className="relative">
                   {/* shadow glow */}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-tr from-pink-500 to-purple-500 blur-2xl opacity-30 rounded-3xl"
-                  ></div>
+                  <div className="absolute inset-0 bg-gradient-to-tr from-pink-500 to-purple-500 blur-2xl opacity-30 rounded-3xl"></div>
 
                   <Image
                     src="/services-3.2.jpeg"
@@ -193,15 +195,21 @@ export default function Page() {
                     width={900}
                     height={600}
                     priority
-                    className="relative rounded-3xl shadow-2xl w-full max-w-3xl"
+                    className="relative rounded-3xl shadow-2xl w-full max-w-full"
                   />
 
                   {/* Floating stats */}
-                  <div data-aos="fade-up" className="absolute -bottom-10 -left-6 bg-white rounded-2xl shadow-xl px-6 py-4">
+                  <div
+                    data-aos="fade-up"
+                    className="absolute -bottom-10 -left-6 bg-white rounded-2xl shadow-xl px-6 py-4"
+                  >
                     <p className="text-xl">Business Growth</p>
                   </div>
 
-                  <div data-aos="fade-down" className="absolute -top-4 -right-6 bg-white rounded-2xl shadow-xl px-6 py-4">
+                  <div
+                    data-aos="fade-down"
+                    className="absolute -top-4 -right-6 bg-white rounded-2xl shadow-xl px-6 py-4"
+                  >
                     <p className="text-xl">Digital Solutions</p>
                   </div>
                 </div>
@@ -234,13 +242,17 @@ export default function Page() {
           </div>
         </section>
 
+        {/* Section - 4 */}
         <section className="container section-padding relative bg-white overflow-hidden">
           <div className=" mx-auto">
             {/* HEADING */}
             <div className="max-w-4xl mx-auto text-center mb-10">
-              <h2 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
-                Unique <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Bespoke </span>
-                Digital Solutions
+              <h2 className="text-4xl md:text-5xl font-extrabold text-pink-700 leading-tight">
+                Unique{" "}
+                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  Bespoke Digital{" "}
+                </span>
+                Solutions
               </h2>
 
               <p className="mt-6 text-gray-600 text-lg leading-relaxed">
@@ -293,14 +305,18 @@ export default function Page() {
           </div>
         </section>
 
+        {/* Section - 5 */}
         <section
           data-aos="fade-up"
           className="container section-padding bg-white"
         >
           <div className="pt-5 space-y-6 mb-12 max-w-7xl mx-auto">
-            <p className="text-center text-3xl lg:text-4xl xl:text-5xl font-bold mx-auto">
-              &quot;Designing digital experiences that captivate, inspire, and
-              leave a lasting impression.&quot;
+            <p className="text-center text-3xl lg:text-4xl xl:text-5xl font-bold mx-auto text-pink-700">
+              &quot;Designing{" "}
+              <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                Digital Experiences That Captivate, Inspire, And Leave a Lasting
+              </span>{" "}
+              Impression.&quot;
             </p>
             <p className="text-xl text-center font-semibold">
               Our commitment is to deliver web design solutions that not only
@@ -336,11 +352,12 @@ export default function Page() {
           </div>
         </section>
 
+        {/* Section - 6 */}
         <section className="container section-padding relative bg-white">
           <div className="mx-auto">
             {/* HEADING */}
             <div className="max-w-5xl mx-auto text-center mb-10">
-              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-pink-700 tracking-tight">
                 Our Clients’{" "}
                 <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent relative">
                   Success
@@ -393,7 +410,9 @@ export default function Page() {
 
                   {/* AUTHOR */}
                   <div className="pt-6 border-t border-gray-100">
-                    <p className="text-pink-700 font-semibold text-xl">{item.name}</p>
+                    <p className="text-pink-700 font-semibold text-xl">
+                      {item.name}
+                    </p>
                     <p className="text-lg text-gray-500">{item.role}</p>
                   </div>
                 </div>

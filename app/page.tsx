@@ -4,24 +4,23 @@ import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
 
 import Image from "next/image";
-import { useEffect, useState, useRef } from "react";
+import Link from "next/link";
+import Slider from "./Components/Slider";
 import AOS from "aos";
 import "aos/dist/aos.css";
+
+import { useEffect, useState } from "react";
+
 import SmoothScroll from "@/app/Components/SmoothScroll";
-import Link from "next/link";
 
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
-import { PiLessThanBold } from "react-icons/pi";
-import { PiGreaterThanBold } from "react-icons/pi";
-
-import Slider from "./Components/Slider";
-
 import { FaRocket } from "react-icons/fa";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { FaWallet } from "react-icons/fa";
 
+import PageLoader from "./Components/Preloader";
+
 export default function Home() {
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     AOS.init({
@@ -99,13 +98,14 @@ export default function Home() {
 
   return (
     <>
+    <PageLoader/>
       <Navbar />
       <SmoothScroll>
         {/* Hero Section */}
         <section className="container mx-auto px-4 pt-14">
           <div className="relative bg-white rounded-[32px] shadow-xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
-              {/* RIGHT IMAGE – MOBILE FIRST */}
+              {/* Right Image*/}
               <div
                 data-aos="fade-left"
                 className="
@@ -124,10 +124,11 @@ export default function Home() {
                 <div className="absolute inset-0 rounded-t-[32px] lg:rounded-r-[32px] lg:rounded-t-none bg-gradient-to-l from-black/50 to-transparent"></div>
               </div>
 
-              {/* LEFT CONTENT */}
+              {/* left content */}
               <div
                 data-aos="fade-right"
-                className=" relative z-10 bg-white border-l-4 border-pink-600 p-5 sm:p-5 md:p-5 lg:p-8 lg:ml-14 lg:-mr-24 rounded-b-[32px] lg:rounded-2xl shadow-lg order-2 lg:order-1">
+                className=" relative z-10 bg-white border-l-4 border-pink-600 p-5 sm:p-5 md:p-5 lg:p-8 lg:ml-14 lg:-mr-24 rounded-b-[32px] lg:rounded-2xl shadow-lg order-2 lg:order-1"
+              >
                 <div className="h-1 w-14 bg-pink-600 rounded-full mb-5 justify-self-center lg:justify-self-start"></div>
 
                 <h1 className="text-2xl text-center lg:text-start font-semibold leading-tight text-gray-900">
@@ -150,7 +151,10 @@ export default function Home() {
                 </p>
 
                 <div className="mt-7  justify-self-center lg:justify-self-start">
-                  <Link href="/contact" className="rounded-full bg-gradient-to-r from-pink-600 to-pink-700 px-8 py-3 text-white font-semibold shadow-md hover:shadow-xl hover:scale-105 transition">
+                  <Link
+                    href="/contact"
+                    className="rounded-full bg-gradient-to-r from-pink-600 to-pink-700 px-8 py-3 text-white font-semibold shadow-md hover:shadow-xl hover:scale-105 transition"
+                  >
                     Contact Us
                   </Link>
                 </div>
@@ -159,14 +163,18 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Section-2: Services */}
+        {/* Section-2 */}
         <section className="container section-padding mx-auto">
           <div className="px-4">
             <h1
               data-aos="fade-up"
               className="uppercase p-5 text-5xl text-center text-pink-700 font-bold"
             >
-              Look <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">At Our</span> Service
+              Look{" "}
+              <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                At Our
+              </span>{" "}
+              Service
             </h1>
           </div>
 
@@ -213,7 +221,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Section-3: Video Section */}
+        {/* Section-3 */}
         <section className="container section-padding overflow-x-hidden">
           <div className="relative group overflow-hidden shadow-lg rounded-2xl">
             <Image
@@ -246,13 +254,11 @@ export default function Home() {
               {/* LEFT CONTENT */}
               <div>
                 <h1
-                  className="
-            font-bold text-pink-700
-            text-3xl sm:text-4xl md:text-5xl lg:text-7xl
-            text-center lg:text-left
-          "
-                >
-                  Our <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Work</span>
+                  className="font-bold text-pink-700 text-3xl sm:text-4xl md:text-5xl  text-center lg:text-left">
+                  Our{" "}
+                  <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                    Work
+                  </span>
                 </h1>
 
                 {/* underline */}
@@ -348,11 +354,15 @@ export default function Home() {
               <h2
                 className="
           uppercase font-bold text-pink-700
-          text-4xl sm:text-6xl md:text-7xl lg:text-8xl
+          text-4xl sm:text-6xl md:text-7xl
           pt-3 leading-tight
         "
               >
-                achieve  <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Your</span> <span className="text-black">Business goals</span>
+                achieve{" "}
+                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  Your
+                </span>{" "}
+                <span className="text-black">Business goals</span>
               </h2>
 
               <p className="text-sm sm:text-base md:text-lg pt-4 text-gray-700">
@@ -375,20 +385,13 @@ export default function Home() {
                 alt="Printing Service"
                 width={800}
                 height={500}
-                className="
-          w-full
-          h-[220px] sm:h-[300px] md:h-[400px] lg:h-[500px]
-          object-cover
-          rounded-2xl
-          shadow-xl shadow-pink-200
-        "
-              />
+                className="w-full h-[220px] sm:h-[300px] md:h-[400px] lg:h-[500px] object-cover rounded-2xl shadow-xl shadow-pink-20"/>
             </div>
           </div>
         </section>
 
         {/* Section - 6 */}
-        <section className="container section-padding py-20">
+        <section className="container section-padding">
           <div className="grid grid-cols-1 lg:grid-cols-3 rounded-3xl shadow-xl overflow-hidden">
             {/* LEFT CONTACT INFO */}
             <div className="bg-[#1c1c1c] text-white flex flex-col justify-center gap-14 p-10">
@@ -415,7 +418,11 @@ export default function Home() {
                 <h2 className="text-4xl font-bold text-gray-900">
                   Contact Us If You Need A Custom
                   <span className="block text-pink-600">
-                    Design <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Without</span> Delay!
+                    Design{" "}
+                    <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                      Without
+                    </span>{" "}
+                    Delay!
                   </span>
                 </h2>
                 <p className="mt-4 text-gray-600">
@@ -433,7 +440,7 @@ export default function Home() {
                   <input
                     type="text"
                     placeholder="Enter your first name"
-                    className="mt-2 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-500"
+                    className="mt-2 w-full rounded-xl border px-4 py-3 border-gray-300 outline-none focus:ring-0"
                   />
                 </div>
 
@@ -444,7 +451,7 @@ export default function Home() {
                   <input
                     type="text"
                     placeholder="Enter your last name"
-                    className="mt-2 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-500"
+                    className="mt-2 w-full rounded-xl border px-4 py-3 border-gray-300 outline-none focus:ring-0"
                   />
                 </div>
 
@@ -455,7 +462,7 @@ export default function Home() {
                   <input
                     type="email"
                     placeholder="Enter your email id"
-                    className="mt-2 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-500"
+                    className="mt-2 w-full rounded-xl border px-4 py-3 border-gray-300 outline-none focus:ring-0"
                   />
                 </div>
 
@@ -466,7 +473,7 @@ export default function Home() {
                   <input
                     type="text"
                     placeholder="Enter your company name"
-                    className="mt-2 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-500"
+                    className="mt-2 w-full rounded-xl border px-4 py-3 border-gray-300 outline-none focus:ring-0"
                   />
                 </div>
 
@@ -477,7 +484,7 @@ export default function Home() {
                   <textarea
                     rows={5}
                     placeholder="Enter your message here..."
-                    className="mt-2 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-500"
+                    className="mt-2 w-full rounded-xl border px-4 py-3 border-gray-300 outline-none focus:ring-0"
                   ></textarea>
                 </div>
 

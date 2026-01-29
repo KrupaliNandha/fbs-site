@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import "aos/dist/aos.css";
 import SmoothScroll from "@/app/Components/SmoothScroll";
 
+import PageLoader from "../../Components/Preloader";
+
 export default function Page() {
   useEffect(() => {
     const initAOS = async () => {
@@ -32,8 +34,7 @@ export default function Page() {
       image: "/icons/printing.png",
     },
     {
-      description:
-        "Working with you closely to help you select the carrier routes you want to target.",
+      description: "Target Your Routes",
       image: "/icons/setting.png",
     },
     {
@@ -68,10 +69,12 @@ export default function Page() {
 
   return (
     <>
+      <PageLoader />
+
       <Navbar />
       <SmoothScroll>
         {/* Section - 1 */}
-        <section className="container mx-auto px-4 pt-14">
+        <section className="container">
           <div className="relative bg-white rounded-[32px] shadow-xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
               {/* LEFT CONTENT */}
@@ -82,10 +85,10 @@ export default function Page() {
                 <div className="h-1 w-14 bg-pink-600 rounded-full mb-5"></div>
 
                 <p className="mt-5 text-gray-600 font-bold text-4xl md:text-5xl lg:text-6xl text-center lg:text-start">
-                  DIRECT <span className="text-pink-700">MAILING</span>
+                  Direct <span className="text-pink-700">Mailing</span>
                 </p>
 
-                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed max-w-md">
+                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed lg:max-w-md text-center lg:text-start">
                   Reach your audience faster with our professional direct
                   mailing services. From designing and printing to addressing
                   and delivery, we handle the entire process to ensure your
@@ -146,129 +149,107 @@ export default function Page() {
         </section>
 
         {/* Section - 3 */}
-        <section className="bg-white container section-padding">
-          <div className=" mx-auto px-6 space-y-5">
-            {/* SECTION HEADING */}
-            <div className="text-center max-w-4xl mx-auto space-y-6">
-              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">
-                We Offer <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">3 Levels</span> of
-                Services
-              </h2>
+        <section className="container relative section-padding">
+          {/* Background */}
+          <div className="absolute inset-0 -z-10 bg-gradient-to-br from-pink-50 via-white to-purple-50" />
 
-              <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-                Beyond direct mail campaigns, we combine email marketing and
-                digital advertising to create a complete strategy that saves
-                time, reduces cost, and ensures top-quality results.
-              </p>
+          <div className=" px-6">
+            {/* Heading for the whole section */}
+            <div className="text-center max-w-3xl mx-auto mb-16 space-y-5 lg:text-left lg:max-w-none lg:flex lg:flex-col lg:items-center">
+              <span className="inline-block px-5 py-1 rounded-full bg-pink-100 text-pink-700 text-2xl font-semibold">
+                Our Services
+              </span>
             </div>
 
-            {/* LEVEL 1 – DESIGN & PRINT */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-              <div className="bg-gradient-to-br from-yellow-400 to-yellow-300 rounded-3xl p-10 shadow-xl hover:scale-105 transition-transform duration-300">
-                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 text-center">
-                  FBS Handles Design & Print Only
+            {/* Main layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] gap-8 items-start max-w-7xl mx-auto">
+              {/* LEFT CARD – LEVEL 1 */}
+              <div className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-2xl transition">
+                <h3 className="text-3xl font-bold mt-3 text-center">
+                  Design & Print
                 </h3>
-
-                <p className="mt-6 text-lg text-gray-800 leading-relaxed text-center">
-                  We provide other services like email marketing and digital
-                  advertising in addition to developing and implementing direct
-                  mail campaigns, which may be combined with direct mail to form
-                  a full marketing strategy. Businesses who work with us stand
-                  to gain a number of advantages. One benefit is that hiring
-                  industry professionals to handle the design and mailing
-                  processes can save time and money. Additionally, it can
-                  guarantee that the mailing campaign is of the greatest caliber
-                  and complies with all relevant requirements.
+                <p className="text-gray-600 mt-2 text-xl text-center">
+                  Professional design with premium-quality printing handled by
+                  FBS.
                 </p>
+                <Image
+                  src="/Section-1-About-2.jpg"
+                  alt="Design & Print"
+                  width={300}
+                  height={200}
+                  className="rounded-xl mt-4 object-cover"
+                />
               </div>
 
-              <Image
-                src="/Section-1-About-2.jpg"
-                alt="Design & Print"
-                width={600}
-                height={500}
-                className="rounded-3xl shadow-xl h-full w-full object-cover"
-              />
-            </div>
+              {/* CENTER CONTENT + SHORT CARD – LEVEL 2 */}
+              <div className="flex flex-col items-center text-center space-y-6">
+                {/* Section content above card */}
+                <div className="text-center max-w-3xl mx-auto mb-16 space-y-5 lg:text-left lg:max-w-none lg:flex lg:flex-col lg:items-center">
+                  <h2 className="text-4xl md:text-5xl font-extrabold">
+                    3 Levels of{" "}
+                    <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                      Service
+                    </span>
+                  </h2>
 
-            {/* LEVEL 2 – PRINTING, PAPERWORK & BUNDLING */}
-            <div className="pt-5">
-              <div className="text-center max-w-3xl mx-auto space-y-6">
-                <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">
-                  Printing, <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Paperwork </span>  & Bundling
-                </h2>
-
-                <div className="flex justify-center">
-                  <span className="h-1 w-20 bg-pink-600 rounded-full"></span>
-                </div>
-
-                <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-                  We design your printing materials, guide you through USPS EDDM
-                  registration, and deliver perfectly formatted EDDM print jobs
-                  — all handled by FBS.
-                </p>
-              </div>
-            </div>
-
-            {/* SERVICES GRID */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto pt-5">
-              {services.map((item, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-3xl p-8 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border-2 border-gray-200"
-                >
-                  <div className="w-16 h-16 bg-pink-50 rounded-xl  flex items-center justify-self-center justify-center mx-auto">
-                    <Image
-                      src={item.image}
-                      alt="Service Icon"
-                      width={32}
-                      height={32}
-                    />
-                  </div>
-
-                  <p className="mt-6 text-gray-700 text-lg leading-relaxed text-center">
-                    {item.description}
+                  <p className="text-lg text-gray-600 max-w-xl mt-2">
+                    Choose the service level that fits your business goals.
                   </p>
                 </div>
-              ))}
-            </div>
+                {/* Short Level 2 card */}
+                <div className="relative w-full max-w-full rounded-3xl overflow-hidden shadow-2xl">
+                  <Image
+                    src="/service-3.1.jpeg"
+                    alt="Full Service"
+                    width={300}
+                    height={200}
+                    className="w-full h-50 object-cover"
+                  />
 
-            {/* LEVEL 3 – FULL SERVICE */}
-            <div className="pt-5">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-                <Image
-                  src="/service-3.1.jpeg"
-                  alt="Full Service"
-                  width={1400}
-                  height={700}
-                  className="w-full h-[600px] object-cover"
-                />
-
-                <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
-
-                <div className="absolute inset-0 flex items-center justify-center px-6">
-                  <div className="max-w-5xl text-center space-y-6">
-                    <h2 className="text-3xl md:text-5xl font-extrabold text-white">
-                      From Design to Your Customer’s Mailbox
-                    </h2>
-
-                    <div className="bg-white/10 backdrop-blur-lg border border-white/50 rounded-3xl p-8">
-                      <p className="text-white text-lg md:text-xl leading-relaxed">
-                        With the launch of EDDM in 2011, FBS has been involved.
-                        We have a thorough understanding of the programme and
-                        have mailed millions of items throughout the country.
-                        Our approach offers a remarkable return on your
-                        investment and is inexpensive. Do you desire more
-                        clients? FBS can assist you! The most effective direct
-                        mail item for restaurants is their menu. For several of
-                        our customers, mailing menus has helped increase sales
-                        by a factor of two, three, even four. Every year, we
-                        print and mail millions of menus, so we are well aware
-                        of your requirements for success.
-                      </p>
+                  {/* Content overlay */}
+                  <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-4">
+                    <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+                      Printing & Bundling
+                    </h3>
+                    <div className="grid grid-cols-3 gap-5 mt-6">
+                      {services.slice(0, 3).map((item, i) => (
+                        <div
+                          key={i}
+                          className="bg-pink-50 rounded-xl p-4 flex justify-center"
+                        >
+                          <Image
+                            src={item.image}
+                            alt=""
+                            width={20}
+                            height={20}
+                            className="w-8 h-8 object-cover"
+                          />
+                          <p className="text-md font-medium text-gray-800">
+                            {item.description || "Description"}
+                          </p>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* RIGHT CARD – LEVEL 3 */}
+              <div className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-2xl transition">
+                <h3 className="text-3xl font-bold mt-3 text-center">
+                  Full Service
+                </h3>
+                <p className="text-gray-600 mt-2 text-xl text-center">
+                  End-to-end EDDM execution — from design to your customer’s
+                  mailbox.
+                </p>
+                <Image
+                  src="/service-3.1.jpeg"
+                  alt="Full Service"
+                  width={300}
+                  height={200}
+                  className="rounded-xl mt-4 object-cover"
+                />
               </div>
             </div>
           </div>

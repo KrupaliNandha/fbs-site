@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import "aos/dist/aos.css";
 import SmoothScroll from "@/app/Components/SmoothScroll";
 import Slider from "../Components/Slider";
+import PageLoader from "../Components/Preloader";
 // import { FaUser, FaRunning, FaHome, FaThumbsUp } from "react-icons/fa";
 import {
   FaPrint,
@@ -70,10 +71,11 @@ export default function Page() {
 
   return (
     <>
+      <PageLoader />
       <Navbar />
       <SmoothScroll>
         {/* Section - 1 */}
-        <section className="container mx-auto px-4 pt-14">
+        <section className="container">
           <div className="relative bg-white rounded-[32px] shadow-xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
               {/* LEFT CONTENT */}
@@ -88,7 +90,7 @@ export default function Page() {
                   <span className="text-pink-600"> US</span>
                 </p>
 
-                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed max-w-md">
+                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed lg:max-w-md text-center lg:text-start">
                   Our first priority is to satisfy our customers. We value the
                   time and money of our clients and work for their business. If
                   you place your trust in us, you will undoubtedly be able to
@@ -121,67 +123,75 @@ export default function Page() {
         </section>
 
         {/* Section - 2 */}
-        <section className="container section-padding overflow-x-hidden">
-          <div className="relative">
-            {/* Background Image */}
-            <Image
-              src="/Section-1-About-4.png"
-              alt="Printing Service"
-              width={800}
-              height={500}
-              className=" w-full h-[850px] md:h-[900px] lg:h-[600px] object-fit rounded-xl shadow-lg"
-            />
+        <section className="relative overflow-hidden py-20">
+          {/* Background Glow */}
+          <div className="absolute inset-0 -z-10 bg-gradient-to-br from-pink-100 via-white to-green-100" />
 
-            {/* Overlay */}
-            <div className="absolute inset-0 flex items-center">
-              <div className="px-4 md:px-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
-                {/* Left Content */}
-                <div data-aos="fade-right" className="text-center lg:text-left">
-                  <h1 className="text-pink-700 text-3xl md:text-5xl font-bold hover:text-yellow-400">
-                    Get to know us
-                  </h1>
+          <div className="container mx-auto px-4">
+            <div className="grid lg:grid-cols-2 items-center gap-14">
+              {/* LEFT CONTENT */}
+              <div
+                data-aos="fade-up"
+                className="space-y-6 text-center lg:text-left"
+              >
+                {/* Badge */}
+                <span className="inline-block rounded-full bg-pink-100 px-4 py-1 text-sm font-semibold text-pink-600">
+                  About FBS Printing
+                </span>
 
-                  <p className="text-base md:text-xl font-semibold mt-3">
-                    The goal of our business is to offer quick, affordable, and
-                    easy service
-                  </p>
+                <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
+                  Printing that’s
+                  <span className="bg-gradient-to-r from-pink-500 to-green-500 bg-clip-text text-transparent">
+                    {" "}
+                    fast, bold & reliable
+                  </span>
+                </h1>
 
-                  <div className="mt-6 flex justify-center lg:justify-start">
-                    <Link
-                      href="/contact"
-                      className="rounded-full bg-gradient-to-r from-pink-500 to-green-400 px-8 py-3 font-semibold text-white hover:scale-105 transition-transform duration-300"
-                    >
-                      Contact Us
-                    </Link>
+                <p className="text-gray-600 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
+                  The goal of our business is to offer quick, affordable, and
+                  easy service, but we also place a great value on the caliber
+                  of our goods. FBS blends quick turnaround time with a keen eye
+                  towards quality. For companies of all sizes, we are committed
+                  to offering premium printing, graphic design, and signage
+                  solutions.
+                </p>
+
+                {/* Stats */}
+                <div className="flex justify-center lg:justify-start gap-8 pt-4">
+                  <div>
+                    <h3 className="text-3xl font-bold text-pink-600">10K+</h3>
+                    <p className="text-sm text-gray-500">Projects Done</p>
                   </div>
-
-                  <div className="mt-6">
-                    <div className="bg-pink-700 text-white rounded-lg right-10">
-                      <p className="p-5 text-sm md:text-base">
-                        The goal of our business is to offer quick, affordable,
-                        and easy service, but we also place a great value on the
-                        caliber of our goods. FBS blends quick turnaround time
-                        with a keen eye towards quality. For companies of all
-                        sizes, we are committed to offering premium printing,
-                        graphic design, and signage solutions.
-                      </p>
-                    </div>
+                  <div>
+                    <h3 className="text-3xl font-bold text-green-600">100%</h3>
+                    <p className="text-sm text-gray-500">Quality Focus</p>
                   </div>
                 </div>
 
-                {/* Right Image */}
-                <div
-                  data-aos="fade-left"
-                  className="flex inset-1 justify-center"
-                >
-                  <Image
-                    src="/Section-1-About-1.jpg"
-                    alt="Printing Service"
-                    width={600}
-                    height={400}
-                    className="w-full max-w-md h-[250px] md:h-[450px] object-cover rounded-2xl border-6 border-white shadow-lg"
-                  />
+                {/* CTA */}
+                <div className="pt-6">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-green-400 px-8 py-3 text-white font-semibold shadow-lg hover:scale-105 transition-all duration-300"
+                  >
+                    Contact Us
+                    <span>→</span>
+                  </Link>
                 </div>
+              </div>
+
+              {/* RIGHT IMAGE */}
+              <div data-aos="fade-left" className="relative">
+                <div className="absolute -inset-3 rounded-3xl bg-gradient-to-r from-pink-400 to-green-400 blur-2xl opacity-30"></div>
+
+                <Image
+                  src="/Section-1-About-1.jpg"
+                  alt="Printing Service"
+                  width={700}
+                  height={500}
+                  priority
+                  className="relative w-full h-[320px] md:h-[450px] object-cover rounded-3xl shadow-2xl"
+                />
               </div>
             </div>
           </div>
@@ -225,9 +235,14 @@ export default function Page() {
             {/* Heading */}
             <h1
               data-aos="fade-up"
-              className="text-center text-4xl md:text-5xl lg:text-6xl font-bold mb-12"
+              className="text-pink-700 text-center text-4xl md:text-5xl font-bold mb-12"
             >
-              How does this work?
+              How{" "}
+              <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                {" "}
+                Does This
+              </span>{" "}
+              Work?
             </h1>
 
             {/* Cards */}
@@ -265,57 +280,46 @@ export default function Page() {
         </section>
 
         {/* Section - 5 */}
-        <section data-aos="fade-up" className="container bg-white py-16">
-          <div className="absolute -top-5 -left-20 w-72 h-72 bg-pink-300/30 rounded-full blur-3xl" />
-          <div className="absolute top-60 -right-0 w-72 h-72 bg-green-300/30 rounded-full blur-3xl" />
-          <div className="">
+        <section className="container section-padding">
+          <div className="max-w-6xl mx-auto px-6">
             {/* Heading */}
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900">
-              FBS PRINTS
-            </h2>
+            <div className="text-center mb-10">
+              <h2 className="text-5xl font-bold text-pink-700">
+                FBS{" "}
+                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  PRINTS
+                </span>
+              </h2>
+              <p className="text-gray-500 mt-3 text-xl">
+                Every project is different, and we at our organization work
+                closely with our clients to make sure we match their particular
+                demands and specifications. Graphic design, big format printing,
+                car wraps, and other services are among the many printing and
+                signage solutions we provide. We have the knowledge and
+                experience to complete any task, whether it’s a straightforward
+                banner or a complicated advertising campaign.
+              </p>
+            </div>
 
-            <p className="max-w-4xl mx-auto text-center text-gray-600 text-lg mt-4 leading-relaxed">
-              Every project is different, and we at our organization work
-              closely with our clients to make sure we match their particular
-              demands and specifications. Graphic design, big format printing,
-              car wraps, and other services are among the many printing and
-              signage solutions we provide. We have the knowledge and experience
-              to complete any task, whether it’s a straightforward banner or a
-              complicated advertising campaign.
-            </p>
+            {/* Services */}
+            <div className="grid md:grid-cols-2 gap-x-14 gap-y-6">
+              {services.map((item, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-4 border-b pb-4 group hover:translate-x-2 transition-all duration-300"
+                >
+                  <div className="w-11 h-11 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center">
+                    {item.icon}
+                  </div>
 
-            {/* Services Card */}
-            <div className="flex justify-center">
-              <div className="w-full bg-white rounded-2xl shadow-xl p-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-                  {services.map((service, index) => (
-                    <div
-                      data-aos="fade-up"
-                      data-aos-delay={index * 150} // 👈 IMPORTANT
-                      data-aos-duration="600"
-                      key={index}
-                      className="group flex items-center justify-center
-                         gap-3 p-3 rounded-xl
-                         border border-gray-100
-                         hover:shadow-md hover:-translate-y-1
-                         transition-all duration-300 bg-gray-5 bg-gradient-to-r from-gray-200 to-gray-200 "
-                    >
-                      <span className="text-3xl text-pink-600 group-hover:scale-110 transition">
-                        {service.icon}
-                      </span>
-
-                      <span className="font-medium text-gray-800 text-center">
-                        {service.label}
-                      </span>
-                      <span className="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-pink-500 to-green-400 group-hover:w-full transition-all duration-300 rounded-full" />
-                    </div>
-                  ))}
+                  <h4 className="text-lg font-semibold text-gray-800 group-hover:text-pink-600">
+                    {item.label}
+                  </h4>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
-
         <Slider />
         <Footer />
       </SmoothScroll>

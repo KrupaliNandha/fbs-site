@@ -18,6 +18,8 @@ import {
 
 import { RiBillLine } from "react-icons/ri";
 
+import PageLoader from "../../Components/Preloader";
+
 export default function Page() {
   useEffect(() => {
     const initAOS = async () => {
@@ -92,10 +94,11 @@ export default function Page() {
 
   return (
     <>
+      <PageLoader />
       <Navbar />
       <SmoothScroll>
         {/* Section - 1 */}
-        <section className="container mx-auto px-4 pt-14">
+        <section className="container">
           <div className="relative bg-white rounded-[32px] shadow-xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
               {/* LEFT CONTENT */}
@@ -107,10 +110,10 @@ export default function Page() {
 
                 <p className="mt-5 text-gray-600 font-bold text-4xl md:text-5xl lg:text-6xl text-center lg:text-start">
                   Printing
-                  <span className="text-pink-600">Products</span>
+                  <span className="text-pink-600"> Products</span>
                 </p>
 
-                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed max-w-md">
+                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed lg:max-w-md text-center lg:text-start">
                   We offer a comprehensive range of printing services for
                   products like business cards, brochures, flyers, posters, and
                   more. To ensure that your printed items are of the greatest
@@ -220,53 +223,45 @@ export default function Page() {
         </section>
 
         {/* Section - 4 */}
-        <section data-aos="fade-up" className="container bg-white py-16">
-          <div className="absolute -top-5 -left-20 w-72 h-72 bg-pink-300/30 rounded-full blur-3xl" />
-          <div className="absolute top-60 -right-0 w-72 h-72 bg-green-300/30 rounded-full blur-3xl" />
-          <div className="">
+        <section className="container section-padding">
+          <div className="max-w-6xl mx-auto px-6">
             {/* Heading */}
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-pink-700">
-              What <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">We</span> Print
-            </h2>
+            <div className="text-center mb-10">
+              <h2 className="text-5xl font-bold text-pink-700">
+                What{" "}
+                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  {" "}
+                  We
+                </span>{" "}
+                Print
+              </h2>
+              <p className="text-gray-500 mt-3 text-xl">
+                Every project is different, and we at our organization work
+                closely with our clients to make sure we match their particular
+                demands and specifications. Graphic design, big format printing,
+                car wraps, and other services are among the many printing and
+                signage solutions we provide. We have the knowledge and
+                experience to complete any task, whether it’s a straightforward
+                banner or a complicated advertising campaign.
+              </p>
+            </div>
 
-            <p className="max-w-4xl mx-auto text-center text-gray-600 text-lg mt-4 leading-relaxed">
-              Every project is different, and we at our organization work
-              closely with our clients to make sure we match their particular
-              demands and specifications. Graphic design, big format printing,
-              car wraps, and other services are among the many printing and
-              signage solutions we provide. We have the knowledge and experience
-              to complete any task, whether it’s a straightforward banner or a
-              complicated advertising campaign.
-            </p>
+            {/* Services */}
+            <div className="grid md:grid-cols-2 gap-x-14 gap-y-6">
+              {steps.map((item, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-4 border-b pb-4 group hover:translate-x-2 transition-all duration-300"
+                >
+                  <div className="w-11 h-11 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center">
+                    {item.Icon && <item.Icon className="w-5 h-5" />}
+                  </div>
 
-            {/* Services Card */}
-            <div className="flex justify-center">
-              <div className="w-full bg-white rounded-2xl shadow-xl p-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
-                  {steps.map((steps, index) => (
-                    <div
-                      data-aos="fade-up"
-                      data-aos-delay={index * 150} // 👈 IMPORTANT
-                      data-aos-duration="600"
-                      key={index}
-                      className="group flex items-center justify-center
-                         gap-3 p-3 rounded-xl
-                         border border-gray-100
-                         hover:shadow-md hover:-translate-y-1
-                         transition-all duration-300 bg-gray-5 bg-gradient-to-r from-gray-200 to-gray-200 "
-                    >
-                      <span className="text-3xl text-pink-600 group-hover:scale-110 transition">
-                        <steps.Icon />
-                      </span>
-
-                      <span className="font-medium text-gray-800 text-center">
-                        {steps.text}
-                      </span>
-                      <span className="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-pink-500 to-green-400 group-hover:w-full transition-all duration-300 rounded-full" />
-                    </div>
-                  ))}
+                  <h4 className="text-lg font-semibold text-gray-800 group-hover:text-pink-600">
+                    {item.text}
+                  </h4>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>

@@ -7,12 +7,31 @@ import { useEffect, useState } from "react";
 import "aos/dist/aos.css";
 import SmoothScroll from "@/app/Components/SmoothScroll";
 import Slider from "../Components/Slider";
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
-import { PiLessThanBold } from "react-icons/pi";
-import { PiGreaterThanBold } from "react-icons/pi";
+import Link from "next/link";
+
+import PageLoader from "../Components/Preloader";
+
+import {
+  FaTwitter,
+  FaLinkedin,
+  FaInstagram,
+  FaFacebookF,
+  FaDribbble,
+  FaBehance,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
 
 export default function Page() {
-  const [open, setOpen] = useState(false);
+  const socialIcons = [
+    { name: "Twitter", Icon: FaTwitter, url: "https://twitter.com" },
+    { name: "LinkedIn", Icon: FaLinkedin, url: "https://linkedin.com" },
+    { name: "Instagram", Icon: FaInstagram, url: "https://instagram.com" },
+    { name: "Facebook", Icon: FaFacebookF, url: "https://facebook.com" },
+    { name: "Dribbble", Icon: FaDribbble, url: "https://dribbble.com" },
+    { name: "Behance", Icon: FaBehance, url: "https://behance.net" },
+  ];
 
   useEffect(() => {
     const initAOS = async () => {
@@ -30,132 +49,167 @@ export default function Page() {
 
   return (
     <>
+      <PageLoader />
       <Navbar />
       <SmoothScroll>
         {/* Section - 1 */}
-        <section className="pt-10 px-4">
-          <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 place-items-center max-w-7xl mx-auto">
-            {/* Hero Image */}
-            <div className="w-full relative" data-aos="fade-right">
-              <div className="w-70 h-50 top-105 right-89 xl:block hidden absolute border-2 rounded border-blue"></div>
-              <div className="w-70 h-50 bottom-105 left-89 xl:block hidden absolute border-2 rounded border-blue"></div>
+        <section className="container">
+          <div className="relative bg-white rounded-[32px] shadow-xl overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
+              <div
+                data-aos="fade-right"
+                className="relative z-10 bg-white border-l-4 border-pink-600 p-5 lg:p-8 lg:ml-14 lg:-mr-24 rounded-b-[32px] lg:rounded-2xl shadow-lg order-2 lg:order-1"
+              >
+                <div className="h-1 w-14 bg-pink-600 rounded-full mb-5"></div>
 
-              <Image
-                src="/Conatct.jpeg"
-                alt="Printing Service"
-                width={500}
-                height={500}
-                className="w-130 h-100 md:w-145 md:h-150 object-fit relative justify-self-center lg:justify-start shadow-lg"
-              />
-            </div>
-
-            {/* Hero Content */}
-            <div className="flex h-full items-center justify-self-center text-center text-black px-4">
-              <div data-aos="fade-left">
-                <p className="mb-2 text-7xl font-semibold uppercase">
-                  Contact US
+                <p className="mt-5 text-gray-600 font-bold text-4xl md:text-5xl lg:text-6xl text-center lg:text-start">
+                  Contact
+                  <span className="text-pink-700"> US</span>
                 </p>
-                <p className="mb-2 w-full text-xl">
+
+                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed lg:max-w-md text-center lg:text-start">
                   Feel free to get in touch with us using the contact form
                   provided below. We will reply to your inquiry as quickly as
                   possible.
                 </p>
+              </div>
+
+              <div
+                data-aos="fade-left"
+                className="relative h-[300px] sm:h-[400px] md:h-[480px] lg:h-[560px] order-1 lg:order-2"
+              >
+                <Image
+                  src="/Conatct.jpeg"
+                  alt="Printing Service"
+                  fill
+                  priority
+                  className="object-cover rounded-t-[32px] lg:rounded-r-[32px] lg:rounded-t-none"
+                />
+                <div className="absolute inset-0 bg-gradient-to-l from-black/50 to-transparent rounded-t-[32px] lg:rounded-r-[32px] lg:rounded-t-none"></div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Section - 2 */}
-        <section
-          data-aos="fade-up"
-          className="pt-10 px-4 relative overflow-x-hidden"
-        >
-          <div className="bg-black p-5">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">
-              {/* LEFT SIDE – FORM */}
-              <div data-aos="fade-right" className="bg-black p-6 md:p-10">
-                <h1 className="text-white text-2xl md:text-3xl font-bold">
-                  Contact Us If You Need A <br /> Custom Design Without Delay!
-                </h1>
+        <section data-aos="fade-up" className="container section-padding">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2">
+            {/* LEFT – Contact Info */}
+            <div
+              data-aos="fade-right"
+              className="p-5 md:p-10 bg-pink-50 rounded-2xl shadow-lg flex flex-col gap-5"
+            >
+              <h2 className="text-4xl font-bold text-pink-700 text-center lg:text-start">
+                Contact Me
+              </h2>
+              <p className="text-gray-600 leading-relaxed text-center lg:text-start">
+                Reach out for inquiries, quotes, or just to say hello! We reply
+                as fast as possible.
+              </p>
 
-                <p className="text-lg md:text-xl text-yellow-400 pt-5 font-semibold">
-                  To Make An Appointment, Please Call Us. We Would Love To
-                  Pamper You!
-                </p>
-
-                {/* FORM GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-5">
-                  <div className="text-white flex flex-col">
-                    <label>First Name</label>
-                    <input
-                      type="text"
-                      placeholder="First Name"
-                      className="bg-white p-3 rounded-lg text-black"
-                    />
-                  </div>
-
-                  <div className="text-white flex flex-col">
-                    <label>Last Name</label>
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      className="bg-white p-3 rounded-lg text-black"
-                    />
-                  </div>
-
-                  <div className="text-white flex flex-col">
-                    <label>Email Id</label>
-                    <input
-                      type="email"
-                      placeholder="Email Id"
-                      className="bg-white p-3 rounded-lg text-black"
-                    />
-                  </div>
-
-                  <div className="text-white flex flex-col">
-                    <label>Company Name</label>
-                    <input
-                      type="text"
-                      placeholder="Company Name"
-                      className="bg-white p-3 rounded-lg text-black"
-                    />
-                  </div>
+              <div className="space-y-3">
+                <div className="flex items-center gap-4 lg:justify-self-start justify-self-center items-center">
+                  <FaMapMarkerAlt className="text-pink-700 text-2xl lg:text-3xl" />
+                  <p className="text-lg font-medium text-gray-800">
+                    Illinois, USA
+                  </p>
                 </div>
+                <div className="flex items-center gap-4 lg:justify-self-start justify-self-center items-center">
+                  <FaPhoneAlt className="text-pink-700 text-2xl lg:text-3xl" />
+                  <p className="text-lg font-medium text-gray-800">
+                    +1-855-222-1133
+                  </p>
+                </div>
+                <div className="flex items-center gap-4 lg:justify-self-start justify-self-center items-center">
+                  <FaEnvelope className="text-pink-700 text-2xl lg:text-3xl" />
+                  <p className="text-lg font-medium text-gray-800">
+                    info@fbsprints.com
+                  </p>
+                </div>
+              </div>
 
-                {/* TEXTAREA */}
-                <div className="pt-5 text-white flex flex-col">
-                  <label>Comments / Questions</label>
-                  <textarea
-                    placeholder="Comments / Questions"
-                    className="bg-white min-h-[120px] p-3 rounded-lg text-black"
+              <div className="flex flex-wrap gap-3 mt-4 lg:justify-start justify-center items-center">
+                {socialIcons.map(({ Icon, url, name }, i) => (
+                  <Link
+                    key={i}
+                    href={url}
+                    target="_blank"
+                    aria-label={name}
+                    className="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow text-pink-700 hover:bg-pink-600 hover:text-white transition"
+                  >
+                    <Icon className="text-2xl " />
+                  </Link>
+                ))}
+              </div>
+
+              <div data-aos="fade-up" className="section-padding pt-10">
+                <div className=" rounded-xl overflow-hidden shadow-lg">
+                  <iframe
+                    src="https://www.google.com/maps?q=Chicago,USA&output=embed"
+                    className="w-full h-[300px] md:h-[300px]"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT – Form */}
+            <div
+              data-aos="fade-left"
+              className="p-10 bg-white rounded-2xl shadow-lg"
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center lg:text-start">
+                Contact Us If You Need A <br />
+                Custom Design Without Delay!
+              </h2>
+
+              <p className="mb-5 text-yellow-500 text-center lg:text-start">
+                To Make An Appointment, Please Call Us. We Would Love To Pamper
+                You!
+              </p>
+
+              <form className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-pink-600 focus:outline-none transition"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Last Name"
+                    className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-pink-600 focus:outline-none transition"
                   />
                 </div>
-
-                <p className="text-white pt-5 text-sm">
-                  By filling this form, you agree to our Terms & Privacy Policy
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-pink-600 focus:outline-none transition"
+                />
+                <input
+                  type="text"
+                  placeholder="Subject"
+                  className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-pink-600 focus:outline-none transition"
+                />
+                <textarea
+                  placeholder="Message"
+                  className="border border-gray-300 p-4 rounded-lg w-full min-h-[140px] focus:ring-2 focus:ring-pink-600 focus:outline-none transition"
+                />
+                <p className="text-center lg:text-start">
+                  By filling this form, you have read, understood and agreed to
+                  Terms and Condition&apos;s and Privacy Policy
                 </p>
-
-                <button className="mt-6 rounded-full bg-gradient-to-r from-pink-700 to-green-400 px-8 py-3 font-semibold text-white hover:scale-105 transition">
+                <button className="w-full py-4 rounded-full bg-gradient-to-r from-pink-600 to-green-400 text-white font-bold text-lg hover:scale-105 transition-transform">
                   Send Message
                 </button>
-              </div>
-
-              {/* RIGHT SIDE – IMAGE */}
-              <div data-aos="fade-left" className="relative">
-                <Image
-                  src="/AdobeStock_163759063-scaled.jpeg"
-                  alt="Contact"
-                  width={500}
-                  height={500}
-                  className="object-fit w-full h-190"
-                />
-              </div>
+              </form>
             </div>
           </div>
         </section>
 
         {/* Section - 3 */}
-        <section className="px-4 pt-10">
+        <section className="container section-padding mx-auto">
           <Image
             src="/globe.png"
             alt="Logo"
