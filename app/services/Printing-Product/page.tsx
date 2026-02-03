@@ -3,7 +3,7 @@
 import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "aos/dist/aos.css";
 import SmoothScroll from "@/app/Components/SmoothScroll";
 import { TiBusinessCard } from "react-icons/ti";
@@ -21,6 +21,8 @@ import { RiBillLine } from "react-icons/ri";
 import PageLoader from "../../Components/Preloader";
 
 export default function Page() {
+  const [loaderDone, setLoaderDone] = useState(false);
+
   useEffect(() => {
     const initAOS = async () => {
       const AOS = (await import("aos")).default;
@@ -94,7 +96,7 @@ export default function Page() {
 
   return (
     <>
-      <PageLoader />
+      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <Navbar />
       <SmoothScroll>
         {/* Section - 1 */}

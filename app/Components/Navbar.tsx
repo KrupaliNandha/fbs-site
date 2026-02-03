@@ -17,12 +17,12 @@ export default function Navbar() {
   const linkClass = (path: string) =>
     pathname === path
       ? "bg-gradient-to-r from-pink-500 to-green-400 text-white px-3 py-2 rounded-full"
-      : "px-3 py-2 text-black border border-gray-200 rounded-full transition";
+      : "px-3 py-2 text-black transition";
 
   const parentLinkClass = (path: string) =>
     pathname.startsWith(path)
       ? "bg-gradient-to-r from-pink-500 to-green-400 text-white px-3 py-2 rounded-full"
-      : "px-3 py-2 text-black border border-gray-200 rounded-full transition";
+      : "px-3 py-2 text-black transition";
 
   const dropdownLinkClass = (path: string) =>
     pathname === path

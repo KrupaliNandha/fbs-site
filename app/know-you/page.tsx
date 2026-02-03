@@ -80,7 +80,9 @@ function MapIcon({
   return (
     <div
       ref={ref}
-      className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
+      className={`absolute -translate-x-1/2 -translate-y-1/2 ${
+        open ? "z-50" : "z-20"
+      }`}
       style={{ top, left }}
     >
       {/* ICON */}
@@ -108,6 +110,8 @@ function MapIcon({
 
 /* ================= PAGE ================= */
 export default function Page() {
+  const [loaderDone, setLoaderDone] = useState(false);
+
   useEffect(() => {
     import("aos").then((AOS) =>
       AOS.default.init({
@@ -175,8 +179,8 @@ export default function Page() {
       top: "86%",
       left: "27%",
       img: "/icons/stand.png",
-      title: "Shop",
-      desc: "A trusted shop serving your daily needs",
+      title: "Standee Display",
+      desc: "Compact promotional displays ideal for retail spaces.",
       thumb: "/SIMG.png",
     },
     {
@@ -215,7 +219,7 @@ export default function Page() {
 
   return (
     <>
-      <PageLoader />
+      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <Navbar />
       <SmoothScroll>
         {/* SECTION 1 */}
@@ -236,12 +240,12 @@ export default function Page() {
 
                 <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed lg:max-w-md text-center lg:text-start">
                   FBS Prints & Signs showcases an extensive collection of
-                  business signage, awnings, and vehicle wraps we&apos;ve designed
-                  and installed for our clients. Our gallery is organized by
-                  sign type, making it easy to browse options like channel
-                  letters, LED displays, pylon signs, menu boards, and more.
-                  You&apos;ll also find behind-the-scenes photos highlighting the
-                  sign-making process!
+                  business signage, awnings, and vehicle wraps we&apos;ve
+                  designed and installed for our clients. Our gallery is
+                  organized by sign type, making it easy to browse options like
+                  channel letters, LED displays, pylon signs, menu boards, and
+                  more. You&apos;ll also find behind-the-scenes photos
+                  highlighting the sign-making process!
                 </p>
               </div>
 

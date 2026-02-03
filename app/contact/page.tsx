@@ -24,6 +24,8 @@ import {
 } from "react-icons/fa";
 
 export default function Page() {
+  const [loaderDone, setLoaderDone] = useState(false);
+
   const socialIcons = [
     { name: "Twitter", Icon: FaTwitter, url: "https://twitter.com" },
     { name: "LinkedIn", Icon: FaLinkedin, url: "https://linkedin.com" },
@@ -49,7 +51,7 @@ export default function Page() {
 
   return (
     <>
-      <PageLoader />
+      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <Navbar />
       <SmoothScroll>
         {/* Section - 1 */}

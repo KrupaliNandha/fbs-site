@@ -4,7 +4,7 @@ import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "aos/dist/aos.css";
 import SmoothScroll from "@/app/Components/SmoothScroll";
 import Slider from "../Components/Slider";
@@ -20,9 +20,10 @@ import {
   FaSearch,
   FaMobileAlt,
 } from "react-icons/fa";
-import { title } from "process";
 
 export default function Page() {
+  const [loaderDone, setLoaderDone] = useState(false);
+
   useEffect(() => {
     const initAOS = async () => {
       const AOS = (await import("aos")).default;
@@ -71,7 +72,7 @@ export default function Page() {
 
   return (
     <>
-      <PageLoader />
+      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <Navbar />
       <SmoothScroll>
         {/* Section - 1 */}
@@ -147,7 +148,7 @@ export default function Page() {
                   </span>
                 </h1>
 
-                <p className="text-gray-600 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
+                <p className="text-gray-600 text-base md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0">
                   The goal of our business is to offer quick, affordable, and
                   easy service, but we also place a great value on the caliber
                   of our goods. FBS blends quick turnaround time with a keen eye
@@ -155,18 +156,6 @@ export default function Page() {
                   to offering premium printing, graphic design, and signage
                   solutions.
                 </p>
-
-                {/* Stats */}
-                <div className="flex justify-center lg:justify-start gap-8 pt-4">
-                  <div>
-                    <h3 className="text-3xl font-bold text-pink-600">10K+</h3>
-                    <p className="text-sm text-gray-500">Projects Done</p>
-                  </div>
-                  <div>
-                    <h3 className="text-3xl font-bold text-green-600">100%</h3>
-                    <p className="text-sm text-gray-500">Quality Focus</p>
-                  </div>
-                </div>
 
                 {/* CTA */}
                 <div className="pt-6">

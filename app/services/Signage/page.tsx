@@ -10,6 +10,8 @@ import SmoothScroll from "@/app/Components/SmoothScroll";
 import PageLoader from "../../Components/Preloader";
 
 export default function Page() {
+  const [loaderDone, setLoaderDone] = useState(false);
+
   useEffect(() => {
     const initAOS = async () => {
       const AOS = (await import("aos")).default;
@@ -128,7 +130,7 @@ export default function Page() {
 
   return (
     <>
-      <PageLoader />
+      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <Navbar />
       <SmoothScroll>
         {/* Section - 1 */}
