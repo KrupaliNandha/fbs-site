@@ -291,7 +291,7 @@ export default function Page() {
                   Full Service
                 </h3>
                 <p className="text-gray-600 mt-2 text-xl text-center">
-                  End-to-end EDDM execution — from design to your customer’s
+                  End-to-end EDDM execution   from design to your customer’s
                   mailbox.
                 </p>
                 <Image

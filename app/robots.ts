@@ -1,20 +1,17 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/app/lib/seo";
-import { getRequestBaseUrl } from "@/app/lib/request-url";
 
-export const dynamic = "force-dynamic";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fbssigns.com";
 
-export default async function robots(): Promise<MetadataRoute.Robots> {
-  const baseUrl = await getRequestBaseUrl();
-
+export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
+        disallow: ["/_next/", "/api/"],
       },
     ],
     sitemap: absoluteUrl("/sitemap.xml", baseUrl),
-    host: baseUrl,
   };
 }

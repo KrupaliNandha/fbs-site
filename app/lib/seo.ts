@@ -4,6 +4,7 @@ export type PublicPagePath =
   | "/"
   | "/about"
   | "/contact"
+  | "/faq"
   | "/know-you"
   | "/privacy"
   | "/services/printing-products"
@@ -28,19 +29,21 @@ type PageSeoConfig = {
 };
 
 export const siteConfig = {
-  name: "FBS Prints",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fbsprints.com",
-  defaultTitle: "FBS Prints",
+  name: "FBS Signs",
+  alternateName: "FBS Prints",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fbssigns.com",
+  defaultTitle: "FBS Signs",
   defaultDescription:
-    "FBS Prints provides printing products, signage, direct mailing, web design, and SEO services for businesses that want to grow with bold branding and dependable execution.",
+    "FBS Signs provides custom signage, printing products, direct mailing, web design, and SEO services for businesses that want to grow with bold branding and dependable execution.",
   defaultKeywords: [
+    "FBS Signs",
     "FBS Prints",
-    "printing services",
     "signage services",
+    "printing services",
     "direct mailing",
     "web design",
     "SEO services",
-    "Illinois printing company",
+    "Illinois signage company",
   ],
   ogImage: "/images/home/printing-branding-hero.webp",
   locale: "en_US",
@@ -50,14 +53,8 @@ export const siteConfig = {
     { city: "Naperville", stateCode: "IL" },
     { city: "Schaumburg", stateCode: "IL" },
   ],
-  sameAs: [
-    "https://twitter.com",
-    "https://linkedin.com",
-    "https://instagram.com",
-    "https://facebook.com",
-    "https://dribbble.com",
-    "https://behance.net",
-  ],
+  // Add actual social profile URLs here when available — placeholder root domains hurt entity resolution
+  sameAs: [] as string[],
 } as const;
 
 export const supportedHosts = [
@@ -118,6 +115,25 @@ const pageSeo: Record<PublicPagePath, PageSeoConfig> = {
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "Contact Us", path: "/contact" },
+    ],
+  },
+  "/faq": {
+    title: "FAQs About Business Signage & Printing | FBS Signs Illinois",
+    description:
+      "Answers to the most common questions about business signage, LED channel letters, vehicle wraps, EDDM direct mail, and printing services. FBS Signs serves Illinois and nationwide.",
+    keywords: [
+      "business signage FAQ",
+      "LED channel letter signs",
+      "vehicle wrap cost",
+      "EDDM direct mail",
+      "printing FAQ Illinois",
+      "signage company Chicago",
+    ],
+    image: "/images/home/printing-branding-hero.webp",
+    schemaType: "WebPage",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "FAQs", path: "/faq" },
     ],
   },
   "/know-you": {
@@ -337,47 +353,127 @@ export function buildPageMetadata(path: PublicPagePath, baseUrl = siteConfig.url
 }
 
 export function getGlobalSchemas(baseUrl = siteConfig.url) {
+  const orgId = `${absoluteUrl("/", baseUrl)}#organization`;
+  const siteId = `${absoluteUrl("/", baseUrl)}#website`;
+
   return [
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "@id": `${absoluteUrl("/", baseUrl)}#organization`,
+      "@type": ["LocalBusiness", "PrintShop"],
+      "@id": orgId,
       name: siteConfig.name,
+      alternateName: siteConfig.alternateName,
       url: absoluteUrl("/", baseUrl),
-      logo: absoluteUrl("/images/brand/fbs-prints-logo.webp", baseUrl),
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/images/brand/fbs-prints-logo.webp", baseUrl),
+      },
       image: absoluteUrl(siteConfig.ogImage, baseUrl),
+      description: siteConfig.defaultDescription,
       email: siteConfig.email,
       telephone: siteConfig.phone,
-      sameAs: siteConfig.sameAs,
+      priceRange: "$$",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Naperville",
+        addressRegion: "IL",
+        addressCountry: "US",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 41.7508,
+        longitude: -88.1535,
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: "09:00",
+          closes: "18:00",
+        },
+      ],
+      areaServed: [
+        { "@type": "State", name: "Illinois" },
+        { "@type": "Country", name: "United States" },
+      ],
+      knowsAbout: [
+        "Business Signage",
+        "LED Channel Letters",
+        "Monument Signs",
+        "Vehicle Wraps",
+        "Window Graphics",
+        "Commercial Printing",
+        "Every Door Direct Mail",
+        "Large Format Printing",
+        "Web Design",
+        "Search Engine Optimization",
+      ],
       contactPoint: [
         {
           "@type": "ContactPoint",
           contactType: "customer service",
           telephone: siteConfig.phone,
           email: siteConfig.email,
-          areaServed: siteConfig.serviceAreas.map(
-            (area) => `${area.city}, ${area.stateCode}`,
-          ),
+          areaServed: "US",
           availableLanguage: "en",
         },
       ],
-      address: {
-        "@type": "PostalAddress",
-        addressRegion: "Illinois",
-        addressCountry: "US",
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Signage and Printing Services",
+        itemListElement: [
+          {
+            "@type": "OfferCatalog",
+            name: "Business Signage",
+            description:
+              "Custom business signs including LED channel letters, monument signs, pylon signs, vehicle wraps, window graphics, and banner stands.",
+          },
+          {
+            "@type": "OfferCatalog",
+            name: "Printing Products",
+            description:
+              "Business cards, brochures, flyers, banners, menus, and large-format printing.",
+          },
+          {
+            "@type": "OfferCatalog",
+            name: "Direct Mailing",
+            description:
+              "End-to-end EDDM direct mail campaigns including design, print, bundling, and delivery.",
+          },
+          {
+            "@type": "OfferCatalog",
+            name: "Web Design",
+            description:
+              "Responsive business websites for stronger online visibility and lead conversion.",
+          },
+          {
+            "@type": "OfferCatalog",
+            name: "SEO Services",
+            description:
+              "Technical SEO, local SEO, on-page optimization, and monthly reporting.",
+          },
+        ],
       },
+      ...(siteConfig.sameAs.length > 0 && { sameAs: siteConfig.sameAs }),
     },
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "@id": `${absoluteUrl("/", baseUrl)}#website`,
+      "@id": siteId,
       name: siteConfig.name,
+      alternateName: siteConfig.alternateName,
       url: absoluteUrl("/", baseUrl),
       description: siteConfig.defaultDescription,
-      publisher: {
-        "@id": `${absoluteUrl("/", baseUrl)}#organization`,
-      },
+      publisher: { "@id": orgId },
       inLanguage: "en-US",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${absoluteUrl("/", baseUrl)}?s={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
     },
   ];
 }
@@ -387,6 +483,121 @@ export function getRouteSchemas(path: PublicPagePath, baseUrl = siteConfig.url) 
   const url = absoluteUrl(path, baseUrl);
   const pageId = `${url}#webpage`;
   const breadcrumbId = `${url}#breadcrumb`;
+  const orgId = `${absoluteUrl("/", baseUrl)}#organization`;
+  const siteId = `${absoluteUrl("/", baseUrl)}#website`;
+
+  const faqSchemas: Partial<Record<PublicPagePath, object>> = {
+    "/": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": `${absoluteUrl("/", baseUrl)}#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What services does FBS Signs offer?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "FBS Signs offers custom business signage, commercial printing products, direct mailing campaigns, web design, and SEO services. We serve businesses in Illinois and nationwide with full-service branding and marketing solutions.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What types of business signs does FBS Signs make?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "FBS Signs produces LED channel letters, monument signs, pylon signs, vehicle wraps, window graphics, custom neon LED signs, banner stands, advertising flags, canopy and awning signs, LED light boxes, trade show displays, yard signs, and A-frame signicades.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does FBS Signs serve clients outside of Illinois?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. While FBS Signs is headquartered in Illinois serving Naperville and Schaumburg, we serve clients nationwide. Our printing, signage fabrication, and digital services can be delivered to businesses across the United States.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How do I get a quote for signage or printing?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Contact FBS Signs by phone at 1-855-222-1133 or by submitting the contact form on our website. Share your project type, dimensions, quantity, and timeline and we will provide a custom quote.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does FBS Signs handle both design and fabrication for signs?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. FBS Signs handles the full signage workflow including design, fabrication, and installation guidance. We work with client brand specifications and local municipal regulations to produce signs that meet your exact requirements.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can FBS Signs handle direct mail campaigns end to end?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Our direct mailing service covers design, print production, route targeting, bundling, and mail-ready preparation. Businesses can manage the full campaign through a single vendor.",
+          },
+        },
+      ],
+    },
+    "/services/signage": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": `${absoluteUrl("/services/signage", baseUrl)}#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What types of signage does FBS Signs provide?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "FBS Signs provides LED channel letters, monument signs, pylon signs, vehicle wraps, window graphics, window lettering, custom neon LED signs, LED light boxes, LED message boards, banner stands, advertising flags, canopy and awning signs, trade show display products, A-frame signicades, and yard signs.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is an LED channel letter sign?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "LED channel letters are three-dimensional individual letter signs illuminated from within using low-wattage LED lighting. They are the most common exterior sign type for businesses in shopping centers because they offer high visibility, energy efficiency, and can be customized to match brand colors and fonts.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does FBS Signs fabricate illuminated signs like channel letters?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Illuminated channel letters are among our most popular sign types. We fabricate LED channel letters for shopping center storefronts and commercial buildings using low-wattage LED lights and working within landlord specifications and municipal regulations.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can FBS Signs wrap vehicles for business fleets?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. We offer full vehicle wraps and partial vehicle graphics for single vehicles and commercial fleets. Vehicle graphics turn company vehicles into mobile advertising and brand visibility assets.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What areas does FBS Signs serve for commercial signage?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "FBS Signs is based in Illinois and primarily serves Naperville, Schaumburg, and the greater Chicagoland area. We are also a nationwide signage fabricator and serve commercial clients across the United States.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How do I request a signage quote from FBS Signs?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Contact FBS Signs at 1-855-222-1133 with your sign type, intended location, approximate dimensions, and timeline. We will review your requirements and provide a custom quote.",
+          },
+        },
+      ],
+    },
+  };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -408,23 +619,21 @@ export function getRouteSchemas(path: PublicPagePath, baseUrl = siteConfig.url) 
     description: page.description,
     url,
     inLanguage: "en-US",
-    isPartOf: {
-      "@id": `${absoluteUrl("/", baseUrl)}#website`,
-    },
-    about: {
-      "@id": `${absoluteUrl("/", baseUrl)}#organization`,
-    },
-    breadcrumb: {
-      "@id": breadcrumbId,
-    },
+    isPartOf: { "@id": siteId },
+    about: { "@id": orgId },
+    breadcrumb: { "@id": breadcrumbId },
     primaryImageOfPage: {
       "@type": "ImageObject",
       url: absoluteUrl(page.image, baseUrl),
     },
   };
 
+  const faqSchema = faqSchemas[path];
+
   if (!page.serviceType) {
-    return [breadcrumbSchema, pageSchema];
+    return faqSchema
+      ? [breadcrumbSchema, pageSchema, faqSchema]
+      : [breadcrumbSchema, pageSchema];
   }
 
   const serviceSchema = {
@@ -436,14 +645,14 @@ export function getRouteSchemas(path: PublicPagePath, baseUrl = siteConfig.url) 
     description: page.description,
     url,
     image: absoluteUrl(page.image, baseUrl),
-    provider: {
-      "@id": `${absoluteUrl("/", baseUrl)}#organization`,
-    },
-    areaServed: siteConfig.serviceAreas.map((area) => ({
-      "@type": "City",
-      name: area.city,
-    })),
+    provider: { "@id": orgId },
+    areaServed: [
+      { "@type": "State", name: "Illinois" },
+      { "@type": "Country", name: "United States" },
+    ],
   };
 
-  return [breadcrumbSchema, pageSchema, serviceSchema];
+  return faqSchema
+    ? [breadcrumbSchema, pageSchema, serviceSchema, faqSchema]
+    : [breadcrumbSchema, pageSchema, serviceSchema];
 }

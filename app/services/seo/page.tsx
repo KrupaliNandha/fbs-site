@@ -74,17 +74,12 @@ export default function Page() {
     {
       image: "/icons/content-creation-optimization.png",
       title: "Content Creation & Optimization",
-      desc: "Get found by customers near you! We optimize your Google Business Profile, local citations, and location-based keywords so you dominate local searches.",
+      desc: "We create and optimize high-quality content that targets the right keywords, answers your customers' questions, and establishes your brand as an industry authority.",
     },
     {
       image: "/icons/link-building-authority-growth.png",
       title: "Link Building & Authority Growth",
       desc: "We build high quality backlinks that increase your website’s credibility and push you higher on search engines.",
-    },
-    {
-      image: "/icons/tracking-reporting.png",
-      title: "Tracking & Reporting",
-      desc: "You’ll receive transparent reports that show keyword rankings, traffic growth, and ROI. No fluff, just results.",
     },
     {
       image: "/icons/tracking-reporting.png",
@@ -312,14 +307,14 @@ export default function Page() {
         <section className="container section-padding">
           <div>
             <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold text-pink-700">
-              Do not wait – start your SEO journey with FBS PRINTING now!
+              Ready to grow? Start your SEO journey with FBS Signs today.
             </h2>
           </div>
           <div className="max-w-4xl mx-auto px-4">
             <p className="text-center text-xl md:text-2xl font-medium text-gray-700 leading-relaxed pt-8">
-              Feel free to adapt and customize this content to best represent
-              <span className="font-semibold text-gray-900"> FBS PRINTING</span>
-              &apos;s unique services, values, and branding.
+              Whether you are starting from scratch or looking to outrank established competitors,{" "}
+              <span className="font-semibold text-gray-900">FBS Signs</span>{" "}
+              builds an SEO strategy around your business goals — not a generic template. Contact us for a free audit and let us show you exactly where you stand.
             </p>
           </div>
         </section>

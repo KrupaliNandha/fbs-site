@@ -1,31 +1,32 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl, publicPagePaths } from "@/app/lib/seo";
-import { getRequestBaseUrl } from "@/app/lib/request-url";
 import { getServiceLocationPages } from "@/app/lib/service-location-pages";
 
-export const dynamic = "force-dynamic";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fbssigns.com";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = await getRequestBaseUrl();
+const corePageLastModified: Record<string, string> = {
+  "/": "2026-06-04",
+  "/about": "2026-05-01",
+  "/contact": "2026-05-01",
+  "/faq": "2026-06-04",
+  "/know-you": "2026-05-01",
+  "/privacy": "2026-04-01",
+  "/services/printing-products": "2026-05-15",
+  "/services/direct-mailing": "2026-05-15",
+  "/services/signage": "2026-05-15",
+  "/services/web-design": "2026-05-15",
+  "/services/seo": "2026-06-04",
+};
+
+export default function sitemap(): MetadataRoute.Sitemap {
   const corePages: MetadataRoute.Sitemap = publicPagePaths.map((path) => ({
     url: absoluteUrl(path, baseUrl),
-    lastModified: new Date(),
-    changeFrequency: path === "/" ? ("weekly" as const) : ("monthly" as const),
-    priority:
-      path === "/"
-        ? 1
-        : path.startsWith("/services/")
-          ? 0.9
-          : path === "/privacy"
-            ? 0.4
-            : 0.8,
+    lastModified: new Date(corePageLastModified[path] ?? "2026-05-01"),
   }));
 
   const serviceLocationPages: MetadataRoute.Sitemap = getServiceLocationPages().map((page) => ({
     url: absoluteUrl(page.path, baseUrl),
     lastModified: new Date(page.location.updatedAt),
-    changeFrequency: "monthly" as const,
-    priority: 0.85,
   }));
 
   return [...corePages, ...serviceLocationPages];

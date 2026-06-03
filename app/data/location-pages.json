@@ -48,5 +48,155 @@
     ],
     "ctaNote": "Share the project details, timeline, and service mix you need in Schaumburg and we will help you plan the most effective rollout.",
     "updatedAt": "2026-04-08"
+  },
+  {
+    "slug": "chicago-il",
+    "city": "Chicago",
+    "state": "Illinois",
+    "stateCode": "IL",
+    "heroBadge": "Chicago Service Area",
+    "marketSummary": "We serve Chicago businesses across the Loop, North Side, South Side, and suburban corridors with signage, printing, direct mail, web design, and SEO built for one of the country's most competitive commercial markets.",
+    "nearbyAreas": [
+      "The Loop",
+      "River North",
+      "Wicker Park",
+      "Lincoln Park",
+      "South Loop",
+      "Near West Side and Chicago neighborhoods"
+    ],
+    "businessNeeds": [
+      "High-visibility storefront signage for competitive Chicago retail districts",
+      "Restaurant and hospitality print collateral at scale",
+      "EDDM campaigns targeting Chicago neighborhood zip codes",
+      "Conversion-focused websites for Chicago-area service businesses",
+      "Local SEO to rank in Chicago neighborhood and city-wide searches"
+    ],
+    "ctaNote": "Tell us what your Chicago business needs to stand out — from storefront signage to a full multi-channel campaign — and we will build the right plan.",
+    "updatedAt": "2026-06-03"
+  },
+  {
+    "slug": "aurora-il",
+    "city": "Aurora",
+    "state": "Illinois",
+    "stateCode": "IL",
+    "heroBadge": "Aurora Service Area",
+    "marketSummary": "Aurora is one of Illinois' fastest-growing cities. We help Aurora businesses establish consistent branding across signage, print, direct mail, and digital channels to compete in the expanding DuPage and Kane County market.",
+    "nearbyAreas": [
+      "Downtown Aurora",
+      "Fox Valley area",
+      "Eola Road corridor",
+      "North Aurora",
+      "Route 59 corridor",
+      "Naperville border areas"
+    ],
+    "businessNeeds": [
+      "Exterior signage for Aurora's retail and commercial corridors",
+      "Print materials for Aurora's growing restaurant and service industries",
+      "Direct mail targeting Aurora and Fox Valley residential routes",
+      "Local search optimization for Aurora neighborhood queries",
+      "Business websites for Aurora-based contractors and service providers"
+    ],
+    "ctaNote": "Let us know what you need to grow your Aurora business and we will put together the right combination of print, signage, and digital services.",
+    "updatedAt": "2026-06-03"
+  },
+  {
+    "slug": "joliet-il",
+    "city": "Joliet",
+    "state": "Illinois",
+    "stateCode": "IL",
+    "heroBadge": "Joliet Service Area",
+    "marketSummary": "We support Joliet businesses across Will County with practical, dependable branding services including commercial signage, printing, direct mail, and digital marketing that match the scale of the local market.",
+    "nearbyAreas": [
+      "Downtown Joliet",
+      "Plainfield Road corridor",
+      "Caton Farm area",
+      "West Joliet",
+      "Rockdale",
+      "Will County business parks"
+    ],
+    "businessNeeds": [
+      "Commercial signage for Joliet's retail and manufacturing businesses",
+      "Print collateral for Joliet service businesses and contractors",
+      "EDDM direct mail covering Will County residential routes",
+      "SEO for Joliet and Will County service-area searches",
+      "Website design for Joliet-area businesses launching online"
+    ],
+    "ctaNote": "Share your project needs in Joliet and we will recommend the most cost-effective mix of print, signage, and digital services for your business.",
+    "updatedAt": "2026-06-03"
+  },
+  {
+    "slug": "elgin-il",
+    "city": "Elgin",
+    "state": "Illinois",
+    "stateCode": "IL",
+    "heroBadge": "Elgin Service Area",
+    "marketSummary": "We help Elgin businesses in Kane County build consistent brand presence with signage, printing, and digital services tailored to the suburban Chicago market along the Route 20 and I-90 corridors.",
+    "nearbyAreas": [
+      "Downtown Elgin",
+      "South Elgin",
+      "Streamwood border",
+      "Carpentersville area",
+      "Bartlett corridor",
+      "Hoffman Estates nearby areas"
+    ],
+    "businessNeeds": [
+      "Storefront and commercial signage for Elgin's retail districts",
+      "Print materials for Elgin restaurants, offices, and service businesses",
+      "Direct mail campaigns targeting Elgin and Kane County zip codes",
+      "Local SEO to rank for Elgin and northwest suburban searches",
+      "Website development for Elgin-based small businesses"
+    ],
+    "ctaNote": "Tell us what your Elgin business needs and we will build a plan around signage, print, or digital that fits your budget and market.",
+    "updatedAt": "2026-06-03"
+  },
+  {
+    "slug": "bolingbrook-il",
+    "city": "Bolingbrook",
+    "state": "Illinois",
+    "stateCode": "IL",
+    "heroBadge": "Bolingbrook Service Area",
+    "marketSummary": "Bolingbrook's mix of commercial corridors, retail centers, and industrial parks creates strong demand for professional signage and print services. We help Bolingbrook businesses stand out with coordinated branding across every channel.",
+    "nearbyAreas": [
+      "Promenade Bolingbrook area",
+      "Route 53 commercial corridor",
+      "Veterans Pkwy business district",
+      "Romeoville border",
+      "Woodridge nearby areas",
+      "Lisle and Downers Grove corridors"
+    ],
+    "businessNeeds": [
+      "Signage for Bolingbrook's retail centers and commercial buildings",
+      "Print collateral for Bolingbrook office and service businesses",
+      "EDDM targeting Bolingbrook and Will County residential areas",
+      "Website design for Bolingbrook-based businesses growing online",
+      "SEO for Bolingbrook and southwest suburban search queries"
+    ],
+    "ctaNote": "Let us know what you need to strengthen your Bolingbrook business presence and we will recommend the right services and next steps.",
+    "updatedAt": "2026-06-03"
+  },
+  {
+    "slug": "downers-grove-il",
+    "city": "Downers Grove",
+    "state": "Illinois",
+    "stateCode": "IL",
+    "heroBadge": "Downers Grove Service Area",
+    "marketSummary": "We serve Downers Grove businesses in DuPage County with professional signage, commercial printing, direct mail, and digital marketing that match the expectations of one of Chicago's most established western suburban markets.",
+    "nearbyAreas": [
+      "Downtown Downers Grove",
+      "Ogden Avenue corridor",
+      "Finley Road commercial area",
+      "Lisle border",
+      "Westmont nearby areas",
+      "Oak Brook and Lombard corridors"
+    ],
+    "businessNeeds": [
+      "Professional signage for Downers Grove retail and office spaces",
+      "Business print materials for DuPage County service businesses",
+      "Direct mail campaigns targeting Downers Grove residential zip codes",
+      "Local SEO to rank in Downers Grove and DuPage County searches",
+      "Website design for Downers Grove professional service firms"
+    ],
+    "ctaNote": "Share your Downers Grove project details and we will put together a plan for signage, print, or digital that fits your business goals.",
+    "updatedAt": "2026-06-03"
   }
 ]
