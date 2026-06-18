@@ -30,12 +30,12 @@ export default function HomeContactSection() {
       <FloatingToast submissionState={toastState} visible={showToast} />
       <section className="container section-padding">
         <div className="grid grid-cols-1 lg:grid-cols-3 rounded-3xl shadow-xl overflow-hidden">
-          <div className="relative text-white flex flex-col justify-center gap-14 p-10">
+          <div className="relative text-white flex flex-col justify-center gap-14 p-10 z-0">
             <Image
               src="/images/home/contact-section-background.webp"
               alt=""
               fill
-              className="object-cover -z-10 opocity-50 blur-sm"
+              className="object-cover -z-10 opacity-50 blur-sm"
             />
             <div className="absolute inset-0 bg-black/5"></div>
 
@@ -68,7 +68,8 @@ export default function HomeContactSection() {
                 </span>
               </h2>
               <p className="mt-4 text-gray-600">
-                To make an appointment, please call us. We&apos;d love to pamper you!
+                To make an appointment, please call us. We&apos;d love to pamper
+                you!
               </p>
             </div>
             <ContactFormSubmit
