@@ -8,9 +8,9 @@ import "aos/dist/aos.css";
 import SmoothScroll from "@/app/Components/SmoothScroll";
 import Slider from "../Components/Slider";
 import Link from "next/link";
-import Web3ContactForm, {
+import ContactFormSubmit, {
   type SubmissionState,
-} from "../Components/Web3ContactForm";
+} from "../Components/ContactFormSubmit";
 import FloatingToast from "../Components/FloatingToast";
 
 import PageLoader from "../Components/Preloader";
@@ -262,7 +262,7 @@ export default function Page() {
                 You!
               </p>
 
-              <Web3ContactForm
+              <ContactFormSubmit
                 variant="contact"
                 accessKey="8f9e2665-bede-4f1c-a786-da376d65cf7c"
                 onSubmissionStateChange={handleSubmissionStateChange}

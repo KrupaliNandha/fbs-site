@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
-import Web3ContactForm, { type SubmissionState } from "./Web3ContactForm";
+import ContactFormSubmit, { type SubmissionState } from "./ContactFormSubmit";
 import FloatingToast from "./FloatingToast";
 
 export default function HomeContactSection() {
@@ -22,7 +22,7 @@ export default function HomeContactSection() {
       return;
     }
     setShowToast(true);
-    timerRef.current = window.setTimeout(() => setShowToast(false), 3500);
+    timerRef.current = window.setTimeout(() => setShowToast(false), 1500);
   }
 
   return (
@@ -71,7 +71,7 @@ export default function HomeContactSection() {
                 To make an appointment, please call us. We&apos;d love to pamper you!
               </p>
             </div>
-            <Web3ContactForm
+            <ContactFormSubmit
               variant="home"
               onSubmissionStateChange={handleSubmission}
             />

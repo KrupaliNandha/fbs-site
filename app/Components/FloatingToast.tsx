@@ -1,6 +1,6 @@
 "use client";
 
-import type { SubmissionState } from "./Web3ContactForm";
+import type { SubmissionState } from "./ContactFormSubmit";
 
 type FloatingToastProps = {
   submissionState: SubmissionState;
