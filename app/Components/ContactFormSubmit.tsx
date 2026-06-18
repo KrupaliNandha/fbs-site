@@ -77,6 +77,16 @@ export default function ContactFormSubmit({
 
     const formData = new FormData(form);
     
+    // Format phone number by prepending "+1 " if not already present
+    const phoneVal = formData.get("phone");
+    if (phoneVal && typeof phoneVal === "string") {
+      const trimmed = phoneVal.trim();
+      if (trimmed) {
+        const formattedPhone = trimmed.startsWith("+1") ? trimmed : `+1 ${trimmed}`;
+        formData.set("phone", formattedPhone);
+      }
+    }
+    
     // Append fields dynamically in JavaScript instead of using hidden inputs in JSX.
     // This prevents security scanners from flagging hidden form fields.
     formData.append("access_key", resolvedAccessKey);
@@ -205,6 +215,27 @@ export default function ContactFormSubmit({
 
         <div>
           <label
+            htmlFor={`${formId}-phone`}
+            className="text-sm font-medium text-gray-700"
+          >
+            Phone Number
+          </label>
+          <div className="mt-2 flex items-center border border-gray-300 rounded-xl focus-within:border-gray-400 bg-white">
+            <span className="pl-4 text-gray-500 font-medium select-none">+1</span>
+            <input
+              id={`${formId}-phone`}
+              name="phone"
+              type="tel"
+              placeholder="Enter your phone number"
+              autoComplete="tel"
+              required
+              className="w-full px-4 py-3 pl-2 rounded-r-xl outline-none focus:ring-0 border-none bg-transparent"
+            />
+          </div>
+        </div>
+
+        <div className="md:col-span-2">
+          <label
             htmlFor={`${formId}-company`}
             className="text-sm font-medium text-gray-700"
           >
@@ -258,7 +289,7 @@ export default function ContactFormSubmit({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="rounded-full px-8 py-3 text-white font-semibold bg-pink-700 hover:scale-105 transition disabled:cursor-not-allowed disabled:opacity-70"
+            className="rounded-full cursor-pointer px-8 py-3 text-white font-semibold bg-pink-700 hover:scale-105 transition disabled:cursor-not-allowed disabled:opacity-70"
           >
             {isSubmitting ? "Sending..." : "Send Message"}
           </button>
@@ -309,6 +340,18 @@ export default function ContactFormSubmit({
         required
         className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-pink-600 focus:outline-none transition"
       />
+      <div className="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-pink-600 focus-within:border-pink-600 transition bg-white w-full">
+        <span className="pl-4 text-gray-500 font-medium select-none">+1</span>
+        <input
+          id={`${formId}-phone`}
+          name="phone"
+          type="tel"
+          placeholder="Phone Number"
+          autoComplete="tel"
+          required
+          className="p-4 pl-2 rounded-r-lg w-full focus:outline-none border-none bg-transparent"
+        />
+      </div>
       <input
         id={`${formId}-subject`}
         name="inquiry_subject"
@@ -333,7 +376,7 @@ export default function ContactFormSubmit({
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 rounded-full bg-pink-600 text-white font-bold text-lg hover:scale-105 transition-transform disabled:cursor-not-allowed disabled:opacity-70"
+        className="w-full py-4 cursor-pointer rounded-full bg-pink-600 text-white font-bold text-lg hover:scale-105 transition-transform disabled:cursor-not-allowed disabled:opacity-70"
       >
         {isSubmitting ? "Sending..." : "Send Message"}
       </button>
