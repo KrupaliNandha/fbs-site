@@ -264,7 +264,6 @@ export default function Page() {
 
               <ContactFormSubmit
                 variant="contact"
-                accessKey="8f9e2665-bede-4f1c-a786-da376d65cf7c"
                 onSubmissionStateChange={handleSubmissionStateChange}
               />
             </div>

@@ -23,8 +23,14 @@ const WEB3FORMS_ENDPOINT = `https://${API_DOMAIN}${SUBMIT_PATH}`;
 const WEB3FORMS_ACCESS_KEY =
   process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ??
   "YOUR_WEB3FORMS_ACCESS_KEY";
-const CONTACT_FORM_DRY_RUN =
-  process.env.NEXT_PUBLIC_CONTACT_FORM_DRY_RUN === "true";
+
+type Web3FormsResponse = {
+  success?: boolean;
+  message?: string;
+  body?: {
+    message?: string;
+  };
+};
 
 export default function ContactFormSubmit({
   variant,
@@ -58,15 +64,6 @@ export default function ContactFormSubmit({
       return;
     }
 
-    if (CONTACT_FORM_DRY_RUN) {
-      form.reset();
-      updateSubmissionState({
-        type: "success",
-        message: "Test submission completed successfully.",
-      });
-      return;
-    }
-
     if (resolvedAccessKey === "YOUR_WEB3FORMS_ACCESS_KEY") {
       updateSubmissionState({
         type: "error",
@@ -76,28 +73,31 @@ export default function ContactFormSubmit({
     }
 
     const formData = new FormData(form);
-    
-    // Format phone number by prepending "+1 " if not already present
-    const phoneVal = formData.get("phone");
-    if (phoneVal && typeof phoneVal === "string") {
-      const trimmed = phoneVal.trim();
-      if (trimmed) {
-        const formattedPhone = trimmed.startsWith("+1") ? trimmed : `+1 ${trimmed}`;
-        formData.set("phone", formattedPhone);
-      }
+    const phoneValue = formData.get("phone");
+    const rawPhone = typeof phoneValue === "string" ? phoneValue.trim() : "";
+
+    if (rawPhone) {
+      formData.set("phone", rawPhone.startsWith("+1") ? rawPhone : `+1 ${rawPhone}`);
     }
-    
-    // Append fields dynamically in JavaScript instead of using hidden inputs in JSX.
-    // This prevents security scanners from flagging hidden form fields.
+
+    const inquirySubject = formData.get("inquiry_subject");
+    const customSubject =
+      typeof inquirySubject === "string" ? inquirySubject.trim() : "";
+
     formData.append("access_key", resolvedAccessKey);
     formData.append(
       "subject",
-      isHomeVariant ? "New contact form submission" : "New contact page submission"
+      customSubject
+        ? `New inquiry: ${customSubject}`
+        : isHomeVariant
+          ? "New contact form submission"
+          : "New contact page submission"
     );
     formData.append(
       "from_name",
       isHomeVariant ? "FBS Prints Website" : "FBS Prints Contact Page"
     );
+    formData.append("replyto", String(formData.get("email") ?? "").trim());
 
     setIsSubmitting(true);
     updateSubmissionState({ type: "idle", message: "" });
@@ -105,26 +105,30 @@ export default function ContactFormSubmit({
     try {
       const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
         body: formData,
       });
 
-      const result = (await response.json()) as {
-        success?: boolean;
-        message?: string;
-      };
+      const result = (await response.json()) as Web3FormsResponse;
+      const responseMessage =
+        result.body?.message ??
+        result.message ??
+        "Something went wrong. Please try again.";
 
       if (response.ok && result.success) {
         form.reset();
         updateSubmissionState({
           type: "success",
-          message: "Your message has been sent successfully.",
+          message: responseMessage,
         });
         return;
       }
 
       updateSubmissionState({
         type: "error",
-        message: result.message ?? "Something went wrong. Please try again.",
+        message: responseMessage,
       });
     } catch {
       updateSubmissionState({
