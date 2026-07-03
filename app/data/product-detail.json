@@ -345,10 +345,7 @@
       "Do not reposition guidelines.",
       "Design on layer labelled 'Artwork'.",
       "Delete mask/guide layers when instructed by template."
-    ]
-  },
-  "installationGuide": {
-    "title": "Installation Guide",
+    ],
     "steps": [
       {
         "step": 1,

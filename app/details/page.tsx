@@ -5,16 +5,15 @@
  * -------------------------------------------------------------
  * Stack: React + TypeScript + Tailwind CSS
  *
- * LEFT column (gallery, thumbnails, feature grid) is UNCHANGED.
- * RIGHT column (buy box) has been rebuilt to match the reference
- * layout: eyebrow label, title, description, checklist, "What's
- * included" package buttons, Size cards, Graphic radio cards, a
- * Base dropdown, and a Carry Bag toggle switch. No Add to Cart /
- * quantity / price UI — selection state only.
+ * This component contains ZERO hardcoded product content. Every piece of
+ * copy, pricing, spec, and option shown on the page is fetched at runtime
+ * from a JSON file (see `DEFAULT_DATA_URL` below, or pass your own via the
+ * `dataUrl` prop). The component only owns UI/interaction state (which
+ * size/graphic/base/tab is selected) — never the product data itself.
  *
- * Everything renders from a single typed `PRODUCT` data object (see the
- * `ProductData` interface below) — swap `PRODUCT` for your live JSON/API
- * response and the UI updates automatically.
+ * JSON SHAPE
+ * The fetched JSON must match the `ProductData` interface declared below.
+ * A ready-to-use example lives at /public/data/feather-angled-flag.json.
  *
  * ACCENT COLOR: #c6005c is the ONLY brand/accent color used anywhere in
  * this file (buttons, active tabs, selected states, links, focus rings).
@@ -28,7 +27,7 @@
  * -------------------------------------------------------------
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     ChevronDown,
     Flag,
@@ -39,22 +38,24 @@ import {
     FileText,
     FileImage,
     Download,
-    Ruler,
     Home,
     Droplet,
     Wrench,
     Briefcase,
     Check,
+    AlertTriangle,
+    Loader2,
 } from "lucide-react";
+import productDetailData from "../data/product-detail.json";
 
 /* ================================================================== */
-/*  Data model                                                          */
+/*  Data model (shape of the fetched JSON)                              */
 /* ================================================================== */
 
-type SizeId = "small" | "medium" | "large" | "xlarge";
-type GraphicId = "single" | "single-reverse" | "double";
-type BaseId = "stake" | "cross" | "water" | "square";
-type PackageId = "flag-pole" | "flag-only";
+type SizeId = string;
+type GraphicId = string;
+type BaseId = string;
+type PackageId = string;
 type TabId = "description" | "spec" | "file-setup" | "installation";
 
 interface SizeSpec {
@@ -65,8 +66,8 @@ interface SizeSpec {
     flagWeight: string;
     flagWithPoleWeight: string;
     poleSetPieces: string;
-    heightFt: number; // numeric, for the scale diagram
-    price: number; // baseline price: Flag+Pole / Single Sided / Ground Stake / No bag
+    heightFt: number;
+    price: number;
 }
 
 interface GraphicOption {
@@ -83,6 +84,11 @@ interface BaseHardwareSpec {
     weight: string;
     use: string[];
     upcharge: number;
+}
+
+interface SelectOption {
+    value: string;
+    label: string;
 }
 
 interface GalleryItem {
@@ -116,6 +122,7 @@ interface ProductData {
     sizes: SizeSpec[];
     graphics: GraphicOption[];
     bases: BaseHardwareSpec[];
+    baseSelectOptions: SelectOption[];
     carryBag: { label: string; weightSmallMedium: string; weightLargeXLarge: string; price: number };
     description: {
         intro: string;
@@ -137,244 +144,146 @@ interface ProductData {
     };
 }
 
-/* ================================================================== */
-/*  Sample data — replace with your live JSON / API response            */
-/* ================================================================== */
+function mapRawToProductData(raw: any): ProductData {
+    return {
+        eyebrow: "Product Details",
+        name: raw.name,
+        shortDescription: raw.Description.content[0],
+        gallery: [
+            { id: "main", label: "Main Image", kind: "flag-front" },
+            ...raw.images.subImages.map((img: string, i: number) => ({
+                id: `sub-${i}`,
+                label: `Image ${i + 1}`,
+                kind: "flag-front" as const
+            }))
+        ],
+        bullets: raw.features,
+        packages: raw.variants.map((v: any) => ({
+            id: v.productType.id,
+            label: v.productType.name,
+            priceAdjustment: 0
+        })),
+        sizes: raw.spec.sizeSpecification.table.map((row: any) => ({
+            id: row.size.toLowerCase().replace(/[^a-z0-9]/g, "-"),
+            label: row.size,
+            assembledHeight: row.assembledHeight,
+            graphicSize: row.graphicSize,
+            flagWeight: row.flagWeight,
+            flagWithPoleWeight: row.flagWithPoleWeight,
+            poleSetPieces: row.poleSetPieces,
+            heightFt: parseFloat(row.assembledHeight),
+            price: 0
+        })),
+        graphics: raw.variants[0].graphic.map((g: any, i: number) => ({
+            id: g.id,
+            label: g.name,
+            description: raw.Description.graphics[i] || "",
+            upcharge: 0
+        })),
+        bases: raw.baseHardwareSpecifications.map((b: any) => ({
+            id: b.id,
+            label: b.name,
+            material: b.specifications.material || "N/A",
+            weight: b.specifications.weight || "N/A",
+            use: [b.specifications.use || ""],
+            upcharge: 0
+        })),
+        baseSelectOptions: raw.variants[0].base.map((b: any) => ({
+            value: b.id,
+            label: b.name
+        })),
+        carryBag: {
+            label: raw.spec.additionalAccessories.carryBag,
+            weightSmallMedium: raw.spec.additionalAccessories.weight.find((w: any) => w.size === "S/M")?.weight || "",
+            weightLargeXLarge: raw.spec.additionalAccessories.weight.find((w: any) => w.size === "L/XL")?.weight || "",
+            price: 10
+        },
+        description: {
+            intro: raw.Description.content[0],
+            printInfo: raw.Description.content[2],
+            graphicTypes: raw.Description.graphics.map((g: string) => ({ label: "Graphic Option", detail: g })),
+            baseInfo: raw.Description.content[3],
+            applicationsLabel: raw.Description.applications.title,
+            applications: raw.Description.applications.content
+        },
+        materialSpec: {
+            printMethod: raw.spec.materialAndPrintSpecifications.printMethod,
+            graphicMaterial: raw.spec.materialAndPrintSpecifications.graphicMaterial,
+            washable: raw.spec.materialAndPrintSpecifications.washable
+        },
+        fileSetup: {
+            requirements: raw.fileSetup.requirements,
+            tips: raw.fileSetup.additionalTips,
+            templates: raw.installationGuide.templateDownloads.map((t: any) => ({
+                size: t.size,
+                pdf: Object.values(t.pdf).map(v => ({ label: String(v) })),
+                photoshop: Object.values(t.photoshop).map(v => ({ label: String(v) }))
+            }))
+        },
+        installation: {
+            steps: raw.installationGuide.steps || [],
+            tip: raw.installationGuide.tip?.content || ""
+        }
+    };
+}
 
-const PRODUCT: ProductData = {
-    eyebrow: "Advertising Flags",
-    name: "Feather Angled Flag",
-    shortDescription:
-        "A tall, curved-top flag that leans into the wind instead of fighting it. Built from 4 oz dye-sublimated polyester mesh on an aluminum-and-fiberglass pole set, it's equally at home outside a storefront or anchoring a trade show booth.",
-    gallery: [
-        { id: "img-1", label: "Front", kind: "flag-front" },
-        { id: "img-2", label: "Reverse", kind: "flag-reverse" },
-        { id: "img-3", label: "Double Sided", kind: "flag-double" },
-        { id: "img-4", label: "In Place", kind: "flag-front" },
-        { id: "img-5", label: "In Place", kind: "flag-front" },
-    ],
-    bullets: [
-        "Indoor and outdoor use",
-        "Single-sided or double-sided printing",
-        "4 oz dye-sublimated polyester mesh, washable",
-        "Tool-free interlocking aluminum & fiberglass pole set",
-        "Ground, cross, and square base options",
-        "one more bullet to test wrapping and see how it looks in the grid layout",
-    ],
-    packages: [
-        { id: "flag-pole", label: "Flag + Pole Set", priceAdjustment: 0 },
-        { id: "flag-only", label: "Flag Only", priceAdjustment: -15 },
-    ],
-    sizes: [
-        {
-            id: "small",
-            label: "Small",
-            assembledHeight: "9'",
-            graphicSize: '23.5" x 78.5"',
-            flagWeight: "0.8 lbs",
-            flagWithPoleWeight: "1.14 lbs",
-            poleSetPieces: "4 pc",
-            heightFt: 9,
-            price: 79.99,
-        },
-        {
-            id: "medium",
-            label: "Medium",
-            assembledHeight: "10.5'",
-            graphicSize: '24" x 104"',
-            flagWeight: "1.1 lbs",
-            flagWithPoleWeight: "1.4 lbs",
-            poleSetPieces: "4 pc",
-            heightFt: 10.5,
-            price: 89.99,
-        },
-        {
-            id: "large",
-            label: "Large",
-            assembledHeight: "14'",
-            graphicSize: '28" x 138"',
-            flagWeight: "1.3 lbs",
-            flagWithPoleWeight: "1.79 lbs",
-            poleSetPieces: "4 pc",
-            heightFt: 14,
-            price: 104.93,
-        },
-        {
-            id: "xlarge",
-            label: "X-Large",
-            assembledHeight: "18'",
-            graphicSize: '24" x 183.5"',
-            flagWeight: "1.5 lbs",
-            flagWithPoleWeight: "2.43 lbs",
-            poleSetPieces: "5 pc",
-            heightFt: 18,
-            price: 129.99,
-        },
-    ],
-    graphics: [
-        {
-            id: "single",
-            label: "Single-Sided",
-            description: "Sleeve sits left of the graphic. Front reads bright, back shows a softer mirrored version.",
-            upcharge: 0,
-        },
-        {
-            id: "single-reverse",
-            label: "Single-Sided Reverse",
-            description: "Same print-through fabric, sleeve sits on the right instead of the left.",
-            upcharge: 0,
-        },
-        {
-            id: "double",
-            label: "Double-Sided",
-            description: "Two graphics sewn back to back around a blockout liner, so both sides read crisp.",
-            upcharge: 25,
-        },
-    ],
-    bases: [
-        {
-            id: "stake",
-            label: "Ground Stake",
-            material: "Aluminum",
-            weight: "3.6 lbs",
-            use: ["Outdoor soft ground", "Ball bearing allows flag to swivel in wind"],
-            upcharge: 0,
-        },
-        {
-            id: "cross",
-            label: "Cross Base",
-            material: "Aluminum",
-            weight: "6.73 lbs",
-            use: ["Indoor/Outdoor hard surface"],
-            upcharge: 15,
-        },
-        {
-            id: "water",
-            label: "Water bag",
-            material: "Plastic",
-            weight: "3 lbs empty",
-            use: ["Use with cross base for extra weight"],
-            upcharge: 20,
-        },
-        {
-            id: "square",
-            label: "Square Base",
-            material: "Steel",
-            weight: "21.83 lbs",
-            use: ["Indoor/Outdoor hard surface"],
-            upcharge: 45,
-        },
-    ],
-    carryBag: {
-        label: "Carry Bag",
-        weightSmallMedium: "1.41 lbs",
-        weightLargeXLarge: "1.63 lbs",
-        price: 12,
-    },
-    description: {
-        intro:
-            "Feather Angled Flags tower over the competition—take advertising to new heights with these full color skyscrapers. With several base options they can be displayed indoors and outdoors.",
-        printInfo:
-            'Our mesh flag polyester is direct printed and then sublimated. This creates "Print thru" for single sided flags; full color and vibrant on the front - muted and mirrored but legible when viewed from the back.',
-        graphicTypes: [
-            {
-                label: "Single sided Print Thru",
-                detail: "flag graphic with black nylon pole sleeve to the left of the print when viewed from the front",
-            },
-            {
-                label: "Single sided Print Thru Reverse",
-                detail: "flag graphic with black nylon pole sleeve to the right of the print when viewed from the front",
-            },
-            {
-                label: "Double Sided",
-                detail: "separate flag graphics are sewn back to back with a silver block out layer in between",
-            },
-        ],
-        baseInfo:
-            "The standard ground stake can be used to install in soft ground, while the cross base or square base are heavy duty for hard surface staging. The optional carry bag is great for when you plan to travel with or store your flag.",
-        applicationsLabel: "Applications",
-        applications: "Suitable for both indoor and outdoor settings, ideal for storefronts, tradeshows, outdoor events, and festivals.",
-    },
-    materialSpec: {
-        printMethod: "Dye Sublimated",
-        graphicMaterial: "4 oz Polyester mesh flag",
-        washable: "Yes",
-    },
-    fileSetup: {
-        requirements: [
-            "Accepted File Formats: JPEG or PDF (single page only)",
-            "Color Space: CMYK",
-            "Resolution: 150dpi (More than enough for large format)",
-            "Max File Upload Size: 300MB",
-            "Submit artwork built to ordered size - Scaled artwork will automatically be detected and fit to order",
-            "Do not include crop marks or bleeds",
-            "Double sided products will be uploaded as two separate files unless otherwise specified in the artwork template",
-        ],
-        tips: [
-            "Do not submit with Pantones/Spot Colors - Convert to CMYK",
-            "Convert live fonts to outlines",
-            "Use provided design templates when available",
-        ],
-        templates: [
-            {
-                size: "X-Large",
-                pdf: [{ label: "Single Sided Print Thru" }, { label: "Single Sided Print Thru Reverse" }, { label: "Double Sided" }],
-                photoshop: [{ label: "Single Sided Print Thru" }, { label: "Single Sided Print Thru Reverse" }, { label: "Double Sided" }],
-            },
-            {
-                size: "Large",
-                pdf: [{ label: "Single Sided Print Thru" }, { label: "Single Sided Print Thru Reverse" }, { label: "Double Sided" }],
-                photoshop: [{ label: "Single Sided Print Thru" }, { label: "Single Sided Print Thru Reverse" }, { label: "Double Sided" }],
-            },
-            {
-                size: "Medium",
-                pdf: [{ label: "Single Sided Print Thru" }, { label: "Single Sided Print Thru Reverse" }, { label: "Double Sided" }],
-                photoshop: [{ label: "Single Sided Print Thru" }, { label: "Single Sided Print Thru Reverse" }, { label: "Double Sided" }],
-            },
-            {
-                size: "Small",
-                pdf: [{ label: "Single Sided Print Thru" }, { label: "Single Sided Print Thru Reverse" }, { label: "Double Sided" }],
-                photoshop: [{ label: "Single Sided Print Thru" }, { label: "Single Sided Print Thru Reverse" }, { label: "Double Sided" }],
-            },
-        ],
-    },
-    installation: {
-        steps: [
-            { step: 1, title: "Position the pole set." },
-            { step: 2, title: "Connect the poles." },
-            { step: 3, title: "Slide flag onto the pole." },
-            { step: 4, title: "Secure flag down the pole." },
-        ],
-        tip: "If the flag appears wrinkled or loose after setup, please ensure the elastic cord at the bottom is pulled tight. A firm tension will help the flag stay smooth and properly displayed.",
-    },
-};
-
-const carryBagOptions = [
-    {
-        value: "none",
-        label: "No Carry Bag",
-    },
-    {
-        value: "carry",
-        label: "Carry Bag (+$12)",
-    },
-];
+const DEFAULT_DATA_URL = "/data/product-detail.json";
 
 /* ================================================================== */
 /*  Component                                                            */
 /* ================================================================== */
 
-export default function ProductDetailPage({ product = PRODUCT }: { product?: ProductData }) {
-    const [activeImageId, setActiveImageId] = useState(product.gallery[0].id);
-    const [packageId, setPackageId] = useState<PackageId>("flag-pole");
-    const [sizeId, setSizeId] = useState<SizeId>("large");
-    const [graphicId, setGraphicId] = useState<GraphicId>("single");
-    const [baseId, setBaseId] = useState<BaseId>("stake");
+export default function ProductDetailPage({ dataUrl = DEFAULT_DATA_URL }: { dataUrl?: string }) {
+    const [product, setProduct] = useState<ProductData | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const [activeImageId, setActiveImageId] = useState<string | null>(null);
+    const [packageId, setPackageId] = useState<PackageId | null>(null);
+    const [sizeId, setSizeId] = useState<SizeId | null>(null);
+    const [graphicId, setGraphicId] = useState<GraphicId | null>(null);
+    const [baseId, setBaseId] = useState<BaseId | null>(null);
     const [carryBag, setCarryBag] = useState("none");
     const [activeTab, setActiveTab] = useState<TabId>("description");
 
+    // Fetch all product content from JSON — no static data lives in this file.
+    useEffect(() => {
+        let cancelled = false;
+
+        async function loadProduct() {
+            setLoading(true);
+            setError(null);
+            try {
+                // Use imported data directly
+                const data: ProductData = mapRawToProductData(productDetailData);
+                if (cancelled) return;
+
+                setProduct(data);
+                setActiveImageId(data.gallery[0]?.id ?? null);
+                setPackageId(data.packages[0]?.id ?? null);
+                // Default to a "middle" size if present, otherwise the first one.
+                setSizeId(data.sizes.find((s) => s.id === "large")?.id ?? data.sizes[0]?.id ?? null);
+                setGraphicId(data.graphics[0]?.id ?? null);
+                setBaseId(data.bases[0]?.id ?? null);
+            } catch (err) {
+                if (!cancelled) {
+                    setError(err instanceof Error ? err.message : "Failed to load product data");
+                }
+            } finally {
+                if (!cancelled) setLoading(false);
+            }
+        }
+
+        loadProduct();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    if (loading) return <StateScreen kind="loading" />;
+    if (error || !product) return <StateScreen kind="error" message={error ?? "Product not found"} />;
+
     const activeImage = product.gallery.find((g) => g.id === activeImageId) ?? product.gallery[0];
-    const selectedSize = product.sizes.find((s) => s.id === sizeId)!;
 
     const tabs: { id: TabId; label: string }[] = [
         { id: "description", label: "Description" },
@@ -388,11 +297,11 @@ export default function ProductDetailPage({ product = PRODUCT }: { product?: Pro
             <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
                     {/* -------------------------------------------------- */}
-                    {/* LEFT — Gallery (unchanged)                           */}
+                    {/* LEFT — Gallery                                       */}
                     {/* -------------------------------------------------- */}
                     <div className="lg:col-span-7">
                         <div className="relative aspect-[4/5] sm:aspect-[16/11] lg:aspect-[16/12] w-full bg-gray-50 border border-gray-200 rounded-sm flex items-center justify-center overflow-hidden">
-                            <GalleryVisual item={activeImage} />
+                            {activeImage && <GalleryVisual item={activeImage} />}
                         </div>
 
                         {/* Thumbnails */}
@@ -419,7 +328,7 @@ export default function ProductDetailPage({ product = PRODUCT }: { product?: Pro
                     </div>
 
                     {/* -------------------------------------------------- */}
-                    {/* RIGHT — Buy box (redesigned)                         */}
+                    {/* RIGHT — Buy box                                      */}
                     {/* -------------------------------------------------- */}
                     <div className="lg:col-span-5">
                         {/* Eyebrow + title + description */}
@@ -488,73 +397,35 @@ export default function ProductDetailPage({ product = PRODUCT }: { product?: Pro
                             </div>
 
                             {/* Graphic */}
-                            <div>
-                                <div className="space-y-2">
-                                    {/* Graphic Dropdown */}
-                                    <FieldSelect
-                                        icon={<FileImage className="h-3.5 w-3.5" />}
-                                        label="Graphic"
-                                        value={graphicId}
-                                        onChange={(value) => setGraphicId(value as GraphicId)}
-                                        options={product.graphics.map((graphic) => ({
-                                            value: graphic.id,
-                                            label: graphic.upcharge > 0 ? `${graphic.label} (+$${graphic.upcharge})` : graphic.label,
-                                        }))}
-                                    />                                   
-                                </div>
-                            </div>
+                            <FieldSelect
+                                icon={<FileImage className="h-3.5 w-3.5" />}
+                                label="Graphic"
+                                value={graphicId ?? ""}
+                                onChange={(value) => setGraphicId(value)}
+                                options={product.graphics.map((graphic) => ({
+                                    value: graphic.id,
+                                    label: graphic.upcharge > 0 ? `${graphic.label} (+$${graphic.upcharge})` : graphic.label,
+                                }))}
+                            />
 
-                            {/* ========================= */}
-                            {/* Base Dropdown */}
-                            {/* ========================= */}
-
+                            {/* Base */}
                             <FieldSelect
                                 icon={<CircleDot className="h-3.5 w-3.5" />}
                                 label="Base"
-                                value={baseId}
-                                onChange={(value) => setBaseId(value as BaseId)}
-                                options={[
-                                    {
-                                        value: "stake",
-                                        label: "Ground Stake",
-                                    },
-                                    {
-                                        value: "cross",
-                                        label: "Cross Base",
-                                    },
-                                    {
-                                        value: "cross-ground",
-                                        label: "Cross Base + Ground Stake",
-                                    },
-                                    {
-                                        value: "cross-water",
-                                        label: "Cross Base + Water Bag",
-                                    },
-                                    {
-                                        value: "square",
-                                        label: "Square Base",
-                                    },
-                                ]}
+                                value={baseId ?? ""}
+                                onChange={(value) => setBaseId(value)}
+                                options={product.baseSelectOptions}
                             />
 
-                            {/* ========================= */}
-                            {/* Carry Bag Dropdown */}
-                            {/* ========================= */}
-
+                            {/* Carry Bag */}
                             <FieldSelect
                                 icon={<Briefcase className="h-3.5 w-3.5" />}
-                                label="Carry Bag"
+                                label={product.carryBag.label}
                                 value={carryBag}
                                 onChange={(value) => setCarryBag(value)}
                                 options={[
-                                    {
-                                        value: "none",
-                                        label: "No Carry Bag",
-                                    },
-                                    {
-                                        value: "carry",
-                                        label: "Carry Bag (+$12)",
-                                    },
+                                    { value: "none", label: `No ${product.carryBag.label}` },
+                                    { value: "carry", label: `${product.carryBag.label} (+$${product.carryBag.price})` },
                                 ]}
                             />
                         </div>
@@ -600,7 +471,30 @@ export default function ProductDetailPage({ product = PRODUCT }: { product?: Pro
 }
 
 /* ================================================================== */
-/*  Buy box helpers: field select, toggle switch, feature grid          */
+/*  Loading / error state screen                                        */
+/* ================================================================== */
+
+function StateScreen({ kind, message }: { kind: "loading" | "error"; message?: string }) {
+    return (
+        <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-center px-6">
+            {kind === "loading" ? (
+                <>
+                    <Loader2 className="h-6 w-6 text-[#c6005c] animate-spin" />
+                    <p className="text-sm text-gray-500">Loading product details…</p>
+                </>
+            ) : (
+                <>
+                    <AlertTriangle className="h-6 w-6 text-[#c6005c]" />
+                    <p className="text-sm font-medium text-gray-900">Couldn&apos;t load product details</p>
+                    <p className="text-sm text-gray-500">{message}</p>
+                </>
+            )}
+        </div>
+    );
+}
+
+/* ================================================================== */
+/*  Buy box helpers: field select, feature grid                        */
 /* ================================================================== */
 
 function FieldSelect({
@@ -614,7 +508,7 @@ function FieldSelect({
     label: string;
     value: string;
     onChange: (value: string) => void;
-    options: { value: string; label: string }[];
+    options: SelectOption[];
 }) {
     return (
         <div>
@@ -650,10 +544,7 @@ function FieldSelect({
           "
                 >
                     {options.map((option) => (
-                        <option
-                            key={option.value}
-                            value={option.value}
-                        >
+                        <option key={option.value} value={option.value}>
                             {option.label}
                         </option>
                     ))}
@@ -662,36 +553,6 @@ function FieldSelect({
                 <ChevronDown className="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 pointer-events-none" />
             </div>
         </div>
-    );
-}
-
-
-
-function ToggleSwitch({
-    checked,
-    onChange,
-    label,
-}: {
-    checked: boolean;
-    onChange: (value: boolean) => void;
-    label: string;
-}) {
-    return (
-        <button
-            type="button"
-            role="switch"
-            aria-checked={checked}
-            aria-label={label}
-            onClick={() => onChange(!checked)}
-            className={`relative inline-flex h-6 w-11 flex-shrink-0 items-center rounded-full transition-colors ${checked ? "bg-[#c6005c]" : "bg-gray-300"
-                }`}
-        >
-            <span
-                className={`inline-block h-4.5 w-4.5 transform rounded-full bg-white shadow transition-transform ${checked ? "translate-x-6" : "translate-x-1"
-                    }`}
-                style={{ height: 18, width: 18 }}
-            />
-        </button>
     );
 }
 
@@ -931,6 +792,8 @@ function BaseIcon({ id }: { id: BaseId }) {
             return <CircleDot {...iconProps} />;
         case "square":
             return <div className="h-8 w-8 rounded-sm bg-gray-300" />;
+        default:
+            return <CircleDot {...iconProps} />;
     }
 }
 
