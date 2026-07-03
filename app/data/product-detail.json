@@ -1,0 +1,379 @@
+{
+  "name": "Feather Angled Flag",
+  "images": {
+    "mainImage": "image1.jpg",
+    "subImages": [
+      "image1.jpg",
+      "image2.jpg",
+      "image3.jpg",
+      "image4.jpg",
+      "image5.jpg"
+    ]
+  },
+  "features": [
+    "Indoor/Outdoor flags",
+    "Single or double sided",
+    "Dye Sublimated 4 oz polyester mesh flag material",
+    "Fiberglass and aluminum pole set",
+    "Base options for indoor and outdoor",
+    "Optional carry bag"
+  ],
+  "variants": [
+    {
+      "productType": {
+        "id": "flag_pole",
+        "name": "Flag + Pole"
+      },
+      "size": [
+        {
+          "id": "1",
+          "name": "Small 9 ft."
+        },
+        {
+          "id": "2",
+          "name": "Medium 10.5 ft."
+        },
+        {
+          "id": "3",
+          "name": "Large 14 ft"
+        },
+        {
+          "id": "4",
+          "name": "X-Large 18 ft"
+        }
+      ],
+      "graphic": [
+        {
+          "id": "1",
+          "name": "Single Sided Print Thru"
+        },
+        {
+          "id": "2",
+          "name": "Single Sided Print Thru Reverse"
+        },
+        {
+          "id": "3",
+          "name": "Double Sided"
+        }
+      ],
+      "base": [
+        {
+          "id": "1",
+          "name": "Ground Stake"
+        },
+        {
+          "id": "2",
+          "name": "Cross Base"
+        },
+        {
+          "id": "3",
+          "name": "Cross Base + Ground Stake"
+        },
+        {
+          "id": "4",
+          "name": "Cross Base + WaterBag"
+        },
+        {
+          "id": "5",
+          "name": "Square Base"
+        }
+      ],
+      "carryBag": [
+        {
+          "id": "1",
+          "name": "No"
+        },
+        {
+          "id": "2",
+          "name": "Yes"
+        }
+      ]
+    },
+    {
+      "productType": {
+        "id": "flag_only",
+        "name": "Flag Only"
+      },
+      "size": [
+        {
+          "id": "10ft",
+          "name": "10 ft",
+          "price": 59.99
+        },
+        {
+          "id": "14ft",
+          "name": "Large 14 ft",
+          "price": 84.99
+        }
+      ],
+      "graphic": [
+        {
+          "id": "single",
+          "name": "Single Sided Print Thru"
+        },
+        {
+          "id": "double",
+          "name": "Double Sided"
+        }
+      ],
+      "base": [
+        {
+          "id": "ground_stake",
+          "name": "Ground Stake"
+        },
+        {
+          "id": "cross_base",
+          "name": "Cross Base"
+        },
+        {
+          "id": "water_base",
+          "name": "Water Base"
+        }
+      ],
+      "carryBag": [
+        {
+          "id": "no",
+          "name": "No",
+          "price": 0
+        },
+        {
+          "id": "yes",
+          "name": "Yes",
+          "price": 10
+        }
+      ]
+    }
+  ],
+  "Description": {
+    "title": "Description",
+    "content": [
+      "The Feather Angled Flag is a versatile and eye-catching display option for both indoor and outdoor events. Made from high-quality 4 oz polyester mesh material, this flag is designed to withstand various weather conditions while maintaining vibrant colors. The angled design allows for maximum visibility, making it perfect for trade shows, grand openings, and promotional events. Choose from single or double-sided printing options to showcase your brand or message effectively. The flag comes with a durable fiberglass and aluminum pole set, along with multiple base options to suit your display needs. Optional carry bags are available for easy transportation.",
+      "Feather Angled Flags tower over the competition—take advertising to new heights with these full color skyscrapers. With several base options they can be displayed indoors and outdoors.",
+      "Our mesh flag polyester is direct printed and then sublimated. This creates 'Print Thru' for single sided flags; full color and vibrant on the front - muted and mirrored but legible when viewed from the back.",
+      "The standard ground stake can be used to install in soft ground, while the cross base or square base are heavy duty for hard surface staging. The optional carry bag is great for when you plan to travel with or store your flag."
+    ],
+    "graphics": [
+      "Single sided Print Thru flag graphic with black nylon pole sleeve to the left of the print when viewed from the front.",
+      "Single sided Print Thru Reverse flag graphic with black nylon pole sleeve to the right of the print when viewed from the front.",
+      "Double sided separate flag graphics are sewn back to back with a silver block out layer in between."
+    ],
+    "applications": {
+      "title": "Applications",
+      "content": "Suitable for both indoor and outdoor settings, ideal for storefronts, tradeshows, outdoor events, and festivals."
+    }
+  },
+  "spec": {
+    "title": "Spec",
+    "sizeSpecification": {
+      "image": "spec-size-chart.jpg",
+      "table": [
+        {
+          "size": "X-Large",
+          "assembledHeight": "18'",
+          "graphicSize": "24\" x 183.5\"",
+          "flagWeight": "1.5 lbs",
+          "flagWithPoleWeight": "2.43 lbs",
+          "poleSetPieces": "5 pc"
+        },
+        {
+          "size": "Large",
+          "assembledHeight": "14'",
+          "graphicSize": "28\" x 138\"",
+          "flagWeight": "1.3 lbs",
+          "flagWithPoleWeight": "1.79 lbs",
+          "poleSetPieces": "4 pc"
+        },
+        {
+          "size": "Medium",
+          "assembledHeight": "10.5'",
+          "graphicSize": "24\" x 104\"",
+          "flagWeight": "1.1 lbs",
+          "flagWithPoleWeight": "1.4 lbs",
+          "poleSetPieces": "4 pc"
+        },
+        {
+          "size": "Small",
+          "assembledHeight": "9'",
+          "graphicSize": "23.5\" x 78.5\"",
+          "flagWeight": "0.8 lbs",
+          "flagWithPoleWeight": "1.14 lbs",
+          "poleSetPieces": "4 pc"
+        }
+      ]
+    },
+    "materialAndPrintSpecifications": {
+      "printMethod": "Dye Sublimated",
+      "graphicMaterial": "4 oz Polyester mesh flag",
+      "washable": "Yes"
+    },
+    "additionalAccessories": {
+      "carryBag": "Nylon / Zippered (Optional)",
+      "weight": [
+        {
+          "size": "S/M",
+          "weight": "1.41 lbs"
+        },
+        {
+          "size": "L/XL",
+          "weight": "1.63 lbs"
+        }
+      ]
+    },
+    "hardwareAndAssembly": {
+      "poleSet": "Aluminum and graphite pole set, Tool Free Interlocking poles"
+    }
+  },
+  "baseHardwareSpecifications": [
+    {
+      "id": "ground_stake",
+      "name": "Ground Stake",
+      "image": "ground-stake.jpg",
+      "specifications": {
+        "material": "Aluminum",
+        "weight": "3.6 lbs",
+        "use": "Outdoor soft ground",
+        "feature": "Ball bearing allows flag to swivel in wind"
+      }
+    },
+    {
+      "id": "cross_base",
+      "name": "Cross Base",
+      "image": "cross-base.jpg",
+      "specifications": {
+        "material": "Aluminum",
+        "weight": "6.73 lbs",
+        "use": "Indoor/Outdoor hard surface"
+      }
+    },
+    {
+      "id": "water_bag",
+      "name": "Water Bag",
+      "image": "water-bag.jpg",
+      "specifications": {
+        "material": "Plastic",
+        "weight": "3 lbs (empty)",
+        "use": "Use with cross base for extra weight"
+      }
+    },
+    {
+      "id": "square_base",
+      "name": "Square Base",
+      "image": "square-base.jpg",
+      "specifications": {
+        "material": "Steel",
+        "weight": "21.83 lbs",
+        "use": "Indoor/Outdoor hard surface"
+      }
+    }
+  ],
+  "fileSetup": {
+    "title": "File Setup",
+    "requirements": [
+      "Accepted File Formats: JPEG or PDF (single page only)",
+      "Color Space: CMYK",
+      "Resolution: 150 dpi for raster images (More than enough for large format)",
+      "Max File Upload Size: 300MB",
+      "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
+      "Do not include crop marks or bleeds",
+      "Double sided products will be uploaded as two separate files unless otherwise specified in the artwork template"
+    ],
+    "additionalTips": [
+      "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+      "Convert live fonts to outlines",
+      "Use provided design templates when available"
+    ]
+  },
+  "installationGuide": {
+    "title": "Installation Guide",
+    "templateUserGuide": "template-user-guide.pdf",
+    "templateDownloads": [
+      {
+        "size": "X-Large",
+        "pdf": {
+          "singleSidedPrintThru": "xl-single-sided-print-thru.pdf",
+          "singleSidedPrintThruReverse": "xl-single-sided-print-thru-reverse.pdf",
+          "doubleSided": "xl-double-sided.pdf"
+        },
+        "photoshop": {
+          "singleSidedPrintThru": "xl-single-sided-print-thru.psd",
+          "singleSidedPrintThruReverse": "xl-single-sided-print-thru-reverse.psd",
+          "doubleSided": "xl-double-sided.psd"
+        }
+      },
+      {
+        "size": "Large",
+        "pdf": {
+          "singleSidedPrintThru": "large-single-sided-print-thru.pdf",
+          "singleSidedPrintThruReverse": "large-single-sided-print-thru-reverse.pdf",
+          "doubleSided": "large-double-sided.pdf"
+        },
+        "photoshop": {
+          "singleSidedPrintThru": "large-single-sided-print-thru.psd",
+          "singleSidedPrintThruReverse": "large-single-sided-print-thru-reverse.psd",
+          "doubleSided": "large-double-sided.psd"
+        }
+      },
+      {
+        "size": "Medium",
+        "pdf": {
+          "singleSidedPrintThru": "medium-single-sided-print-thru.pdf",
+          "singleSidedPrintThruReverse": "medium-single-sided-print-thru-reverse.pdf",
+          "doubleSided": "medium-double-sided.pdf"
+        },
+        "photoshop": {
+          "singleSidedPrintThru": "medium-single-sided-print-thru.psd",
+          "singleSidedPrintThruReverse": "medium-single-sided-print-thru-reverse.psd",
+          "doubleSided": "medium-double-sided.psd"
+        }
+      },
+      {
+        "size": "Small",
+        "pdf": {
+          "singleSidedPrintThru": "small-single-sided-print-thru.pdf",
+          "singleSidedPrintThruReverse": "small-single-sided-print-thru-reverse.pdf",
+          "doubleSided": "small-double-sided.pdf"
+        },
+        "photoshop": {
+          "singleSidedPrintThru": "small-single-sided-print-thru.psd",
+          "singleSidedPrintThruReverse": "small-single-sided-print-thru-reverse.psd",
+          "doubleSided": "small-double-sided.psd"
+        }
+      }
+    ],
+    "instructions": [
+      "Do not adjust artboard size.",
+      "Do not reposition guidelines.",
+      "Design on layer labelled 'Artwork'.",
+      "Delete mask/guide layers when instructed by template."
+    ]
+  },
+  "installationGuide": {
+    "title": "Installation Guide",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Position the pole set.",
+        "image": "installation-step-1.jpg"
+      },
+      {
+        "step": 2,
+        "title": "Connect the poles.",
+        "image": "installation-step-2.jpg"
+      },
+      {
+        "step": 3,
+        "title": "Slide flag onto the pole.",
+        "image": "installation-step-3.jpg"
+      },
+      {
+        "step": 4,
+        "title": "Secure flag down the pole.",
+        "image": "installation-step-4.jpg"
+      }
+    ],
+    "tip": {
+      "title": "Tip",
+      "content": "If the flag appears wrinkled or loose after setup, please ensure the elastic cord at the bottom is pulled tight. A firm tension will help the flag stay smooth and properly displayed."
+    }
+  }
+}
