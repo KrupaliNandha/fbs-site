@@ -171,7 +171,7 @@ export default function Home() {
               </div>
             </div>
           </section>
-
+          <Slider />
           {/* Services Section */}
           <section className="container section-padding mx-auto">
             <div className="px-4">
@@ -327,8 +327,6 @@ export default function Home() {
               />
             </div>
           </section>
-
-          <Slider />
         </main>
         <Footer />
       </SmoothScroll>
