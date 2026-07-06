@@ -15,9 +15,7 @@ import {
   FaRegNewspaper,
   FaSign,
 } from "react-icons/fa";
-
 import { RiBillLine } from "react-icons/ri";
-
 import PageLoader from "../../Components/Preloader";
 import Link from "next/link";
 
@@ -44,54 +42,63 @@ export default function Page() {
       text: "Business Card",
       pricedes: "Starting at $ 9.99",
       Icon: TiBusinessCard,
+      slug: "business-cards"
     },
     {
       id: 2,
       text: "Brochures",
       pricedes: "Starting at $ 9.99",
       Icon: FaRegNewspaper,
+      slug: "brochures"
     },
     {
       id: 3,
       text: "Copy services",
       pricedes: "Starting at $ 9.99",
       Icon: ImFilesEmpty,
+      slug: "copy-services"
     },
     {
       id: 4,
       text: "T-shirt Prints",
       pricedes: "Starting at $ 9.99",
       Icon: FaTshirt,
+      slug: "t-shirt-prints"
     },
     {
       id: 5,
       text: "Calendars",
       pricedes: "Starting at $ 9.99",
       Icon: FaCalendarAlt,
+      slug: "calendars"
     },
     {
       id: 6,
       text: "Banners",
       pricedes: "Starting at $ 9.99",
       Icon: FaSign,
+      slug: "banners"
     },
     {
       id: 7,
       text: "Carbonless Forms",
       pricedes: "Starting at $ 9.99",
       Icon: RiBillLine,
+      slug: "carbonless-forms"
     },
     {
       id: 8,
       text: "Carryout Menus",
       pricedes: "Starting at $ 9.99",
       Icon: RiBillLine,
+      slug: "carryout-menus"
     },
     {
       id: 9,
       text: "Canvas",
       pricedes: "Starting at $ 9.99",
       Icon: FaRegFileImage,
+      slug: "canvas"
     },
   ];
 
@@ -236,26 +243,30 @@ export default function Page() {
               const Icon = item.Icon;
 
               return (
-                <div
-                  key={item.id}
+                <Link
+    key={item.id}
+    href={`/services/printing-products/${item.slug}`}
+  >
+                  <div
+                  
                   className="
-            group flex h-[220px] bg-gray-200
-            rounded-2xl items-center justify-center
-             overflow-hidden cursor-pointer
-            border-4 border-transparent
-            hover:border-yellow-400
-            transition-all duration-300
-          "
+                    group flex h-[220px] bg-gray-200
+                    rounded-2xl items-center justify-center
+                    overflow-hidden cursor-pointer
+                    border-4 border-transparent
+                    hover:border-yellow-400
+                    transition-all duration-300
+                  "
                 >
                   {/* Icon Center */}
                   <div className="item-center justify-center">
                     {Icon && (
                       <Icon
                         className="
-                  w-15 h-15
-                  transition-transform duration-300
-                  group-hover:-rotate-15 justify-self-center text-pink-700
-                "
+                          w-15 h-15
+                          transition-transform duration-300
+                          group-hover:-rotate-15 justify-self-center text-pink-700
+                        "
                       />
                     )}
                     <div className="text-center">
@@ -268,6 +279,7 @@ export default function Page() {
 
                   {/* Text Content */}
                 </div>
+                </Link>
               );
             })}
           </div>
