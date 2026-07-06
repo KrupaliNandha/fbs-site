@@ -1,13 +1,13 @@
 {
   "name": "Feather Angled Flag",
   "images": {
-    "mainImage": "image1.jpg",
+    "mainImage": "https://fbssigns.sign-usa.com/image/thumb/240327/uf4fTjWs-s1000.jpg",
     "subImages": [
-      "image1.jpg",
-      "image2.jpg",
-      "image3.jpg",
-      "image4.jpg",
-      "image5.jpg"
+      "https://fbssigns.sign-usa.com/image/thumb/240311/xuDAkfis-s1000.jpg",
+      "https://fbssigns.sign-usa.com/image/thumb/240312/aWMJwx6Q-s1000.jpg",
+      "https://fbssigns.sign-usa.com/image/thumb/240312/zIUck5RC-s1000.jpg",
+      "https://fbssigns.sign-usa.com/image/thumb/251217/OL35DL8Y-s1000.jpg",
+      "image-5"
     ]
   },
   "features": [
@@ -25,68 +25,26 @@
         "name": "Flag + Pole"
       },
       "size": [
-        {
-          "id": "1",
-          "name": "Small 9 ft."
-        },
-        {
-          "id": "2",
-          "name": "Medium 10.5 ft."
-        },
-        {
-          "id": "3",
-          "name": "Large 14 ft"
-        },
-        {
-          "id": "4",
-          "name": "X-Large 18 ft"
-        }
+        { "id": "1", "name": "Small 9 ft." },
+        { "id": "2", "name": "Medium 10.5 ft." },
+        { "id": "3", "name": "Large 14 ft" },
+        { "id": "4", "name": "X-Large 18 ft" }
       ],
       "graphic": [
-        {
-          "id": "1",
-          "name": "Single Sided Print Thru"
-        },
-        {
-          "id": "2",
-          "name": "Single Sided Print Thru Reverse"
-        },
-        {
-          "id": "3",
-          "name": "Double Sided"
-        }
+        { "id": "1", "name": "Single Sided Print Thru" },
+        { "id": "2", "name": "Single Sided Print Thru Reverse" },
+        { "id": "3", "name": "Double Sided" }
       ],
       "base": [
-        {
-          "id": "1",
-          "name": "Ground Stake"
-        },
-        {
-          "id": "2",
-          "name": "Cross Base"
-        },
-        {
-          "id": "3",
-          "name": "Cross Base + Ground Stake"
-        },
-        {
-          "id": "4",
-          "name": "Cross Base + WaterBag"
-        },
-        {
-          "id": "5",
-          "name": "Square Base"
-        }
+        { "id": "1", "name": "Ground Stake" },
+        { "id": "2", "name": "Cross Base" },
+        { "id": "3", "name": "Cross Base + Ground Stake" },
+        { "id": "4", "name": "Cross Base + WaterBag" },
+        { "id": "5", "name": "Square Base" }
       ],
       "carryBag": [
-        {
-          "id": "1",
-          "name": "No"
-        },
-        {
-          "id": "2",
-          "name": "Yes"
-        }
+        { "id": "1", "name": "No" },
+        { "id": "2", "name": "Yes" }
       ]
     },
     {
@@ -95,52 +53,19 @@
         "name": "Flag Only"
       },
       "size": [
-        {
-          "id": "10ft",
-          "name": "10 ft",
-          "price": 59.99
-        },
-        {
-          "id": "14ft",
-          "name": "Large 14 ft",
-          "price": 84.99
-        }
+        { "id": "1", "name": "Small 9 ft." },
+        { "id": "2", "name": "Medium 10.5 ft." },
+        { "id": "3", "name": "Large 14 ft" },
+        { "id": "4", "name": "X-Large 18 ft" }
       ],
       "graphic": [
-        {
-          "id": "single",
-          "name": "Single Sided Print Thru"
-        },
-        {
-          "id": "double",
-          "name": "Double Sided"
-        }
-      ],
-      "base": [
-        {
-          "id": "ground_stake",
-          "name": "Ground Stake"
-        },
-        {
-          "id": "cross_base",
-          "name": "Cross Base"
-        },
-        {
-          "id": "water_base",
-          "name": "Water Base"
-        }
+        { "id": "1", "name": "Single Sided Print Thru" },
+        { "id": "2", "name": "Single Sided Print Thru Reverse" },
+        { "id": "3", "name": "Double Sided" }
       ],
       "carryBag": [
-        {
-          "id": "no",
-          "name": "No",
-          "price": 0
-        },
-        {
-          "id": "yes",
-          "name": "Yes",
-          "price": 10
-        }
+        { "id": "no", "name": "No" },
+        { "id": "yes", "name": "Yes" }
       ]
     }
   ],
@@ -209,14 +134,8 @@
     "additionalAccessories": {
       "carryBag": "Nylon / Zippered (Optional)",
       "weight": [
-        {
-          "size": "S/M",
-          "weight": "1.41 lbs"
-        },
-        {
-          "size": "L/XL",
-          "weight": "1.63 lbs"
-        }
+        { "size": "S/M", "weight": "1.41 lbs" },
+        { "size": "L/XL", "weight": "1.63 lbs" }
       ]
     },
     "hardwareAndAssembly": {
@@ -341,32 +260,16 @@
       }
     ],
     "instructions": [
-      "Do not adjust artboard size.",
-      "Do not reposition guidelines.",
-      "Design on layer labelled 'Artwork'.",
-      "Delete mask/guide layers when instructed by template."
+      "Do not adjust artboard size",
+      "Do not reposition guidelines",
+      "Design on layer labelled \"Artwork\"",
+      "Delete mask/guide layers when instructed by template"
     ],
     "steps": [
-      {
-        "step": 1,
-        "title": "Position the pole set.",
-        "image": "installation-step-1.jpg"
-      },
-      {
-        "step": 2,
-        "title": "Connect the poles.",
-        "image": "installation-step-2.jpg"
-      },
-      {
-        "step": 3,
-        "title": "Slide flag onto the pole.",
-        "image": "installation-step-3.jpg"
-      },
-      {
-        "step": 4,
-        "title": "Secure flag down the pole.",
-        "image": "installation-step-4.jpg"
-      }
+      { "step": 1, "title": "Position the pole set.", "image": "installation-step-1.jpg" },
+      { "step": 2, "title": "Connect the poles.", "image": "installation-step-2.jpg" },
+      { "step": 3, "title": "Slide flag onto the pole.", "image": "installation-step-3.jpg" },
+      { "step": 4, "title": "Secure flag down the pole.", "image": "installation-step-4.jpg" }
     ],
     "tip": {
       "title": "Tip",
