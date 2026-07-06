@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import "aos/dist/aos.css";
+import { serviceAreas } from "@/app/data/service-areas-data";
 
 export default function ServiceLocationPageClient({
   page,
@@ -21,6 +22,9 @@ export default function ServiceLocationPageClient({
   relatedServices: RelatedServiceLink[];
 }) {
   const [loaderDone, setLoaderDone] = useState(false);
+  const matchingServiceArea = serviceAreas.find(
+    (sa) => sa.name.toLowerCase() === page.location.city.toLowerCase()
+  );
 
   useEffect(() => {
     const initAOS = async () => {
@@ -245,6 +249,16 @@ export default function ServiceLocationPageClient({
                       </span>
                     ))}
                   </div>
+                  {matchingServiceArea && (
+                    <div className="mt-6 pt-6 border-t border-gray-100">
+                      <Link
+                        href={`/service-areas/${matchingServiceArea.slug}`}
+                        className="inline-flex items-center gap-2 text-pink-700 font-bold hover:text-pink-800 transition-colors"
+                      >
+                        Explore All local services in {page.location.city} →
+                      </Link>
+                    </div>
+                  )}
                 </div>
 
                 <div className="bg-white rounded-3xl p-8 shadow-lg">

@@ -9,6 +9,7 @@ import SmoothScroll from "@/app/Components/SmoothScroll";
 import { serviceAreas, getServiceArea } from "@/app/data/service-areas-data";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
 import { absoluteUrl } from "@/app/lib/seo";
+import { getLocationMarkets } from "@/app/lib/service-location-pages";
 
 interface PageProps {
   params: Promise<{ city: string }>;
@@ -32,14 +33,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const canonical = absoluteUrl(`/service-areas/${area.slug}`, baseUrl);
 
   return {
-    title: `Custom Signage, Printing & SEO in ${area.name}, IL | FBS Signs`,
-    description: `FBS Signs serves businesses in ${area.name}, Illinois with custom outdoor/indoor signs, business printing, direct mail campaigns, web design, and local SEO services.`,
+    title: `Custom Signs, Print & SEO in ${area.name}, IL | ${area.county} | FBS Signs`,
+    description: `Need signage or marketing in ${area.name}, IL? FBS Signs provides storefront signs, commercial printing, direct mail, web design, and local SEO across ${area.county}.`,
     alternates: {
       canonical,
     },
     robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
     },
   };
 }
@@ -90,6 +98,8 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
     description: `FBS Signs provides custom signage, printing products, direct mailing, web design, and SEO services for businesses in ${area.name}, Illinois.`,
     url: canonical,
     telephone: "+1-855-222-1133",
+    image: absoluteUrl("/images/brand/fbs-prints-logo.webp", baseUrl),
+    logo: absoluteUrl("/images/brand/fbs-prints-logo.webp", baseUrl),
     address: {
       "@type": "PostalAddress",
       addressLocality: area.name,
@@ -100,6 +110,52 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
       "@type": "City",
       name: area.name,
     },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: `FBS Signs Services in ${area.name}, IL`,
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Custom Signage Services",
+            description: "Custom storefront signs, LED channel letters, window vinyls, and vehicle wraps."
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Commercial Printing Products",
+            description: "Premium business cards, brochures, restaurant menus, catalogs, and marketing handouts."
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Targeted Direct Mailing",
+            description: "Route-based Every Door Direct Mail (EDDM) and direct mailing campaigns targeting local zip codes."
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Responsive Web Design",
+            description: "Custom lead-generation websites, mobile-friendly layouts, and service landing pages."
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Local SEO & Optimization",
+            description: "Google Map Pack ranking, localized search visibility, and directory listings optimization."
+          }
+        }
+      ]
+    }
   };
 
   const faqSchema = {
@@ -116,35 +172,61 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
     })),
   };
 
+  const markets = getLocationMarkets();
+  const matchingMarket = markets.find(
+    (m) => m.city.toLowerCase() === area.name.toLowerCase()
+  );
+
+  const getServiceLink = (genericPath: string) => {
+    if (!matchingMarket) return genericPath;
+    
+    if (genericPath === "/services/signage") {
+      return `/services/signage-in-${matchingMarket.slug}`;
+    }
+    if (genericPath === "/services/printing-products") {
+      return `/services/printing-products-in-${matchingMarket.slug}`;
+    }
+    if (genericPath === "/services/direct-mailing") {
+      return `/services/direct-mail-services-in-${matchingMarket.slug}`;
+    }
+    if (genericPath === "/services/web-design") {
+      return `/services/web-design-in-${matchingMarket.slug}`;
+    }
+    if (genericPath === "/services/seo") {
+      return `/services/seo-services-in-${matchingMarket.slug}`;
+    }
+    return genericPath;
+  };
+
   const services = [
     {
       title: "Custom Signage Services",
       desc: "From illuminated LED channel letters to window graphics, vehicle wraps, and monumental property signs, we build high-impact signage tailored to local codes.",
-      href: "/services/signage",
+      href: getServiceLink("/services/signage"),
       image: "/images/services/signage/signage-service.webp",
     },
     {
       title: "Commercial Printing Products",
       desc: "Keep your brand consistent with business cards, banners, menus, brochures, and sales kits manufactured to premium specs and repeat-ready.",
-      href: "/services/printing-products",
+      href: getServiceLink("/services/printing-products"),
       image: "/images/services/printing/printing-products-service.webp",
     },
     {
       title: "Targeted Direct Mailing",
       desc: "Coordinate end-to-end direct mail and EDDM campaigns targeting postal routes in specific residential neighborhoods to acquire local leads.",
-      href: "/services/direct-mailing",
+      href: getServiceLink("/services/direct-mailing"),
       image: "/images/services/direct-mail/direct-mail-service.webp",
     },
     {
       title: "Responsive Web Design",
       desc: "Convert search traffic with fast-loading, mobile-friendly business websites and service pages built for credibility and clear leads.",
-      href: "/services/web-design",
+      href: getServiceLink("/services/web-design"),
       image: "/images/services/web-design/web-design-service.webp",
     },
     {
       title: "Local SEO & Optimization",
       desc: "Rank in regional search results and map packs with structured optimization that aligns search engines with your local operations.",
-      href: "/services/seo",
+      href: getServiceLink("/services/seo"),
       image: "/images/services/seo/seo-service-card.webp",
     },
   ];
@@ -170,12 +252,12 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
       <Navbar />
       <SmoothScroll>
         <main className="bg-gradient-to-br from-gray-50 via-white to-pink-50/10 min-h-screen">
-          
+
           {/* Hero Section */}
           <section className="bg-gradient-to-br from-gray-900 to-pink-950 text-white xl:pt-28 pt-20 pb-20 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-pink-700/20 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-900/20 rounded-full blur-3xl" />
-            
+
             <div className="container relative z-10 max-w-6xl mx-auto px-4">
               <div className="flex justify-center lg:justify-start">
                 <div className="inline-flex items-center gap-3 bg-pink-500/10 text-pink-300 px-5 py-2 rounded-full border border-pink-500/20 shadow-lg mb-6">
@@ -251,6 +333,46 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
             </div>
           </section>
 
+          {/* AI & Search Engine Optimization Answer Box (AEO/GEO Section) */}
+          <section className="container py-12 px-4 max-w-5xl mx-auto">
+            <div className="bg-gradient-to-br from-pink-50/60 via-white to-purple-50/40 rounded-3xl p-8 md:p-10 border border-pink-100/80 shadow-md">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-pink-100 text-pink-600 font-bold text-sm">
+                  ✨
+                </span>
+                <h2 className="text-2xl font-extrabold text-gray-900 leading-tight">
+                  Local Quick Answers: Services in {area.name}, IL
+                </h2>
+              </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white/85 p-6 rounded-2xl border border-pink-50/60 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <h3 className="text-base font-bold text-gray-900 mb-2">What marketing &amp; branding services are available in {area.name}?</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    FBS Signs provides end-to-end design, fabrication, and marketing services in {area.name}, IL. This includes custom storefront signs, business print collateral, targeted direct mailing (EDDM), modern web design, and local SEO services tailored to the regional business market.
+                  </p>
+                </div>
+                <div className="bg-white/85 p-6 rounded-2xl border border-pink-50/60 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <h3 className="text-base font-bold text-gray-900 mb-2">How does FBS Signs handle zoning regulations for custom signage in {area.name}?</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    We manage the entire commercial sign permit and approval process directly with {area.name}'s building division and zoning board. Our custom exterior signs, channel letters, and monument graphics are engineered to meet all local zoning requirements.
+                  </p>
+                </div>
+                <div className="bg-white/85 p-6 rounded-2xl border border-pink-50/60 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <h3 className="text-base font-bold text-gray-900 mb-2">Can I launch target mailers in specific carrier routes in the {area.name} area?</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Yes. We specialize in planning and executing targeted Every Door Direct Mail (EDDM) campaigns, matching your print collateral to specific postal carrier routes and residential areas in {area.name} to maximize local lead acquisition.
+                  </p>
+                </div>
+                <div className="bg-white/85 p-6 rounded-2xl border border-pink-50/60 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <h3 className="text-base font-bold text-gray-900 mb-2">Why is local SEO vital for business growth in {area.county}?</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Optimizing your local online footprint ensures that your business ranks at the top of local map packs and regional searches. By integrating structured schema markup, local landing pages, and geographical citations, we build trust with search engines and LLM answer engines.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Localized GEO Section */}
           <section className="container py-16 px-4">
             <div className="bg-white rounded-3xl p-8 md:p-12 border border-pink-50 shadow-xl max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
@@ -273,7 +395,7 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
                       key={landmark}
                       className="inline-flex items-center bg-pink-50 text-pink-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-pink-100"
                     >
-                      📍 {landmark}
+                      {landmark}
                     </span>
                   ))}
                 </div>
@@ -428,7 +550,7 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
                     href={`/service-areas/${citySlug}`}
                     className="flex items-center justify-center p-4 rounded-xl border border-pink-100 bg-white text-gray-800 text-sm font-semibold hover:border-pink-600 hover:text-pink-700 hover:shadow-md transition-all duration-300 text-center"
                   >
-                    📍 {cityName}
+                    {cityName}
                   </Link>
                 );
               })}

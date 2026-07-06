@@ -114,7 +114,7 @@ export default function ServiceAreasClient({ cities }: ServiceAreasClientProps) 
                   </span>
                   <div className="flex flex-wrap gap-2">
                     <span className="inline-block bg-gray-50 text-gray-700 text-xs font-medium px-3 py-1 rounded-full border border-gray-100">
-                      📍 {city.landmarks[0]}
+                      {city.landmarks[0]}
                     </span>
                   </div>
                 </div>
