@@ -148,7 +148,7 @@ export default function Page() {
       <SmoothScroll>
         <main>
         {/* Section - 1 */}
-        <section className="bg-gradient-to-br mt-20 from-gray-50 to-blue-50">
+        <section className="bg-gradient-to-br xl:mt-20 mt-20 from-gray-50 to-blue-50">
           <div className="container">
             <div className="mx-auto">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">

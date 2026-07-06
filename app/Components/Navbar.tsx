@@ -54,7 +54,7 @@ export default function Navbar() {
           </Link>
 
           {/* DESKTOP MENU */}
-          <ul className="hidden md:flex items-center gap-2 text-xl font-medium">
+          <ul className="hidden lg:flex items-center gap-2 text-xl font-medium">
             <li>
               <Link href="/" className={linkClass("/")}>
                 Home
@@ -127,7 +127,7 @@ export default function Navbar() {
 
           {/* MOBILE MENU BUTTON */}
           <button
-            className={`md:hidden z-[10] transition-opacity duration-300
+            className={`lg:hidden z-[10] transition-opacity duration-300
             ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
@@ -139,7 +139,7 @@ export default function Navbar() {
 
       {/* OVERLAY */}
       <div
-        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-500 md:hidden
+        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-500 lg:hidden
         ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
         onClick={() => setMenuOpen(false)}
       />
@@ -149,7 +149,7 @@ export default function Navbar() {
         className={`fixed top-0 left-0 h-dvh w-[75%] max-w-[340px]
         bg-white z-50 transform transition-transform duration-500
         ${menuOpen ? "translate-x-0" : "-translate-x-full"}
-        md:hidden flex flex-col`}
+        lg:hidden flex flex-col`}
       >
         {/* CLOSE BUTTON */}
         <div className="flex items-center justify-between px-8 pt-8 pb-3">

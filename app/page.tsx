@@ -54,7 +54,7 @@ export default function Home() {
       <SmoothScroll>
         <main>
           {/* Hero Section */}
-          <section className="bg-gradient-to-br xl:mt-20 from-gray-50 to-blue-50">
+          <section className="bg-gradient-to-br mt-20 xl:mt-20 from-gray-50 to-blue-50">
             <div className="container">
               <div className="mx-auto">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
