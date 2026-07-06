@@ -598,7 +598,7 @@ function DescriptionTab({ data }: { data: ProductData["description"] }) {
 
             <ul className="mt-4 space-y-2.5">
                 {data.graphicTypes.map((g) => (
-                    <li key={g.label} className="text-sm sm:text-[15px] leading-relaxed text-gray-700 flex gap-2">
+                    <li key={`${g.label}-${g.detail}`} className="text-sm sm:text-[15px] leading-relaxed text-gray-700 flex gap-2">
                         <span className="text-[#c6005c] mt-1">•</span>
                         <span>
                             <span className="font-semibold text-gray-900">{g.label}</span> {g.detail}
