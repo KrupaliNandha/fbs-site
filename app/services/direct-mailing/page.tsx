@@ -275,7 +275,7 @@ export default function DirectMailingPage() {
               </p>
             </div>
 
-            <div className="grid gap-8 md:grid-cols-3">
+            <div className="grid gap-8 lg:grid-cols-2 xl:grid-cols-3">
               <div
                 className="rounded-3xl border border-gray-100 bg-gray-50/50 p-8 shadow-sm hover:shadow-md transition duration-300"
                 data-aos="fade-up"
