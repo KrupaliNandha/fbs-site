@@ -6,8 +6,8 @@
       "https://fbssigns.sign-usa.com/image/thumb/240311/xuDAkfis-s1000.jpg",
       "https://fbssigns.sign-usa.com/image/thumb/240312/aWMJwx6Q-s1000.jpg",
       "https://fbssigns.sign-usa.com/image/thumb/240312/zIUck5RC-s1000.jpg",
-      "https://fbssigns.sign-usa.com/image/thumb/251217/OL35DL8Y-s1000.jpg",
-      "image-5"
+      "https://fbssigns.sign-usa.com/image/thumb/251217/OL35DL8Y-s1000.jpg"
+      
     ]
   },
   "features": [
@@ -205,66 +205,8 @@
   "installationGuide": {
     "title": "Installation Guide",
     "templateUserGuide": "template-user-guide.pdf",
-    "templateDownloads": [
-      {
-        "size": "X-Large",
-        "pdf": {
-          "singleSidedPrintThru": "xl-single-sided-print-thru.pdf",
-          "singleSidedPrintThruReverse": "xl-single-sided-print-thru-reverse.pdf",
-          "doubleSided": "xl-double-sided.pdf"
-        },
-        "photoshop": {
-          "singleSidedPrintThru": "xl-single-sided-print-thru.psd",
-          "singleSidedPrintThruReverse": "xl-single-sided-print-thru-reverse.psd",
-          "doubleSided": "xl-double-sided.psd"
-        }
-      },
-      {
-        "size": "Large",
-        "pdf": {
-          "singleSidedPrintThru": "large-single-sided-print-thru.pdf",
-          "singleSidedPrintThruReverse": "large-single-sided-print-thru-reverse.pdf",
-          "doubleSided": "large-double-sided.pdf"
-        },
-        "photoshop": {
-          "singleSidedPrintThru": "large-single-sided-print-thru.psd",
-          "singleSidedPrintThruReverse": "large-single-sided-print-thru-reverse.psd",
-          "doubleSided": "large-double-sided.psd"
-        }
-      },
-      {
-        "size": "Medium",
-        "pdf": {
-          "singleSidedPrintThru": "medium-single-sided-print-thru.pdf",
-          "singleSidedPrintThruReverse": "medium-single-sided-print-thru-reverse.pdf",
-          "doubleSided": "medium-double-sided.pdf"
-        },
-        "photoshop": {
-          "singleSidedPrintThru": "medium-single-sided-print-thru.psd",
-          "singleSidedPrintThruReverse": "medium-single-sided-print-thru-reverse.psd",
-          "doubleSided": "medium-double-sided.psd"
-        }
-      },
-      {
-        "size": "Small",
-        "pdf": {
-          "singleSidedPrintThru": "small-single-sided-print-thru.pdf",
-          "singleSidedPrintThruReverse": "small-single-sided-print-thru-reverse.pdf",
-          "doubleSided": "small-double-sided.pdf"
-        },
-        "photoshop": {
-          "singleSidedPrintThru": "small-single-sided-print-thru.psd",
-          "singleSidedPrintThruReverse": "small-single-sided-print-thru-reverse.psd",
-          "doubleSided": "small-double-sided.psd"
-        }
-      }
-    ],
-    "instructions": [
-      "Do not adjust artboard size",
-      "Do not reposition guidelines",
-      "Design on layer labelled \"Artwork\"",
-      "Delete mask/guide layers when instructed by template"
-    ],
+    "templateDownloads": [],
+    "instructions": [],
     "steps": [
       { "step": 1, "title": "Position the pole set.", "image": "installation-step-1.jpg" },
       { "step": 2, "title": "Connect the poles.", "image": "installation-step-2.jpg" },
