@@ -1,0 +1,179 @@
+import type { Metadata } from "next";
+import Script from "next/script";
+import Navbar from "@/app/Components/Navbar";
+import Footer from "@/app/Components/Footer";
+import SmoothScroll from "@/app/Components/SmoothScroll";
+import ServiceAreasClient from "./ServiceAreasClient";
+import { serviceAreas } from "@/app/data/service-areas-data";
+import { getRequestBaseUrl } from "@/app/lib/request-url";
+import { absoluteUrl } from "@/app/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const baseUrl = await getRequestBaseUrl();
+  const canonical = absoluteUrl("/service-areas", baseUrl);
+
+  return {
+    title: "Service Areas in Illinois | Custom Signage & Printing | FBS Signs",
+    description:
+      "Explore FBS Signs' service areas across 25+ cities in Illinois. We provide custom signage, commercial printing, direct mailing, web design, and SEO services.",
+    alternates: {
+      canonical,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
+
+export default async function ServiceAreasListingPage() {
+  const baseUrl = await getRequestBaseUrl();
+  const canonical = absoluteUrl("/service-areas", baseUrl);
+
+  // Schema Markup
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${canonical}#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: absoluteUrl("/", baseUrl),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Service Areas",
+        item: canonical,
+      },
+    ],
+  };
+
+  const webpageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${canonical}#webpage`,
+    name: "Service Areas in Illinois | FBS Signs",
+    description: "Explore FBS Signs' service areas across 25+ cities in Illinois. We provide custom signage, commercial printing, direct mailing, web design, and SEO services.",
+    url: canonical,
+    inLanguage: "en-US",
+    isPartOf: {
+      "@id": `${absoluteUrl("/", baseUrl)}#website`,
+    },
+    about: {
+      "@id": `${absoluteUrl("/", baseUrl)}#organization`,
+    },
+  };
+
+  return (
+    <>
+      <Script
+        id="service-areas-breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <Script
+        id="service-areas-webpage-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webpageSchema) }}
+      />
+      
+      <Navbar />
+      <SmoothScroll>
+        <main className="bg-gradient-to-br from-gray-50 via-white to-pink-50/20 min-h-screen">
+          {/* Hero Section */}
+          <section className="bg-gradient-to-br from-gray-900 to-pink-950 text-white xl:pt-28 pt-20 pb-20 relative overflow-hidden">
+            {/* Visual Accents */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-pink-700/20 rounded-full blur-3xl" />
+            <div className="absolute -bottom-10 -left-10 w-96 h-96 bg-blue-900/20 rounded-full blur-3xl" />
+
+            <div className="container relative z-10 text-center max-w-4xl mx-auto px-4">
+              <div className="inline-flex items-center gap-3 bg-pink-500/10 text-pink-300 px-5 py-2 rounded-full border border-pink-500/20 shadow-lg mb-6">
+                <span className="w-2 h-2 bg-pink-400 rounded-full animate-pulse" />
+                <span className="text-[11px] font-bold uppercase tracking-widest">
+                  Our Coverage
+                </span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-6">
+                Service Areas We Serve <br />
+                <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                  In Illinois
+                </span>
+              </h1>
+              <p className="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
+                FBS Signs provides custom commercial signage, large-format printing,
+                targeted direct mail, web design, and SEO services across northeastern Illinois.
+                Find your city below to explore dedicated local services.
+              </p>
+            </div>
+          </section>
+
+          {/* Interactive Cities List */}
+          <ServiceAreasClient cities={serviceAreas} />
+
+          {/* Local Commitment Section */}
+          <section className="container py-16 px-4">
+            <div className="bg-white rounded-3xl p-8 md:p-12 border border-pink-50 shadow-xl max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <h2 className="text-3xl font-extrabold text-gray-900 mb-4 leading-tight">
+                  High-Performance Local Presence
+                </h2>
+                <div className="w-12 h-1 bg-pink-600 rounded-full mb-6" />
+                <p className="text-gray-600 mb-4 leading-relaxed">
+                  We believe that strong physical branding goes hand-in-hand with a robust digital footprint.
+                  That's why we don't just supply businesses with premium banners or illuminated signs;
+                  we help you optimize your Google Business Profiles, run neighborhood direct mail marketing,
+                  and build search authority in every city you serve.
+                </p>
+                <p className="text-gray-600 leading-relaxed">
+                  With a price match guarantee and decades of local experience, FBS Signs is the preferred
+                  partner for retail, hospitality, and home-service brands across the region.
+                </p>
+              </div>
+              <div className="relative h-[250px] md:h-[350px] rounded-2xl overflow-hidden shadow-md">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1525381.1895690327!2d-89.37852601712952!3d41.7482813133887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2c3cd0f4cbed%3A0xafe0a6ad09561000!2sChicago%20Metropolitan%20Area%2C%20IL%2C%20USA!5e0!3m2!1sen!2sin!4v1689234857284!5m2!1sen!2sin"
+                  className="w-full h-full border-0"
+                  allowFullScreen={false}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="FBS Signs regional map"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* CTA Section */}
+          <section className="container py-12 px-4 mb-12">
+            <div className="bg-gradient-to-r from-pink-600 to-pink-700 rounded-3xl px-6 py-12 text-white text-center max-w-5xl mx-auto shadow-xl">
+              <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">
+                Operating Outside of These Cities?
+              </h2>
+              <p className="max-w-2xl mx-auto mt-4 text-base md:text-lg text-pink-100 leading-relaxed">
+                Although we have dedicated physical service zones, we design websites, manage SEO,
+                and ship custom signs and commercial printing projects nationwide. Contact us to discuss your goals.
+              </p>
+              <div className="pt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-pink-700 font-bold shadow-lg transition-all duration-300 hover:scale-105"
+                >
+                  Get a Free Quote
+                </a>
+                <a
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-full border border-pink-300 text-white px-8 py-4 font-semibold transition-all duration-300 hover:bg-white/10"
+                >
+                  Consult an Expert
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </SmoothScroll>
+    </>
+  );
+}

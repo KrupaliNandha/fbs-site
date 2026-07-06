@@ -27,6 +27,7 @@ export default function Footer() {
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
     { name: "Contact Us", href: "/contact" },
+    { name: "Areas We Serve", href: "/service-areas" },
   ];
 
   return (

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl, publicPagePaths } from "@/app/lib/seo";
 import { getServiceLocationPages } from "@/app/lib/service-location-pages";
+import { serviceAreas } from "@/app/data/service-areas-data";
 
 import productsData from "@/app/data/printing-products-detail.json";
 
@@ -36,6 +37,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date("2026-07-06"),
   }));
 
-  return [...corePages, ...serviceLocationPages, ...printingProductPages];
+  const serviceAreaPages: MetadataRoute.Sitemap = [
+    {
+      url: absoluteUrl("/service-areas", baseUrl),
+      lastModified: new Date("2026-07-06"),
+    },
+    ...serviceAreas.map((city) => ({
+      url: absoluteUrl(`/service-areas/${city.slug}`, baseUrl),
+      lastModified: new Date(city.updatedAt),
+    })),
+  ];
+
+  return [...corePages, ...serviceLocationPages, ...printingProductPages, ...serviceAreaPages];
 }
+
 
