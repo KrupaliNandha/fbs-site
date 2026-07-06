@@ -20,6 +20,8 @@ import {
   Loader2,
 } from "lucide-react";
 import productDetailData from "../../../data/product-detail.json";
+import Navbar from "@/app/Components/Navbar";
+import Footer from "@/app/Components/Footer";
 
 /* ================================================================== */
 /*  Data model (shape of the fetched JSON)                              */
@@ -29,7 +31,7 @@ type SizeId = string;
 type GraphicId = string;
 type BaseId = string;
 type PackageId = string;
-type TabId = "description" | "spec" | "file-setup" | "installation";
+type TabId = "description" | "spec" | "file-setup";
 
 interface SizeSpec {
   id: SizeId;
@@ -90,11 +92,6 @@ interface TemplateRow {
   photoshop: TemplateLink[];
 }
 
-interface InstallStep {
-  step: number;
-  title: string;
-}
-
 interface VariantOptionSet {
   graphics: GraphicOption[];
   baseSelectOptions: SelectOption[];
@@ -110,6 +107,7 @@ interface ProductData {
   packages: { id: PackageId; label: string; priceAdjustment: number }[];
   variantsData: Record<string, VariantOptionSet>;
   sizes: SizeSpec[];
+  specImage: string;
   graphics: GraphicOption[];
   bases: BaseHardwareSpec[];
   baseSelectOptions: SelectOption[];
@@ -138,10 +136,6 @@ interface ProductData {
     tips: string[];
     templates: TemplateRow[];
     instructions: string[];
-  };
-  installation: {
-    steps: InstallStep[];
-    tip: string;
   };
 }
 
@@ -178,28 +172,31 @@ function mapRawToProductData(raw: any): ProductData {
     // Each productType (flag_pole / flag_only) keeps its own independent
     // graphic / base / carryBag option lists here — nothing is shared
     // or merged across variants.
-    variantsData: raw.variants.reduce((acc: Record<string, VariantOptionSet>, v: any) => {
-      acc[v.productType.id] = {
-        graphics: (v.graphic || []).map((g: any, i: number) => ({
-          id: g.id,
-          label: g.name,
-          description: raw.Description.graphics[i] || "",
-          upcharge: 0,
-        })),
-        // flag_only has no "base" key in the JSON at all -> this
-        // resolves to [] for that variant, which is what drives hiding
-        // the Base field for Flag Only further down.
-        baseSelectOptions: (v.base || []).map((b: any) => ({
-          value: b.id,
-          label: b.name,
-        })),
-        carryBagOptions: (v.carryBag || []).map((c: any) => ({
-          value: c.id,
-          label: c.name,
-        })),
-      };
-      return acc;
-    }, {}),
+    variantsData: raw.variants.reduce(
+      (acc: Record<string, VariantOptionSet>, v: any) => {
+        acc[v.productType.id] = {
+          graphics: (v.graphic || []).map((g: any, i: number) => ({
+            id: g.id,
+            label: g.name,
+            description: raw.Description.graphics[i] || "",
+            upcharge: 0,
+          })),
+          // flag_only has no "base" key in the JSON at all -> this
+          // resolves to [] for that variant, which is what drives hiding
+          // the Base field for Flag Only further down.
+          baseSelectOptions: (v.base || []).map((b: any) => ({
+            value: b.id,
+            label: b.name,
+          })),
+          carryBagOptions: (v.carryBag || []).map((c: any) => ({
+            value: c.id,
+            label: c.name,
+          })),
+        };
+        return acc;
+      },
+      {},
+    ),
     sizes: raw.spec.sizeSpecification.table.map((row: any) => ({
       id: row.size.toLowerCase().replace(/[^a-z0-9]/g, "-"),
       label: row.size,
@@ -211,6 +208,7 @@ function mapRawToProductData(raw: any): ProductData {
       heightFt: parseFloat(row.assembledHeight),
       price: 0,
     })),
+    specImage: raw.spec.sizeSpecification.image || "",
     graphics: primaryVariant.graphic.map((g: any, i: number) => ({
       id: g.id,
       label: g.name,
@@ -266,7 +264,7 @@ function mapRawToProductData(raw: any): ProductData {
     fileSetup: {
       requirements: raw.fileSetup.requirements,
       tips: raw.fileSetup.additionalTips,
-      templates: raw.installationGuide.templateDownloads.map((t: any) => ({
+      templates: (raw.installationGuide?.templateDownloads || []).map((t: any) => ({
         size: t.size,
         pdf: Object.keys(t.pdf).map((k) => ({
           label: k
@@ -279,16 +277,52 @@ function mapRawToProductData(raw: any): ProductData {
             .replace(/^./, (str) => str.toUpperCase()),
         })),
       })),
-      instructions: raw.installationGuide.instructions || [],
-    },
-    installation: {
-      steps: raw.installationGuide.steps || [],
-      tip: raw.installationGuide.tip?.content || "",
+      instructions: raw.installationGuide?.instructions || [],
     },
   };
 }
 
 const DEFAULT_DATA_URL = "/data/product-detail.json";
+
+/* ================================================================== */
+/*  Breadcrumbs component                                                */
+/* ================================================================== */
+
+function Breadcrumbs({ productName }: { productName: string }) {
+  return (
+    <nav className="flex text-sm text-gray-500 mb-6 sm:mb-8" aria-label="Breadcrumb">
+      <ol className="inline-flex items-center space-x-1 md:space-x-2">
+        <li className="inline-flex items-center">
+          <a href="/" className="inline-flex items-center hover:text-[#c6005c] transition-colors">
+            Home
+          </a>
+        </li>
+        <li>
+          <div className="flex items-center">
+            <span className="mx-1 text-gray-400">/</span>
+            <a href="/services" className="hover:text-[#c6005c] transition-colors ml-1">
+              Services
+            </a>
+          </div>
+        </li>
+        <li>
+          <div className="flex items-center">
+            <span className="mx-1 text-gray-400">/</span>
+            <a href="/services/signage" className="hover:text-[#c6005c] transition-colors ml-1">
+              Signage
+            </a>
+          </div>
+        </li>
+        <li aria-current="page">
+          <div className="flex items-center">
+            <span className="mx-1 text-gray-400">/</span>
+            <span className="text-gray-900 font-medium ml-1">{productName}</span>
+          </div>
+        </li>
+      </ol>
+    </nav>
+  );
+}
 
 /* ================================================================== */
 /*  Component                                                            */
@@ -340,7 +374,9 @@ export default function ProductDetailPage({
         const initialVariant = initialPackageId
           ? data.variantsData[initialPackageId]
           : undefined;
-        setGraphicId(initialVariant?.graphics[0]?.id ?? data.graphics[0]?.id ?? null);
+        setGraphicId(
+          initialVariant?.graphics[0]?.id ?? data.graphics[0]?.id ?? null,
+        );
         setBaseId(initialVariant?.baseSelectOptions[0]?.value ?? null);
         setCarryBagId(initialVariant?.carryBagOptions[0]?.value ?? null);
       } catch (err) {
@@ -374,7 +410,7 @@ export default function ProductDetailPage({
     setGraphicId((prev) =>
       variant.graphics.some((g) => g.id === prev)
         ? prev
-        : variant.graphics[0]?.id ?? null,
+        : (variant.graphics[0]?.id ?? null),
     );
 
     setBaseId((prev) =>
@@ -382,13 +418,13 @@ export default function ProductDetailPage({
         ? null
         : variant.baseSelectOptions.some((b) => b.value === prev)
           ? prev
-          : variant.baseSelectOptions[0]?.value ?? null,
+          : (variant.baseSelectOptions[0]?.value ?? null),
     );
 
     setCarryBagId((prev) =>
       variant.carryBagOptions.some((c) => c.value === prev)
         ? prev
-        : variant.carryBagOptions[0]?.value ?? null,
+        : (variant.carryBagOptions[0]?.value ?? null),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [packageId, product]);
@@ -397,8 +433,8 @@ export default function ProductDetailPage({
   if (error || !product)
     return <StateScreen kind="error" message={error ?? "Product not found"} />;
 
-  const currentVariant: VariantOptionSet =
-    (packageId && product.variantsData[packageId]) ||
+  const currentVariant: VariantOptionSet = (packageId &&
+    product.variantsData[packageId]) ||
     product.variantsData[product.packages[0].id] || {
       graphics: product.graphics || [],
       baseSelectOptions: product.baseSelectOptions || [],
@@ -412,12 +448,13 @@ export default function ProductDetailPage({
     { id: "description", label: "Description" },
     { id: "spec", label: "Spec" },
     { id: "file-setup", label: "File Setup" },
-    { id: "installation", label: "Installation Guide" },
   ];
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
+      <Navbar />
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <Breadcrumbs productName={product.name} />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           {/* -------------------------------------------------- */}
           {/* LEFT — Gallery                                       */}
@@ -610,6 +647,7 @@ export default function ProductDetailPage({
             {activeTab === "spec" && (
               <SpecTab
                 sizes={product.sizes}
+                specImage={product.specImage}
                 materialSpec={product.materialSpec}
                 carryBag={product.carryBag}
                 bases={product.bases}
@@ -619,12 +657,10 @@ export default function ProductDetailPage({
             {activeTab === "file-setup" && (
               <FileSetupTab data={product.fileSetup} />
             )}
-            {activeTab === "installation" && (
-              <InstallationTab data={product.installation} />
-            )}
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
@@ -829,14 +865,26 @@ function DescriptionTab({ data }: { data: ProductData["description"] }) {
 /*  Spec tab                                                             */
 /* ================================================================== */
 
+function formatSizeLabel(label: string) {
+  const l = label.toLowerCase();
+  if (l === "x-large" || l === "xlarge") return "XL";
+  if (l === "xx-large" || l === "xxlarge") return "XXL";
+  if (l === "large") return "L";
+  if (l === "medium") return "M";
+  if (l === "small") return "S";
+  return label;
+}
+
 function SpecTab({
   sizes,
+  specImage,
   materialSpec,
   carryBag,
   bases,
   hardwareAndAssembly,
 }: {
   sizes: SizeSpec[];
+  specImage: string;
   materialSpec: ProductData["materialSpec"];
   carryBag: ProductData["carryBag"];
   bases: BaseHardwareSpec[];
@@ -845,59 +893,96 @@ function SpecTab({
   return (
     <div>
       <h2 className="text-lg font-semibold text-gray-900">Spec</h2>
-      <p className="mt-1 text-sm text-gray-500">Size &amp; Specifications</p>
+      <p className="mt-2 text-sm text-gray-500">Size &amp; Specifications</p>
 
       <div className="mt-5 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-        <div className="lg:col-span-5">
-          <HeightDiagram sizes={sizes} />
+        <div className="lg:col-span-5 flex flex-col">
+          {specImage ? (
+            <img
+              src={
+                specImage.startsWith("http") || specImage.startsWith("/")
+                  ? specImage
+                  : `/image/${specImage}`
+              }
+              alt="Size and Specifications Diagram"
+              className="w-full h-auto object-contain rounded-2xl border border-gray-200 bg-gray-50"
+              style={{ maxHeight: "360px" }}
+            />
+          ) : (
+            <div className="w-full h-auto min-h-[300px] bg-gray-50 flex items-center justify-center text-sm text-gray-400 border border-gray-200 rounded-2xl">
+              No diagram available
+            </div>
+          )}
         </div>
 
-        <div className="lg:col-span-7 overflow-x-auto">
-          <table className="w-full text-sm border-collapse min-w-[560px]">
-            <thead>
-              <tr className="border-b border-gray-200">
-                {[
-                  "Size",
-                  "Assembled Height",
-                  "Graphic Size",
-                  "Flag Weight",
-                  "Flag w/ Pole Weight",
-                  "Pole Set Pieces",
-                ].map((h) => (
-                  <th
-                    key={h}
-                    className="text-left font-semibold text-gray-800 py-2.5 pr-4 whitespace-nowrap"
-                  >
-                    {h}
+        <div className="lg:col-span-7">
+          <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white">
+            <table className="w-full text-sm border-collapse min-w-[560px]">
+              <thead>
+                <tr className="border-b border-gray-200 bg-white">
+                  <th className="py-4 px-3 text-center font-bold text-gray-900 border-r border-gray-200 whitespace-nowrap">
+                    Size
                   </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[...sizes].reverse().map((s) => (
-                <tr key={s.id} className="border-b border-gray-100">
-                  <td className="py-3 pr-4 font-medium text-gray-900 whitespace-nowrap">
-                    {s.label}
-                  </td>
-                  <td className="py-3 pr-4 text-[#c6005c] font-medium whitespace-nowrap">
-                    {s.assembledHeight}
-                  </td>
-                  <td className="py-3 pr-4 text-gray-700 whitespace-nowrap">
-                    {s.graphicSize}
-                  </td>
-                  <td className="py-3 pr-4 text-gray-700 whitespace-nowrap">
-                    {s.flagWeight}
-                  </td>
-                  <td className="py-3 pr-4 text-gray-700 whitespace-nowrap">
-                    {s.flagWithPoleWeight}
-                  </td>
-                  <td className="py-3 pr-4 text-gray-700 whitespace-nowrap">
-                    {s.poleSetPieces}
-                  </td>
+                  <th className="py-4 px-3 text-center font-bold text-gray-900 border-r border-gray-200">
+                    Assembled
+                    <br />
+                    Height
+                  </th>
+                  <th className="py-4 px-3 text-center font-bold text-gray-900 border-r border-gray-200">
+                    Graphic
+                    <br />
+                    Size
+                  </th>
+                  <th className="py-4 px-3 text-center font-bold text-gray-900 border-r border-gray-200">
+                    Flag
+                    <br />
+                    Weight
+                  </th>
+                  <th className="py-4 px-3 text-center font-bold text-gray-900 border-r border-gray-200">
+                    Flag w/ Pole
+                    <br />
+                    Weight
+                  </th>
+                  <th className="py-4 px-3 text-center font-bold text-gray-900">
+                    Pole Set
+                    <br />
+                    Pieces
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {[...sizes].reverse().map((s, idx) => (
+                  <tr
+                    key={s.id}
+                    className={
+                      idx !== sizes.length - 1
+                        ? "border-b border-gray-200 bg-white"
+                        : "bg-white"
+                    }
+                  >
+                    <td className="py-6 px-3 text-center font-bold text-gray-900 border-r border-gray-200 whitespace-nowrap">
+                      {formatSizeLabel(s.label)}
+                    </td>
+                    <td className="py-6 px-3 text-center font-bold text-[#c6005c] border-r border-gray-200 whitespace-nowrap">
+                      {s.assembledHeight}
+                    </td>
+                    <td className="py-6 px-3 text-center text-gray-600 border-r border-gray-200 whitespace-nowrap">
+                      {s.graphicSize}
+                    </td>
+                    <td className="py-6 px-3 text-center text-gray-600 border-r border-gray-200 whitespace-nowrap">
+                      {s.flagWeight}
+                    </td>
+                    <td className="py-6 px-3 text-center text-gray-600 border-r border-gray-200 whitespace-nowrap">
+                      {s.flagWithPoleWeight}
+                    </td>
+                    <td className="py-6 px-3 text-center text-gray-600 whitespace-nowrap">
+                      {s.poleSetPieces}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -978,65 +1063,6 @@ function SpecRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-function HeightDiagram({ sizes }: { sizes: SizeSpec[] }) {
-  const maxFt = Math.max(...sizes.map((s) => s.heightFt));
-  const trackPx = 200;
-  const humanFt = 5.83;
-  const gridLines = [6, 9, 10.5, 14, 18].filter(
-    (v) => v <= maxFt || v === Math.max(...[6, 9, 10.5, 14, 18]),
-  );
-
-  return (
-    <div className="border border-gray-200 rounded-sm bg-gray-50 px-4 sm:px-6 pt-6 pb-4">
-      <div className="relative" style={{ height: trackPx + 24 }}>
-        {gridLines.map((ft) => (
-          <div
-            key={ft}
-            className="absolute left-8 right-0 border-t border-gray-300"
-            style={{ bottom: (ft / maxFt) * trackPx + 24 }}
-          >
-            <span className="absolute -top-2.5 right-0 text-[10px] text-gray-500">
-              {ft}'
-            </span>
-          </div>
-        ))}
-
-        <div
-          className="absolute left-0 flex flex-col items-center"
-          style={{ bottom: 24 }}
-        >
-          <div
-            className="w-3 rounded-t-full bg-gray-300"
-            style={{ height: (humanFt / maxFt) * trackPx }}
-          />
-        </div>
-
-        <div
-          className="absolute left-10 right-0 flex items-end justify-between gap-3"
-          style={{ bottom: 24, height: trackPx }}
-        >
-          {sizes.map((s) => {
-            const barHeight = (s.heightFt / maxFt) * trackPx;
-            const initial = s.label[0];
-            return (
-              <div key={s.id} className="flex flex-col items-center flex-1">
-                <div
-                  className="relative w-full max-w-[36px] rounded-t-sm bg-white border border-gray-300"
-                  style={{ height: Math.max(barHeight, 20) }}
-                >
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 h-5 w-5 rounded-full bg-[#c6005c] text-white text-[10px] font-semibold flex items-center justify-center">
-                    {initial}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function BaseIcon({ id }: { id: BaseId }) {
   const iconProps = { className: "h-8 w-8 text-gray-400" };
   switch (id) {
@@ -1082,55 +1108,6 @@ function FileSetupTab({ data }: { data: ProductData["fileSetup"] }) {
           </li>
         ))}
       </ul>
-    </div>
-  );
-}
-
-/* ================================================================== */
-/*  Installation tab                                                     */
-/* ================================================================== */
-
-function InstallationTab({ data }: { data: ProductData["installation"] }) {
-  return (
-    <div>
-      <h2 className="text-lg font-semibold text-gray-900">
-        Installation Guide
-      </h2>
-
-      <div className="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {data.steps.map((s) => (
-          <div key={s.step}>
-            <div className="aspect-square bg-gray-50 border border-gray-200 rounded-sm flex items-center justify-center">
-              <span className="h-9 w-9 rounded-full bg-[#c6005c] text-white text-sm font-semibold flex items-center justify-center">
-                {s.step}
-              </span>
-            </div>
-            <p className="mt-2 text-xs sm:text-sm text-gray-700 text-center">
-              {s.title}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-6 flex gap-2.5 w-full rounded-sm border border-[#c6005c]/30 bg-[#c6005c]/5 px-4 py-3">
-        <div className="h-[18px] w-[18px] rounded-full border-[1.5px] border-[#c6005c] text-[#c6005c] flex items-center justify-center flex-shrink-0 mt-0.5">
-          <svg
-            className="h-2 w-2"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M12 4v16M18.928 8 5.072 16M5.072 8l13.856 8" />
-          </svg>
-        </div>
-        <p className="text-sm text-gray-700 leading-relaxed">
-          <span className="font-semibold text-gray-900">Tip: </span>
-          {data.tip}
-        </p>
-      </div>
     </div>
   );
 }
