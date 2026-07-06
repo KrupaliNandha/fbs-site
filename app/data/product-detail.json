@@ -8,7 +8,6 @@
       "https://fbssigns.sign-usa.com/image/thumb/240312/aWMJwx6Q-s1000.jpg",
       "https://fbssigns.sign-usa.com/image/thumb/240312/zIUck5RC-s1000.jpg",
       "https://fbssigns.sign-usa.com/image/thumb/251217/OL35DL8Y-s1000.jpg"
-      
     ]
   },
   "features": [
@@ -91,7 +90,7 @@
   "spec": {
     "title": "Spec",
     "sizeSpecification": {
-      "image": "spec-size-chart.jpg",
+      "image": "/Products/Product1.png",
       "table": [
         {
           "size": "X-Large",
@@ -202,21 +201,5 @@
       "Convert live fonts to outlines",
       "Use provided design templates when available"
     ]
-  },
-  "installationGuide": {
-    "title": "Installation Guide",
-    "templateUserGuide": "template-user-guide.pdf",
-    "templateDownloads": [],
-    "instructions": [],
-    "steps": [
-      { "step": 1, "title": "Position the pole set.", "image": "installation-step-1.jpg" },
-      { "step": 2, "title": "Connect the poles.", "image": "installation-step-2.jpg" },
-      { "step": 3, "title": "Slide flag onto the pole.", "image": "installation-step-3.jpg" },
-      { "step": 4, "title": "Secure flag down the pole.", "image": "installation-step-4.jpg" }
-    ],
-    "tip": {
-      "title": "Tip",
-      "content": "If the flag appears wrinkled or loose after setup, please ensure the elastic cord at the bottom is pulled tight. A firm tension will help the flag stay smooth and properly displayed."
-    }
   }
 }
