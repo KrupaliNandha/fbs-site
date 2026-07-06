@@ -239,7 +239,7 @@ export default function ProductDetailPageClient({
       <SmoothScroll>
         <main>
           {/* Section 1: Hero */}
-          <section className="bg-gradient-to-br from-rose-50 via-white to-blue-50">
+          <section className="bg-gradient-to-br mt-20 from-rose-50 via-white to-blue-50">
             <div className="container px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:py-24">
               <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
                 {/* Left Content */}

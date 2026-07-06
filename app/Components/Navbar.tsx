@@ -39,7 +39,7 @@ export default function Navbar() {
   return (
     <>
       {/* HEADER */}
-      <header className="top-0 z-50 w-full shadow-md bg-white">
+      <header className="top-0 z-50 fixed w-full shadow-md bg-white">
         <nav className="flex items-center justify-between container section-padding-header">
           {/* LOGO */}
           <Link href="/" aria-label="FBS Prints home">
