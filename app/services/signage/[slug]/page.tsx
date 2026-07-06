@@ -161,13 +161,21 @@ function mapRawToProductData(raw: any): ProductData {
     shortDescription: descContent[0] ?? "",
     gallery: [
       ...(raw?.images?.mainImage
-        ? [{ id: "main", label: "Main Image", url: raw.images.mainImage }]
+        ? [
+            {
+              id: "main",
+              label: "Main Image",
+              url: raw.images.mainImage.startsWith("/")
+                ? raw.images.mainImage
+                : `/${raw.images.mainImage}`,
+            },
+          ]
         : []),
       ...(Array.isArray(raw?.images?.subImages)
         ? raw.images.subImages.map((img: string, i: number) => ({
             id: `sub-${i}`,
             label: `Image ${i + 1}`,
-            url: img,
+            url: img.startsWith("/") ? img : `/${img}`,
           }))
         : []),
     ],
@@ -366,7 +374,7 @@ export default function ProductDetailPage() {
   return (
     <div className="min-h-screen bg-white text-gray-900">
       <Navbar />
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 mt-30">
         <Breadcrumbs productName={product.name} />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           {/* -------------------------------------------------- */}
@@ -1098,7 +1106,15 @@ function SpecTab({
                 className="border border-gray-200 rounded-sm overflow-hidden"
               >
                 <div className="aspect-square bg-gray-50 flex items-center justify-center">
-                  <BaseIcon id={b.id} />
+                  {b.image ? (
+                    <img
+                      src={b.image.startsWith("/") ? b.image : `/${b.image}`}
+                      alt={b.name}
+                      className="w-full h-full object-contain p-2"
+                    />
+                  ) : (
+                    <BaseIcon id={b.id} />
+                  )}
                 </div>
                 <div className="p-3">
                   <p className="text-sm font-semibold text-gray-900">

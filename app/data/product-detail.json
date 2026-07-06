@@ -3,12 +3,13 @@
     "slug": "Advertising Flags",
     "name": "Feather Angled Flag",
     "images": {
-      "mainImage": "https://fbssigns.sign-usa.com/image/thumb/240327/uf4fTjWs-s1000.jpg",
+      "mainImage": "Products-fbs/Advertising Flags/Products-1.jpg",
       "subImages": [
-        "https://fbssigns.sign-usa.com/image/thumb/240311/xuDAkfis-s1000.jpg",
-        "https://fbssigns.sign-usa.com/image/thumb/240312/aWMJwx6Q-s1000.jpg",
-        "https://fbssigns.sign-usa.com/image/thumb/240312/zIUck5RC-s1000.jpg",
-        "https://fbssigns.sign-usa.com/image/thumb/251217/OL35DL8Y-s1000.jpg"
+        "Products-fbs/Advertising Flags/Products-2.jpg",
+        "Products-fbs/Advertising Flags/Products-3.jpg",
+        "Products-fbs/Advertising Flags/Products-4.jpg",
+        "Products-fbs/Advertising Flags/Products-5.jpg",
+        "Products-fbs/Advertising Flags/Products-6.jpg"
       ]
     },
     "features": [
@@ -222,7 +223,7 @@
       {
         "id": "ground_stake",
         "name": "Ground Stake",
-        "image": "ground-stake.jpg",
+        "image": "Products-fbs/Advertising Flags/Hardware-1.jpg",
         "specifications": {
           "material": "Aluminum",
           "weight": "3.6 lbs",
@@ -233,7 +234,7 @@
       {
         "id": "cross_base",
         "name": "Cross Base",
-        "image": "cross-base.jpg",
+        "image": "Products-fbs/Advertising Flags/Hardware-2.jpg",
         "specifications": {
           "material": "Aluminum",
           "weight": "6.73 lbs",
@@ -243,7 +244,7 @@
       {
         "id": "water_bag",
         "name": "Water Bag",
-        "image": "water-bag.jpg",
+        "image": "Products-fbs/Advertising Flags/Hardware-3.jpg",
         "specifications": {
           "material": "Plastic",
           "weight": "3 lbs (empty)",
@@ -253,7 +254,7 @@
       {
         "id": "square_base",
         "name": "Square Base",
-        "image": "square-base.jpg",
+        "image": "Products-fbs/Advertising Flags/Hardware-4.jpg",
         "specifications": {
           "material": "Steel",
           "weight": "21.83 lbs",
@@ -282,12 +283,12 @@
     "slug": "banner-stands",
     "name": "Banner Stand",
     "images": {
-      "mainImage": "https://fbssigns.sign-usa.com/image/thumb/240313/6JzV9SAJ-s1000.jpg",
+      "mainImage": "Products-fbs/Banner Stand/Product-1.jpg",
       "subImages": [
-        "https://fbssigns.sign-usa.com/image/thumb/240314/I9VuT2YU-s1000.jpg",
-        "https://fbssigns.sign-usa.com/image/thumb/240313/DlSsTk0I-s1000.jpg",
-        "https://fbssigns.sign-usa.com/image/thumb/240314/b35NMDzc-s1000.jpg",
-        "https://fbssigns.sign-usa.com/image/thumb/240314/1gcTCr9I-s1000.jpg"
+        "Products-fbs/Banner Stand/Product-2.jpg",
+        "Products-fbs/Banner Stand/Product-3.jpg",
+        "Products-fbs/Banner Stand/Product-4.jpg",
+        "Products-fbs/Banner Stand/Product-5.jpg"
       ]
     },
     "features": [
@@ -405,12 +406,13 @@
     "slug": "banner",
     "name": "Custom Vinyl Banner",
     "images": {
-      "mainImage": "/products/banner/image-0.jpg",
+      "mainImage": "/Products-fbs/Banner/Product-1.jpg",
       "subImages": [
-        "/products/banner/image-1.jpg",
-        "/products/banner/image-2.jpg",
-        "/products/banner/image-3.jpg",
-        "/products/banner/image-4.jpg"
+        "/Products-fbs/Banner/Product-2.jpg",
+        "/Products-fbs/Banner/Product-3.jpg",
+        "/Products-fbs/Banner/Product-4.jpg",
+        "/Products-fbs/Banner/Product-5.jpg",
+        "/Products-fbs/Banner/Product-6.jpg"
       ]
     },
     "features": [
@@ -552,12 +554,12 @@
     "slug": "custom-neon-led",
     "name": "Custom Neon LED Sign",
     "images": {
-      "mainImage": "/products/custom-neon-led/image-0.jpg",
+      "mainImage": "/Products-fbs/Custom Neon LED/Product-1.jpg",
       "subImages": [
-        "/products/custom-neon-led/image-1.jpg",
-        "/products/custom-neon-led/image-2.jpg",
-        "/products/custom-neon-led/image-3.jpg",
-        "/products/custom-neon-led/image-4.jpg"
+        "/Products-fbs/Custom Neon LED/Product-2.jpg",
+        "/Products-fbs/Custom Neon LED/Product-3.jpg",
+        "/Products-fbs/Custom Neon LED/Product-4.jpg",
+        "/Products-fbs/Custom Neon LED/Product-5.jpg"
       ]
     },
     "features": [
@@ -663,12 +665,15 @@
     "slug": "custom-event-tents",
     "name": "Custom Event Tent",
     "images": {
-      "mainImage": "/products/custom-event-tents/image-0.jpg",
+      "mainImage": "/Products-fbs/Custom Event Tent/Product-1.jpg",
       "subImages": [
-        "/products/custom-event-tents/image-1.jpg",
-        "/products/custom-event-tents/image-2.jpg",
-        "/products/custom-event-tents/image-3.jpg",
-        "/products/custom-event-tents/image-4.jpg"
+        "/Products-fbs/Custom Event Tent/Product-2.jpg",
+        "/Products-fbs/Custom Event Tent/Product-3.jpg",
+        "/Products-fbs/Custom Event Tent/Product-4.jpg",
+        "/Products-fbs/Custom Event Tent/Product-5.jpg",
+        "/Products-fbs/Custom Event Tent/Product-6.jpg",
+        "/Products-fbs/Custom Event Tent/Product-7.jpg",
+        "/Products-fbs/Custom Event Tent/Product-8.jpg"
       ]
     },
     "features": [
@@ -800,12 +805,13 @@
     "slug": "canopy-awning",
     "name": "Custom Canopy / Awning",
     "images": {
-      "mainImage": "/products/canopy-awning/image-0.jpg",
+      "mainImage": "/Products-fbs/Custom Canopy Awning/Product-1.jpg",
       "subImages": [
-        "/products/canopy-awning/image-1.jpg",
-        "/products/canopy-awning/image-2.jpg",
-        "/products/canopy-awning/image-3.jpg",
-        "/products/canopy-awning/image-4.jpg"
+        "/Products-fbs/Custom Canopy Awning/Product-2.jpg",
+        "/Products-fbs/Custom Canopy Awning/Product-3.jpg",
+        "/Products-fbs/Custom Canopy Awning/Product-4.jpg",
+        "/Products-fbs/Custom Canopy Awning/Product-5.jpg",
+        "/Products-fbs/Custom Canopy Awning/Product-6.jpg"
       ]
     },
     "features": [
@@ -902,12 +908,12 @@
     "slug": "led-light-box",
     "name": "LED Light Box",
     "images": {
-      "mainImage": "/products/led-light-box/image-0.jpg",
+      "mainImage": "/Products-fbs/LED Light Box/Product-1.jpg",
       "subImages": [
-        "/products/led-light-box/image-1.jpg",
-        "/products/led-light-box/image-2.jpg",
-        "/products/led-light-box/image-3.jpg",
-        "/products/led-light-box/image-4.jpg"
+        "/Products-fbs/LED Light Box/Product-2.jpg",
+        "/Products-fbs/LED Light Box/Product-3.jpg",
+        "/Products-fbs/LED Light Box/Product-4.jpg",
+        "/Products-fbs/LED Light Box/Product-5.jpg"
       ]
     },
     "features": [
@@ -1039,12 +1045,12 @@
     "slug": "led-message-board",
     "name": "LED Message Board / Digital Sign",
     "images": {
-      "mainImage": "/products/led-message-board/image-0.jpg",
+      "mainImage": "/Products-fbs/LED Message Board  Digital Sign/Product-1.jpg",
       "subImages": [
-        "/products/led-message-board/image-1.jpg",
-        "/products/led-message-board/image-2.jpg",
-        "/products/led-message-board/image-3.jpg",
-        "/products/led-message-board/image-4.jpg"
+        "/Products-fbs/LED Message Board  Digital Sign/Product-2.jpg",
+        "/Products-fbs/LED Message Board  Digital Sign/Product-3.jpg",
+        "/Products-fbs/LED Message Board  Digital Sign/Product-4.jpg",
+        "/Products-fbs/LED Message Board  Digital Sign/Product-5.jpg"
       ]
     },
     "features": [
@@ -1157,12 +1163,12 @@
     "slug": "led-channel-letters",
     "name": "LED Channel Letters",
     "images": {
-      "mainImage": "/products/led-channel-letters/image-0.jpg",
+      "mainImage": "/Products-fbs/LED Channel Letters/Product-1.jpg",
       "subImages": [
-        "/products/led-channel-letters/image-1.jpg",
-        "/products/led-channel-letters/image-2.jpg",
-        "/products/led-channel-letters/image-3.jpg",
-        "/products/led-channel-letters/image-4.jpg"
+        "/Products-fbs/LED Channel Letters/Product-2.jpg",
+        "/Products-fbs/LED Channel Letters/Product-3.jpg",
+        "/Products-fbs/LED Channel Letters/Product-4.jpg",
+        "/Products-fbs/LED Channel Letters/Product-5.jpg"
       ]
     },
     "features": [
@@ -1284,12 +1290,12 @@
     "slug": "monument-signs",
     "name": "Monument Sign",
     "images": {
-      "mainImage": "/products/monument-signs/image-0.jpg",
+      "mainImage": "/Products-fbs/Monument Sign/Product-1.jpg",
       "subImages": [
-        "/products/monument-signs/image-1.jpg",
-        "/products/monument-signs/image-2.jpg",
-        "/products/monument-signs/image-3.jpg",
-        "/products/monument-signs/image-4.jpg"
+        "/Products-fbs/Monument Sign/Product-2.jpg",
+        "/Products-fbs/Monument Sign/Product-3.jpg",
+        "/Products-fbs/Monument Sign/Product-4.jpg",
+        "/Products-fbs/Monument Sign/Product-5.jpg"
       ]
     },
     "features": [
@@ -1410,12 +1416,12 @@
     "slug": "pylon-signs",
     "name": "Pylon Sign",
     "images": {
-      "mainImage": "/products/pylon-signs/image-0.jpg",
+      "mainImage": "/Products-fbs/Pylon Sign/Product-1.jpg",
       "subImages": [
-        "/products/pylon-signs/image-1.jpg",
-        "/products/pylon-signs/image-2.jpg",
-        "/products/pylon-signs/image-3.jpg",
-        "/products/pylon-signs/image-4.jpg"
+        "/Products-fbs/Pylon Sign/Product-2.jpg",
+        "/Products-fbs/Pylon Sign/Product-3.jpg",
+        "/Products-fbs/Pylon Sign/Product-4.jpg",
+        "/Products-fbs/Pylon Sign/Product-5.jpg"
       ]
     },
     "features": [
@@ -1543,12 +1549,12 @@
     "slug": "signicade-a-frame",
     "name": "Signicade A-Frame Sign",
     "images": {
-      "mainImage": "/products/signicade-a-frame/image-0.jpg",
+      "mainImage": "/Products-fbs/Signicade A-Frame/Product-1.jpg",
       "subImages": [
-        "/products/signicade-a-frame/image-1.jpg",
-        "/products/signicade-a-frame/image-2.jpg",
-        "/products/signicade-a-frame/image-3.jpg",
-        "/products/signicade-a-frame/image-4.jpg"
+        "/Products-fbs/Signicade A-Frame/Product-2.jpg",
+        "/Products-fbs/Signicade A-Frame/Product-3.jpg",
+        "/Products-fbs/Signicade A-Frame/Product-4.jpg",
+        "/Products-fbs/Signicade A-Frame/Product-5.jpg"
       ]
     },
     "features": [
@@ -1643,12 +1649,12 @@
     "slug": "trade-show-products",
     "name": "Trade Show Display Package",
     "images": {
-      "mainImage": "/products/trade-show-products/image-0.jpg",
+      "mainImage": "/Products-fbs/Trade Show products/Product-1.jpg",
       "subImages": [
-        "/products/trade-show-products/image-1.jpg",
-        "/products/trade-show-products/image-2.jpg",
-        "/products/trade-show-products/image-3.jpg",
-        "/products/trade-show-products/image-4.jpg"
+        "/Products-fbs/Trade Show products/Product-2.jpg",
+        "/Products-fbs/Trade Show products/Product-3.jpg",
+        "/Products-fbs/Trade Show products/Product-4.jpg",
+        "/Products-fbs/Trade Show products/Product-5.jpg"
       ]
     },
     "features": [
@@ -1757,12 +1763,12 @@
     "slug": "vehicle-graphics",
     "name": "Vehicle Graphics / Decals",
     "images": {
-      "mainImage": "/products/vehicle-graphics/image-0.jpg",
+      "mainImage": "/Products-fbs/vehical-graphics/Product-1.jpg",
       "subImages": [
-        "/products/vehicle-graphics/image-1.jpg",
-        "/products/vehicle-graphics/image-2.jpg",
-        "/products/vehicle-graphics/image-3.jpg",
-        "/products/vehicle-graphics/image-4.jpg"
+        "/Products-fbs/vehical-graphics/Product-2.jpg",
+        "/Products-fbs/vehical-graphics/Product-3.jpg",
+        "/Products-fbs/vehical-graphics/Product-4.jpg",
+        "/Products-fbs/vehical-graphics/Product-5.jpg"
       ]
     },
     "features": [
@@ -1869,12 +1875,12 @@
     "slug": "vehicle-wraps",
     "name": "Vehicle Wrap",
     "images": {
-      "mainImage": "/products/vehicle-wraps/image-0.jpg",
+      "mainImage": "/Products-fbs/Vehicle Wrap/product-1.jpg",
       "subImages": [
-        "/products/vehicle-wraps/image-1.jpg",
-        "/products/vehicle-wraps/image-2.jpg",
-        "/products/vehicle-wraps/image-3.jpg",
-        "/products/vehicle-wraps/image-4.jpg"
+        "/Products-fbs/Vehicle Wrap/product-2.jpg",
+        "/Products-fbs/Vehicle Wrap/product-3.jpg",
+        "/Products-fbs/Vehicle Wrap/product-4.jpg",
+        "/Products-fbs/Vehicle Wrap/product-5.jpg"
       ]
     },
     "features": [
@@ -2003,12 +2009,12 @@
     "slug": "window-lettering",
     "name": "Window Lettering & Graphics",
     "images": {
-      "mainImage": "/products/window-lettering/image-0.jpg",
+      "mainImage": "/Products-fbs/window-lettering/product-1.jpg",
       "subImages": [
-        "/products/window-lettering/image-1.jpg",
-        "/products/window-lettering/image-2.jpg",
-        "/products/window-lettering/image-3.jpg",
-        "/products/window-lettering/image-4.jpg"
+        "/Products-fbs/window-lettering/product-2.jpg",
+        "/Products-fbs/window-lettering/product-3.jpg",
+        "/Products-fbs/window-lettering/product-4.jpg",
+        "/Products-fbs/window-lettering/product-5.jpg"
       ]
     },
     "features": [
@@ -2122,12 +2128,12 @@
     "slug": "yard-signs",
     "name": "Custom Yard Sign",
     "images": {
-      "mainImage": "/products/yard-signs/image-0.jpg",
+      "mainImage": "/Products-fbs/yard sign/product-1.jpg",
       "subImages": [
-        "/products/yard-signs/image-1.jpg",
-        "/products/yard-signs/image-2.jpg",
-        "/products/yard-signs/image-3.jpg",
-        "/products/yard-signs/image-4.jpg"
+        "/Products-fbs/yard sign/product-2.jpg",
+        "/Products-fbs/yard sign/product-3.jpg",
+        "/Products-fbs/yard sign/product-4.jpg",
+        "/Products-fbs/yard sign/product-5.jpg"
       ]
     },
     "features": [
