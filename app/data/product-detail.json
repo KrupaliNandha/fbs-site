@@ -306,11 +306,11 @@
         "size": [
           {
             "id": "1",
-            "name": "33.5 x 80"
+            "name": "36 x 90"
           },
           {
             "id": "2",
-            "name": "36 x 90"
+            "name": "48 x 90"
           }
         ],
         "graphic": [
@@ -391,7 +391,8 @@
         "Resolution: 150 dpi for raster images (More than enough for large format)",
         "Max File Upload Size: 300MB",
         "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
-        "Do not include crop marks or bleeds"
+        "Do not include crop marks or bleeds",
+        "Double sided products will be uploaded as two separate files unless otherwise specified in the artwork template"
       ],
       "additionalTips": [
         "Do not submit with Pantones/Spot Colors - Convert to CMYK",
