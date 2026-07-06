@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { absoluteUrl, publicPagePaths } from "@/app/lib/seo";
 import { getServiceLocationPages } from "@/app/lib/service-location-pages";
 
+import productsData from "@/app/data/printing-products-detail.json";
+
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fbssigns.com";
 
 const corePageLastModified: Record<string, string> = {
@@ -29,5 +31,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(page.location.updatedAt),
   }));
 
-  return [...corePages, ...serviceLocationPages];
+  const printingProductPages: MetadataRoute.Sitemap = productsData.map((product) => ({
+    url: absoluteUrl(`/services/printing-products/${product.slug}`, baseUrl),
+    lastModified: new Date("2026-07-06"),
+  }));
+
+  return [...corePages, ...serviceLocationPages, ...printingProductPages];
 }
+

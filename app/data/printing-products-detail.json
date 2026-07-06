@@ -1,0 +1,317 @@
+[
+  {
+    "slug": "business-cards",
+    "name": "Business Cards",
+    "title": "Custom Business Card Printing Services | FBS Prints",
+    "metaDescription": "Professional business card printing services by FBS Prints. Choose from standard, premium, matte, glossy, and custom finishes to make a lasting first impression.",
+    "intro": "Make a memorable first impression with high-quality, custom-printed business cards designed to showcase your professional brand.",
+    "description": "Your business card is more than just contact information—it is a physical extension of your brand. At FBS Prints, we combine high-resolution digital print technology with premium, heavy cardstocks to produce business cards that demand attention. Whether you are networking at local events, meeting with prospective clients, or distributing cards at your front desk, our prints offer sharp legibility and vibrant colors. We offer standard shapes, square designs, and custom configurations with options like rounded corners and premium finishes to fit your visual identity.",
+    "features": [
+      "Premium cardstock options (14pt, 16pt, or extra-thick 18pt)",
+      "Standard, square, rounded corner, and custom sizes",
+      "Matte, high-gloss UV, soft-touch, or uncoated writeable finishes",
+      "Double-sided full-color printing for maximum brand exposure"
+    ],
+    "specs": {
+      "materials": "14pt/16pt Premium Cardstock, 100lb Cover, Kraft Paper",
+      "sizes": "Standard (3.5\" x 2\"), Square (2.5\" x 2.5\"), Custom Dimensions",
+      "turnaround": "3-5 Business Days (Expedited options available)",
+      "finishing": "Matte, High-Gloss UV, Soft-Touch Lamination, Spot UV, Foil Stamping"
+    },
+    "faqs": [
+      {
+        "question": "What is the standard size of a business card?",
+        "answer": "The standard size for a business card is 3.5 inches by 2 inches. We also offer square cards (2.5\" x 2.5\") and custom dimensions to fit your brand's style."
+      },
+      {
+        "question": "What is the difference between matte and glossy finishes?",
+        "answer": "Matte finishes offer a smooth, non-reflective surface that is easy to write on and looks modern. Glossy (UV) finishes have a high-shine coating that makes colors pop and provides extra durability and resistance to scratches."
+      },
+      {
+        "question": "Can I print on both sides of my business card?",
+        "answer": "Yes, we support double-sided printing. You can print your logo on the front and contact info, a QR code, social handles, or an appointment schedule on the back."
+      }
+    ],
+    "image": "/images/shared/printing-materials-showcase.webp"
+  },
+  {
+    "slug": "brochures",
+    "name": "Brochures",
+    "title": "Custom Brochure Printing & Folding Services | FBS Prints",
+    "metaDescription": "High-quality brochure printing and folding services by FBS Prints. Choose from tri-fold, bi-fold, z-fold, and custom paper stocks to promote your business.",
+    "intro": "Present your products, services, and brand story with professional, custom-printed brochures in various folding configurations.",
+    "description": "Brochures are an essential marketing tool for presenting structured information about your business, products, or events. FBS Prints provides high-definition full-color brochure printing with crisp details and rich contrast, ensuring your text is highly readable and your photos are vibrant. We support a range of folding patterns, including classic tri-folds, clean bi-folds, z-folds, and gate-folds. Our premium text-weight and cover-weight papers are carefully folded to prevent cracking at the seams, leaving you with a polished brochure ready for sales pitches, front-desk handouts, or direct mailing campaigns.",
+    "features": [
+      "Multiple folding options: Bi-fold, Tri-fold, Z-fold, and Gate-fold",
+      "Premium text-weight and cover-weight glossy or matte paper stocks",
+      "High-definition full-color printing with crisp details and rich contrast",
+      "Perfect for sales meetings, handouts, product catalogs, and direct mail"
+    ],
+    "specs": {
+      "materials": "100lb Gloss Text, 80lb Matte Text, 100lb Gloss Cover",
+      "sizes": "8.5\" x 11\", 8.5\" x 14\", 11\" x 17\" (unfolded dimensions)",
+      "turnaround": "3-5 Business Days",
+      "finishing": "Machine folding, aqueous coating, bundle packaging"
+    },
+    "faqs": [
+      {
+        "question": "What are the most common folding options for brochures?",
+        "answer": "The most popular fold is the Tri-Fold (folding into three panels), followed by the Bi-Fold (half-fold) and Z-Fold (folding back-and-forth like an accordion)."
+      },
+      {
+        "question": "What paper stock is best for brochures?",
+        "answer": "100lb Gloss Text is the industry standard for high-quality brochures. It provides a premium feel, substantial weight, and a smooth texture that makes photos and text stand out."
+      },
+      {
+        "question": "Can you design my brochure template?",
+        "answer": "Yes, our graphic design team can work with your logo, text, and images to create a clean, modern layout that effectively conveys your message."
+      }
+    ],
+    "image": "/images/shared/printing-materials-showcase.webp"
+  },
+  {
+    "slug": "copy-services",
+    "name": "Copy Services",
+    "title": "Professional Copying & Document Duplication | FBS Prints",
+    "metaDescription": "Fast and reliable black & white or full-color copy services by FBS Prints. High-volume document scanning, copying, binding, and finishing.",
+    "intro": "Keep your business running smoothly with fast, high-quality document copying, scanning, and printing services tailored for any volume.",
+    "description": "When you need high-volume duplication, quick handouts, training manuals, or archival document printing, FBS Prints provides fast, reliable, and clean copy services. Using state-of-the-art digital production systems, we handle black-and-white (grayscale) or full-color copies with clean line definition and consistent density. Beyond basic copying, we offer multi-page collation, double-sided output, sorting, and professional binding solutions like spiral coils, combs, or heavy-duty staples to turn loose pages into organized presentation books.",
+    "features": [
+      "High-speed digital copying in black & white or vibrant full color",
+      "Document binding options: Coil, comb, wire, or stapled finishes",
+      "Multi-page document collation, sorting, and scanning to digital formats",
+      "High-volume discounts for catalogs, flyers, training manuals, and reports"
+    ],
+    "specs": {
+      "materials": "20lb Bond, 24lb Bright White, 28lb Premium Color Copy, Cardstock",
+      "sizes": "Letter (8.5\" x 11\"), Legal (8.5\" x 14\"), Tabloid (11\" x 17\")",
+      "turnaround": "Same-day or Next-day options for standard volumes",
+      "finishing": "Spiral Coil Binding, Comb Binding, 3-Hole Punching, Stapling, Collation"
+    },
+    "faqs": [
+      {
+        "question": "Do you offer discounts for high-volume copying?",
+        "answer": "Yes, we offer volume-based tiered pricing. The higher the page count and quantity of your copying job, the lower the cost per copy."
+      },
+      {
+        "question": "What types of binding do you offer for documents?",
+        "answer": "We offer plastic comb binding, spiral coil binding, wire-O binding, 3-hole punching for binders, and heavy-duty corner/side stapling."
+      },
+      {
+        "question": "Can I bring in a hard copy to scan or copy?",
+        "answer": "Yes, you can bring in physical documents for duplication, or send us digital PDF files, which is preferred for the highest quality print output."
+      }
+    ],
+    "image": "/images/shared/printing-materials-showcase.webp"
+  },
+  {
+    "slug": "t-shirt-prints",
+    "name": "T-shirt Prints",
+    "title": "Custom T-Shirt Printing & Apparel Customization | FBS Prints",
+    "metaDescription": "Custom T-shirt printing services by FBS Prints. Professional screen printing, DTG (Direct-to-Garment), and heat transfer options for apparel.",
+    "intro": "Wear your brand proud with custom-printed T-shirts, hoodies, and activewear crafted with durable prints and premium fabrics.",
+    "description": "Custom apparel is a powerful way to promote team unity, reward loyal customers, and display your brand out in public. FBS Prints offers top-tier apparel printing solutions including high-definition Direct-to-Garment (DTG) printing for detailed, multi-color designs, and traditional screen printing for durable, high-volume orders. We source premium garments from brands like Gildan, Bella+Canvas, and Next Level to ensure a comfortable fit and lasting washability. From front-and-back branding to sleeve placements, we make custom shirts easy and professional.",
+    "features": [
+      "Direct-to-Garment (DTG) for detailed, photo-realistic multi-color designs",
+      "Screen printing for vibrant, durable high-volume custom apparel runs",
+      "Premium cotton, poly-blend, and tri-blend shirt brands (Gildan, Bella+Canvas, etc.)",
+      "Front, back, sleeve, and neck print placements available"
+    ],
+    "specs": {
+      "materials": "100% Ringspun Cotton, Cotton-Poly Blends, Tri-Blends",
+      "sizes": "Youth S - Adult 4XL",
+      "turnaround": "5-10 Business Days",
+      "finishing": "Individual folding, size tagging, custom packaging"
+    },
+    "faqs": [
+      {
+        "question": "What print method is best for custom T-shirts?",
+        "answer": "For highly detailed or multi-color designs with low quantities, Direct-to-Garment (DTG) is best because it has no color setup limits. For simple designs and large bulk orders, screen printing is the most cost-effective and durable option."
+      },
+      {
+        "question": "Do you have a minimum order size for T-shirt printing?",
+        "answer": "We accommodate orders of all sizes, from single custom shirts using DTG to bulk orders of 100+ shirts using screen printing."
+      },
+      {
+        "question": "How should I care for my printed T-shirt?",
+        "answer": "To preserve the print's vibrancy and lifespan, wash the shirts inside out in cold water and tumble dry on low heat or hang dry. Avoid ironing directly on the printed design."
+      }
+    ],
+    "image": "/images/shared/printing-materials-showcase.webp"
+  },
+  {
+    "slug": "calendars",
+    "name": "Calendars",
+    "title": "Custom Calendar Printing Services | FBS Prints",
+    "metaDescription": "Design and print custom calendars by FBS Prints. Perfect promotional corporate gifts, family photo calendars, and wall planners.",
+    "intro": "Stay top-of-mind all year round with custom-printed wall, desk, or planner calendars featuring your branding and photos.",
+    "description": "A custom-printed calendar is a highly effective, year-round marketing tool that keeps your brand visible on your clients' walls or desks every day. FBS Prints produces high-quality multi-page wall calendars, desk calendars, and planner sheets. We print calendar covers on premium gloss cover stock for an elegant finish, and the inner pages on writable matte or gloss text sheets that make adding notes easy. With options like saddle-stitch stapling or wire-O spiral binding, our calendars are durable and lie flat when displayed.",
+    "features": [
+      "12-month or 18-month configurations with custom photo pages",
+      "Saddle-stitched (stapled) or wire-O spiral bound wall formats",
+      "High-quality cover stock with glossy writeable grid pages inside",
+      "Excellent year-round promotional marketing handouts for clients and partners"
+    ],
+    "specs": {
+      "materials": "100lb Gloss Cover (exterior), 80lb/100lb Gloss or Matte Text (interior)",
+      "sizes": "Wall (8.5\" x 11\" closed, 11\" x 17\" open), Desk (8.5\" x 5.5\")",
+      "turnaround": "5-7 Business Days",
+      "finishing": "Saddle-stitching, Wire-O Binding, Single hole drilling (for wall hanging)"
+    },
+    "faqs": [
+      {
+        "question": "When is the best time to order promotional calendars?",
+        "answer": "We recommend ordering promotional calendars in early autumn (September-October) to ensure you can distribute them to clients and partners before the new year starts."
+      },
+      {
+        "question": "Are the calendar pages writeable?",
+        "answer": "Yes. While the covers and photos are printed on gloss paper, the grid pages are finished to allow easy writing with standard pens and markers."
+      },
+      {
+        "question": "Can I start the calendar from a custom month?",
+        "answer": "Yes! You can choose to start your custom calendar from any month of the year (e.g. starting in July for school planners, or January for traditional calendars)."
+      }
+    ],
+    "image": "/images/services/printing/custom-calendar-printing.webp"
+  },
+  {
+    "slug": "banners",
+    "name": "Banners",
+    "title": "Custom Vinyl Banners & Large Format Printing | FBS Prints",
+    "metaDescription": "Durable indoor and outdoor custom vinyl banners by FBS Prints. Grommets, hems, and stand options for high-impact advertising.",
+    "intro": "Make a big statement at events, storefronts, and trade shows with durable, high-impact custom vinyl banners.",
+    "description": "When it comes to high-impact, cost-effective outdoor advertising, custom vinyl banners are unmatched. FBS Prints prints large-format banners on heavy-duty, weather-resistant scrim vinyl using UV-resistant inks. This ensures your banner stays vibrant and legible even in direct sunlight or heavy rain. We include heat-welded hems and metal grommets along the edges at no extra cost, making it easy to hang your banner securely on walls, fences, or banner stands. We also offer wind-friendly mesh banners for open outdoor areas.",
+    "features": [
+      "Heavy-duty outdoor-rated scrim vinyl (13oz or 15oz)",
+      "Reinforced hems and metal grommets included for easy hanging",
+      "Weather-resistant, UV-cured inks prevent fading in direct sunlight",
+      "Available in mesh vinyl options for high-wind outdoor areas"
+    ],
+    "specs": {
+      "materials": "13oz Standard Scrim Vinyl, 15oz Premium Blockout, 8oz Mesh Vinyl",
+      "sizes": "Custom dimensions from 2' x 2' up to 10' x 50' (seamless)",
+      "turnaround": "3-5 Business Days (Same-day rush available)",
+      "finishing": "Welded hems, grommets every 2-3 ft, pole pockets, wind slits"
+    },
+    "faqs": [
+      {
+        "question": "How should I hang my vinyl banner?",
+        "answer": "Banners come with metal grommets placed every 2 to 3 feet along the edges. You can secure the banner using zip ties, bungee cords, ropes, or mounting screws."
+      },
+      {
+        "question": "What is a mesh banner and when should I use it?",
+        "answer": "Mesh banners have small holes that let wind pass through. They are ideal for high-wind outdoor environments like fences, scaffolding, or open fields where a solid vinyl banner might tear."
+      },
+      {
+        "question": "Are the banners weather-resistant?",
+        "answer": "Yes, our banners are made of waterproof vinyl and printed with UV-cured inks that resist fading, scratching, and water damage."
+      }
+    ],
+    "image": "/images/shared/printing-materials-showcase.webp"
+  },
+  {
+    "slug": "carbonless-forms",
+    "name": "Carbonless Forms",
+    "title": "Custom Carbonless Forms & NCR Pad Printing | FBS Prints",
+    "metaDescription": "Print custom carbonless NCR forms (2-part, 3-part, 4-part) by FBS Prints. Ideal for invoices, receipts, work orders, and contracts.",
+    "intro": "Streamline your documentation with custom-printed carbonless (NCR) forms, perfect for invoices, receipts, and order slips.",
+    "description": "For businesses that require physical signatures, immediate duplicate documentation, or hand-written records, custom carbonless (NCR) forms are a necessity. FBS Prints provides multi-part carbonless sets (2-part duplicate, 3-part triplicate, or 4-part quadruplicate) that cleanly transfer writing from the top sheet to the sheets beneath without messy carbon inserts. We print your company logo, layout, terms, and tables clearly, and offer optional sequential numbering for invoice, receipt, and work order tracking.",
+    "features": [
+      "2-Part (Duplicate), 3-Part (Triplicate), or 4-Part (NCR) sets",
+      "Custom branding with your logo, fields, terms, and conditions",
+      "Sequential numbering options for easy invoice and receipt tracking",
+      "Padded with chipboard backing or loose sheet configurations"
+    ],
+    "specs": {
+      "materials": "NCR Paper (White, Canary Yellow, Pink, Goldenrod sequence)",
+      "sizes": "5.5\" x 8.5\" (Half Letter), 8.5\" x 11\" (Letter), 8.5\" x 14\" (Legal)",
+      "turnaround": "4-6 Business Days",
+      "finishing": "Edge gluing, chipboard backing, wrap-around cover booklets, numbering"
+    },
+    "faqs": [
+      {
+        "question": "What does NCR stand for?",
+        "answer": "NCR stands for 'No Carbon Required'. It refers to chemically treated paper sheets that transfer pressure from a pen to subsequent sheets, duplicating the writing below without messy carbon paper inserts."
+      },
+      {
+        "question": "What are the common color sequences for carbonless forms?",
+        "answer": "For a 2-part form, it is White (top) and Canary Yellow (bottom). For a 3-part form, it is White (top), Canary Yellow (middle), and Pink (bottom)."
+      },
+      {
+        "question": "Can I get my forms bound in booklet style?",
+        "answer": "Yes, we offer padded NCR forms bound in booklets of 50 or 100 sheets with a wrap-around cardstock cover to prevent write-through on subsequent sets."
+      }
+    ],
+    "image": "/images/shared/printing-materials-showcase.webp"
+  },
+  {
+    "slug": "carryout-menus",
+    "name": "Carryout Menus",
+    "title": "Custom Carryout Menu Printing & Folding | FBS Prints",
+    "metaDescription": "Promote your restaurant with custom carryout menu printing by FBS Prints. Bi-fold, tri-fold, and flat menu options with food-safe paper.",
+    "intro": "Attract diners and drive call-in or online orders with beautifully printed, custom carryout restaurant menus.",
+    "description": "A well-designed carryout menu represents your food before your customers even taste it. FBS Prints prints crisp, full-color carryout menus that highlight your dishes, photos, pricing, and contact information. We use premium paper stocks that absorb high-density ink cleanly without bleeding, resulting in legible text and appetizing imagery. Our menus are machine-folded in z-fold, bi-fold, or tri-fold configurations, making them ready for counter display, customer bags, or local mailbox delivery.",
+    "features": [
+      "Premium text paper stocks that handle high-density ink without bleed",
+      "Precision folding options to organize your culinary sections clearly",
+      "Easy-to-read layout assistance and high-definition photo print quality",
+      "Standard and custom sizes to fit your full menu or promotional offers"
+    ],
+    "specs": {
+      "materials": "70lb / 80lb / 100lb Gloss or Matte Text, 100lb Cover",
+      "sizes": "8.5\" x 11\", 8.5\" x 14\", 11\" x 17\"",
+      "turnaround": "3-5 Business Days",
+      "finishing": "Bi-fold, Tri-fold, Z-Fold, or Roll folding options"
+    },
+    "faqs": [
+      {
+        "question": "What paper stock is best for restaurant carryout menus?",
+        "answer": "80lb or 100lb Gloss Text is ideal. It is lightweight enough to fold cleanly and cheaply, yet has a premium shine and smooth weight that represents quality."
+      },
+      {
+        "question": "Can you print custom folding styles?",
+        "answer": "Yes, we support standard tri-fold, bi-fold, z-fold, gate-fold, and roll-folding, depending on your menu layout requirements."
+      },
+      {
+        "question": "Are the menus resistant to stains?",
+        "answer": "For basic carryout menus, we use uncoated or coated text paper. For dine-in menus, we recommend our heavy cardstock with heavy-duty lamination for grease and water resistance."
+      }
+    ],
+    "image": "/images/services/printing/hotel-menu-printing.webp"
+  },
+  {
+    "slug": "canvas",
+    "name": "Canvas Prints",
+    "title": "Custom Canvas Prints & Photo Stretched Canvas | FBS Prints",
+    "metaDescription": "Print custom photo canvas with FBS Prints. Stretched canvas prints, gallery wraps, and high-definition wall art for home or office.",
+    "intro": "Turn your photography, digital art, or branding graphics into gallery-quality stretched canvas wall art.",
+    "description": "Decorate your office, showroom, or home with custom canvas prints that bring images to life with texture and depth. FBS Prints uses museum-grade poly-cotton canvas fabric and archival-quality inks to print vibrant, fade-resistant wall art. The prints are hand-stretched over solid pine wood stretcher bars (0.75-inch standard or 1.5-inch thick gallery frames), complete with back stapling and hanging hardware. Choose from image-wrap edges, mirrored borders, or solid colors to match your style.",
+    "features": [
+      "Premium museum-grade poly-cotton canvas fabric",
+      "Stretched over solid pine wood stretcher bars (0.75\" or 1.5\" depth)",
+      "UV-resistant archival inks prevent fading and keep colors vibrant",
+      "Image wrap, color wrap, or mirror-image edge finishes"
+    ],
+    "specs": {
+      "materials": "Poly-cotton canvas blend, solid pine wood stretcher bars",
+      "sizes": "8\" x 10\" up to 36\" x 48\" (custom increments available)",
+      "turnaround": "4-6 Business Days",
+      "finishing": "Gallery wrap (1.5\") or Standard wrap (0.75\"), hanging brackets"
+    },
+    "faqs": [
+      {
+        "question": "What is the difference between standard and gallery wrap?",
+        "answer": "Standard wrap canvas uses 0.75-inch wood frames and is suitable if you want to insert the canvas into a decorative outer frame. Gallery wrap uses 1.5-inch wood frames, making it stand out further from the wall for a modern, self-supported style."
+      },
+      {
+        "question": "How do I care for my canvas print?",
+        "answer": "Keep the canvas out of direct sunlight and high-humidity areas. To clean, gently dust it with a dry micro-fiber cloth. Do not use wet cloths or household liquid cleaners."
+      },
+      {
+        "question": "What edge options do I have for canvas printing?",
+        "answer": "We offer 'Image Wrap' (stretching the edges of your image around the sides), 'Mirror Wrap' (mirroring the edge pixels so no critical detail is lost), or 'Color Wrap' (solid black, white, or custom color borders)."
+      }
+    ],
+    "image": "/images/services/printing/custom-calendar-printing.webp"
+  }
+]
