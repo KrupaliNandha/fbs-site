@@ -30,6 +30,7 @@ import {
   Layers,
   ChevronRight,
   ChevronLeft,
+  ChevronDown,
   HelpCircle,
 } from "lucide-react";
 
@@ -66,6 +67,13 @@ export default function DirectMailingPage() {
   const [selectedService, setSelectedService] = useState("eddm");
   const [selectedQuantity, setSelectedQuantity] = useState("2500");
 
+  // FAQ Accordion State
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  const toggleFaq = (idx: number) => {
+    setOpenFaqIndex((prev) => (prev === idx ? null : idx));
+  };
+
   useEffect(() => {
     const initAOS = async () => {
       const AOS = (await import("aos")).default;
@@ -96,6 +104,34 @@ export default function DirectMailingPage() {
   const qty = parseInt(selectedQuantity) || 1000;
   const unitCost = mailerRates[selectedMailer] + serviceRates[selectedService];
   const totalCost = unitCost * qty;
+
+  // FAQ Data
+  const faqs = [
+    {
+      q: "What is Every Door Direct Mail (EDDM)?",
+      a: "EDDM is a USPS service that lets you target specific carrier routes in neighborhoods without having to buy mailing lists or address each piece. It's the most cost-effective way to send postcards to local residents.",
+    },
+    {
+      q: "Do I need to purchase a list of addresses?",
+      a: "Not necessarily. If you use EDDM, no list is needed. For targeted demographic mailings, we can help you purchase or rent a high-quality list tailored to parameters like age, income, and homeownership.",
+    },
+    {
+      q: "What is the typical turnaround time for mailings?",
+      a: "Once your print design files are finalized and approved, printing and postage bundling preparation usually takes 3 to 5 business days. Postal delivery times depend on the postage level selected (First Class vs. Standard).",
+    },
+    {
+      q: "Can I personalize individual mail pieces?",
+      a: "Yes! Using Variable Data Printing (VDP), we can print unique recipient names, localized offers, customized coupon codes, and personalized QR codes on each mailer to increase engagement.",
+    },
+    {
+      q: "What is NCOA processing?",
+      a: "National Change of Address (NCOA) matches list names and addresses against USPS database changes to update moved addresses, reducing returned mail and saving you budget.",
+    },
+    {
+      q: "How is postage handled?",
+      a: "Postage is processed directly through our commercial mailing permit to unlock bulk automation discounts. We calculate and pre-bundle postage fees as part of your custom campaign quote.",
+    },
+  ];
 
   return (
     <>
@@ -401,7 +437,7 @@ export default function DirectMailingPage() {
                 ].map((format, idx) => (
                   <div
                     key={idx}
-                    className="flex flex-col rounded-3xl border border-gray-150 bg-white p-6 shadow-sm hover:shadow-md transition duration-300"
+                    className="flex flex-col rounded-3xl bg-white p-6 shadow-md hover:shadow-lg transition duration-300"
                     data-aos="fade-up"
                     data-aos-delay={idx * 100}
                   >
@@ -607,7 +643,7 @@ export default function DirectMailingPage() {
                       <label className="mb-3 block text-sm font-semibold text-gray-800">
                         Mailer Format
                       </label>
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="grid grid-cols-4 gap-2">
                         {[
                           { val: "postcard", label: "Postcards" },
                           { val: "letter", label: "Letters" },
@@ -635,7 +671,7 @@ export default function DirectMailingPage() {
                       <label className="mb-3 block text-sm font-semibold text-gray-800">
                         Mailing List Service Type
                       </label>
-                      <div className="grid grid-cols-1 gap-2">
+                      <div className="grid grid-cols-3 gap-2">
                         {[
                           { val: "eddm", label: "EDDM (Target Entire Postal Routes)" },
                           { val: "targeted", label: "Targeted Demographics List" },
@@ -702,7 +738,7 @@ export default function DirectMailingPage() {
                     </div>
 
                     {/* Direct Contact Actions (No submission form) */}
-                    <div className="space-y-3 pt-2">
+                    <div className="pt-2 grid gap-3 sm:grid-cols-2">
                       <a
                         href="tel:+18552221133"
                         className="flex h-14 w-full items-center justify-center gap-2.5 rounded-2xl bg-pink-700 px-6 text-center text-sm font-bold text-white shadow-lg transition duration-300 hover:scale-[1.01] hover:bg-pink-800"
@@ -734,7 +770,7 @@ export default function DirectMailingPage() {
             </div>
           </section>
 
-          {/* Section 7: FAQs */}
+          {/* Section 7: FAQs (Accordion Style) */}
           <section className="container py-14 md:py-20 border-t border-gray-100">
             <div className="mx-auto mb-12 max-w-3xl text-center">
               <span className="mb-2 block text-sm font-semibold uppercase tracking-widest text-pink-600">
@@ -748,46 +784,52 @@ export default function DirectMailingPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {[
-                {
-                  q: "What is Every Door Direct Mail (EDDM)?",
-                  a: "EDDM is a USPS service that lets you target specific carrier routes in neighborhoods without having to buy mailing lists or address each piece. It's the most cost-effective way to send postcards to local residents.",
-                },
-                {
-                  q: "Do I need to purchase a list of addresses?",
-                  a: "Not necessarily. If you use EDDM, no list is needed. For targeted demographic mailings, we can help you purchase or rent a high-quality list tailored to parameters like age, income, and homeownership.",
-                },
-                {
-                  q: "What is the typical turnaround time for mailings?",
-                  a: "Once your print design files are finalized and approved, printing and postage bundling preparation usually takes 3 to 5 business days. Postal delivery times depend on the postage level selected (First Class vs. Standard).",
-                },
-                {
-                  q: "Can I personalize individual mail pieces?",
-                  a: "Yes! Using Variable Data Printing (VDP), we can print unique recipient names, localized offers, customized coupon codes, and personalized QR codes on each mailer to increase engagement.",
-                },
-                {
-                  q: "What is NCOA processing?",
-                  a: "National Change of Address (NCOA) matches list names and addresses against USPS database changes to update moved addresses, reducing returned mail and saving you budget.",
-                },
-                {
-                  q: "How is postage handled?",
-                  a: "Postage is processed directly through our commercial mailing permit to unlock bulk automation discounts. We calculate and pre-bundle postage fees as part of your custom campaign quote.",
-                },
-              ].map((faq, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-2xl border border-gray-100 bg-white p-6 shadow-lg"
-                >
-                  <h3 className="flex items-start gap-2.5 text-xl font-semibold text-gray-900">
-                    <HelpCircle className="mt-0.5 h-5 w-5 shrink-0 text-pink-600" />
-                    {faq.q}
-                  </h3>
-                  <p className="mt-3 pl-7 text-sm leading-relaxed text-gray-650">
-                    {faq.a}
-                  </p>
-                </div>
-              ))}
+            <div className="mx-auto max-w-4xl space-y-4">
+              {faqs.map((faq, idx) => {
+                const isOpen = openFaqIndex === idx;
+                return (
+                  <div
+                    key={idx}
+                    className={`overflow-hidden rounded-2xl border bg-white shadow-sm transition-all duration-300 ${
+                      isOpen
+                        ? "border-pink-600 shadow-md"
+                        : "border-gray-100 hover:border-pink-200"
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => toggleFaq(idx)}
+                      aria-expanded={isOpen}
+                      className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                    >
+                      <span
+                        className={`text-base font-bold sm:text-lg ${
+                          isOpen ? "text-pink-600" : "text-gray-900"
+                        }`}
+                      >
+                        {faq.q}
+                      </span>
+                      <ChevronDown
+                        className={`h-5 w-5 shrink-0 text-gray-500 transition-transform duration-300 ${
+                          isOpen ? "rotate-180 text-pink-600" : "rotate-0"
+                        }`}
+                      />
+                    </button>
+
+                    <div
+                      className={`grid transition-all duration-300 ease-in-out ${
+                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <p className="px-6 pb-5 text-sm leading-relaxed text-gray-600 sm:text-base">
+                          {faq.a}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </section>
         </main>
