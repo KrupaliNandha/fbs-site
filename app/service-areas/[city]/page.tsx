@@ -170,12 +170,12 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
       <Navbar />
       <SmoothScroll>
         <main className="bg-gradient-to-br from-gray-50 via-white to-pink-50/10 min-h-screen">
-          
+
           {/* Hero Section */}
           <section className="bg-gradient-to-br from-gray-900 to-pink-950 text-white xl:pt-28 pt-20 pb-20 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-pink-700/20 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-900/20 rounded-full blur-3xl" />
-            
+
             <div className="container relative z-10 max-w-6xl mx-auto px-4">
               <div className="flex justify-center lg:justify-start">
                 <div className="inline-flex items-center gap-3 bg-pink-500/10 text-pink-300 px-5 py-2 rounded-full border border-pink-500/20 shadow-lg mb-6">
@@ -273,7 +273,7 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
                       key={landmark}
                       className="inline-flex items-center bg-pink-50 text-pink-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-pink-100"
                     >
-                      📍 {landmark}
+                      {landmark}
                     </span>
                   ))}
                 </div>
@@ -428,7 +428,7 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
                     href={`/service-areas/${citySlug}`}
                     className="flex items-center justify-center p-4 rounded-xl border border-pink-100 bg-white text-gray-800 text-sm font-semibold hover:border-pink-600 hover:text-pink-700 hover:shadow-md transition-all duration-300 text-center"
                   >
-                    📍 {cityName}
+                    {cityName}
                   </Link>
                 );
               })}
