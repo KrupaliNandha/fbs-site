@@ -1,205 +1,2248 @@
-{
-  "slug": "Advertising Flags",
-  "name": "Feather Angled Flag",
-  "images": {
-    "mainImage": "https://fbssigns.sign-usa.com/image/thumb/240327/uf4fTjWs-s1000.jpg",
-    "subImages": [
-      "https://fbssigns.sign-usa.com/image/thumb/240311/xuDAkfis-s1000.jpg",
-      "https://fbssigns.sign-usa.com/image/thumb/240312/aWMJwx6Q-s1000.jpg",
-      "https://fbssigns.sign-usa.com/image/thumb/240312/zIUck5RC-s1000.jpg",
-      "https://fbssigns.sign-usa.com/image/thumb/251217/OL35DL8Y-s1000.jpg"
-    ]
-  },
-  "features": [
-    "Indoor/Outdoor flags",
-    "Single or double sided",
-    "Dye Sublimated 4 oz polyester mesh flag material",
-    "Fiberglass and aluminum pole set",
-    "Base options for indoor and outdoor",
-    "Optional carry bag"
-  ],
-  "variants": [
-    {
-      "productType": {
-        "id": "flag_pole",
-        "name": "Flag + Pole"
-      },
-      "size": [
-        { "id": "1", "name": "Small 9 ft." },
-        { "id": "2", "name": "Medium 10.5 ft." },
-        { "id": "3", "name": "Large 14 ft" },
-        { "id": "4", "name": "X-Large 18 ft" }
-      ],
-      "graphic": [
-        { "id": "1", "name": "Single Sided Print Thru" },
-        { "id": "2", "name": "Single Sided Print Thru Reverse" },
-        { "id": "3", "name": "Double Sided" }
-      ],
-      "base": [
-        { "id": "1", "name": "Ground Stake" },
-        { "id": "2", "name": "Cross Base" },
-        { "id": "3", "name": "Cross Base + Ground Stake" },
-        { "id": "4", "name": "Cross Base + WaterBag" },
-        { "id": "5", "name": "Square Base" }
-      ],
-      "carryBag": [
-        { "id": "1", "name": "No" },
-        { "id": "2", "name": "Yes" }
+[
+  {
+    "slug": "Advertising Flags",
+    "name": "Feather Angled Flag",
+    "images": {
+      "mainImage": "https://fbssigns.sign-usa.com/image/thumb/240327/uf4fTjWs-s1000.jpg",
+      "subImages": [
+        "https://fbssigns.sign-usa.com/image/thumb/240311/xuDAkfis-s1000.jpg",
+        "https://fbssigns.sign-usa.com/image/thumb/240312/aWMJwx6Q-s1000.jpg",
+        "https://fbssigns.sign-usa.com/image/thumb/240312/zIUck5RC-s1000.jpg",
+        "https://fbssigns.sign-usa.com/image/thumb/251217/OL35DL8Y-s1000.jpg"
       ]
     },
-    {
-      "productType": {
-        "id": "flag_only",
-        "name": "Flag Only"
+    "features": [
+      "Indoor/Outdoor flags",
+      "Single or double sided",
+      "Dye Sublimated 4 oz polyester mesh flag material",
+      "Fiberglass and aluminum pole set",
+      "Base options for indoor and outdoor",
+      "Optional carry bag"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Flag + Pole"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "Small 9 ft."
+          },
+          {
+            "id": "2",
+            "name": "Medium 10.5 ft."
+          },
+          {
+            "id": "3",
+            "name": "Large 14 ft"
+          },
+          {
+            "id": "4",
+            "name": "X-Large 18 ft"
+          }
+        ],
+        "graphic": [
+          {
+            "id": "1",
+            "name": "Single Sided Print Thru"
+          },
+          {
+            "id": "2",
+            "name": "Single Sided Print Thru Reverse"
+          },
+          {
+            "id": "3",
+            "name": "Double Sided"
+          }
+        ],
+        "base": [
+          {
+            "id": "1",
+            "name": "Ground Stake"
+          },
+          {
+            "id": "2",
+            "name": "Cross Base"
+          },
+          {
+            "id": "3",
+            "name": "Cross Base + Ground Stake"
+          },
+          {
+            "id": "4",
+            "name": "Cross Base + WaterBag"
+          },
+          {
+            "id": "5",
+            "name": "Square Base"
+          }
+        ],
+        "carryBag": [
+          {
+            "id": "1",
+            "name": "No"
+          },
+          {
+            "id": "2",
+            "name": "Yes"
+          }
+        ]
       },
-      "size": [
-        { "id": "1", "name": "Small 9 ft." },
-        { "id": "2", "name": "Medium 10.5 ft." },
-        { "id": "3", "name": "Large 14 ft" },
-        { "id": "4", "name": "X-Large 18 ft" }
-      ],
-      "graphic": [
-        { "id": "1", "name": "Single Sided Print Thru" },
-        { "id": "2", "name": "Single Sided Print Thru Reverse" },
-        { "id": "3", "name": "Double Sided" }
-      ],
-      "carryBag": [
-        { "id": "no", "name": "No" },
-        { "id": "yes", "name": "Yes" }
-      ]
-    }
-  ],
-  "Description": {
-    "title": "Description",
-    "content": [
-      "The Feather Angled Flag is a versatile and eye-catching display option for both indoor and outdoor events. Made from high-quality 4 oz polyester mesh material, this flag is designed to withstand various weather conditions while maintaining vibrant colors. The angled design allows for maximum visibility, making it perfect for trade shows, grand openings, and promotional events. Choose from single or double-sided printing options to showcase your brand or message effectively. The flag comes with a durable fiberglass and aluminum pole set, along with multiple base options to suit your display needs. Optional carry bags are available for easy transportation.",
-      "Feather Angled Flags tower over the competition—take advertising to new heights with these full color skyscrapers. With several base options they can be displayed indoors and outdoors.",
-      "Our mesh flag polyester is direct printed and then sublimated. This creates 'Print Thru' for single sided flags; full color and vibrant on the front - muted and mirrored but legible when viewed from the back.",
-      "The standard ground stake can be used to install in soft ground, while the cross base or square base are heavy duty for hard surface staging. The optional carry bag is great for when you plan to travel with or store your flag."
+      {
+        "productType": {
+          "id": "2",
+          "name": "Flag Only"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "Small 9 ft."
+          },
+          {
+            "id": "2",
+            "name": "Medium 10.5 ft."
+          },
+          {
+            "id": "3",
+            "name": "Large 14 ft"
+          },
+          {
+            "id": "4",
+            "name": "X-Large 18 ft"
+          }
+        ],
+        "graphic": [
+          {
+            "id": "1",
+            "name": "Single Sided Print Thru"
+          },
+          {
+            "id": "2",
+            "name": "Single Sided Print Thru Reverse"
+          },
+          {
+            "id": "3",
+            "name": "Double Sided"
+          }
+        ],
+        "carryBag": [
+          {
+            "id": "no",
+            "name": "No"
+          },
+          {
+            "id": "yes",
+            "name": "Yes"
+          }
+        ]
+      }
     ],
-    "graphics": [
-      "Single sided Print Thru flag graphic with black nylon pole sleeve to the left of the print when viewed from the front.",
-      "Single sided Print Thru Reverse flag graphic with black nylon pole sleeve to the right of the print when viewed from the front.",
-      "Double sided separate flag graphics are sewn back to back with a silver block out layer in between."
-    ],
-    "applications": {
-      "title": "Applications",
-      "content": "Suitable for both indoor and outdoor settings, ideal for storefronts, tradeshows, outdoor events, and festivals."
-    }
-  },
-  "spec": {
-    "title": "Spec",
-    "sizeSpecification": {
-      "image": "/Products/Product1.png",
-      "table": [
-        {
-          "size": "X-Large",
-          "assembledHeight": "18'",
-          "graphicSize": "24\" x 183.5\"",
-          "flagWeight": "1.5 lbs",
-          "flagWithPoleWeight": "2.43 lbs",
-          "poleSetPieces": "5 pc"
-        },
-        {
-          "size": "Large",
-          "assembledHeight": "14'",
-          "graphicSize": "28\" x 138\"",
-          "flagWeight": "1.3 lbs",
-          "flagWithPoleWeight": "1.79 lbs",
-          "poleSetPieces": "4 pc"
-        },
-        {
-          "size": "Medium",
-          "assembledHeight": "10.5'",
-          "graphicSize": "24\" x 104\"",
-          "flagWeight": "1.1 lbs",
-          "flagWithPoleWeight": "1.4 lbs",
-          "poleSetPieces": "4 pc"
-        },
-        {
-          "size": "Small",
-          "assembledHeight": "9'",
-          "graphicSize": "23.5\" x 78.5\"",
-          "flagWeight": "0.8 lbs",
-          "flagWithPoleWeight": "1.14 lbs",
-          "poleSetPieces": "4 pc"
+    "Description": {
+      "title": "Description",
+      "content": [
+        "The Feather Angled Flag is a versatile and eye-catching display option for both indoor and outdoor events. Made from high-quality 4 oz polyester mesh material, this flag is designed to withstand various weather conditions while maintaining vibrant colors. The angled design allows for maximum visibility, making it perfect for trade shows, grand openings, and promotional events. Choose from single or double-sided printing options to showcase your brand or message effectively. The flag comes with a durable fiberglass and aluminum pole set, along with multiple base options to suit your display needs. Optional carry bags are available for easy transportation.",
+        "Feather Angled Flags tower over the competition—take advertising to new heights with these full color skyscrapers. With several base options they can be displayed indoors and outdoors.",
+        "Our mesh flag polyester is direct printed and then sublimated. This creates 'Print Thru' for single sided flags; full color and vibrant on the front - muted and mirrored but legible when viewed from the back.",
+        "The standard ground stake can be used to install in soft ground, while the cross base or square base are heavy duty for hard surface staging. The optional carry bag is great for when you plan to travel with or store your flag."
+      ],
+      "graphics": [
+        "Single sided Print Thru flag graphic with black nylon pole sleeve to the left of the print when viewed from the front.",
+        "Single sided Print Thru Reverse flag graphic with black nylon pole sleeve to the right of the print when viewed from the front.",
+        "Double sided separate flag graphics are sewn back to back with a silver block out layer in between."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Suitable for both indoor and outdoor settings, ideal for storefronts, tradeshows, outdoor events, and festivals."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "sizeSpecification": {
+        "image": "/Products/Product1.png",
+        "table": [
+          {
+            "size": "X-Large",
+            "assembledHeight": "18'",
+            "graphicSize": "24\" x 183.5\"",
+            "flagWeight": "1.5 lbs",
+            "flagWithPoleWeight": "2.43 lbs",
+            "poleSetPieces": "5 pc"
+          },
+          {
+            "size": "Large",
+            "assembledHeight": "14'",
+            "graphicSize": "28\" x 138\"",
+            "flagWeight": "1.3 lbs",
+            "flagWithPoleWeight": "1.79 lbs",
+            "poleSetPieces": "4 pc"
+          },
+          {
+            "size": "Medium",
+            "assembledHeight": "10.5'",
+            "graphicSize": "24\" x 104\"",
+            "flagWeight": "1.1 lbs",
+            "flagWithPoleWeight": "1.4 lbs",
+            "poleSetPieces": "4 pc"
+          },
+          {
+            "size": "Small",
+            "assembledHeight": "9'",
+            "graphicSize": "23.5\" x 78.5\"",
+            "flagWeight": "0.8 lbs",
+            "flagWithPoleWeight": "1.14 lbs",
+            "poleSetPieces": "4 pc"
+          }
+        ]
+      },
+      "materialAndPrintSpecifications": {
+        "printMethod": "Dye Sublimated",
+        "graphicMaterial": "4 oz Polyester mesh flag",
+        "washable": "Yes"
+      },
+      "additionalAccessories": {
+        "carryBag": "Nylon / Zippered (Optional)",
+        "weight": [
+          {
+            "size": "S/M",
+            "weight": "1.41 lbs"
+          },
+          {
+            "size": "L/XL",
+            "weight": "1.63 lbs"
+          }
+        ]
+      },
+      "hardwareAndAssembly": {
+        "poleSet": "Aluminum and graphite pole set, Tool Free Interlocking poles"
+      }
+    },
+    "baseHardwareSpecifications": [
+      {
+        "id": "ground_stake",
+        "name": "Ground Stake",
+        "image": "ground-stake.jpg",
+        "specifications": {
+          "material": "Aluminum",
+          "weight": "3.6 lbs",
+          "use": "Outdoor soft ground",
+          "feature": "Ball bearing allows flag to swivel in wind"
         }
+      },
+      {
+        "id": "cross_base",
+        "name": "Cross Base",
+        "image": "cross-base.jpg",
+        "specifications": {
+          "material": "Aluminum",
+          "weight": "6.73 lbs",
+          "use": "Indoor/Outdoor hard surface"
+        }
+      },
+      {
+        "id": "water_bag",
+        "name": "Water Bag",
+        "image": "water-bag.jpg",
+        "specifications": {
+          "material": "Plastic",
+          "weight": "3 lbs (empty)",
+          "use": "Use with cross base for extra weight"
+        }
+      },
+      {
+        "id": "square_base",
+        "name": "Square Base",
+        "image": "square-base.jpg",
+        "specifications": {
+          "material": "Steel",
+          "weight": "21.83 lbs",
+          "use": "Indoor/Outdoor hard surface"
+        }
+      }
+    ],
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: JPEG or PDF (single page only)",
+        "Color Space: CMYK",
+        "Resolution: 150 dpi for raster images (More than enough for large format)",
+        "Max File Upload Size: 300MB",
+        "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
       ]
-    },
-    "materialAndPrintSpecifications": {
-      "printMethod": "Dye Sublimated",
-      "graphicMaterial": "4 oz Polyester mesh flag",
-      "washable": "Yes"
-    },
-    "additionalAccessories": {
-      "carryBag": "Nylon / Zippered (Optional)",
-      "weight": [
-        { "size": "S/M", "weight": "1.41 lbs" },
-        { "size": "L/XL", "weight": "1.63 lbs" }
-      ]
-    },
-    "hardwareAndAssembly": {
-      "poleSet": "Aluminum and graphite pole set, Tool Free Interlocking poles"
     }
   },
-  "baseHardwareSpecifications": [
-    {
-      "id": "ground_stake",
-      "name": "Ground Stake",
-      "image": "ground-stake.jpg",
-      "specifications": {
-        "material": "Aluminum",
-        "weight": "3.6 lbs",
-        "use": "Outdoor soft ground",
-        "feature": "Ball bearing allows flag to swivel in wind"
-      }
+  {
+    "slug": "banner-stands",
+    "name": "Banner Stand",
+    "images": {
+      "mainImage": "https://fbssigns.sign-usa.com/image/thumb/240313/6JzV9SAJ-s1000.jpg",
+      "subImages": [
+        "https://fbssigns.sign-usa.com/image/thumb/240314/I9VuT2YU-s1000.jpg",
+        "https://fbssigns.sign-usa.com/image/thumb/240313/DlSsTk0I-s1000.jpg",
+        "https://fbssigns.sign-usa.com/image/thumb/240314/b35NMDzc-s1000.jpg",
+        "https://fbssigns.sign-usa.com/image/thumb/240314/1gcTCr9I-s1000.jpg"
+      ]
     },
-    {
-      "id": "cross_base",
-      "name": "Cross Base",
-      "image": "cross-base.jpg",
-      "specifications": {
-        "material": "Aluminum",
-        "weight": "6.73 lbs",
-        "use": "Indoor/Outdoor hard surface"
-      }
-    },
-    {
-      "id": "water_bag",
-      "name": "Water Bag",
-      "image": "water-bag.jpg",
-      "specifications": {
-        "material": "Plastic",
-        "weight": "3 lbs (empty)",
-        "use": "Use with cross base for extra weight"
-      }
-    },
-    {
-      "id": "square_base",
-      "name": "Square Base",
-      "image": "square-base.jpg",
-      "specifications": {
-        "material": "Steel",
-        "weight": "21.83 lbs",
-        "use": "Indoor/Outdoor hard surface"
-      }
-    }
-  ],
-  "fileSetup": {
-    "title": "File Setup",
-    "requirements": [
-      "Accepted File Formats: JPEG or PDF (single page only)",
-      "Color Space: CMYK",
-      "Resolution: 150 dpi for raster images (More than enough for large format)",
-      "Max File Upload Size: 300MB",
-      "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
-      "Do not include crop marks or bleeds",
-      "Double sided products will be uploaded as two separate files unless otherwise specified in the artwork template"
+    "features": [
+      "Dye sub pillowcase graphics",
+      "Single or double sided - Same great price!",
+      "Tube hardware clicks together - no tools required",
+      "Replaceable graphics for use year after year",
+      "Complimentary carrying case"
     ],
-    "additionalTips": [
-      "Do not submit with Pantones/Spot Colors - Convert to CMYK",
-      "Convert live fonts to outlines",
-      "Use provided design templates when available"
-    ]
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Graphic + Frame"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "33.5 x 80"
+          },
+          {
+            "id": "2",
+            "name": "36 x 90"
+          }
+        ],
+        "graphic": [
+          {
+            "id": "1",
+            "name": "Single Sided"
+          },
+          {
+            "id": "2",
+            "name": "Double Sided"
+          }
+        ],
+        "LED Light": [
+          {
+            "id": "1",
+            "name": "No"
+          },
+          {
+            "id": "2",
+            "name": "2 LED Lights"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Graphic Only"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "33.5 x 80"
+          },
+          {
+            "id": "2",
+            "name": "36 x 90"
+          }
+        ],
+        "graphic": [
+          {
+            "id": "1",
+            "name": "Single Sided"
+          },
+          {
+            "id": "2",
+            "name": "Double Sided"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Tension Fabric Stands are premium indoor displays. The interlocking tube hardware is lightweight and built for lightning quick setups, no tools necessary! Once the hardware is in place just slip the pillow-case stretch fabric graphic over the frame, zip the graphic closed and set-up is complete. Graphics are full-color custom dye-sub. Add the double-sided option for twice the graphic impact."
+      ]
+    },
+    "spec": {
+      "title": "Spec",
+      "graphicMaterial": "Dye Sublimated 8.8 oz Tension Fabric",
+      "Graphic Details:": [
+        "Single or Double Sided pillowcase graphics",
+        "Zipper closure on bottom of graphic"
+      ],
+      "Hardware": [
+        "Interlocking aluminum tube frame",
+        "Heavy duty steel base plate"
+      ],
+      "Accesories": [
+        "Complimentary carry case",
+        "LED Lights (optional)"
+      ]
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: JPEG or PDF (single page only)",
+        "Color Space: CMYK",
+        "Resolution: 150 dpi for raster images (More than enough for large format)",
+        "Max File Upload Size: 300MB",
+        "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "banner",
+    "name": "Custom Vinyl Banner",
+    "images": {
+      "mainImage": "/products/banner/image-0.jpg",
+      "subImages": [
+        "/products/banner/image-1.jpg",
+        "/products/banner/image-2.jpg",
+        "/products/banner/image-3.jpg",
+        "/products/banner/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Indoor/Outdoor durable vinyl",
+      "Full color digital printing",
+      "Single or double sided",
+      "Hemmed edges with grommets every 2 ft",
+      "Pole pockets available",
+      "Wind slit option for outdoor/windy areas"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "13oz Vinyl Banner"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "2' x 4'"
+          },
+          {
+            "id": "2",
+            "name": "3' x 6'"
+          },
+          {
+            "id": "3",
+            "name": "4' x 8'"
+          },
+          {
+            "id": "4",
+            "name": "Custom Size"
+          }
+        ],
+        "finishing": [
+          {
+            "id": "1",
+            "name": "Hem + Grommets"
+          },
+          {
+            "id": "2",
+            "name": "Pole Pockets (Top/Bottom)"
+          },
+          {
+            "id": "3",
+            "name": "No Finishing (Raw Edge)"
+          }
+        ],
+        "sides": [
+          {
+            "id": "1",
+            "name": "Single Sided"
+          },
+          {
+            "id": "2",
+            "name": "Double Sided"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "8oz Mesh Banner"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "2' x 4'"
+          },
+          {
+            "id": "2",
+            "name": "3' x 6'"
+          },
+          {
+            "id": "3",
+            "name": "4' x 8'"
+          },
+          {
+            "id": "4",
+            "name": "Custom Size"
+          }
+        ],
+        "finishing": [
+          {
+            "id": "1",
+            "name": "Hem + Grommets"
+          },
+          {
+            "id": "2",
+            "name": "Pole Pockets (Top/Bottom)"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Custom vinyl banners are one of the most affordable and versatile ways to promote a business, event, or announcement. Printed in full color on heavy-duty 13oz scrim vinyl, our banners hold up to daily indoor use and long-term outdoor exposure alike.",
+        "Choose 8oz mesh vinyl for high-wind outdoor locations - the perforated material lets air pass through, reducing strain on grommets and hanging hardware during storms and gusty conditions.",
+        "Every banner is hemmed on all four edges as standard, with grommets placed every 2 feet for easy hanging. Pole pockets can be added top and bottom for banner stands or horizontal street pole displays."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Grand openings, retail promotions, sporting events, fencing and construction sites, trade shows, and outdoor advertising."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "printMethod": "Full Color Digital (UV Ink)",
+        "graphicMaterial": "13 oz Scrim Vinyl or 8 oz Mesh Vinyl",
+        "washable": "Yes (wipe clean)"
+      },
+      "finishingOptions": [
+        "Hemmed edges standard on all sides",
+        "Grommets every 2 ft for hanging",
+        "Pole pockets 3in top and/or bottom (optional)",
+        "Wind slits recommended for banners over 4ft tall in outdoor/windy locations"
+      ]
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: JPEG or PDF (single page only)",
+        "Color Space: CMYK",
+        "Resolution: 150 dpi for raster images (More than enough for large format)",
+        "Max File Upload Size: 300MB",
+        "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "custom-neon-led",
+    "name": "Custom Neon LED Sign",
+    "images": {
+      "mainImage": "/products/custom-neon-led/image-0.jpg",
+      "subImages": [
+        "/products/custom-neon-led/image-1.jpg",
+        "/products/custom-neon-led/image-2.jpg",
+        "/products/custom-neon-led/image-3.jpg",
+        "/products/custom-neon-led/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Flexible LED neon (not glass) - shatterproof and lightweight",
+      "Custom shapes, script, and logos",
+      "Low heat, energy efficient",
+      "Indoor or covered outdoor use",
+      "Dimmable, with optional remote/app control",
+      "Mounted on clear or colored acrylic backing"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Wall Mounted Sign"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "Small (up to 12\" tall)"
+          },
+          {
+            "id": "2",
+            "name": "Medium (12\"-24\" tall)"
+          },
+          {
+            "id": "3",
+            "name": "Large (24\"-36\" tall)"
+          },
+          {
+            "id": "4",
+            "name": "Custom Size"
+          }
+        ],
+        "backing": [
+          {
+            "id": "1",
+            "name": "Clear Acrylic"
+          },
+          {
+            "id": "2",
+            "name": "Black Acrylic"
+          },
+          {
+            "id": "3",
+            "name": "Cut-to-Shape (No Backing)"
+          }
+        ],
+        "power": [
+          {
+            "id": "1",
+            "name": "Plug-In Adapter"
+          },
+          {
+            "id": "2",
+            "name": "Plug-In + Dimmer Remote"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Custom LED neon signs recreate the vibrant, glowing look of traditional glass neon using flexible LED neon flex tubing - without the fragility, high voltage, or heat of real glass neon.",
+        "Each sign is custom bent to match your logo, name, or artwork, then mounted to a clear or colored acrylic backing panel for a clean, professional look on any wall.",
+        "LED neon uses a fraction of the power of glass neon and gives thousands of hours of consistent brightness, making it a popular choice for storefronts, home bars, studios, and event backdrops."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Storefront branding, restaurants and bars, salons, home decor, photo backdrops, and event signage."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "material": "Flexible LED neon flex tubing on acrylic backing",
+        "colorOptions": "16+ standard colors, multicolor RGB available",
+        "lifespan": "Rated 50,000+ hours"
+      },
+      "power": {
+        "input": "12V/24V DC via wall adapter",
+        "energyUse": "Approx. 80% less power than glass neon"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: AI, EPS, PDF (vector required for cutting/routing)",
+        "Color Space: CMYK",
+        "Fonts must be converted to outlines or included",
+        "Max File Upload Size: 300MB",
+        "Include a separate layer for cut lines if applicable",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "custom-event-tents",
+    "name": "Custom Event Tent",
+    "images": {
+      "mainImage": "/products/custom-event-tents/image-0.jpg",
+      "subImages": [
+        "/products/custom-event-tents/image-1.jpg",
+        "/products/custom-event-tents/image-2.jpg",
+        "/products/custom-event-tents/image-3.jpg",
+        "/products/custom-event-tents/image-4.jpg"
+      ]
+    },
+    "features": [
+      "600 denier tent canopy fabric",
+      "40mm heavy duty aluminum hex frame",
+      "Full color dye sublimated canopy graphics",
+      "Optional printed backwall and half walls",
+      "Free carrying case, rope and stake kit included",
+      "Water resistant and UV protected"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Canopy Only"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "10' x 10'"
+          },
+          {
+            "id": "2",
+            "name": "10' x 15'"
+          },
+          {
+            "id": "3",
+            "name": "10' x 20'"
+          }
+        ],
+        "graphic": [
+          {
+            "id": "1",
+            "name": "Full Bleed Print"
+          },
+          {
+            "id": "2",
+            "name": "Blank Canopy (No Print)"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Canopy + Frame"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "10' x 10'"
+          },
+          {
+            "id": "2",
+            "name": "10' x 15'"
+          },
+          {
+            "id": "3",
+            "name": "10' x 20'"
+          }
+        ],
+        "graphic": [
+          {
+            "id": "1",
+            "name": "Full Bleed Print"
+          },
+          {
+            "id": "2",
+            "name": "Blank Canopy (No Print)"
+          }
+        ],
+        "walls": [
+          {
+            "id": "1",
+            "name": "No Walls"
+          },
+          {
+            "id": "2",
+            "name": "1 Full Backwall"
+          },
+          {
+            "id": "3",
+            "name": "1 Backwall + 2 Half Walls"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Custom event tents are the go-to solution for outdoor vendor booths, farmers markets, festivals, and trade shows. The 40mm heavy duty aluminum hex frame pops up in minutes without tools, and the 600 denier canopy fabric holds up to repeated outdoor use.",
+        "Canopy graphics are printed edge-to-edge in full color using a dye sublimation process for vivid, fade-resistant branding that's visible from a distance.",
+        "Add a full printed backwall or backwall with half walls to block wind, add extra branding space, or create a more finished, professional booth appearance."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Farmers markets, festivals, trade shows, sporting events, and outdoor vendor booths."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "canopyMaterial": "600 Denier Polyester, water resistant",
+        "printMethod": "Dye Sublimated, full color",
+        "frameMaterial": "40mm Hexagonal Aluminum"
+      },
+      "additionalAccessories": {
+        "included": "Carrying case, rope and stake kit",
+        "optional": "Printed backwall, half walls, sandbags/weights"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: JPEG or PDF (single page only)",
+        "Color Space: CMYK",
+        "Resolution: 150 dpi for raster images (More than enough for large format)",
+        "Max File Upload Size: 300MB",
+        "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "canopy-awning",
+    "name": "Custom Canopy / Awning",
+    "images": {
+      "mainImage": "/products/canopy-awning/image-0.jpg",
+      "subImages": [
+        "/products/canopy-awning/image-1.jpg",
+        "/products/canopy-awning/image-2.jpg",
+        "/products/canopy-awning/image-3.jpg",
+        "/products/canopy-awning/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Custom fabricated to your entryway or window dimensions",
+      "Vinyl laminated or fabric awning skin options",
+      "Aluminum frame construction",
+      "Full color printed graphics or solid color options",
+      "Backlit awning option available",
+      "Built for year-round outdoor exposure"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Standard Awning"
+        },
+        "style": [
+          {
+            "id": "1",
+            "name": "Waterfall (Slanted Front)"
+          },
+          {
+            "id": "2",
+            "name": "Dome"
+          },
+          {
+            "id": "3",
+            "name": "Box/Rectangular"
+          }
+        ],
+        "material": [
+          {
+            "id": "1",
+            "name": "Vinyl Laminated Fabric"
+          },
+          {
+            "id": "2",
+            "name": "Sunbrella Acrylic Fabric"
+          }
+        ],
+        "lighting": [
+          {
+            "id": "1",
+            "name": "Non-Illuminated"
+          },
+          {
+            "id": "2",
+            "name": "Backlit LED"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Custom canopies and awnings add curb appeal while protecting entryways, windows, and outdoor seating from sun and rain. Every awning is custom fabricated to fit your building's exact dimensions.",
+        "Choose from a waterfall, dome, or box-style frame, then finish it with a durable vinyl-laminated or Sunbrella acrylic fabric skin printed with your logo and brand colors.",
+        "Backlit awnings use internal LED lighting to keep your branding visible day and night, a popular option for restaurants and retail storefronts."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Storefront entrances, restaurant patios, window shading, and building branding."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "frameMaterial": "Powder Coated Aluminum",
+        "skinMaterial": "Vinyl Laminated Fabric or Sunbrella Acrylic",
+        "printMethod": "Full Color Digital or Solid Color Fabric"
+      },
+      "hardwareAndAssembly": {
+        "installation": "Professional measurement and installation required"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: JPEG or PDF (single page only)",
+        "Color Space: CMYK",
+        "Resolution: 150 dpi for raster images (More than enough for large format)",
+        "Max File Upload Size: 300MB",
+        "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "led-light-box",
+    "name": "LED Light Box",
+    "images": {
+      "mainImage": "/products/led-light-box/image-0.jpg",
+      "subImages": [
+        "/products/led-light-box/image-1.jpg",
+        "/products/led-light-box/image-2.jpg",
+        "/products/led-light-box/image-3.jpg",
+        "/products/led-light-box/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Edge-lit LED for even, bright illumination",
+      "Slim aluminum extrusion frame",
+      "Fabric (SEG) or acrylic face options",
+      "Energy efficient - low heat LED modules",
+      "Single or double sided",
+      "Interchangeable graphics"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Wall Mounted Light Box"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "2' x 3'"
+          },
+          {
+            "id": "2",
+            "name": "3' x 4'"
+          },
+          {
+            "id": "3",
+            "name": "4' x 6'"
+          },
+          {
+            "id": "4",
+            "name": "Custom Size"
+          }
+        ],
+        "faceMaterial": [
+          {
+            "id": "1",
+            "name": "Fabric (SEG) Face"
+          },
+          {
+            "id": "2",
+            "name": "Acrylic Face"
+          }
+        ],
+        "sides": [
+          {
+            "id": "1",
+            "name": "Single Sided"
+          },
+          {
+            "id": "2",
+            "name": "Double Sided"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Hanging/Ceiling Light Box"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "2' x 3'"
+          },
+          {
+            "id": "2",
+            "name": "3' x 4'"
+          },
+          {
+            "id": "3",
+            "name": "Custom Size"
+          }
+        ],
+        "sides": [
+          {
+            "id": "1",
+            "name": "Single Sided"
+          },
+          {
+            "id": "2",
+            "name": "Double Sided"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "LED light boxes deliver bright, even illumination for retail branding, menu boards, and directional signage using energy efficient edge-lit LED technology.",
+        "Fabric (SEG) faces stretch tight over the frame with a silicone edge gasket for a seamless, frameless look, while acrylic faces offer a more traditional rigid printed panel.",
+        "Graphics are simple to swap out, letting you update promotions or seasonal messaging without replacing the entire light box."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Retail storefronts, restaurant menu boards, malls, airports, and hallway directional signage."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "frameMaterial": "Aluminum Extrusion",
+        "faceMaterial": "Backlit Fabric (SEG) or Acrylic",
+        "lightSource": "Edge-Lit LED Modules"
+      },
+      "power": {
+        "input": "Standard 110V outlet",
+        "energyUse": "Low heat, energy efficient LEDs"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: JPEG or PDF (single page only)",
+        "Color Space: CMYK",
+        "Resolution: 150 dpi for raster images (More than enough for large format)",
+        "Max File Upload Size: 300MB",
+        "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "led-message-board",
+    "name": "LED Message Board / Digital Sign",
+    "images": {
+      "mainImage": "/products/led-message-board/image-0.jpg",
+      "subImages": [
+        "/products/led-message-board/image-1.jpg",
+        "/products/led-message-board/image-2.jpg",
+        "/products/led-message-board/image-3.jpg",
+        "/products/led-message-board/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Programmable full color or amber/red LED display",
+      "Wireless or wired content updates",
+      "Weatherproof outdoor rated enclosure",
+      "Scrolling text, graphics, and scheduling support",
+      "Multiple resolution and size options",
+      "Optional trailer-mounted portable unit"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Wall/Pole Mounted"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "2' x 4'"
+          },
+          {
+            "id": "2",
+            "name": "3' x 6'"
+          },
+          {
+            "id": "3",
+            "name": "4' x 8'"
+          }
+        ],
+        "display": [
+          {
+            "id": "1",
+            "name": "Full Color RGB"
+          },
+          {
+            "id": "2",
+            "name": "Single Color (Amber)"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Portable Trailer Mounted"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "4' x 6'"
+          },
+          {
+            "id": "2",
+            "name": "4' x 8'"
+          }
+        ],
+        "display": [
+          {
+            "id": "1",
+            "name": "Full Color RGB"
+          },
+          {
+            "id": "2",
+            "name": "Single Color (Amber)"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "LED message boards let you update your signage instantly - change pricing, promotions, and announcements from a phone, tablet, or computer without ever reprinting a sign.",
+        "Full color RGB displays support photos, video, and animated graphics, while single-color amber displays are a cost effective option for simple scrolling text messages.",
+        "Choose a permanently mounted wall or pole unit for a fixed location, or a trailer-mounted portable board that can be towed between job sites and events."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Gas stations, car dealerships, schools, churches, retail centers, and construction/event traffic control."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "enclosure": "Weatherproof outdoor rated aluminum cabinet",
+        "displayType": "Full Color RGB LED or Single Color LED",
+        "controlMethod": "Wi-Fi/cellular app or wired control panel"
+      },
+      "power": {
+        "input": "110V/220V, generator compatible on trailer units"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: JPEG or PDF (single page only)",
+        "Color Space: CMYK",
+        "Resolution: 150 dpi for raster images (More than enough for large format)",
+        "Max File Upload Size: 300MB",
+        "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "led-channel-letters",
+    "name": "LED Channel Letters",
+    "images": {
+      "mainImage": "/products/led-channel-letters/image-0.jpg",
+      "subImages": [
+        "/products/led-channel-letters/image-1.jpg",
+        "/products/led-channel-letters/image-2.jpg",
+        "/products/led-channel-letters/image-3.jpg",
+        "/products/led-channel-letters/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Custom fabricated to your logo and font",
+      "Front-lit, back-lit (halo), or combo illumination",
+      "Energy efficient LED modules",
+      "Aluminum returns with acrylic faces",
+      "UL listed electrical components",
+      "Raceway or direct wall mount installation"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Front-Lit Channel Letters"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "12\" Letter Height"
+          },
+          {
+            "id": "2",
+            "name": "18\" Letter Height"
+          },
+          {
+            "id": "3",
+            "name": "24\" Letter Height"
+          },
+          {
+            "id": "4",
+            "name": "Custom Height"
+          }
+        ],
+        "mounting": [
+          {
+            "id": "1",
+            "name": "Raceway Mounted"
+          },
+          {
+            "id": "2",
+            "name": "Direct Wall Mount (Flush)"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Halo-Lit (Reverse) Channel Letters"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "12\" Letter Height"
+          },
+          {
+            "id": "2",
+            "name": "18\" Letter Height"
+          },
+          {
+            "id": "3",
+            "name": "24\" Letter Height"
+          },
+          {
+            "id": "4",
+            "name": "Custom Height"
+          }
+        ],
+        "mounting": [
+          {
+            "id": "1",
+            "name": "Direct Wall Mount (Flush, Standoff Studs)"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Illuminated channel letters are the most recognized form of storefront signage, custom fabricated letter-by-letter to match your logo's exact font, spacing, and color.",
+        "Front-lit letters glow through the acrylic face for maximum visibility, while halo-lit (reverse) letters project a soft glow onto the wall behind them for a premium, modern look.",
+        "All electrical components are UL listed, and letters can be installed on a raceway (a mounting rail that houses wiring) for simpler installation, or mounted flush to the wall for a clean, built-in appearance."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Retail storefronts, restaurants, shopping centers, and building-mounted business signage."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "letterConstruction": "Aluminum returns and trim cap, acrylic face",
+        "illumination": "Energy efficient LED modules",
+        "electrical": "UL Listed power supplies and wiring"
+      },
+      "hardwareAndAssembly": {
+        "mounting": "Raceway or direct flush wall mount",
+        "installation": "Professional installation and permitting required"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: AI, EPS, PDF (vector required for cutting/routing)",
+        "Color Space: CMYK",
+        "Fonts must be converted to outlines or included",
+        "Max File Upload Size: 300MB",
+        "Include a separate layer for cut lines if applicable",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "monument-signs",
+    "name": "Monument Sign",
+    "images": {
+      "mainImage": "/products/monument-signs/image-0.jpg",
+      "subImages": [
+        "/products/monument-signs/image-1.jpg",
+        "/products/monument-signs/image-2.jpg",
+        "/products/monument-signs/image-3.jpg",
+        "/products/monument-signs/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Ground-mounted, permanent structure",
+      "Illuminated or non-illuminated options",
+      "Brick, stone, stucco, aluminum, or foam base finishes",
+      "Push-through acrylic or routed dimensional lettering",
+      "Digital changeable copy sections available",
+      "Custom fabricated to municipal sign code requirements"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Single Tenant Monument"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "4' x 6'"
+          },
+          {
+            "id": "2",
+            "name": "5' x 8'"
+          },
+          {
+            "id": "3",
+            "name": "Custom Size"
+          }
+        ],
+        "illumination": [
+          {
+            "id": "1",
+            "name": "Non-Illuminated"
+          },
+          {
+            "id": "2",
+            "name": "Internally Illuminated"
+          },
+          {
+            "id": "3",
+            "name": "External Spotlights"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Multi-Tenant Monument"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "6' x 10'"
+          },
+          {
+            "id": "2",
+            "name": "8' x 12'"
+          },
+          {
+            "id": "3",
+            "name": "Custom Size"
+          }
+        ],
+        "illumination": [
+          {
+            "id": "1",
+            "name": "Non-Illuminated"
+          },
+          {
+            "id": "2",
+            "name": "Internally Illuminated"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Monument signs are permanent, ground-mounted structures that anchor a property's identity at the street or entrance, often serving as the first impression for a business or development.",
+        "Bases can be finished in brick, stone veneer, stucco, aluminum panel, or high-density foam to match your building's architecture, with your logo and copy applied via push-through acrylic letters, routed and backlit lettering, or printed panels.",
+        "Multi-tenant monuments organize several business names into one structure and can include a digital changeable copy section for real-time updates."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Business parks, shopping centers, medical offices, apartment communities, and single-tenant storefronts."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "baseMaterial": "Brick, Stone Veneer, Stucco, Aluminum, or High-Density Foam",
+        "letteringOptions": "Push-Through Acrylic, Routed & Backlit, or Printed Panel"
+      },
+      "hardwareAndAssembly": {
+        "installation": "Requires site survey, permitting, and professional installation",
+        "foundation": "Poured concrete footing (engineered per local code)"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: AI, EPS, PDF (vector required for cutting/routing)",
+        "Color Space: CMYK",
+        "Fonts must be converted to outlines or included",
+        "Max File Upload Size: 300MB",
+        "Include a separate layer for cut lines if applicable",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "pylon-signs",
+    "name": "Pylon Sign",
+    "images": {
+      "mainImage": "/products/pylon-signs/image-0.jpg",
+      "subImages": [
+        "/products/pylon-signs/image-1.jpg",
+        "/products/pylon-signs/image-2.jpg",
+        "/products/pylon-signs/image-3.jpg",
+        "/products/pylon-signs/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Tall pole-mounted structure for high visibility",
+      "Single or double pole construction",
+      "Internally illuminated cabinet faces",
+      "Multi-tenant panel sections available",
+      "Digital price/changeable copy display option",
+      "Engineered for local wind load requirements"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Single Pole Pylon"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "15' Overall Height"
+          },
+          {
+            "id": "2",
+            "name": "25' Overall Height"
+          },
+          {
+            "id": "3",
+            "name": "Custom Height"
+          }
+        ],
+        "illumination": [
+          {
+            "id": "1",
+            "name": "Internally Illuminated"
+          },
+          {
+            "id": "2",
+            "name": "Non-Illuminated"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Double Pole Pylon"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "25' Overall Height"
+          },
+          {
+            "id": "2",
+            "name": "40' Overall Height"
+          },
+          {
+            "id": "3",
+            "name": "Custom Height"
+          }
+        ],
+        "illumination": [
+          {
+            "id": "1",
+            "name": "Internally Illuminated"
+          },
+          {
+            "id": "2",
+            "name": "Non-Illuminated"
+          }
+        ],
+        "digitalPriceDisplay": [
+          {
+            "id": "1",
+            "name": "No"
+          },
+          {
+            "id": "2",
+            "name": "Yes - Digital LED Price Display"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Pylon signs are tall, pole-mounted signs designed for maximum visibility from the road, commonly seen at gas stations, shopping centers, and businesses set back from the street.",
+        "Cabinet faces are internally illuminated with LED lighting for 24-hour visibility, and multi-tenant pylons can stack several business panels on a single structure.",
+        "Gas stations and quick-service businesses often add a digital LED price/changeable copy display section to update pricing or messaging in real time."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Gas stations, shopping centers, highway-visible businesses, and multi-tenant retail centers."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "poleMaterial": "Steel, engineered per height and local wind load",
+        "cabinetMaterial": "Aluminum cabinet, acrylic or polycarbonate faces",
+        "illumination": "Internal LED illumination"
+      },
+      "hardwareAndAssembly": {
+        "installation": "Requires engineering, permitting, and crane installation",
+        "foundation": "Engineered poured concrete footing"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: AI, EPS, PDF (vector required for cutting/routing)",
+        "Color Space: CMYK",
+        "Fonts must be converted to outlines or included",
+        "Max File Upload Size: 300MB",
+        "Include a separate layer for cut lines if applicable",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "signicade-a-frame",
+    "name": "Signicade A-Frame Sign",
+    "images": {
+      "mainImage": "/products/signicade-a-frame/image-0.jpg",
+      "subImages": [
+        "/products/signicade-a-frame/image-1.jpg",
+        "/products/signicade-a-frame/image-2.jpg",
+        "/products/signicade-a-frame/image-3.jpg",
+        "/products/signicade-a-frame/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Lightweight, portable sidewalk sign",
+      "Folds flat for easy storage and transport",
+      "Weatherproof corrugated plastic or dry-erase insert panels",
+      "Double sided for two-way visibility",
+      "No tools required to set up",
+      "Optional replaceable graphic panels"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Printed Panel A-Frame"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "24\" x 36\""
+          },
+          {
+            "id": "2",
+            "name": "24\" x 18\" (Small)"
+          }
+        ],
+        "panelMaterial": [
+          {
+            "id": "1",
+            "name": "Corrugated Plastic (Coroplast)"
+          },
+          {
+            "id": "2",
+            "name": "Aluminum Composite"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Dry-Erase A-Frame"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "24\" x 36\""
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Signicade A-frame signs are the classic portable sidewalk sign - lightweight, easy to fold and carry, and durable enough for daily outdoor use in front of a storefront.",
+        "Choose a full color printed graphic panel for permanent branding and daily specials, or a dry-erase panel that lets staff update messaging with a marker every day.",
+        "The frame folds completely flat for compact storage overnight or during closed hours, and both sides display your message for visibility from either direction."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Restaurant daily specials, retail sales promotions, sidewalk directional signage, and open/closed announcements."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "frameMaterial": "Powder Coated Steel or Aluminum",
+        "panelMaterial": "Corrugated Plastic, Aluminum Composite, or Dry-Erase Laminate",
+        "printMethod": "Full Color Digital Print (printed panel option)"
+      },
+      "additionalAccessories": {
+        "optional": "Replacement graphic panels, weighted base"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: JPEG or PDF (single page only)",
+        "Color Space: CMYK",
+        "Resolution: 150 dpi for raster images (More than enough for large format)",
+        "Max File Upload Size: 300MB",
+        "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "trade-show-products",
+    "name": "Trade Show Display Package",
+    "images": {
+      "mainImage": "/products/trade-show-products/image-0.jpg",
+      "subImages": [
+        "/products/trade-show-products/image-1.jpg",
+        "/products/trade-show-products/image-2.jpg",
+        "/products/trade-show-products/image-3.jpg",
+        "/products/trade-show-products/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Modular pop-up and tension fabric backdrops",
+      "Lightweight, packs into included travel case",
+      "Tool-free setup in minutes",
+      "Table throws, counters, and literature stands available",
+      "Full color dye sublimated graphics",
+      "Reusable hardware with replaceable graphics"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Pop-Up Backdrop Kit"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "8' Wide Backdrop"
+          },
+          {
+            "id": "2",
+            "name": "10' Wide Backdrop"
+          }
+        ],
+        "graphic": [
+          {
+            "id": "1",
+            "name": "Full Bleed Graphic"
+          },
+          {
+            "id": "2",
+            "name": "Hardware Only (No Graphic)"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Table Throw + Counter Package"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "6' Table Throw"
+          },
+          {
+            "id": "2",
+            "name": "8' Table Throw"
+          }
+        ],
+        "counter": [
+          {
+            "id": "1",
+            "name": "No Counter"
+          },
+          {
+            "id": "2",
+            "name": "Add Podium/Counter"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Trade show display packages give exhibitors an easy, professional booth setup that packs into a case light enough to check as luggage. Pop-up backdrop frames expand in minutes and hold a full color, wrinkle-resistant fabric or vinyl graphic.",
+        "Pair your backdrop with a custom printed table throw and a branded podium or counter for product demos, literature, or point of sale, creating a cohesive branded booth from floor to backdrop.",
+        "All hardware is reusable between shows - simply order a new graphic when your messaging changes, without replacing the frame."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Trade shows, conventions, product launches, career fairs, and in-store promotional events."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "graphicMaterial": "Dye Sublimated Fabric or Scrim Vinyl",
+        "frameMaterial": "Lightweight Aluminum, tool-free pop-up frame"
+      },
+      "additionalAccessories": {
+        "included": "Padded travel/rolling case",
+        "optional": "LED spotlights, literature pockets, counter/podium"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: JPEG or PDF (single page only)",
+        "Color Space: CMYK",
+        "Resolution: 150 dpi for raster images (More than enough for large format)",
+        "Max File Upload Size: 300MB",
+        "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "vehicle-graphics",
+    "name": "Vehicle Graphics / Decals",
+    "images": {
+      "mainImage": "/products/vehicle-graphics/image-0.jpg",
+      "subImages": [
+        "/products/vehicle-graphics/image-1.jpg",
+        "/products/vehicle-graphics/image-2.jpg",
+        "/products/vehicle-graphics/image-3.jpg",
+        "/products/vehicle-graphics/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Cut vinyl lettering or full color printed decals",
+      "Removable or permanent adhesive options",
+      "Weatherproof, UV laminated for outdoor durability",
+      "Fits cars, vans, trucks, and trailers",
+      "Partial coverage - logo, lettering, and accent graphics",
+      "Professional installation available"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Cut Vinyl Lettering"
+        },
+        "coverage": [
+          {
+            "id": "1",
+            "name": "Door Logos (Pair)"
+          },
+          {
+            "id": "2",
+            "name": "Door Logos + Rear Window Lettering"
+          },
+          {
+            "id": "3",
+            "name": "Custom Coverage"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Printed Decal Graphics"
+        },
+        "coverage": [
+          {
+            "id": "1",
+            "name": "Door Logos (Pair)"
+          },
+          {
+            "id": "2",
+            "name": "Hood/Side Accent Graphics"
+          },
+          {
+            "id": "3",
+            "name": "Custom Coverage"
+          }
+        ],
+        "lamination": [
+          {
+            "id": "1",
+            "name": "Gloss UV Laminate"
+          },
+          {
+            "id": "2",
+            "name": "Matte UV Laminate"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Vehicle graphics turn any car, van, or truck into a mobile billboard, promoting your business everywhere it's parked or driven without the cost of a full wrap.",
+        "Cut vinyl lettering is ideal for simple logos, phone numbers, and text, while full color printed decals with UV laminate handle detailed graphics, photos, and gradients.",
+        "Graphics can be ordered in removable adhesive for leased or rental vehicles, or permanent adhesive for long-term branding on owned fleet vehicles."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Company fleet vehicles, food trucks, service vans, personal vehicle branding, and trailers."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "material": "Cut Vinyl or Printed Vinyl Decal",
+        "lamination": "UV Laminate (printed graphics)",
+        "adhesive": "Removable or Permanent"
+      },
+      "hardwareAndAssembly": {
+        "installation": "Professional installation recommended for best results"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: AI, EPS, PDF (vector required for cutting/routing)",
+        "Color Space: CMYK",
+        "Fonts must be converted to outlines or included",
+        "Max File Upload Size: 300MB",
+        "Include a separate layer for cut lines if applicable",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "vehicle-wraps",
+    "name": "Vehicle Wrap",
+    "images": {
+      "mainImage": "/products/vehicle-wraps/image-0.jpg",
+      "subImages": [
+        "/products/vehicle-wraps/image-1.jpg",
+        "/products/vehicle-wraps/image-2.jpg",
+        "/products/vehicle-wraps/image-3.jpg",
+        "/products/vehicle-wraps/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Full, partial, or spot wrap coverage",
+      "Cast vinyl wrap film for a smooth, factory-like finish",
+      "Gloss, matte, or satin laminate finishes",
+      "Custom full color design and layout included",
+      "Removable without damaging factory paint",
+      "Professional installation with fabric-covered installation bay"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Full Wrap"
+        },
+        "vehicleType": [
+          {
+            "id": "1",
+            "name": "Sedan/Car"
+          },
+          {
+            "id": "2",
+            "name": "Van"
+          },
+          {
+            "id": "3",
+            "name": "Box Truck"
+          },
+          {
+            "id": "4",
+            "name": "Trailer"
+          }
+        ],
+        "finish": [
+          {
+            "id": "1",
+            "name": "Gloss"
+          },
+          {
+            "id": "2",
+            "name": "Matte"
+          },
+          {
+            "id": "3",
+            "name": "Satin"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Partial Wrap"
+        },
+        "vehicleType": [
+          {
+            "id": "1",
+            "name": "Sedan/Car"
+          },
+          {
+            "id": "2",
+            "name": "Van"
+          },
+          {
+            "id": "3",
+            "name": "Box Truck"
+          }
+        ],
+        "coverage": [
+          {
+            "id": "1",
+            "name": "Rear + Sides"
+          },
+          {
+            "id": "2",
+            "name": "Hood + Sides"
+          },
+          {
+            "id": "3",
+            "name": "Custom Coverage"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Vehicle wraps cover some or all of a vehicle's exterior in a custom-printed vinyl film, giving you a bold, full-color mobile advertisement that's far more eye-catching than paint or decals alone.",
+        "Cast vinyl wrap film conforms smoothly around curves, mirrors, and door handles for a clean, professional finish, available in gloss, matte, or satin laminate depending on the look you want.",
+        "Wraps are fully removable by a trained installer without damaging the factory paint underneath, making them a great option for leased vehicles as well as owned fleets."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Fleet branding, food trucks, delivery vans, box trucks, trailers, and personal vehicle wraps."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "material": "Cast Vinyl Wrap Film",
+        "lamination": "Gloss, Matte, or Satin Laminate",
+        "expectedLifespan": "5-7 years with proper care"
+      },
+      "hardwareAndAssembly": {
+        "installation": "Professional installation required, typically 1-3 days depending on vehicle size"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: AI, EPS, PDF (vector required for cutting/routing)",
+        "Color Space: CMYK",
+        "Fonts must be converted to outlines or included",
+        "Max File Upload Size: 300MB",
+        "Include a separate layer for cut lines if applicable",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "window-lettering",
+    "name": "Window Lettering & Graphics",
+    "images": {
+      "mainImage": "/products/window-lettering/image-0.jpg",
+      "subImages": [
+        "/products/window-lettering/image-1.jpg",
+        "/products/window-lettering/image-2.jpg",
+        "/products/window-lettering/image-3.jpg",
+        "/products/window-lettering/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Cut vinyl lettering or full color printed graphics",
+      "Frosted/etched vinyl privacy film option",
+      "Perforated one-way vision window film option",
+      "Applied to interior or exterior of glass",
+      "Store hours, logos, and promotional graphics",
+      "Professional installation available"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Cut Vinyl Lettering"
+        },
+        "application": [
+          {
+            "id": "1",
+            "name": "Store Hours / Contact Info"
+          },
+          {
+            "id": "2",
+            "name": "Logo / Business Name"
+          }
+        ],
+        "color": [
+          {
+            "id": "1",
+            "name": "Standard Color Vinyl"
+          },
+          {
+            "id": "2",
+            "name": "Gold or Metallic Vinyl"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Frosted/Etched Privacy Film"
+        },
+        "coverage": [
+          {
+            "id": "1",
+            "name": "Full Panel Frost"
+          },
+          {
+            "id": "2",
+            "name": "Frosted Logo/Pattern Only"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "3",
+          "name": "Perforated Window Film (One-Way Vision)"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "Single Window Panel"
+          },
+          {
+            "id": "2",
+            "name": "Full Storefront Coverage"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Window lettering and graphics turn glass storefronts into branding and communication space without permanent construction, using cut vinyl lettering, printed graphics, or specialty window films.",
+        "Frosted/etched vinyl film adds privacy and a premium, glass-etched appearance to conference rooms and office windows, while perforated one-way vision film lets you print full color graphics on the outside of a window while still allowing people to see out from the inside.",
+        "Store hours, contact information, and logos are commonly added directly to entry doors and windows for a professional, informative storefront."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Retail storefronts, office conference rooms, restaurant windows, and entry door signage."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "material": "Cut Vinyl, Printed Vinyl, Frosted/Etched Film, or Perforated Window Film",
+        "application": "Interior or Exterior glass mount"
+      },
+      "hardwareAndAssembly": {
+        "installation": "Professional installation recommended for bubble-free application"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: AI, EPS, PDF (vector required for cutting/routing)",
+        "Color Space: CMYK",
+        "Fonts must be converted to outlines or included",
+        "Max File Upload Size: 300MB",
+        "Include a separate layer for cut lines if applicable",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
+  },
+  {
+    "slug": "yard-signs",
+    "name": "Custom Yard Sign",
+    "images": {
+      "mainImage": "/products/yard-signs/image-0.jpg",
+      "subImages": [
+        "/products/yard-signs/image-1.jpg",
+        "/products/yard-signs/image-2.jpg",
+        "/products/yard-signs/image-3.jpg",
+        "/products/yard-signs/image-4.jpg"
+      ]
+    },
+    "features": [
+      "Lightweight corrugated plastic (coroplast)",
+      "Full color double sided printing",
+      "H-stake included for easy ground install",
+      "Weatherproof for outdoor use",
+      "Great for short-term or seasonal use",
+      "Bulk order discounts available"
+    ],
+    "variants": [
+      {
+        "productType": {
+          "id": "1",
+          "name": "Standard Yard Sign"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "18\" x 24\""
+          },
+          {
+            "id": "2",
+            "name": "24\" x 18\""
+          },
+          {
+            "id": "3",
+            "name": "24\" x 36\""
+          }
+        ],
+        "sides": [
+          {
+            "id": "1",
+            "name": "Single Sided"
+          },
+          {
+            "id": "2",
+            "name": "Double Sided"
+          }
+        ],
+        "stake": [
+          {
+            "id": "1",
+            "name": "No Stake"
+          },
+          {
+            "id": "2",
+            "name": "Include H-Stake"
+          }
+        ]
+      },
+      {
+        "productType": {
+          "id": "2",
+          "name": "Real Estate Rider"
+        },
+        "size": [
+          {
+            "id": "1",
+            "name": "6\" x 24\""
+          },
+          {
+            "id": "2",
+            "name": "6\" x 30\""
+          }
+        ],
+        "sides": [
+          {
+            "id": "1",
+            "name": "Single Sided"
+          },
+          {
+            "id": "2",
+            "name": "Double Sided"
+          }
+        ]
+      }
+    ],
+    "Description": {
+      "title": "Description",
+      "content": [
+        "Custom yard signs are an affordable, effective way to advertise real estate listings, political campaigns, garage sales, and small business promotions right where your audience is walking or driving by.",
+        "Printed in full color on lightweight corrugated plastic, yard signs are weatherproof and hold up well outdoors for weeks or months at a time, and are easy to move between locations.",
+        "Signs ship with a wire H-stake for tool-free ground installation, and real estate rider signs can be added below a main sign for additional details like 'Open House' or an agent's name."
+      ],
+      "applications": {
+        "title": "Applications",
+        "content": "Real estate listings, political campaigns, garage sales, lawn care ads, and small business promotions."
+      }
+    },
+    "spec": {
+      "title": "Spec",
+      "materialAndPrintSpecifications": {
+        "material": "4mm Corrugated Plastic (Coroplast)",
+        "printMethod": "Full Color UV Digital Print",
+        "sides": "Single or Double Sided"
+      },
+      "additionalAccessories": {
+        "included": "Wire H-Stake (optional add-on)"
+      }
+    },
+    "fileSetup": {
+      "title": "File Setup",
+      "requirements": [
+        "Accepted File Formats: JPEG or PDF (single page only)",
+        "Color Space: CMYK",
+        "Resolution: 150 dpi for raster images (More than enough for large format)",
+        "Max File Upload Size: 300MB",
+        "Submit artwork built to ordered size - Scaled artwork is automatically detected and fit to order",
+        "Do not include crop marks or bleeds"
+      ],
+      "additionalTips": [
+        "Do not submit with Pantones/Spot Colors - Convert to CMYK",
+        "Convert live fonts to outlines",
+        "Use provided design templates when available"
+      ]
+    }
   }
-}
+]
