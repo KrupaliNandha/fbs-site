@@ -32,91 +32,109 @@ export default function Page() {
       id: 1,
       text: "Advertising Flags",
       image: "/icons/advertising-flags.png",
+      slug: "advertising-flags",
     },
     {
       id: 2,
       text: "Banner Stands",
       image: "/icons/banner-stands.png",
+      slug: "banner-stands",
     },
     {
       id: 3,
       text: "Banner",
       image: "/icons/banner.png",
+      slug: "banner",
     },
     {
       id: 4,
       text: "Custom Neon LED",
       image: "/icons/custom-neon-led.png",
+      slug: "custom-neon-led",
     },
     {
       id: 5,
       text: "Custom Event Tents",
       image: "/icons/custom-event-tents.png",
+      slug: "custom-event-tents",
     },
     {
       id: 6,
       text: "Canopy/Awning",
       image: "/icons/canopy-awning.png",
+      slug: "canopy-awning",
     },
     {
       id: 7,
       text: "LED Light Box",
       image: "/icons/led-light-box.png",
+      slug: "led-light-box",
     },
     {
       id: 8,
       text: "LED Message Board",
       image: "/icons/led-message-board.png",
+      slug: "led-message-board",
     },
     {
       id: 9,
       text: "LED Channel Letters",
       image: "/icons/led-channel-letters.png",
+      slug: "led-channel-letters",
     },
     {
       id: 10,
       text: "Monument Signs",
       image: "/icons/monument-signs.png",
+      slug: "monument-signs",
     },
     {
       id: 11,
       text: "Pylon Signs",
       image: "/icons/pylon-signs.png",
+      slug: "pylon-signs",
     },
     {
       id: 12,
       text: "Signicade A Frame",
       image: "/icons/signicade-a-frame.png",
+      slug: "signicade-a-frame",
     },
     {
       id: 13,
       text: "Trade Show Products",
       image: "/icons/trade-show-products.png",
+      slug: "trade-show-products",
     },
     {
       id: 14,
       text: "Vehicle Graphics",
       image: "/icons/vehicle-graphics.png",
+      slug: "vehicle-graphics",
     },
     {
       id: 15,
       text: "Vehicle Wraps",
       image: "/icons/vehicle-wraps.png",
+      slug: "vehicle-wraps",
     },
     {
       id: 16,
       text: "Window Lettering",
       image: "/icons/window-lettering.png",
+      slug: "window-lettering",
     },
     {
       id: 17,
       text: "Yard Signs",
       image: "/icons/yard-signs.png",
+      slug: "yard-signs",
     },
     {
       id: 18,
       text: "And More...",
       image: "/icons/and-more.png",
+      slug: "and-more",
     },
   ];
 
@@ -264,16 +282,10 @@ export default function Page() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {steps.map((item) => {
               return (
-                <div
+                <Link
                   key={item.id}
-                  className="
-        group flex h-[220px] bg-gray-200
-        rounded-2xl items-center justify-center
-        overflow-hidden cursor-pointer
-        border-4 border-transparent
-        hover:border-yellow-400
-        transition-all duration-300
-      "
+                  href={`/services/signage/${item.slug}`}
+                  className=" group flex h-[220px] bg-gray-200 rounded-2xl items-center justify-center overflow-hidden cursor-pointer border-4 border-transparent hover:border-yellow-400 transition-all duration-300"
                 >
                   <div className="flex flex-col items-center justify-center gap-4">
                     {/* PNG IMAGE ICON */}
@@ -292,7 +304,7 @@ export default function Page() {
                       {item.text}
                     </h3>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -325,8 +337,9 @@ export default function Page() {
             {/* Services */}
             <div className="grid md:grid-cols-2 gap-x-14 gap-y-6">
               {steps.map((item, i) => (
-                <div
+                <Link
                   key={i}
+                  href={`/services/signage/${item.slug}`}
                   className="flex items-center gap-4 border-b pb-4 group hover:translate-x-2 transition-all duration-300"
                 >
                   <div className="w-11 h-11 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center">
@@ -342,7 +355,7 @@ export default function Page() {
                   <h4 className="text-lg font-semibold text-gray-800 group-hover:text-pink-600">
                     {item.text}
                   </h4>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
