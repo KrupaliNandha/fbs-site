@@ -1,20 +1,20 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { useParams } from "next/navigation";
 import {
   ChevronDown,
   Flag,
   MoveVertical,
   CircleDot,
   Layers,
-  Info,
-  FileText,
   FileImage,
-  Download,
   Home,
   Droplet,
   Wrench,
   Briefcase,
+  Zap,
+  Palette,
   Check,
   AlertTriangle,
   Loader2,
@@ -24,283 +24,204 @@ import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
 
 /* ================================================================== */
-/*  Data model (shape of the fetched JSON)                              */
+/*  Generic data model                                                   */
+/*                                                                        */
+/*  These 17 product categories do NOT all share the same JSON shape —   */
+/*  Advertising Flags has size/graphic/base/carryBag + a detailed        */
+/*  spec.sizeSpecification table + baseHardwareSpecifications, while     */
+/*  e.g. Vehicle Wraps has vehicleType/finish and a completely different  */
+/*  spec object, and Banner Stands has yet another spec shape entirely.  */
+/*  Rather than hardcoding fields that only exist for one category, this */
+/*  page reads each variant's option groups and each product's spec      */
+/*  object generically, so it renders correctly no matter which of the   */
+/*  17 categories is loaded — including ones added later.                */
 /* ================================================================== */
 
-type SizeId = string;
-type GraphicId = string;
-type BaseId = string;
 type PackageId = string;
 type TabId = "description" | "spec" | "file-setup";
 
-interface SizeSpec {
-  id: SizeId;
-  label: string;
-  assembledHeight: string;
-  graphicSize: string;
-  flagWeight: string;
-  flagWithPoleWeight: string;
-  poleSetPieces: string;
-  heightFt: number;
-  price: number;
-}
-
-interface GraphicOption {
-  id: GraphicId;
-  label: string;
-  description: string;
-  upcharge: number;
-}
-
-interface BaseHardwareSpec {
-  id: BaseId;
-  label: string;
-  material: string;
-  weight: string;
-  use: string[];
-  feature?: string;
-  upcharge: number;
-}
-
-interface SelectOption {
+interface OptionItem {
   value: string;
   label: string;
+}
+
+interface OptionGroup {
+  key: string; // raw JSON key, e.g. "graphic", "carryBag", "vehicleType"
+  label: string; // human label, e.g. "Graphic", "Carry Bag", "Vehicle Type"
+  options: OptionItem[];
 }
 
 interface GalleryItem {
   id: string;
   label: string;
   url?: string;
-  kind:
-    | "flag-front"
-    | "flag-reverse"
-    | "flag-double"
-    | "pole"
-    | "bases-row"
-    | "base-single"
-    | "diagram"
-    | "icons";
-}
-
-interface TemplateLink {
-  label: string;
-}
-
-interface TemplateRow {
-  size: string;
-  pdf: TemplateLink[];
-  photoshop: TemplateLink[];
-}
-
-interface VariantOptionSet {
-  graphics: GraphicOption[];
-  baseSelectOptions: SelectOption[];
-  carryBagOptions: SelectOption[];
 }
 
 interface ProductData {
-  eyebrow: string;
+  slug: string;
   name: string;
   shortDescription: string;
   gallery: GalleryItem[];
   bullets: string[];
-  packages: { id: PackageId; label: string; priceAdjustment: number }[];
-  variantsData: Record<string, VariantOptionSet>;
-  sizes: SizeSpec[];
-  specImage: string;
-  graphics: GraphicOption[];
-  bases: BaseHardwareSpec[];
-  baseSelectOptions: SelectOption[];
-  carryBag: {
-    label: string;
-    weightSmallMedium: string;
-    weightLargeXLarge: string;
-    options: SelectOption[];
-  };
-  hardwareAndAssembly: { poleSet: string };
+  packages: { id: PackageId; label: string }[];
+  optionGroupsByPackage: Record<string, OptionGroup[]>;
   description: {
-    intro: string;
-    printInfo: string;
-    graphicTypes: { label: string; detail: string }[];
-    baseInfo: string;
-    applicationsLabel: string;
-    applications: string;
+    paragraphs: string[];
+    applications?: { title: string; content: string };
+    extraNotes?: string[]; // e.g. Advertising Flags' Description.graphics
   };
-  materialSpec: {
-    printMethod: string;
-    graphicMaterial: string;
-    washable: string;
-  };
+  rawSpec: Record<string, any>;
+  baseHardwareSpecifications?: any[];
   fileSetup: {
     requirements: string[];
     tips: string[];
-    templates: TemplateRow[];
-    instructions: string[];
   };
 }
+
+/* -------------------------------------------------------------- */
+/*  Helpers: turn a raw JSON key into a human label                */
+/* -------------------------------------------------------------- */
+
+function labelizeKey(key: string): string {
+  if (key.includes(" ")) {
+    // Already spaced (e.g. "LED Light") — just make sure each word starts
+    // with a capital, without touching existing acronyms like "LED".
+    return key.replace(/\b\w/g, (c) => c.toUpperCase());
+  }
+  const spaced = key.replace(/([a-z0-9])([A-Z])/g, "$1 $2");
+  return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+}
+
+function pickGroupIcon(key: string) {
+  const k = key.toLowerCase();
+  if (k === "size") return MoveVertical;
+  if (
+    k.includes("graphic") ||
+    k.includes("finish") ||
+    k.includes("lamin") ||
+    k.includes("panel")
+  )
+    return FileImage;
+  if (k.includes("base") || k.includes("stake") || k.includes("mount"))
+    return CircleDot;
+  if (k.includes("bag") || k.includes("case")) return Briefcase;
+  if (
+    k.includes("led") ||
+    k.includes("light") ||
+    k.includes("illumin") ||
+    k.includes("power") ||
+    k.includes("display")
+  )
+    return Zap;
+  if (k.includes("color") || k.includes("backing")) return Palette;
+  if (k.includes("side")) return Layers;
+  return Check;
+}
+
+/* -------------------------------------------------------------- */
+/*  Map one raw product object (any of the 17 categories) into the  */
+/*  generic ProductData shape                                       */
+/* -------------------------------------------------------------- */
 
 function mapRawToProductData(raw: any): ProductData {
-  // Use the first defined variant (e.g. "Flag + Pole") as the source of
-  // truth for graphic/base/carry-bag select options shown at top-level
-  // (used by the Spec tab, which isn't package-specific).
-  const primaryVariant = raw.variants[0];
+  const variants: any[] = Array.isArray(raw.variants) ? raw.variants : [];
+
+  const packages = variants.map((v, idx) => ({
+    id: String(v?.productType?.id ?? idx),
+    label: v?.productType?.name ?? `Option ${idx + 1}`,
+  }));
+
+  const optionGroupsByPackage: Record<string, OptionGroup[]> = {};
+  variants.forEach((v, idx) => {
+    const packageId = String(v?.productType?.id ?? idx);
+    const groups: OptionGroup[] = [];
+    Object.keys(v || {}).forEach((key) => {
+      if (key === "productType") return;
+      const arr = v[key];
+      if (!Array.isArray(arr)) return;
+      groups.push({
+        key,
+        label: labelizeKey(key),
+        options: arr.map((item: any) => ({
+          value: String(item?.id ?? item?.name ?? ""),
+          label: item?.name ?? String(item?.id ?? ""),
+        })),
+      });
+    });
+    optionGroupsByPackage[packageId] = groups;
+  });
+
+  const descContent: string[] = Array.isArray(raw?.Description?.content)
+    ? raw.Description.content
+    : [];
 
   return {
-    eyebrow: "Product Details",
-    name: raw.name,
-    shortDescription: raw.Description.content[0],
+    slug: raw?.slug ?? "",
+    name: raw?.name ?? "Product",
+    shortDescription: descContent[0] ?? "",
     gallery: [
-      {
-        id: "main",
-        label: "Main Image",
-        kind: "flag-front",
-        url: raw.images.mainImage,
-      },
-      ...raw.images.subImages.map((img: string, i: number) => ({
-        id: `sub-${i}`,
-        label: `Image ${i + 1}`,
-        kind: "flag-front" as const,
-        url: img,
-      })),
+      ...(raw?.images?.mainImage
+        ? [{ id: "main", label: "Main Image", url: raw.images.mainImage }]
+        : []),
+      ...(Array.isArray(raw?.images?.subImages)
+        ? raw.images.subImages.map((img: string, i: number) => ({
+            id: `sub-${i}`,
+            label: `Image ${i + 1}`,
+            url: img,
+          }))
+        : []),
     ],
-    bullets: raw.features,
-    packages: raw.variants.map((v: any) => ({
-      id: v.productType.id,
-      label: v.productType.name,
-      priceAdjustment: 0,
-    })),
-    // Each productType (flag_pole / flag_only) keeps its own independent
-    // graphic / base / carryBag option lists here — nothing is shared
-    // or merged across variants.
-    variantsData: raw.variants.reduce(
-      (acc: Record<string, VariantOptionSet>, v: any) => {
-        acc[v.productType.id] = {
-          graphics: (v.graphic || []).map((g: any, i: number) => ({
-            id: g.id,
-            label: g.name,
-            description: raw.Description.graphics[i] || "",
-            upcharge: 0,
-          })),
-          // flag_only has no "base" key in the JSON at all -> this
-          // resolves to [] for that variant, which is what drives hiding
-          // the Base field for Flag Only further down.
-          baseSelectOptions: (v.base || []).map((b: any) => ({
-            value: b.id,
-            label: b.name,
-          })),
-          carryBagOptions: (v.carryBag || []).map((c: any) => ({
-            value: c.id,
-            label: c.name,
-          })),
-        };
-        return acc;
-      },
-      {},
-    ),
-    sizes: raw.spec.sizeSpecification.table.map((row: any) => ({
-      id: row.size.toLowerCase().replace(/[^a-z0-9]/g, "-"),
-      label: row.size,
-      assembledHeight: row.assembledHeight,
-      graphicSize: row.graphicSize,
-      flagWeight: row.flagWeight,
-      flagWithPoleWeight: row.flagWithPoleWeight,
-      poleSetPieces: row.poleSetPieces,
-      heightFt: parseFloat(row.assembledHeight),
-      price: 0,
-    })),
-    specImage: raw.spec.sizeSpecification.image || "",
-    graphics: primaryVariant.graphic.map((g: any, i: number) => ({
-      id: g.id,
-      label: g.name,
-      description: raw.Description.graphics[i] || "",
-      upcharge: 0,
-    })),
-    bases: raw.baseHardwareSpecifications.map((b: any) => ({
-      id: b.id,
-      label: b.name,
-      material: b.specifications.material || "N/A",
-      weight: b.specifications.weight || "N/A",
-      use: [b.specifications.use || ""],
-      feature: b.specifications.feature,
-      upcharge: 0,
-    })),
-    baseSelectOptions: primaryVariant.base.map((b: any) => ({
-      value: b.id,
-      label: b.name,
-    })),
-    carryBag: {
-      label: raw.spec.additionalAccessories.carryBag,
-      weightSmallMedium:
-        raw.spec.additionalAccessories.weight.find((w: any) => w.size === "S/M")
-          ?.weight || "",
-      weightLargeXLarge:
-        raw.spec.additionalAccessories.weight.find(
-          (w: any) => w.size === "L/XL",
-        )?.weight || "",
-      options: (primaryVariant.carryBag || []).map((c: any) => ({
-        value: c.id,
-        label: c.name,
-      })),
-    },
-    hardwareAndAssembly: {
-      poleSet: raw.spec.hardwareAndAssembly.poleSet,
-    },
+    bullets: Array.isArray(raw?.features) ? raw.features : [],
+    packages,
+    optionGroupsByPackage,
     description: {
-      intro: raw.Description.content[0],
-      printInfo: raw.Description.content[2],
-      graphicTypes: raw.Description.graphics.map((g: string, i: number) => ({
-        label: primaryVariant.graphic[i]?.name || "",
-        detail: g,
-      })),
-      baseInfo: raw.Description.content[3],
-      applicationsLabel: raw.Description.applications.title,
-      applications: raw.Description.applications.content,
+      paragraphs: descContent,
+      applications: raw?.Description?.applications,
+      extraNotes: Array.isArray(raw?.Description?.graphics)
+        ? raw.Description.graphics
+        : undefined,
     },
-    materialSpec: {
-      printMethod: raw.spec.materialAndPrintSpecifications.printMethod,
-      graphicMaterial: raw.spec.materialAndPrintSpecifications.graphicMaterial,
-      washable: raw.spec.materialAndPrintSpecifications.washable,
-    },
+    rawSpec: raw?.spec ?? {},
+    baseHardwareSpecifications: Array.isArray(raw?.baseHardwareSpecifications)
+      ? raw.baseHardwareSpecifications
+      : undefined,
     fileSetup: {
-      requirements: raw.fileSetup.requirements,
-      tips: raw.fileSetup.additionalTips,
-      templates: (raw.installationGuide?.templateDownloads || []).map((t: any) => ({
-        size: t.size,
-        pdf: Object.keys(t.pdf).map((k) => ({
-          label: k
-            .replace(/([A-Z])/g, " $1")
-            .replace(/^./, (str) => str.toUpperCase()),
-        })),
-        photoshop: Object.keys(t.photoshop).map((k) => ({
-          label: k
-            .replace(/([A-Z])/g, " $1")
-            .replace(/^./, (str) => str.toUpperCase()),
-        })),
-      })),
-      instructions: raw.installationGuide?.instructions || [],
+      requirements: Array.isArray(raw?.fileSetup?.requirements)
+        ? raw.fileSetup.requirements
+        : [],
+      tips: Array.isArray(raw?.fileSetup?.additionalTips)
+        ? raw.fileSetup.additionalTips
+        : [],
     },
   };
 }
 
-const DEFAULT_DATA_URL = "/data/product-detail.json";
-
 /* ================================================================== */
-/*  Breadcrumbs component                                                */
+/*  Breadcrumbs                                                          */
 /* ================================================================== */
 
 function Breadcrumbs({ productName }: { productName: string }) {
   return (
-    <nav className="flex text-sm text-gray-500 mb-6 sm:mb-8" aria-label="Breadcrumb">
+    <nav
+      className="flex text-sm text-gray-500 mb-6 sm:mb-8"
+      aria-label="Breadcrumb"
+    >
       <ol className="inline-flex items-center space-x-1 md:space-x-2">
         <li className="inline-flex items-center">
-          <a href="/" className="inline-flex items-center hover:text-[#c6005c] transition-colors">
+          <a
+            href="/"
+            className="inline-flex items-center hover:text-[#c6005c] transition-colors"
+          >
             Home
           </a>
         </li>
         <li>
           <div className="flex items-center">
             <span className="mx-1 text-gray-400">/</span>
-            <a href="/services" className="hover:text-[#c6005c] transition-colors ml-1">
+            <a
+              href="/services"
+              className="hover:text-[#c6005c] transition-colors ml-1"
+            >
               Services
             </a>
           </div>
@@ -308,7 +229,10 @@ function Breadcrumbs({ productName }: { productName: string }) {
         <li>
           <div className="flex items-center">
             <span className="mx-1 text-gray-400">/</span>
-            <a href="/services/signage" className="hover:text-[#c6005c] transition-colors ml-1">
+            <a
+              href="/services/signage"
+              className="hover:text-[#c6005c] transition-colors ml-1"
+            >
               Signage
             </a>
           </div>
@@ -316,7 +240,9 @@ function Breadcrumbs({ productName }: { productName: string }) {
         <li aria-current="page">
           <div className="flex items-center">
             <span className="mx-1 text-gray-400">/</span>
-            <span className="text-gray-900 font-medium ml-1">{productName}</span>
+            <span className="text-gray-900 font-medium ml-1">
+              {productName}
+            </span>
           </div>
         </li>
       </ol>
@@ -328,24 +254,20 @@ function Breadcrumbs({ productName }: { productName: string }) {
 /*  Component                                                            */
 /* ================================================================== */
 
-export default function ProductDetailPage({
-  dataUrl = DEFAULT_DATA_URL,
-}: {
-  dataUrl?: string;
-}) {
+export default function ProductDetailPage() {
+  const params = useParams<{ slug: string }>();
   const [product, setProduct] = useState<ProductData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const [activeImageId, setActiveImageId] = useState<string | null>(null);
   const [packageId, setPackageId] = useState<PackageId | null>(null);
-  const [sizeId, setSizeId] = useState<SizeId | null>(null);
-  const [graphicId, setGraphicId] = useState<GraphicId | null>(null);
-  const [baseId, setBaseId] = useState<BaseId | null>(null);
-  const [carryBagId, setCarryBagId] = useState<string | null>(null);
+  // Generic selections: one value per option-group key (e.g.
+  // { size: "3", graphic: "1", vehicleType: "2" }) instead of separate
+  // hardcoded useState hooks per field.
+  const [selections, setSelections] = useState<Record<string, string>>({});
   const [activeTab, setActiveTab] = useState<TabId>("description");
 
-  // Fetch all product content from JSON — no static data lives in this file.
   useEffect(() => {
     let cancelled = false;
 
@@ -353,7 +275,20 @@ export default function ProductDetailPage({
       setLoading(true);
       setError(null);
       try {
-        const data: ProductData = mapRawToProductData(productDetailData);
+        const rawArray = Array.isArray(productDetailData)
+          ? productDetailData
+          : [productDetailData];
+        const decodedSlug = decodeURIComponent(params?.slug || "");
+
+        const raw =
+          rawArray.find((item: any) => item.slug === decodedSlug) ||
+          rawArray.find(
+            (item: any) =>
+              item.slug?.toLowerCase() === decodedSlug.toLowerCase(),
+          ) ||
+          rawArray[0];
+
+        const data = mapRawToProductData(raw);
         if (cancelled) return;
 
         setProduct(data);
@@ -362,23 +297,14 @@ export default function ProductDetailPage({
         const initialPackageId = data.packages[0]?.id ?? null;
         setPackageId(initialPackageId);
 
-        setSizeId(
-          data.sizes.find((s) => s.id === "large")?.id ??
-            data.sizes[0]?.id ??
-            null,
-        );
-
-        // Seed graphic/base/carryBag from THAT initial package's own
-        // option set (not a generic top-level list), so the very first
-        // render already matches whichever package button is active.
-        const initialVariant = initialPackageId
-          ? data.variantsData[initialPackageId]
-          : undefined;
-        setGraphicId(
-          initialVariant?.graphics[0]?.id ?? data.graphics[0]?.id ?? null,
-        );
-        setBaseId(initialVariant?.baseSelectOptions[0]?.value ?? null);
-        setCarryBagId(initialVariant?.carryBagOptions[0]?.value ?? null);
+        const initialGroups = initialPackageId
+          ? (data.optionGroupsByPackage[initialPackageId] ?? [])
+          : [];
+        const initialSelections: Record<string, string> = {};
+        initialGroups.forEach((g) => {
+          if (g.options[0]) initialSelections[g.key] = g.options[0].value;
+        });
+        setSelections(initialSelections);
       } catch (err) {
         if (!cancelled) {
           setError(
@@ -394,38 +320,25 @@ export default function ProductDetailPage({
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [params?.slug]);
 
-  // Whenever the person switches "What's included" (Flag + Pole <-> Flag
-  // Only), that package's own graphic/base/carryBag lists take over. Any
-  // previously selected id that doesn't exist in the new list (e.g. a
-  // Base id when there is no Base for Flag Only, or a carryBag id of
-  // "1"/"2" vs "no"/"yes") is reset to that variant's first option so the
-  // dropdowns never silently point at an option that isn't really active.
+  // Whenever the active package changes, re-seed `selections` so every
+  // group key matches what THIS package actually offers — any leftover
+  // key/value from a previous package that no longer applies is dropped,
+  // and any option value that no longer exists in the new package's list
+  // is reset to that group's first option.
   useEffect(() => {
     if (!product || !packageId) return;
-    const variant = product.variantsData[packageId];
-    if (!variant) return;
+    const groups = product.optionGroupsByPackage[packageId] ?? [];
 
-    setGraphicId((prev) =>
-      variant.graphics.some((g) => g.id === prev)
-        ? prev
-        : (variant.graphics[0]?.id ?? null),
-    );
-
-    setBaseId((prev) =>
-      variant.baseSelectOptions.length === 0
-        ? null
-        : variant.baseSelectOptions.some((b) => b.value === prev)
-          ? prev
-          : (variant.baseSelectOptions[0]?.value ?? null),
-    );
-
-    setCarryBagId((prev) =>
-      variant.carryBagOptions.some((c) => c.value === prev)
-        ? prev
-        : (variant.carryBagOptions[0]?.value ?? null),
-    );
+    setSelections((prev) => {
+      const next: Record<string, string> = {};
+      groups.forEach((g) => {
+        const stillValid = g.options.some((o) => o.value === prev[g.key]);
+        next[g.key] = stillValid ? prev[g.key] : (g.options[0]?.value ?? "");
+      });
+      return next;
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [packageId, product]);
 
@@ -433,13 +346,13 @@ export default function ProductDetailPage({
   if (error || !product)
     return <StateScreen kind="error" message={error ?? "Product not found"} />;
 
-  const currentVariant: VariantOptionSet = (packageId &&
-    product.variantsData[packageId]) ||
-    product.variantsData[product.packages[0].id] || {
-      graphics: product.graphics || [],
-      baseSelectOptions: product.baseSelectOptions || [],
-      carryBagOptions: product.carryBag?.options || [],
-    };
+  const currentGroups: OptionGroup[] =
+    (packageId && product.optionGroupsByPackage[packageId]) || [];
+
+  const sizeGroup = currentGroups.find((g) => g.key.toLowerCase() === "size");
+  const otherGroups = currentGroups.filter(
+    (g) => g.key.toLowerCase() !== "size",
+  );
 
   const activeImage =
     product.gallery.find((g) => g.id === activeImageId) ?? product.gallery[0];
@@ -461,32 +374,54 @@ export default function ProductDetailPage({
           {/* -------------------------------------------------- */}
           <div className="lg:col-span-7">
             <div className="relative aspect-[4/5] sm:aspect-[16/11] lg:aspect-[16/12] w-full bg-gray-50 border border-gray-200 rounded-sm flex items-center justify-center overflow-hidden">
-              {activeImage && <GalleryVisual item={activeImage} />}
+              {activeImage?.url ? (
+                <img
+                  src={activeImage.url}
+                  alt={activeImage.label}
+                  className="object-contain w-full h-full"
+                />
+              ) : (
+                <Flag
+                  className="h-16 w-16 sm:h-24 sm:w-24 text-[#c6005c]"
+                  strokeWidth={1.5}
+                />
+              )}
             </div>
 
-            {/* Thumbnails */}
-            <div className="mt-3 grid grid-cols-5 sm:grid-cols-9 gap-2">
-              {product.gallery.map((item) => {
-                const active = item.id === activeImageId;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => setActiveImageId(item.id)}
-                    aria-label={item.label}
-                    aria-pressed={active}
-                    className={`aspect-square rounded-sm border bg-gray-50 flex items-center justify-center transition-colors ${
-                      active
-                        ? "border-[#c6005c] ring-1 ring-[#c6005c]"
-                        : "border-gray-200 hover:border-gray-400"
-                    }`}
-                  >
-                    <GalleryVisual item={item} compact />
-                  </button>
-                );
-              })}
-            </div>
+            {product.gallery.length > 1 && (
+              <div className="mt-3 grid grid-cols-5 sm:grid-cols-9 gap-2">
+                {product.gallery.map((item) => {
+                  const active = item.id === activeImageId;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => setActiveImageId(item.id)}
+                      aria-label={item.label}
+                      aria-pressed={active}
+                      className={`aspect-square rounded-sm border bg-gray-50 flex items-center justify-center overflow-hidden transition-colors ${
+                        active
+                          ? "border-[#c6005c] ring-1 ring-[#c6005c]"
+                          : "border-gray-200 hover:border-gray-400"
+                      }`}
+                    >
+                      {item.url ? (
+                        <img
+                          src={item.url}
+                          alt={item.label}
+                          className="object-contain w-full h-full"
+                        />
+                      ) : (
+                        <Flag
+                          className="h-5 w-5 text-[#c6005c]"
+                          strokeWidth={1.5}
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
 
-            {/* Bullets */}
             <FeatureGrid bullets={product.bullets} />
           </div>
 
@@ -494,9 +429,8 @@ export default function ProductDetailPage({
           {/* RIGHT — Buy box                                      */}
           {/* -------------------------------------------------- */}
           <div className="lg:col-span-5">
-            {/* Eyebrow + title + description */}
             <p className="text-xs font-semibold uppercase tracking-wide text-[#c6005c]">
-              {product.eyebrow}
+              Product Details
             </p>
             <h1 className="mt-1.5 text-2xl sm:text-[28px] font-bold text-gray-900">
               {product.name}
@@ -506,104 +440,98 @@ export default function ProductDetailPage({
             </p>
 
             <div className="mt-6 border-2 rounded-2xl p-3 shadow-xl border-gray-100 pt-6 space-y-6">
-              {/* What's included */}
-              <div>
-                <p className="text-sm font-semibold text-gray-900 mb-2.5">
-                  What&apos;s included
-                </p>
-                <div className="flex flex-wrap gap-2.5">
-                  {product.packages.map((p) => {
-                    const active = p.id === packageId;
-                    return (
-                      <button
-                        key={p.id}
-                        onClick={() => setPackageId(p.id)}
-                        aria-pressed={active}
-                        className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
-                          active
-                            ? "border-[#c6005c] bg-[#c6005c]/5 text-[#c6005c]"
-                            : "border-gray-300 text-gray-700 hover:border-gray-400"
-                        }`}
-                      >
-                        {p.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Size */}
-              <div>
-                <p className="text-sm font-semibold text-gray-900 mb-2.5">
-                  Size
-                </p>
-                <div className="grid grid-cols-4 gap-2.5">
-                  {product.sizes.map((s) => {
-                    const active = s.id === sizeId;
-                    return (
-                      <button
-                        key={s.id}
-                        onClick={() => setSizeId(s.id)}
-                        aria-pressed={active}
-                        className={`rounded-lg border px-2 py-2.5 text-center transition-colors ${
-                          active
-                            ? "border-[#c6005c] bg-[#c6005c]/5"
-                            : "border-gray-300 hover:border-gray-400"
-                        }`}
-                      >
-                        <span
-                          className={`block text-sm font-semibold ${active ? "text-[#c6005c]" : "text-gray-900"}`}
+              {/* What's included — only shown if there's more than one package */}
+              {product.packages.length > 1 && (
+                <div>
+                  <p className="text-sm font-semibold text-gray-900 mb-2.5">
+                    What&apos;s included
+                  </p>
+                  <div className="flex flex-wrap gap-2.5">
+                    {product.packages.map((p) => {
+                      const active = p.id === packageId;
+                      return (
+                        <button
+                          key={p.id}
+                          onClick={() => setPackageId(p.id)}
+                          aria-pressed={active}
+                          className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
+                            active
+                              ? "border-[#c6005c] bg-[#c6005c]/5 text-[#c6005c]"
+                              : "border-gray-300 text-gray-700 hover:border-gray-400"
+                          }`}
                         >
-                          {s.label}
-                        </span>
-                        <span className="block text-xs text-gray-500 mt-0.5">
-                          {s.assembledHeight}
-                        </span>
-                      </button>
-                    );
-                  })}
+                          {p.label}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-
-              {/* Graphic — options come from currentVariant, i.e. the
-                  variant matching the selected package */}
-              <FieldSelect
-                icon={<FileImage className="h-3.5 w-3.5" />}
-                label="Graphic"
-                value={graphicId ?? ""}
-                onChange={(value) => setGraphicId(value)}
-                options={currentVariant.graphics.map((graphic) => ({
-                  value: graphic.id,
-                  label:
-                    graphic.upcharge > 0
-                      ? `${graphic.label} (+$${graphic.upcharge})`
-                      : graphic.label,
-                }))}
-              />
-
-              {/* Base — only rendered when the active package actually has
-                  base options. Flag Only has none, so this field
-                  disappears entirely when Flag Only is selected. */}
-              {currentVariant.baseSelectOptions.length > 0 && (
-                <FieldSelect
-                  icon={<CircleDot className="h-3.5 w-3.5" />}
-                  label="Base"
-                  value={baseId ?? ""}
-                  onChange={(value) => setBaseId(value)}
-                  options={currentVariant.baseSelectOptions}
-                />
               )}
 
-              {/* Carry Bag — options come from currentVariant too, since
-                  Flag + Pole and Flag Only use different option ids
-                  ("1"/"2" vs "no"/"yes") for the same Yes/No choice */}
-              <FieldSelect
-                icon={<Briefcase className="h-3.5 w-3.5" />}
-                label="Carry Bag"
-                value={carryBagId ?? ""}
-                onChange={(value) => setCarryBagId(value)}
-                options={currentVariant.carryBagOptions}
-              />
+              {/* Size — rendered as a prominent button grid if this
+                  package defines a "size" group; otherwise skipped
+                  entirely (e.g. Vehicle Wraps uses "vehicleType" instead,
+                  which just shows up below as a normal dropdown) */}
+              {sizeGroup && (
+                <div>
+                  <p className="text-sm font-semibold text-gray-900 mb-2.5">
+                    {sizeGroup.label}
+                  </p>
+                  <div
+                    className={`grid gap-2.5 ${
+                      sizeGroup.options.length > 3
+                        ? "grid-cols-4"
+                        : "grid-cols-2"
+                    }`}
+                  >
+                    {sizeGroup.options.map((opt) => {
+                      const active = selections[sizeGroup.key] === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() =>
+                            setSelections((prev) => ({
+                              ...prev,
+                              [sizeGroup.key]: opt.value,
+                            }))
+                          }
+                          aria-pressed={active}
+                          className={`rounded-lg border px-2 py-2.5 text-center transition-colors ${
+                            active
+                              ? "border-[#c6005c] bg-[#c6005c]/5"
+                              : "border-gray-300 hover:border-gray-400"
+                          }`}
+                        >
+                          <span
+                            className={`block text-sm font-semibold ${active ? "text-[#c6005c]" : "text-gray-900"}`}
+                          >
+                            {opt.label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Every other option group this package defines, each as
+                  its own dropdown — Graphic, Base, Carry Bag, Finish,
+                  Coverage, LED Light, Illumination, whatever applies */}
+              {otherGroups.map((group) => {
+                const Icon = pickGroupIcon(group.key);
+                return (
+                  <FieldSelect
+                    key={group.key}
+                    icon={<Icon className="h-3.5 w-3.5" />}
+                    label={group.label}
+                    value={selections[group.key] ?? ""}
+                    onChange={(value) =>
+                      setSelections((prev) => ({ ...prev, [group.key]: value }))
+                    }
+                    options={group.options}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
@@ -646,12 +574,8 @@ export default function ProductDetailPage({
             )}
             {activeTab === "spec" && (
               <SpecTab
-                sizes={product.sizes}
-                specImage={product.specImage}
-                materialSpec={product.materialSpec}
-                carryBag={product.carryBag}
-                bases={product.bases}
-                hardwareAndAssembly={product.hardwareAndAssembly}
+                spec={product.rawSpec}
+                baseHardware={product.baseHardwareSpecifications}
               />
             )}
             {activeTab === "file-setup" && (
@@ -697,7 +621,7 @@ function StateScreen({
 }
 
 /* ================================================================== */
-/*  Buy box helpers: field select, feature grid                        */
+/*  Buy box helpers                                                      */
 /* ================================================================== */
 
 function FieldSelect({
@@ -711,7 +635,7 @@ function FieldSelect({
   label: string;
   value: string;
   onChange: (value: string) => void;
-  options: SelectOption[];
+  options: OptionItem[];
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -728,6 +652,8 @@ function FieldSelect({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  if (options.length === 0) return null;
 
   const selectedOption = options.find((o) => o.value === value) || options[0];
 
@@ -788,15 +714,25 @@ function pickFeatureIcon(text: string) {
   const t = text.toLowerCase();
   if (t.includes("indoor") || t.includes("outdoor")) return Home;
   if (t.includes("sided")) return Layers;
-  if (t.includes("polyester") || t.includes("mesh") || t.includes("sublimat"))
+  if (
+    t.includes("polyester") ||
+    t.includes("mesh") ||
+    t.includes("sublimat") ||
+    t.includes("fabric")
+  )
     return Droplet;
-  if (t.includes("pole")) return Wrench;
-  if (t.includes("base")) return CircleDot;
-  if (t.includes("carry") || t.includes("bag")) return Briefcase;
+  if (t.includes("pole") || t.includes("frame") || t.includes("aluminum"))
+    return Wrench;
+  if (t.includes("base") || t.includes("stake")) return CircleDot;
+  if (t.includes("carry") || t.includes("bag") || t.includes("case"))
+    return Briefcase;
+  if (t.includes("led") || t.includes("light") || t.includes("illumin"))
+    return Zap;
   return Check;
 }
 
 function FeatureGrid({ bullets }: { bullets: string[] }) {
+  if (bullets.length === 0) return null;
   return (
     <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
       {bullets.map((b) => {
@@ -818,252 +754,375 @@ function FeatureGrid({ bullets }: { bullets: string[] }) {
 }
 
 /* ================================================================== */
-/*  Description tab                                                     */
+/*  Description tab — generic: paragraphs + optional applications +     */
+/*  optional extra notes (e.g. Advertising Flags' per-graphic details)  */
 /* ================================================================== */
 
-function DescriptionTab({ data }: { data: ProductData["description"] }) {
+function DescriptionTab({
+  data,
+}: {
+  data: {
+    paragraphs: string[];
+    applications?: { title: string; content: string };
+    extraNotes?: string[];
+  };
+}) {
   return (
     <div className="w-full">
       <h2 className="text-lg font-semibold text-gray-900">Description</h2>
-      <p className="mt-3 text-sm sm:text-[15px] leading-relaxed text-gray-700">
-        {data.intro}
-      </p>
-      <p className="mt-4 text-sm sm:text-[15px] leading-relaxed text-gray-700">
-        {data.printInfo}
-      </p>
 
-      <ul className="mt-4 space-y-2.5">
-        {data.graphicTypes.map((g) => (
-          <li
-            key={g.label}
-            className="text-sm sm:text-[14px] leading-relaxed text-gray-700 flex items-start gap-2"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#c6005c] mt-2 shrink-0"></span>
-            <span>
-              <span className="font-semibold text-gray-900">{g.label}</span>{" "}
-              {g.detail}
-            </span>
-          </li>
-        ))}
-      </ul>
+      {data.paragraphs.map((p, i) => (
+        <p
+          key={i}
+          className="mt-3 text-sm sm:text-[15px] leading-relaxed text-gray-700"
+        >
+          {p}
+        </p>
+      ))}
 
-      <p className="mt-4 text-sm sm:text-[15px] leading-relaxed text-gray-700">
-        {data.baseInfo}
-      </p>
+      {data.extraNotes && data.extraNotes.length > 0 && (
+        <ul className="mt-4 space-y-2.5">
+          {data.extraNotes.map((note, i) => (
+            <li
+              key={i}
+              className="text-sm sm:text-[14px] leading-relaxed text-gray-700 flex items-start gap-2"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#c6005c] mt-2 shrink-0"></span>
+              <span>{note}</span>
+            </li>
+          ))}
+        </ul>
+      )}
 
-      <h3 className="mt-6 text-sm font-semibold text-gray-900">
-        {data.applicationsLabel}
-      </h3>
-      <p className="mt-1.5 text-sm sm:text-[15px] leading-relaxed text-gray-700">
-        {data.applications}
-      </p>
+      {data.applications && (
+        <>
+          <h3 className="mt-6 text-sm font-semibold text-gray-900">
+            {data.applications.title}
+          </h3>
+          <p className="mt-1.5 text-sm sm:text-[15px] leading-relaxed text-gray-700">
+            {data.applications.content}
+          </p>
+        </>
+      )}
     </div>
   );
 }
 
 /* ================================================================== */
-/*  Spec tab                                                             */
+/*  Spec tab — fully generic renderer over whatever raw.spec contains   */
 /* ================================================================== */
 
-function formatSizeLabel(label: string) {
-  const l = label.toLowerCase();
-  if (l === "x-large" || l === "xlarge") return "XL";
-  if (l === "xx-large" || l === "xxlarge") return "XXL";
-  if (l === "large") return "L";
-  if (l === "medium") return "M";
-  if (l === "small") return "S";
-  return label;
+function isPlainObject(v: any) {
+  return v !== null && typeof v === "object" && !Array.isArray(v);
+}
+
+/* ---------------------------------------------------------------- */
+/*  Special-case renderer for spec.sizeSpecification                  */
+/*  (used by Advertising Flags — a curved flag-height diagram + a      */
+/*  proper comparison table, instead of the generic card grid every   */
+/*  other spec section gets)                                          */
+/* ---------------------------------------------------------------- */
+
+function abbreviateSizeLabel(label: string): string {
+  const known: Record<string, string> = {
+    "X-Large": "XL",
+    Large: "L",
+    Medium: "M",
+    Small: "S",
+  };
+  return known[label] ?? label.charAt(0).toUpperCase();
+}
+
+function SizeSpecificationBlock({
+  table,
+  image,
+}: {
+  table: any[];
+  image?: string;
+}) {
+  const [imgFailed, setImgFailed] = useState(false);
+  const columns = Object.keys(table[0]).filter((k) => k !== "size");
+  const rows = table.map((row) => ({
+    ...row,
+    _abbrev: abbreviateSizeLabel(row.size),
+    _heightFt: parseFloat(String(row.assembledHeight)) || 0,
+  }));
+  const ascendingRows = [...rows].sort((a, b) => a._heightFt - b._heightFt);
+
+  const showRealImage = !!image && !imgFailed;
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      <div className="lg:col-span-5">
+        {showRealImage ? (
+          <img
+            src={image}
+            alt="Size Specification Diagram"
+            onError={() => setImgFailed(true)}
+            className="w-full max-h-[260px] h-auto rounded-sm border border-gray-200 bg-gray-50 object-contain p-2"
+          />
+        ) : (
+          <div className="w-full h-auto min-h-[300px] bg-gray-50 flex items-center justify-center text-sm text-gray-400 border border-gray-200 rounded-2xl">
+            No diagram available
+          </div>
+        )}
+      </div>
+
+      <div className="lg:col-span-7 overflow-x-auto">
+        <table className="w-full text-sm border-collapse min-w-[560px] border border-gray-200">
+          <thead>
+            <tr className="bg-gray-50 border-b border-gray-200">
+              <th className="text-center font-semibold text-gray-800 py-2.5 px-3 border-r border-gray-200">
+                Size
+              </th>
+              {columns.map((col) => (
+                <th
+                  key={col}
+                  className="text-center font-semibold text-gray-800 py-2.5 px-3 border-r border-gray-200 last:border-r-0 whitespace-nowrap"
+                >
+                  {labelizeKey(col)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {ascendingRows.map((row) => (
+              <tr
+                key={row.size}
+                className="border-b border-gray-100 last:border-b-0"
+              >
+                <td className="py-3 px-3 text-center font-semibold text-gray-900 border-r border-gray-200 whitespace-nowrap">
+                  {row._abbrev}
+                </td>
+                {columns.map((col) => (
+                  <td
+                    key={col}
+                    className={`py-3 px-3 text-center border-r border-gray-200 last:border-r-0 whitespace-nowrap ${
+                      col === "assembledHeight"
+                        ? "text-[#c6005c] font-medium"
+                        : "text-gray-700"
+                    }`}
+                  >
+                    {row[col]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+// Renders any value found inside raw.spec: strings, arrays of strings,
+// arrays of objects (rendered as small cards), or nested objects
+// (rendered as a labeled sub-block, recursively).
+function SpecValue({ nodeKey, value }: { nodeKey: string; value: any }) {
+  if (value == null || value === "") return null;
+
+  // A string whose key mentions "image" is rendered as an image instead
+  // of raw text (e.g. spec.sizeSpecification.image).
+  if (typeof value === "string") {
+    if (nodeKey.toLowerCase().includes("image")) {
+      return (
+        <img
+          src={value}
+          alt={labelizeKey(nodeKey)}
+          className="w-full max-w-md h-auto rounded-lg border border-gray-200 bg-gray-50"
+        />
+      );
+    }
+    return <p className="text-sm text-gray-700">{value}</p>;
+  }
+
+  if (Array.isArray(value)) {
+    if (value.length === 0) return null;
+
+    // Array of plain strings -> bullet list
+    if (value.every((v) => typeof v === "string")) {
+      return (
+        <ul className="space-y-1.5">
+          {value.map((v, i) => (
+            <li
+              key={i}
+              className="flex items-start gap-2 text-sm text-gray-700"
+            >
+              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#c6005c] flex-shrink-0" />
+              {v}
+            </li>
+          ))}
+        </ul>
+      );
+    }
+
+    // Array of objects -> card grid (covers size tables, weight lists,
+    // baseHardwareSpecifications entries, etc. uniformly)
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {value.map((item, i) => (
+          <div
+            key={i}
+            className="border border-gray-200 rounded-lg p-3 bg-white"
+          >
+            {Object.entries(item).map(([k, v]) => (
+              <SpecEntry
+                key={k}
+                label={labelizeKey(k)}
+                nodeKey={k}
+                value={v}
+                compact
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (isPlainObject(value)) {
+    return (
+      <div className="space-y-2 border border-gray-200 rounded-lg p-3 bg-white">
+        {Object.entries(value).map(([k, v]) => (
+          <SpecEntry key={k} label={labelizeKey(k)} nodeKey={k} value={v} />
+        ))}
+      </div>
+    );
+  }
+
+  return <p className="text-sm text-gray-700">{String(value)}</p>;
+}
+
+function SpecEntry({
+  label,
+  nodeKey,
+  value,
+  compact = false,
+}: {
+  label: string;
+  nodeKey: string;
+  value: any;
+  compact?: boolean;
+}) {
+  if (value == null || value === "") return null;
+
+  if (typeof value === "string" && !nodeKey.toLowerCase().includes("image")) {
+    return (
+      <p
+        className={compact ? "text-xs text-gray-700" : "text-sm text-gray-700"}
+      >
+        <span className="font-medium text-gray-900">{label}:</span> {value}
+      </p>
+    );
+  }
+
+  return (
+    <div className={compact ? "mt-1" : "mt-1.5"}>
+      <p
+        className={`font-medium text-gray-900 ${compact ? "text-xs" : "text-sm"}`}
+      >
+        {label}
+      </p>
+      <div className="mt-1">
+        <SpecValue nodeKey={nodeKey} value={value} />
+      </div>
+    </div>
+  );
 }
 
 function SpecTab({
-  sizes,
-  specImage,
-  materialSpec,
-  carryBag,
-  bases,
-  hardwareAndAssembly,
+  spec,
+  baseHardware,
 }: {
-  sizes: SizeSpec[];
-  specImage: string;
-  materialSpec: ProductData["materialSpec"];
-  carryBag: ProductData["carryBag"];
-  bases: BaseHardwareSpec[];
-  hardwareAndAssembly: ProductData["hardwareAndAssembly"];
+  spec: Record<string, any>;
+  baseHardware?: any[];
 }) {
+  const entries = Object.entries(spec || {}).filter(([k]) => k !== "title");
+
   return (
     <div>
       <h2 className="text-lg font-semibold text-gray-900">Spec</h2>
-      <p className="mt-2 text-sm text-gray-500">Size &amp; Specifications</p>
 
-      <div className="mt-5 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-        <div className="lg:col-span-5 flex flex-col">
-          {specImage ? (
-            <img
-              src={
-                specImage.startsWith("http") || specImage.startsWith("/")
-                  ? specImage
-                  : `/image/${specImage}`
-              }
-              alt="Size and Specifications Diagram"
-              className="w-full h-auto object-contain rounded-2xl border border-gray-200 bg-gray-50"
-              style={{ maxHeight: "360px" }}
-            />
-          ) : (
-            <div className="w-full h-auto min-h-[300px] bg-gray-50 flex items-center justify-center text-sm text-gray-400 border border-gray-200 rounded-2xl">
-              No diagram available
+      {entries.length === 0 && (
+        <p className="mt-3 text-sm text-gray-500">
+          No specifications available for this product yet.
+        </p>
+      )}
+
+      <div className="mt-5 space-y-8">
+        {entries.map(([key, value]) => {
+          const isSizeSpec =
+            key === "sizeSpecification" &&
+            isPlainObject(value) &&
+            Array.isArray(value.table) &&
+            value.table.length > 0 &&
+            value.table[0]?.size &&
+            value.table[0]?.assembledHeight;
+
+          return (
+            <div key={key}>
+              {!isSizeSpec && (
+                <h3 className="text-sm font-semibold text-gray-900">
+                  {labelizeKey(key)}
+                </h3>
+              )}
+              {isSizeSpec ? (
+                <>
+                  <p className="text-sm text-gray-500 -mt-1 mb-2.5">
+                    Size &amp; Specifications
+                  </p>
+                  <SizeSpecificationBlock
+                    table={value.table}
+                    image={value.image}
+                  />
+                </>
+              ) : (
+                <div className="mt-2.5">
+                  <SpecValue nodeKey={key} value={value} />
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          );
+        })}
+      </div>
 
-        <div className="lg:col-span-7">
-          <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white">
-            <table className="w-full text-sm border-collapse min-w-[560px]">
-              <thead>
-                <tr className="border-b border-gray-200 bg-white">
-                  <th className="py-4 px-3 text-center font-bold text-gray-900 border-r border-gray-200 whitespace-nowrap">
-                    Size
-                  </th>
-                  <th className="py-4 px-3 text-center font-bold text-gray-900 border-r border-gray-200">
-                    Assembled
-                    <br />
-                    Height
-                  </th>
-                  <th className="py-4 px-3 text-center font-bold text-gray-900 border-r border-gray-200">
-                    Graphic
-                    <br />
-                    Size
-                  </th>
-                  <th className="py-4 px-3 text-center font-bold text-gray-900 border-r border-gray-200">
-                    Flag
-                    <br />
-                    Weight
-                  </th>
-                  <th className="py-4 px-3 text-center font-bold text-gray-900 border-r border-gray-200">
-                    Flag w/ Pole
-                    <br />
-                    Weight
-                  </th>
-                  <th className="py-4 px-3 text-center font-bold text-gray-900">
-                    Pole Set
-                    <br />
-                    Pieces
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {[...sizes].reverse().map((s, idx) => (
-                  <tr
-                    key={s.id}
-                    className={
-                      idx !== sizes.length - 1
-                        ? "border-b border-gray-200 bg-white"
-                        : "bg-white"
-                    }
-                  >
-                    <td className="py-6 px-3 text-center font-bold text-gray-900 border-r border-gray-200 whitespace-nowrap">
-                      {formatSizeLabel(s.label)}
-                    </td>
-                    <td className="py-6 px-3 text-center font-bold text-[#c6005c] border-r border-gray-200 whitespace-nowrap">
-                      {s.assembledHeight}
-                    </td>
-                    <td className="py-6 px-3 text-center text-gray-600 border-r border-gray-200 whitespace-nowrap">
-                      {s.graphicSize}
-                    </td>
-                    <td className="py-6 px-3 text-center text-gray-600 border-r border-gray-200 whitespace-nowrap">
-                      {s.flagWeight}
-                    </td>
-                    <td className="py-6 px-3 text-center text-gray-600 border-r border-gray-200 whitespace-nowrap">
-                      {s.flagWithPoleWeight}
-                    </td>
-                    <td className="py-6 px-3 text-center text-gray-600 whitespace-nowrap">
-                      {s.poleSetPieces}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      {baseHardware && baseHardware.length > 0 && (
+        <div className="mt-10">
+          <h3 className="text-sm font-semibold text-gray-900">
+            Base Hardware Specifications
+          </h3>
+          <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {baseHardware.map((b) => (
+              <div
+                key={b.id}
+                className="border border-gray-200 rounded-sm overflow-hidden"
+              >
+                <div className="aspect-square bg-gray-50 flex items-center justify-center">
+                  <BaseIcon id={b.id} />
+                </div>
+                <div className="p-3">
+                  <p className="text-sm font-semibold text-gray-900">
+                    {b.name}
+                  </p>
+                  <div className="mt-1.5 space-y-1 text-xs text-gray-600">
+                    {b.specifications &&
+                      Object.entries(b.specifications).map(([k, v]) => (
+                        <p key={k}>
+                          {labelizeKey(k)}: {String(v)}
+                        </p>
+                      ))}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-
-      {/* Material & Print Specifications */}
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2">
-        <div>
-          <h3 className="text-sm font-semibold text-gray-900">
-            Material &amp; Print Specifications
-          </h3>
-          <dl className="mt-3 space-y-1 text-sm">
-            <SpecRow label="Print Method" value={materialSpec.printMethod} />
-            <SpecRow
-              label="Graphic Material"
-              value={materialSpec.graphicMaterial}
-            />
-            <SpecRow label="Washable" value={materialSpec.washable} />
-          </dl>
-
-          <h3 className="mt-6 text-sm font-semibold text-gray-900">
-            Additional Accessories
-          </h3>
-          <p className="mt-2 text-sm text-gray-700">
-            Carry Bag (Optional): {carryBag.label}
-          </p>
-          <ul className="mt-1.5 space-y-1 text-sm text-gray-700 pl-4 list-disc marker:text-[#c6005c]">
-            <li>S/M = {carryBag.weightSmallMedium}</li>
-            <li>L/XL = {carryBag.weightLargeXLarge}</li>
-          </ul>
-
-          <h3 className="mt-6 text-sm font-semibold text-gray-900">
-            Hardware &amp; Assembly
-          </h3>
-          <p className="mt-2 text-sm text-gray-700">
-            Pole Set: {hardwareAndAssembly.poleSet}
-          </p>
-        </div>
-      </div>
-
-      {/* Base Hardware Specifications */}
-      <div className="mt-10">
-        <h3 className="text-sm font-semibold text-gray-900">
-          Base Hardware Specifications
-        </h3>
-        <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {bases.map((b) => (
-            <div
-              key={b.id}
-              className="border border-gray-200 rounded-sm overflow-hidden"
-            >
-              <div className="aspect-square bg-gray-50 flex items-center justify-center">
-                <BaseIcon id={b.id} />
-              </div>
-              <div className="p-3">
-                <p className="text-sm font-semibold text-gray-900">{b.label}</p>
-                <ul className="mt-1.5 space-y-1 text-xs text-gray-600">
-                  <li>Material: {b.material}</li>
-                  <li>Weight: {b.weight}</li>
-                  {b.use.map((u) => (
-                    <li key={u}>Use: {u}</li>
-                  ))}
-                  {b.feature && <li>Feature: {b.feature}</li>}
-                </ul>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      )}
     </div>
   );
 }
 
-function SpecRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="text-sm text-gray-700">
-      <span className="font-medium text-gray-900">{label}:</span>{" "}
-      <span>{value}</span>
-    </div>
-  );
-}
-
-function BaseIcon({ id }: { id: BaseId }) {
+function BaseIcon({ id }: { id: string }) {
   const iconProps = { className: "h-8 w-8 text-gray-400" };
   switch (id) {
     case "ground_stake":
@@ -1083,116 +1142,47 @@ function BaseIcon({ id }: { id: BaseId }) {
 /*  File Setup tab                                                       */
 /* ================================================================== */
 
-function FileSetupTab({ data }: { data: ProductData["fileSetup"] }) {
+function FileSetupTab({
+  data,
+}: {
+  data: { requirements: string[]; tips: string[] };
+}) {
   return (
     <div>
       <h2 className="text-lg font-semibold text-gray-900">File Setup</h2>
 
-      <ul className="mt-4 space-y-2 max-w-3xl">
-        {data.requirements.map((r) => (
-          <li key={r} className="flex items-start gap-2 text-sm text-gray-700">
-            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#c6005c] flex-shrink-0" />
-            {r}
-          </li>
-        ))}
-      </ul>
+      {data.requirements.length > 0 && (
+        <ul className="mt-4 space-y-2 max-w-3xl">
+          {data.requirements.map((r) => (
+            <li
+              key={r}
+              className="flex items-start gap-2 text-sm text-gray-700"
+            >
+              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#c6005c] flex-shrink-0" />
+              {r}
+            </li>
+          ))}
+        </ul>
+      )}
 
-      <h3 className="mt-6 text-sm font-semibold text-gray-900">
-        Additional Tips
-      </h3>
-      <ul className="mt-2 space-y-2 max-w-3xl">
-        {data.tips.map((t) => (
-          <li key={t} className="flex items-start gap-2 text-sm text-gray-700">
-            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#c6005c] flex-shrink-0" />
-            {t}
-          </li>
-        ))}
-      </ul>
+      {data.tips.length > 0 && (
+        <>
+          <h3 className="mt-6 text-sm font-semibold text-gray-900">
+            Additional Tips
+          </h3>
+          <ul className="mt-2 space-y-2 max-w-3xl">
+            {data.tips.map((t) => (
+              <li
+                key={t}
+                className="flex items-start gap-2 text-sm text-gray-700"
+              >
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#c6005c] flex-shrink-0" />
+                {t}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
-}
-
-/* ================================================================== */
-/*  Gallery visual (placeholder art — swap for real photography)       */
-/* ================================================================== */
-
-function GalleryVisual({
-  item,
-  compact = false,
-}: {
-  item: GalleryItem;
-  compact?: boolean;
-}) {
-  if (item.url) {
-    return (
-      <img
-        src={item.url}
-        alt={item.label}
-        className={`object-contain w-full h-full ${compact ? "rounded-sm" : ""}`}
-      />
-    );
-  }
-
-  const size = compact ? "h-5 w-5 sm:h-6 sm:w-6" : "h-16 w-16 sm:h-24 sm:w-24";
-  const color = "text-[#c6005c]";
-
-  switch (item.kind) {
-    case "flag-front":
-    case "flag-reverse":
-    case "flag-double":
-      return (
-        <div
-          className={`flex flex-col items-center ${compact ? "gap-0.5" : "gap-2"}`}
-        >
-          <Flag className={`${size} ${color}`} strokeWidth={1.5} />
-          {!compact && (
-            <span className="text-xs text-gray-400">{item.label}</span>
-          )}
-        </div>
-      );
-    case "pole":
-      return (
-        <div
-          className={`flex flex-col items-center ${compact ? "gap-0.5" : "gap-2"}`}
-        >
-          <MoveVertical className={`${size} text-gray-400`} strokeWidth={1.5} />
-          {!compact && (
-            <span className="text-xs text-gray-400">{item.label}</span>
-          )}
-        </div>
-      );
-    case "bases-row":
-      return (
-        <div className="flex items-center gap-1.5">
-          <MoveVertical
-            className={`${compact ? "h-4 w-4" : "h-8 w-8"} text-gray-400`}
-          />
-          <Layers
-            className={`${compact ? "h-4 w-4" : "h-8 w-8"} text-gray-400`}
-          />
-          <CircleDot
-            className={`${compact ? "h-4 w-4" : "h-8 w-8"} text-gray-400`}
-          />
-        </div>
-      );
-    case "base-single":
-      return (
-        <CircleDot className={`${size} text-gray-400`} strokeWidth={1.5} />
-      );
-    case "diagram":
-      return (
-        <div className="flex items-end gap-1.5">
-          {[0.4, 0.6, 0.8, 1].map((h, i) => (
-            <div
-              key={i}
-              className="w-3 sm:w-4 bg-gray-300 rounded-t-sm"
-              style={{ height: `${h * (compact ? 20 : 64)}px` }}
-            />
-          ))}
-        </div>
-      );
-    case "icons":
-    default:
-      return <Info className={`${size} text-gray-400`} strokeWidth={1.5} />;
-  }
 }

@@ -130,12 +130,6 @@ export default function Page() {
       image: "/icons/yard-signs.png",
       slug: "yard-signs",
     },
-    {
-      id: 18,
-      text: "And More...",
-      image: "/icons/and-more.png",
-      slug: "and-more",
-    },
   ];
 
   const services = [
