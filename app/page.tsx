@@ -74,7 +74,7 @@ export default function Home() {
 
                     <h1
                       className="font-semibold text-gray-950 leading-tight tracking-tight
-                      text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
+                      text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-7xl"
                     >
                       Signage &amp; Printing{" "}
                       <br />
