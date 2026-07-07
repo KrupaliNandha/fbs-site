@@ -197,7 +197,7 @@ export default function Page() {
 
         {/* Section - 2 */}
         <section className="container section-padding">
-          <div className="bg-gradient-to-r from-pink-600 to-pink-700 rounded-2xl px-6 py-12 text-white">
+          <div className="bg-[#EC3392] rounded-2xl px-6 py-12 text-white">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
               {/* Left Content */}
               <div data-aos="fade-right">
@@ -322,18 +322,18 @@ export default function Page() {
                 <div
                   key={index}
                   className="group relative rounded-2xl bg-white border border-gray-200 p-8
-          shadow-sm hover:shadow-xl hover:shadow-yellow-50 hover:-translate-y-1
+          shadow-sm hover:shadow-xl hover:shadow-pink-100 hover:-translate-y-1
           transition-all duration-300"
                 >
                   {/* TOP ACCENT */}
                   <span
-                    className="absolute top-0 left-0 h-1 w-0 bg-yellow-400 
+                    className="absolute top-0 left-0 h-1 w-0 bg-gradient-to-br from-pink-500 to-pink-600
             group-hover:w-full transition-all duration-300 rounded-t-2xl"
                   />
 
                   {/* ICON */}
                   <div
-                    className="mb-6 w-20 h-20 p-3 rounded-xl bg-yellow-400/15
+                    className="mb-6 w-20 h-20 p-3 rounded-xl bg-white shadow-lg shadow-gray-200
             flex items-center justify-center"
                   >
                     <Image

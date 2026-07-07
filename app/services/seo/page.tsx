@@ -188,7 +188,7 @@ export default function Page() {
 
         {/* Section - 2 */}
         <section className="container section-padding">
-          <div className="bg-gradient-to-r from-pink-600 to-pink-700 rounded-2xl px-6 py-12 text-white">
+          <div className="bg-[#EC3392] rounded-2xl px-6 py-12 text-white">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
               {/* Left Content */}
               <div data-aos="fade-right">

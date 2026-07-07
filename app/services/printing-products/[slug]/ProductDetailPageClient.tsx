@@ -20,6 +20,10 @@ import {
   HelpCircle,
   Phone,
   Mail,
+  FileEdit,
+  UploadCloud,
+  FileCheck2,
+  PackageCheck,
 } from "lucide-react";
 
 // Product-specific icons
@@ -231,6 +235,33 @@ export default function ProductDetailPageClient({
     .filter((p) => p.slug !== product.slug)
     .slice(0, 4);
 
+  const orderSteps = [
+    {
+      step: "01",
+      title: "Submit Specs & Quote",
+      desc: "Fill our quote request with your desired sizes, paper stock, and quantities.",
+      Icon: FileEdit,
+    },
+    {
+      step: "02",
+      title: "Send Artwork / Request Design",
+      desc: "Provide your design files (PDF/JPEG) or work directly with our expert graphic design team.",
+      Icon: UploadCloud,
+    },
+    {
+      step: "03",
+      title: "Approve Digital Proof",
+      desc: "Review and approve our digital PDF proof. We verify sizing and resolution before printing.",
+      Icon: FileCheck2,
+    },
+    {
+      step: "04",
+      title: "Print & Fast Delivery",
+      desc: "We print your order using cutting-edge presses and deliver it to your location on time.",
+      Icon: PackageCheck,
+    },
+  ];
+
   return (
     <>
       {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
@@ -241,6 +272,20 @@ export default function ProductDetailPageClient({
           {/* Section 1: Hero */}
           <section className="bg-gradient-to-br mt-24 xl:mt-20 from-rose-50 via-white to-blue-50">
             <div className="container px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:py-24">
+              <p className="flex flex-wrap items-center justify-center gap-x-1 text-sm text-gray-600 sm:text-base lg:justify-start lg:text-lg">
+                    <Link href="/" className="text-pink-600 hover:underline">
+                      Home
+                    </Link>
+                    <span className="mx-1">&gt;</span>
+                    <Link
+                      href="/services/printing-products"
+                      className="text-pink-600 hover:underline"
+                    >
+                      Printing Services
+                    </Link>
+                    <span className="mx-1">&gt;</span>
+                    <span className="font-semibold text-gray-800">{product.name}</span>
+                  </p>
               <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
                 {/* Left Content */}
                 <div
@@ -263,21 +308,6 @@ export default function ProductDetailPageClient({
                       {product.name.split(" ").slice(1).join(" ") || "Services"}
                     </span>
                   </h1>
-
-                  <p className="flex flex-wrap items-center justify-center gap-x-1 text-sm text-gray-600 sm:text-base lg:justify-start lg:text-lg">
-                    <Link href="/" className="text-pink-600 hover:underline">
-                      Home
-                    </Link>
-                    <span className="mx-1">&gt;</span>
-                    <Link
-                      href="/services/printing-products"
-                      className="text-pink-600 hover:underline"
-                    >
-                      Printing Services
-                    </Link>
-                    <span className="mx-1">&gt;</span>
-                    <span className="font-semibold text-gray-800">{product.name}</span>
-                  </p>
 
                   <p className="mx-auto max-w-2xl text-sm text-gray-600 sm:text-base lg:mx-0 lg:text-lg">
                     {product.intro}
@@ -320,7 +350,7 @@ export default function ProductDetailPageClient({
 
           {/* Section 2: Banner */}
           <section className="container px-4 py-8 sm:px-6 sm:py-10 md:py-14">
-            <div className="overflow-hidden rounded-[24px] bg-gradient-to-r from-pink-600 to-pink-700 px-5 py-9 text-white sm:rounded-[28px] sm:px-8 sm:py-11 md:px-10 md:py-12">
+            <div className="overflow-hidden rounded-[24px] bg-[#EC3392] px-5 py-9 text-white sm:rounded-[28px] sm:px-8 sm:py-11 md:px-10 md:py-12">
               <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-6 sm:gap-8 lg:grid-cols-2">
                 <div data-aos="fade-right">
                   <h2 className="text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-left lg:text-5xl">
@@ -557,62 +587,52 @@ export default function ProductDetailPageClient({
             </div>
           </section>
 
-          {/* Section 4: Ordering Process */}
-          <section className="bg-gradient-to-r from-pink-600 to-pink-700 py-12 text-white sm:py-16 md:py-24">
+          {/* Section 4: Ordering Process — light card layout with hover-only left-to-right border sweep */}
+          <section className="bg-gray-50 py-12 sm:py-16 md:py-24">
             <div className="container mx-auto px-4 md:px-6">
-              <div className="mx-auto mb-10 max-w-2xl text-center sm:mb-16" data-aos="fade-up">
-                <span className="mb-2 block text-xs font-semibold uppercase tracking-widest text-black sm:text-sm">
+              <div className="mx-auto mb-12 max-w-2xl text-center sm:mb-20" data-aos="fade-up">
+                <span className="mb-2 inline-flex items-center gap-2 rounded-full border border-pink-100 bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-pink-600 shadow-sm sm:text-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-pink-500" />
                   Our Process
                 </span>
-                <h2 className="text-2xl font-bold sm:text-3xl md:text-5xl">
+                <h2 className="mt-4 text-2xl font-bold text-gray-900 sm:text-3xl md:text-5xl">
                   How to Order in 4 Easy Steps
                 </h2>
-                <p className="mt-3 text-sm text-pink-100 sm:text-base">
+                <p className="mt-3 text-sm text-gray-600 sm:text-base">
                   We have refined our design, printing, and delivery process to
                   make it completely seamless for local businesses.
                 </p>
               </div>
 
-              <div className="grid gap-5 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4">
-                {[
-                  {
-                    step: "01",
-                    title: "Submit Specs & Quote",
-                    desc: "Fill our quote request with your desired sizes, paper stock, and quantities.",
-                  },
-                  {
-                    step: "02",
-                    title: "Send Artwork / Request Design",
-                    desc: "Provide your design files (PDF/JPEG) or work directly with our expert graphic design team.",
-                  },
-                  {
-                    step: "03",
-                    title: "Approve Digital Proof",
-                    desc: "Review and approve our digital PDF proof. We verify sizing and resolution before printing.",
-                  },
-                  {
-                    step: "04",
-                    title: "Print & Fast Delivery",
-                    desc: "We print your order using cutting-edge presses and deliver it to your location on time.",
-                  },
-                ].map((item, i) => (
-                  <div
-                    key={i}
-                    data-aos="fade-up"
-                    data-aos-delay={i * 100}
-                    className="group relative rounded-2xl border border-white/10 bg-white/10 p-5 transition duration-300 hover:bg-white/15 sm:p-6"
-                  >
-                    <span className="absolute right-4 top-4 select-none font-mono text-4xl font-black text-white/10 transition duration-300 group-hover:text-white/20 sm:text-5xl">
-                      {item.step}
-                    </span>
-                    <h3 className="relative z-10 pt-6 text-base font-bold text-white transition group-hover:text-yellow-300 sm:text-lg">
-                      {item.title}
-                    </h3>
-                    <p className="relative z-10 mt-2 text-sm leading-relaxed text-pink-100">
-                      {item.desc}
-                    </p>
-                  </div>
-                ))}
+              <div className="relative">
+                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+                  {orderSteps.map((item, i) => (
+                    <div
+                      key={i}
+                      data-aos="fade-up"
+                      data-aos-delay={i * 100}
+                      className="group relative"
+                    >
+                      <div className="relative h-full overflow-hidden rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition duration-300 group-hover:-translate-y-1 group-hover:shadow-lg sm:p-6">
+                        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-pink-50 text-pink-600">
+                          <item.Icon className="h-5 w-5" />
+                        </div>
+                        <h3 className="text-base font-bold text-gray-900 sm:text-lg">
+                          {item.title}
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                          {item.desc}
+                        </p>
+
+                        {/* Bottom border: hidden by default, sweeps left → right only while hovering */}
+                        <span
+                          aria-hidden="true"
+                          className="absolute bottom-0 left-0 h-[3px] w-full origin-left scale-x-0 bg-[#EC3392] opacity-0 transition-[transform,opacity] duration-300 ease-out group-hover:scale-x-100 group-hover:opacity-100"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
