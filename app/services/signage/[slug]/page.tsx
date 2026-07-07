@@ -22,6 +22,7 @@ import {
   Mail,
 } from "lucide-react";
 import productDetailData from "../../../data/product-detail.json";
+import { getProductFaqs, ProductFaqItem } from "../../../data/Product-faqs-data";
 import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
 import SmoothScroll from "@/app/Components/SmoothScroll";
@@ -66,6 +67,7 @@ interface ProductData {
     requirements: string[];
     tips: string[];
   };
+  faqs: ProductFaqItem[];
 }
 
 /* -------------------------------------------------------------- */
@@ -191,6 +193,7 @@ function mapRawToProductData(raw: any): ProductData {
         ? raw.fileSetup.additionalTips
         : [],
     },
+    faqs: getProductFaqs(raw?.slug ?? "")?.faqs ?? [],
   };
 }
 
@@ -663,6 +666,16 @@ export default function ProductDetailPage() {
               </div>
             </div>
           </main>
+
+          {/* -------------------------------------------------- */}
+          {/* FAQs — its own full-width section, visually separated   */}
+          {/* from the tabs above via background + spacing            */}
+          {/* -------------------------------------------------- */}
+          <section className="border-t border-gray-100 bg-gray-50/60 py-12 sm:py-16">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <FaqsTab faqs={product.faqs} productName={product.name} />
+            </div>
+          </section>
           <Footer />
         </div>
       </SmoothScroll>
@@ -1271,6 +1284,100 @@ function FileSetupTab({
             ))}
           </ul>
         </>
+      )}
+    </div>
+  );
+}
+
+/* ================================================================== */
+/*  FAQs tab                                                             */
+/* ================================================================== */
+
+function FaqsTab({
+  faqs,
+  productName,
+}: {
+  faqs: ProductFaqItem[];
+  productName: string;
+}) {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <div>
+      <div className="mx-auto mb-20 max-w-3xl text-center sm:mb-12">
+        <h2 className="text-2xl font-extrabold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
+          FAQs for {productName}
+        </h2>
+        <p className="mt-3 text-sm font-medium text-gray-600 sm:mt-4 sm:text-base md:text-lg">
+          Clear answers for common questions about our{" "}
+          {productName.toLowerCase()}.
+        </p>
+      </div>
+
+      {faqs.length === 0 ? (
+        <p className="mx-auto max-w-3xl text-center text-sm text-gray-500">
+          No FAQs available for this product yet.
+        </p>
+      ) : (
+        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-3 sm:gap-4">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+            const panelId = `faq-panel-${index}`;
+            const buttonId = `faq-button-${index}`;
+
+            return (
+              <div
+                key={faq.question}
+                style={isOpen ? { borderColor: "#e60076" } : undefined}
+                className={`overflow-hidden rounded-xl border-2 transition-all duration-300 sm:rounded-2xl ${
+                  isOpen
+                    ? "bg-white shadow-lg"
+                    : "border-transparent bg-white shadow-md duration-100 translate-y-0 hover:translate-y-[-2px] hover:shadow-lg"
+                }`}
+              >
+                <h3 className="m-0">
+                  <button
+                    id={buttonId}
+                    type="button"
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
+                  >
+                    <span
+                      style={isOpen ? { color: "#e60076" } : undefined}
+                      className="text-sm font-semibold leading-snug text-gray-900 sm:text-base"
+                    >
+                      {faq.question}
+                    </span>
+
+                    <ChevronDown
+                      style={isOpen ? { color: "#e60076" } : undefined}
+                      className={`h-5 w-5 shrink-0 text-gray-900 transition-transform duration-300 ${
+                        isOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                </h3>
+
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  className={`grid transition-all duration-300 ease-in-out ${
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="px-5 pb-4 text-sm leading-relaxed text-gray-500 sm:px-6 sm:pb-5 sm:text-base">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       )}
     </div>
   );

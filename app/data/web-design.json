@@ -1,0 +1,146 @@
+[
+  {
+    "slug": "email-marketing",
+    "title": "Email Marketing",
+    "icon": "Mail",
+    "img": "/images/services/web-design/Email.jpg",
+    "description": "Email marketing is a direct digital marketing strategy that involves sending targeted emails to a curated group of recipients with the goal of promoting services, building relationships, and driving repeat business. Rather than relying on one-off blasts, we build sequenced email flows that nurture leads from first contact through to a paying customer, keeping your brand top-of-mind without feeling repetitive or spammy. Every campaign is designed around a clear goal, whether that's filling a seasonal promotion, announcing a new product line, or simply reminding past customers why they chose you in the first place.",
+    "features": [
+      "Custom-designed newsletter and promotional templates that match your brand",
+      "Automated welcome, nurture, and re-engagement email sequences",
+      "Segmented lists so the right message reaches the right audience at the right time",
+      "A/B tested subject lines and send times to improve open rates",
+      "Open-rate and click-through tracking with monthly performance reports",
+      "List cleanup and deliverability monitoring so your emails actually reach the inbox"
+    ],
+    "highlight": "Turns one-time buyers into repeat customers"
+  },
+  {
+    "slug": "search-engine-optimization",
+    "title": "Search Engine Optimization",
+    "icon": "Search",
+    "img": "/images/services/web-design/Seo.jpg",
+    "description": "Search Engine Optimization (SEO) is a digital marketing strategy and practice aimed at improving a website's visibility in search engine results pages (SERPs) for specific keywords and phrases your customers are actually searching for. We combine technical SEO fixes, on-page content optimization, and local search signals so your business shows up when nearby customers are ready to buy — not just when they're casually browsing. SEO is a long-term investment, and we treat it that way: steady, measurable improvements month over month rather than short-lived ranking spikes.",
+    "features": [
+      "Keyword research focused on local, high-intent search terms",
+      "On-page optimization: titles, meta descriptions, headers, and internal linking",
+      "Technical SEO audits covering site speed, indexing, and mobile usability",
+      "Google Business Profile optimization to improve local map pack rankings",
+      "Backlink and citation building from relevant, reputable local sources",
+      "Monthly ranking and traffic reports so you can see real progress"
+    ],
+    "highlight": "Gets your business found before your competitors"
+  },
+  {
+    "slug": "content-writing",
+    "title": "Content Writing",
+    "icon": "PenTool",
+    "img": "/images/services/web-design/Content Writing.jpg",
+    "description": "Content writing is the practice of creating written material with the purpose of conveying information, engaging readers, and achieving specific communication goals. Whether it's website copy, blog articles, product descriptions, or landing pages, we write content that speaks directly to your target audience while supporting your broader SEO and conversion goals. Good content does double duty: it answers the questions your customers are already asking, and it signals to search engines that your site is a trustworthy, relevant source of information.",
+    "features": [
+      "Website copywriting that clearly communicates your value proposition",
+      "SEO-informed blog articles that target real customer questions",
+      "Product and service descriptions written to convert browsers into buyers",
+      "Landing page copy structured around a single clear call to action",
+      "Consistent brand voice across every page and platform",
+      "Editing and proofreading passes so nothing goes live with typos"
+    ],
+    "highlight": "Words that inform, engage, and convert"
+  },
+  {
+    "slug": "digital-marketing-strategy",
+    "title": "Digital Marketing Strategy",
+    "icon": "TrendingUp",
+    "img": "/images/services/web-design/Digital Marketing Strategy.jpg",
+    "description": "A digital marketing strategy is a comprehensive plan that outlines how a business will use digital channels and platforms to achieve its marketing and business objectives. It can help businesses reach their target audience effectively by aligning SEO, content, email, social, and paid channels into one coordinated plan instead of running disconnected tactics that compete for the same budget and attention. We start by understanding your business goals first, then work backward to determine which channels and tactics will actually move the needle, rather than recommending every service regardless of fit.",
+    "features": [
+      "Full digital audit of your current online presence and competitors",
+      "Channel-by-channel roadmap aligned to your budget and growth goals",
+      "Clear KPIs and milestones so progress is always measurable",
+      "Competitive analysis to identify gaps you can realistically win",
+      "Prioritized action plan so effort goes where it matters most first",
+      "Quarterly strategy reviews to adjust for what's actually working"
+    ],
+    "highlight": "One coordinated plan instead of scattered tactics"
+  },
+  {
+    "slug": "web-development",
+    "title": "Web Development",
+    "icon": "Code2",
+    "img": "/images/services/web-design/Web Development.jpg",
+    "description": "Web design and web development are two distinct but closely related disciplines that work together to create functional and visually appealing websites. Both work together to make the final result look good and perform well. We build fast, responsive, and easy-to-manage websites that represent your brand professionally and are built to convert visitors into customers on any device, from a desktop browser to a phone screen in a parking lot.",
+    "features": [
+      "Custom responsive designs built mobile-first for every screen size",
+      "Fast-loading pages optimized for performance and Core Web Vitals",
+      "Easy-to-update content management so you're never locked out of your own site",
+      "Built-in SEO foundations from day one, not bolted on afterward",
+      "Contact forms, booking tools, and integrations built around how you actually work",
+      "Ongoing support and updates after launch, not a one-and-done handoff"
+    ],
+    "highlight": "A site that works as hard as you do"
+  },
+  {
+    "slug": "social-media-management",
+    "title": "Social Media Management",
+    "icon": "Share2",
+    "img": "/images/services/web-design/Social Media Management.jpg",
+    "description": "Social media management refers to the process of creating, scheduling, analyzing, and engaging with content posted on social media platforms for businesses, organizations, or individuals. We handle the day-to-day work of staying consistent and visible online, so your profiles reflect the same quality and professionalism as the rest of your brand, without you having to think about what to post next at 9pm on a Sunday.",
+    "features": [
+      "Monthly content calendars planned around your business and industry",
+      "Custom graphics, captions, and short-form video content",
+      "Community management: responding to comments, messages, and reviews",
+      "Platform-specific posting strategy for Instagram, Facebook, and beyond",
+      "Hashtag and trend research to keep content relevant and discoverable",
+      "Monthly analytics reports showing engagement and audience growth"
+    ],
+    "highlight": "Consistent presence without the daily workload"
+  },
+  {
+    "slug": "portfolio-website",
+    "title": "Portfolio Website",
+    "icon": "LayoutGrid",
+    "img": "/images/services/web-design/portfolio-website-example.webp",
+    "description": "A portfolio website is a curated, image-led site built to showcase your best work, brand story, and past projects in one polished place. Rather than a generic template, we design a layout that puts your work front and center, whether that's photography, design projects, case studies, or a personal brand you want potential clients or employers to remember. Every section is structured to guide a visitor from first impression to a clear next step, like booking a call or sending an inquiry.",
+    "features": [
+      "Custom gallery and case-study layouts built around your actual work",
+      "Fast-loading image handling so a heavy portfolio never feels sluggish",
+      "Mobile-first responsive design so your work looks sharp on any device",
+      "Clear calls to action guiding visitors toward contact or booking",
+      "Simple content management so you can add new projects without a developer",
+      "SEO foundations built in so your work gets discovered, not just admired"
+    ],
+    "highlight": "A portfolio that gets your work noticed"
+  },
+  {
+    "slug": "ecommerce-website",
+    "title": "E-Commerce Website",
+    "icon": "ShoppingCart",
+    "img": "/images/services/web-design/ecommerce-website-example.webp",
+    "description": "An e-commerce website is a fully custom online store built to sell products directly to your customers, from browsing to checkout to order confirmation. We design and build the entire buying journey around conversion, product discovery, cart, secure payment, and order tracking, so nothing gets in the way of a sale. Every store is built to scale with your catalog, whether you're launching with ten products or ten thousand.",
+    "features": [
+      "Custom product catalog and category structure built around how customers shop",
+      "Secure checkout with integrated payment gateways",
+      "Inventory, order, and shipping management built into the backend",
+      "Product filtering, search, and recommendations to increase average order value",
+      "Mobile-optimized checkout to reduce cart abandonment",
+      "Analytics and reporting so you can see what's actually selling"
+    ],
+    "highlight": "A store built to turn browsers into buyers"
+  },
+  {
+    "slug": "shopify-stores",
+    "title": "Shopify Stores",
+    "icon": "Store",
+    "img": "/images/services/web-design/shopify-website-example.webp",
+    "description": "A Shopify store gives you a fully managed, easy-to-run e-commerce platform without having to build or maintain custom infrastructure. We handle the setup, custom theme design, app integrations, and launch, so you can manage inventory, orders, and content yourself without touching a line of code. It's the fastest path from idea to a fully functioning, professional online store.",
+    "features": [
+      "Custom Shopify theme design that matches your brand, not a generic template",
+      "Product, collection, and inventory setup done for you",
+      "App integrations for email, reviews, upsells, and shipping",
+      "Payment gateway and tax configuration handled end to end",
+      "Staff training so you can manage the store confidently after launch",
+      "Ongoing Shopify support for updates, apps, and troubleshooting"
+    ],
+    "highlight": "Launch fast on a platform built to manage itself"
+  }
+]
