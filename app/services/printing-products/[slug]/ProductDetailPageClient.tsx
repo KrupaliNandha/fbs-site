@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useId } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/app/Components/Navbar";
@@ -12,7 +12,6 @@ import "aos/dist/aos.css";
 // Icons for UI
 import {
   ChevronDown,
-  ArrowRight,
   Clock,
   ShieldCheck,
   Truck,
@@ -531,32 +530,13 @@ export default function ProductDetailPageClient({
                       </div>
                     </div>
 
-                    {/* Direct Contact Actions (No submission form) */}
-                    <div className="pt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
-                      <a
-                        href="tel:+18552221133"
-                        className="flex h-auto min-h-[56px] w-full items-center justify-center gap-2 rounded-2xl bg-pink-700 px-4 py-3 text-center text-xs font-bold leading-snug text-white shadow-lg transition-all duration-300 hover:scale-[1.01] hover:bg-pink-800 sm:gap-2.5 sm:px-6 sm:text-sm"
-                      >
-                        <Phone className="h-4 w-4 shrink-0" />
-                        <span className="break-words">Call to Order: +1-855-222-1133</span>
-                      </a>
-
-                      <a
-                        href={`mailto:info@fbsprints.com?subject=${encodeURIComponent(
-                          `Quote Request: ${product.name}`
-                        )}&body=${encodeURIComponent(
-                          `I would like to get a quote for ${product.name} with the following specifications:\n\n` +
-                          `- Size: ${selectedSize}\n` +
-                          `- Material: ${selectedMaterial}\n` +
-                          `- Finishing: ${selectedFinish}\n\n` +
-                          `Please get back to me with estimated pricing.`
-                        )}`}
-                        className="flex h-auto min-h-[56px] w-full items-center justify-center gap-2 rounded-2xl border border-pink-200 bg-pink-50/40 px-4 py-3 text-center text-xs font-bold leading-snug text-pink-700 transition-all duration-300 hover:scale-[1.01] hover:bg-pink-50 sm:gap-2.5 sm:px-6 sm:text-sm"
-                      >
-                        <Mail className="h-4 w-4 shrink-0" />
-                        Email Specs Directly
-                      </a>
-                    </div>
+                    {/* Quote Request Form via Web3Forms */}
+                    <ProductQuoteForm
+                      productName={product.name}
+                      selectedSize={selectedSize}
+                      selectedMaterial={selectedMaterial}
+                      selectedFinish={selectedFinish}
+                    />
 
                     {/* Trust Badges */}
                     <div className="grid grid-cols-3 gap-2 border-t border-slate-100 pt-4 sm:gap-3">
@@ -694,6 +674,222 @@ export default function ProductDetailPageClient({
     </>
   );
 }
+
+// ─── Product Quote Form (Web3Forms) ─────────────────────────────────────
+
+const API_DOMAIN = ["api", "web3forms", "com"].join(".");
+const SUBMIT_PATH = "/submit";
+const WEB3FORMS_ENDPOINT = `https://${API_DOMAIN}${SUBMIT_PATH}`;
+const WEB3FORMS_ACCESS_KEY =
+  process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "YOUR_WEB3FORMS_ACCESS_KEY";
+
+type QuoteSubmissionState =
+  | { type: "idle" }
+  | { type: "success"; message: string }
+  | { type: "error"; message: string };
+
+function ProductQuoteForm({
+  productName,
+  selectedSize,
+  selectedMaterial,
+  selectedFinish,
+}: {
+  productName: string;
+  selectedSize: string;
+  selectedMaterial: string;
+  selectedFinish: string;
+}) {
+  const formId = useId();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [state, setState] = useState<QuoteSubmissionState>({ type: "idle" });
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+
+    // Honeypot check
+    const botcheck = form.elements.namedItem("botcheck") as HTMLInputElement | null;
+    if (botcheck?.checked) return;
+
+    if (WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY") {
+      setState({ type: "error", message: "Web3Forms access key is not configured." });
+      return;
+    }
+
+    const fd = new FormData(form);
+
+    // Normalise phone with +1 prefix
+    const rawPhone = (fd.get("phone") as string)?.trim() ?? "";
+    if (rawPhone) {
+      fd.set("phone", rawPhone.startsWith("+1") ? rawPhone : `+1 ${rawPhone}`);
+    }
+
+    fd.append("access_key", WEB3FORMS_ACCESS_KEY);
+    fd.append("subject", `Quote Request: ${productName}`);
+    fd.append("from_name", "FBS Prints — Product Quote");
+    fd.append("replyto", (fd.get("email") as string)?.trim() ?? "");
+
+    // Inject selected product specs so they appear in the email
+    fd.append("Product", productName);
+    fd.append("Selected Size", selectedSize);
+    fd.append("Selected Material", selectedMaterial);
+    fd.append("Selected Finish", selectedFinish);
+
+    setIsSubmitting(true);
+    setState({ type: "idle" });
+
+    try {
+      const res = await fetch(WEB3FORMS_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: fd,
+      });
+
+      const json = (await res.json()) as {
+        success?: boolean;
+        message?: string;
+        body?: { message?: string };
+      };
+      const msg =
+        json.body?.message ?? json.message ?? "Something went wrong.";
+
+      if (res.ok && json.success) {
+        form.reset();
+        setState({ type: "success", message: msg });
+      } else {
+        setState({ type: "error", message: msg });
+      }
+    } catch {
+      setState({ type: "error", message: "Unable to send. Please try again." });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-3 pt-2">
+      {/* Honeypot */}
+      <input
+        type="checkbox"
+        name="botcheck"
+        className="hidden"
+        style={{ display: "none" }}
+        tabIndex={-1}
+        autoComplete="off"
+      />
+
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div>
+          <label
+            htmlFor={`${formId}-name`}
+            className="mb-1.5 block text-xs font-semibold text-gray-600"
+          >
+            Full Name *
+          </label>
+          <input
+            id={`${formId}-name`}
+            name="name"
+            type="text"
+            required
+            placeholder="John Doe"
+            autoComplete="name"
+            className="w-full rounded-xl border border-gray-200 bg-gray-50/60 px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-pink-400 focus:bg-white focus:ring-2 focus:ring-pink-100"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor={`${formId}-phone`}
+            className="mb-1.5 block text-xs font-semibold text-gray-600"
+          >
+            Phone *
+          </label>
+          <div className="flex items-center rounded-xl border border-gray-200 bg-gray-50/60 transition focus-within:border-pink-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-pink-100">
+            <span className="pl-4 text-sm text-gray-400 font-medium select-none">+1</span>
+            <input
+              id={`${formId}-phone`}
+              name="phone"
+              type="tel"
+              required
+              placeholder="(555) 123-4567"
+              autoComplete="tel"
+              className="w-full bg-transparent px-3 py-3 text-sm text-gray-800 outline-none"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor={`${formId}-email`}
+          className="mb-1.5 block text-xs font-semibold text-gray-600"
+        >
+          Email *
+        </label>
+        <input
+          id={`${formId}-email`}
+          name="email"
+          type="email"
+          required
+          placeholder="you@company.com"
+          autoComplete="email"
+          className="w-full rounded-xl border border-gray-200 bg-gray-50/60 px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-pink-400 focus:bg-white focus:ring-2 focus:ring-pink-100"
+        />
+      </div>
+
+      <div>
+        <label
+          htmlFor={`${formId}-message`}
+          className="mb-1.5 block text-xs font-semibold text-gray-600"
+        >
+          Additional Notes
+        </label>
+        <textarea
+          id={`${formId}-message`}
+          name="message"
+          rows={3}
+          placeholder="Quantity, design requirements, timeline…"
+          className="w-full rounded-xl border border-gray-200 bg-gray-50/60 px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-pink-400 focus:bg-white focus:ring-2 focus:ring-pink-100 resize-none"
+        />
+      </div>
+
+      {/* Status message */}
+      {state.type !== "idle" && (
+        <p
+          aria-live="polite"
+          className={`text-sm font-medium ${
+            state.type === "success" ? "text-green-600" : "text-red-600"
+          }`}
+        >
+          {state.message}
+        </p>
+      )}
+
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="flex w-full items-center justify-center gap-2 rounded-2xl bg-pink-700 px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:scale-[1.01] hover:bg-pink-800 disabled:cursor-not-allowed disabled:opacity-70"
+      >
+        {isSubmitting ? (
+          <>
+            <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+            Sending…
+          </>
+        ) : (
+          <>Request a Quote</>        
+        )}
+      </button>
+
+      <p className="text-center text-[11px] text-gray-400">
+        Or call us directly at{" "}
+        <a href="tel:+18552221133" className="font-semibold text-pink-600 hover:underline">
+          +1-855-222-1133
+        </a>
+      </p>
+    </form>
+  );
+}
+
+// ─── Field Select Dropdown ──────────────────────────────────────────────────
 
 interface SelectOption {
   value: string;
