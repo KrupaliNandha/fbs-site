@@ -1437,7 +1437,7 @@ function SignageQuoteForm({
               required
               placeholder="John Doe"
               autoComplete="name"
-              className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition focus:border-[#c6005c] focus:ring-2 focus:ring-[#c6005c]/10"
+              className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-[#c6005c] focus:ring-2 focus:ring-[#c6005c]/10"
             />
           </div>
           <div>
@@ -1447,8 +1447,8 @@ function SignageQuoteForm({
             >
               Phone *
             </label>
-            <div className="flex items-center rounded-lg border border-gray-300 bg-white transition focus-within:border-[#c6005c] focus-within:ring-2 focus-within:ring-[#c6005c]/10">
-              <span className="pl-3.5 text-sm text-gray-400 font-medium select-none">+1</span>
+            <div className="flex items-center rounded-xl border border-gray-300 bg-white transition focus-within:border-[#c6005c] focus-within:ring-2 focus-within:ring-[#c6005c]/10">
+              <span className="pl-4 text-sm text-gray-400 font-medium select-none pr-1.5">+1</span>
               <input
                 id={`${formId}-phone`}
                 name="phone"
@@ -1456,7 +1456,7 @@ function SignageQuoteForm({
                 required
                 placeholder="(555) 123-4567"
                 autoComplete="tel"
-                className="w-full bg-transparent px-2.5 py-2.5 text-sm text-gray-900 outline-none"
+                className="w-full bg-transparent pl-1.5 pr-4 py-3 text-sm text-gray-900 outline-none"
               />
             </div>
           </div>
@@ -1476,7 +1476,7 @@ function SignageQuoteForm({
             required
             placeholder="you@company.com"
             autoComplete="email"
-            className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition focus:border-[#c6005c] focus:ring-2 focus:ring-[#c6005c]/10"
+            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-[#c6005c] focus:ring-2 focus:ring-[#c6005c]/10"
           />
         </div>
 
@@ -1492,7 +1492,7 @@ function SignageQuoteForm({
             name="message"
             rows={3}
             placeholder="Quantity, dimensions, design details…"
-            className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition focus:border-[#c6005c] focus:ring-2 focus:ring-[#c6005c]/10 resize-none"
+            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-[#c6005c] focus:ring-2 focus:ring-[#c6005c]/10 resize-none"
           />
         </div>
 
