@@ -6,6 +6,7 @@ import { buildPageMetadata, siteConfig } from "@/app/lib/seo";
 import { GlobalStructuredData } from "@/app/Components/RouteStructuredData";
 import { BaseUrlProvider } from "./Components/BaseUrlProvider";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
+import PreloaderWrapper from "./Components/PreloaderWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,8 +63,10 @@ export default async function RootLayout({
       >
         <BaseUrlProvider baseUrl={baseUrl}>
           <GlobalStructuredData />
-          {children}
-          <BackToTop />
+          <PreloaderWrapper>
+            {children}
+            <BackToTop />
+          </PreloaderWrapper>
         </BaseUrlProvider>
       </body>
     </html>
