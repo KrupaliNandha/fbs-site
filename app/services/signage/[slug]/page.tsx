@@ -25,6 +25,7 @@ import productDetailData from "../../../data/product-detail.json";
 import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
 import SmoothScroll from "@/app/Components/SmoothScroll";
+import PageLoader from "@/app/Components/Preloader";
 
 type PackageId = string;
 type TabId = "description" | "spec" | "file-setup";
@@ -259,11 +260,44 @@ export default function ProductDetailPage() {
 
   const [activeImageId, setActiveImageId] = useState<string | null>(null);
   const [packageId, setPackageId] = useState<PackageId | null>(null);
-  // Generic selections: one value per option-group key (e.g.
-  // { size: "3", graphic: "1", vehicleType: "2" }) instead of separate
-  // hardcoded useState hooks per field.
   const [selections, setSelections] = useState<Record<string, string>>({});
   const [activeTab, setActiveTab] = useState<TabId>("description");
+  const [loaderDone, setLoaderDone] = useState(false);
+
+  // making the product appear "mid-page" instead of starting fresh.
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+  }, []);
+
+  // window.scrollTo call.
+  useEffect(() => {
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, left: 0 });
+
+      // @ts-expect-error - Lenis instance, if SmoothScroll attaches one
+      const lenis = window.lenis;
+      if (lenis?.scrollTo) {
+        lenis.scrollTo(0, { immediate: true });
+      }
+
+      // @ts-expect-error - Locomotive Scroll instance, if used instead
+      const locomotive = window.locomotiveScroll;
+      if (locomotive?.scrollTo) {
+        locomotive.scrollTo(0, { duration: 0, disableLerp: true });
+      }
+    };
+
+    scrollToTop();
+    const raf = requestAnimationFrame(scrollToTop);
+    const timeout = setTimeout(scrollToTop, 100);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(timeout);
+    };
+  }, [params?.slug]);
 
   useEffect(() => {
     let cancelled = false;
@@ -372,262 +406,267 @@ export default function ProductDetailPage() {
     .join("\n");
 
   return (
-    <SmoothScroll>
-      <div className="min-h-screen bg-white text-gray-900">
-        <Navbar />
-        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 mt-30">
-          <Breadcrumbs productName={product.name} />
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-            {/* -------------------------------------------------- */}
-            {/* LEFT — Gallery                                       */}
-            {/* -------------------------------------------------- */}
-            <div className="lg:col-span-7">
-              <div className="relative aspect-[4/5] sm:aspect-[16/11] lg:aspect-[16/12] w-full bg-gray-50 border border-gray-200 rounded-sm flex items-center justify-center overflow-hidden">
-                {activeImage?.url ? (
-                  <img
-                    src={activeImage.url}
-                    alt={activeImage.label}
-                    className="object-contain w-full h-full"
-                  />
-                ) : (
-                  <Flag
-                    className="h-16 w-16 sm:h-24 sm:w-24 text-[#c6005c]"
-                    strokeWidth={1.5}
-                  />
+    <>
+      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
+      <SmoothScroll>
+        <div className="min-h-screen bg-white text-gray-900">
+          <Navbar />
+          <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 mt-30">
+            <Breadcrumbs productName={product.name} />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+              {/* -------------------------------------------------- */}
+              {/* LEFT — Gallery                                       */}
+              {/* -------------------------------------------------- */}
+              <div className="lg:col-span-7">
+                <div className="relative aspect-[4/5] sm:aspect-[16/11] lg:aspect-[16/12] w-full bg-gray-50 border border-gray-200 rounded-sm flex items-center justify-center overflow-hidden">
+                  {activeImage?.url ? (
+                    <img
+                      src={activeImage.url}
+                      alt={activeImage.label}
+                      className="object-contain w-full h-full"
+                    />
+                  ) : (
+                    <Flag
+                      className="h-16 w-16 sm:h-24 sm:w-24 text-[#c6005c]"
+                      strokeWidth={1.5}
+                    />
+                  )}
+                </div>
+
+                {product.gallery.length > 1 && (
+                  <div className="mt-3 grid grid-cols-5 sm:grid-cols-9 gap-2">
+                    {product.gallery.map((item) => {
+                      const active = item.id === activeImageId;
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => setActiveImageId(item.id)}
+                          aria-label={item.label}
+                          aria-pressed={active}
+                          className={`aspect-square rounded-sm border bg-gray-50 flex items-center justify-center overflow-hidden transition-colors ${
+                            active
+                              ? "border-[#c6005c] ring-1 ring-[#c6005c]"
+                              : "border-gray-200 hover:border-gray-400"
+                          }`}
+                        >
+                          {item.url ? (
+                            <img
+                              src={item.url}
+                              alt={item.label}
+                              className="object-contain w-full h-full"
+                            />
+                          ) : (
+                            <Flag
+                              className="h-5 w-5 text-[#c6005c]"
+                              strokeWidth={1.5}
+                            />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
                 )}
+
+                <FeatureGrid bullets={product.bullets} />
               </div>
 
-              {product.gallery.length > 1 && (
-                <div className="mt-3 grid grid-cols-5 sm:grid-cols-9 gap-2">
-                  {product.gallery.map((item) => {
-                    const active = item.id === activeImageId;
-                    return (
-                      <button
-                        key={item.id}
-                        onClick={() => setActiveImageId(item.id)}
-                        aria-label={item.label}
-                        aria-pressed={active}
-                        className={`aspect-square rounded-sm border bg-gray-50 flex items-center justify-center overflow-hidden transition-colors ${
-                          active
-                            ? "border-[#c6005c] ring-1 ring-[#c6005c]"
-                            : "border-gray-200 hover:border-gray-400"
+              {/* -------------------------------------------------- */}
+              {/* RIGHT — Buy box                                      */}
+              {/* -------------------------------------------------- */}
+              <div className="lg:col-span-5">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#c6005c]">
+                  Product Details
+                </p>
+                <h1 className="mt-1.5 text-2xl sm:text-[28px] font-bold text-gray-900">
+                  {product.name}
+                </h1>
+                <p className="mt-3 text-sm sm:text-[14px] leading-relaxed text-gray-600">
+                  {product.shortDescription}
+                </p>
+
+                <div className="mt-6 border-2 rounded-2xl p-3 shadow-xl border-gray-100 pt-6 space-y-6">
+                  {/* What's included — only shown if there's more than one package */}
+                  {product.packages.length > 1 && (
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900 mb-2.5">
+                        What&apos;s included
+                      </p>
+                      <div className="flex flex-wrap gap-2.5">
+                        {product.packages.map((p) => {
+                          const active = p.id === packageId;
+                          return (
+                            <button
+                              key={p.id}
+                              onClick={() => setPackageId(p.id)}
+                              aria-pressed={active}
+                              className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
+                                active
+                                  ? "border-[#c6005c] bg-[#c6005c]/5 text-[#c6005c]"
+                                  : "border-gray-300 text-gray-700 hover:border-gray-400"
+                              }`}
+                            >
+                              {p.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Size — rendered as a prominent button grid if this
+                  package defines a "size" group; otherwise skipped
+                  entirely (e.g. Vehicle Wraps uses "vehicleType" instead,
+                  which just shows up below as a normal dropdown) */}
+                  {sizeGroup && (
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900 mb-2.5">
+                        {sizeGroup.label}
+                      </p>
+                      <div
+                        className={`grid gap-2.5 ${
+                          sizeGroup.options.length > 3
+                            ? "grid-cols-4"
+                            : "grid-cols-2"
                         }`}
                       >
-                        {item.url ? (
-                          <img
-                            src={item.url}
-                            alt={item.label}
-                            className="object-contain w-full h-full"
-                          />
-                        ) : (
-                          <Flag
-                            className="h-5 w-5 text-[#c6005c]"
-                            strokeWidth={1.5}
-                          />
+                        {sizeGroup.options.map((opt) => {
+                          const active =
+                            selections[sizeGroup.key] === opt.value;
+                          return (
+                            <button
+                              key={opt.value}
+                              onClick={() =>
+                                setSelections((prev) => ({
+                                  ...prev,
+                                  [sizeGroup.key]: opt.value,
+                                }))
+                              }
+                              aria-pressed={active}
+                              className={`rounded-lg border px-2 py-2.5 text-center transition-colors ${
+                                active
+                                  ? "border-[#c6005c] bg-[#c6005c]/5"
+                                  : "border-gray-300 hover:border-gray-400"
+                              }`}
+                            >
+                              <span
+                                className={`block text-sm font-semibold ${active ? "text-[#c6005c]" : "text-gray-900"}`}
+                              >
+                                {opt.label}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Every other option group this package defines, each as
+                  its own dropdown — Graphic, Base, Carry Bag, Finish,
+                  Coverage, LED Light, Illumination, whatever applies */}
+                  {otherGroups.map((group) => {
+                    const Icon = pickGroupIcon(group.key);
+                    return (
+                      <FieldSelect
+                        key={group.key}
+                        icon={<Icon className="h-3.5 w-3.5" />}
+                        label={group.label}
+                        value={selections[group.key] ?? ""}
+                        onChange={(value) =>
+                          setSelections((prev) => ({
+                            ...prev,
+                            [group.key]: value,
+                          }))
+                        }
+                        options={group.options}
+                      />
+                    );
+                  })}
+
+                  {/* Direct Contact Actions (No submission form) */}
+                  <div className="pt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+                    <a
+                      href="tel:+18552221133"
+                      className="flex h-auto min-h-[56px] w-full items-center justify-center gap-3 rounded-2xl bg-pink-700 px-3 py-3 text-center text-xs font-bold leading-snug text-white shadow-lg transition-all duration-300 hover:scale-[1.01] hover:bg-pink-800 sm:gap-4 sm:px-3 sm:text-sm"
+                    >
+                      <Phone className="h-4 w-4 shrink-0" />
+                      <span className="flex flex-col items-center justify-center leading-tight">
+                        <span>Call to Order:</span>
+                        <span>+1-855-222-1133</span>
+                      </span>
+                    </a>
+
+                    <a
+                      href={`mailto:info@fbsprints.com?subject=${encodeURIComponent(
+                        `Quote Request: ${product.name}`,
+                      )}&body=${encodeURIComponent(
+                        `I would like to get a quote for ${product.name} with the following specifications:\n\n` +
+                          `${selectedOptionsText}\n\n` +
+                          `Please get back to me with estimated pricing.`,
+                      )}`}
+                      className="flex h-auto min-h-[56px] w-full items-center justify-center gap-2 rounded-2xl border border-pink-200 bg-pink-50/40 px-3 py-3 text-center text-xs font-bold leading-snug text-pink-700 transition-all duration-300 hover:scale-[1.01] hover:bg-pink-50 sm:gap-2.5 sm:px-3 sm:text-sm"
+                    >
+                      <Mail className="h-4 w-4 shrink-0" />
+                      <span className="whitespace-nowrap">
+                        Email Specs Directly
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* -------------------------------------------------- */}
+            {/* Tabs                                                 */}
+            {/* -------------------------------------------------- */}
+            <div className="mt-10 sm:mt-12">
+              <div className="border-b border-gray-200">
+                <nav
+                  className="flex gap-6 sm:gap-8 min-w-max px-0.5"
+                  aria-label="Product information tabs"
+                >
+                  {tabs.map((tab) => {
+                    const active = tab.id === activeTab;
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        aria-selected={active}
+                        className={`relative py-3 text-sm sm:text-[15px] font-medium whitespace-nowrap transition-colors ${
+                          active
+                            ? "text-[#c6005c]"
+                            : "text-gray-500 hover:text-gray-800"
+                        }`}
+                      >
+                        {tab.label}
+                        {active && (
+                          <span className="absolute left-0 right-0 -bottom-px h-0.5 bg-[#c6005c]" />
                         )}
                       </button>
                     );
                   })}
-                </div>
-              )}
-
-              <FeatureGrid bullets={product.bullets} />
-            </div>
-
-            {/* -------------------------------------------------- */}
-            {/* RIGHT — Buy box                                      */}
-            {/* -------------------------------------------------- */}
-            <div className="lg:col-span-5">
-              <p className="text-xs font-semibold uppercase tracking-wide text-[#c6005c]">
-                Product Details
-              </p>
-              <h1 className="mt-1.5 text-2xl sm:text-[28px] font-bold text-gray-900">
-                {product.name}
-              </h1>
-              <p className="mt-3 text-sm sm:text-[14px] leading-relaxed text-gray-600">
-                {product.shortDescription}
-              </p>
-
-              <div className="mt-6 border-2 rounded-2xl p-3 shadow-xl border-gray-100 pt-6 space-y-6">
-                {/* What's included — only shown if there's more than one package */}
-                {product.packages.length > 1 && (
-                  <div>
-                    <p className="text-sm font-semibold text-gray-900 mb-2.5">
-                      What&apos;s included
-                    </p>
-                    <div className="flex flex-wrap gap-2.5">
-                      {product.packages.map((p) => {
-                        const active = p.id === packageId;
-                        return (
-                          <button
-                            key={p.id}
-                            onClick={() => setPackageId(p.id)}
-                            aria-pressed={active}
-                            className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
-                              active
-                                ? "border-[#c6005c] bg-[#c6005c]/5 text-[#c6005c]"
-                                : "border-gray-300 text-gray-700 hover:border-gray-400"
-                            }`}
-                          >
-                            {p.label}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-
-                {/* Size — rendered as a prominent button grid if this
-                  package defines a "size" group; otherwise skipped
-                  entirely (e.g. Vehicle Wraps uses "vehicleType" instead,
-                  which just shows up below as a normal dropdown) */}
-                {sizeGroup && (
-                  <div>
-                    <p className="text-sm font-semibold text-gray-900 mb-2.5">
-                      {sizeGroup.label}
-                    </p>
-                    <div
-                      className={`grid gap-2.5 ${
-                        sizeGroup.options.length > 3
-                          ? "grid-cols-4"
-                          : "grid-cols-2"
-                      }`}
-                    >
-                      {sizeGroup.options.map((opt) => {
-                        const active = selections[sizeGroup.key] === opt.value;
-                        return (
-                          <button
-                            key={opt.value}
-                            onClick={() =>
-                              setSelections((prev) => ({
-                                ...prev,
-                                [sizeGroup.key]: opt.value,
-                              }))
-                            }
-                            aria-pressed={active}
-                            className={`rounded-lg border px-2 py-2.5 text-center transition-colors ${
-                              active
-                                ? "border-[#c6005c] bg-[#c6005c]/5"
-                                : "border-gray-300 hover:border-gray-400"
-                            }`}
-                          >
-                            <span
-                              className={`block text-sm font-semibold ${active ? "text-[#c6005c]" : "text-gray-900"}`}
-                            >
-                              {opt.label}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-
-                {/* Every other option group this package defines, each as
-                  its own dropdown — Graphic, Base, Carry Bag, Finish,
-                  Coverage, LED Light, Illumination, whatever applies */}
-                {otherGroups.map((group) => {
-                  const Icon = pickGroupIcon(group.key);
-                  return (
-                    <FieldSelect
-                      key={group.key}
-                      icon={<Icon className="h-3.5 w-3.5" />}
-                      label={group.label}
-                      value={selections[group.key] ?? ""}
-                      onChange={(value) =>
-                        setSelections((prev) => ({
-                          ...prev,
-                          [group.key]: value,
-                        }))
-                      }
-                      options={group.options}
-                    />
-                  );
-                })}
-
-                
-              {/* Direct Contact Actions (No submission form) */}
-              <div className="pt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
-                <a
-                  href="tel:+18552221133"
-                  className="flex h-auto min-h-[56px] w-full items-center justify-center gap-3 rounded-2xl bg-pink-700 px-3 py-3 text-center text-xs font-bold leading-snug text-white shadow-lg transition-all duration-300 hover:scale-[1.01] hover:bg-pink-800 sm:gap-4 sm:px-3 sm:text-sm"
-                >
-                  <Phone className="h-4 w-4 shrink-0" />
-                  <span className="flex flex-col items-center justify-center leading-tight">
-                    <span>Call to Order:</span>
-                    <span>+1-855-222-1133</span>
-                  </span>
-                </a>
-
-                <a
-                  href={`mailto:info@fbsprints.com?subject=${encodeURIComponent(
-                    `Quote Request: ${product.name}`,
-                  )}&body=${encodeURIComponent(
-                    `I would like to get a quote for ${product.name} with the following specifications:\n\n` +
-                      `${selectedOptionsText}\n\n` +
-                      `Please get back to me with estimated pricing.`,
-                  )}`}
-                  className="flex h-auto min-h-[56px] w-full items-center justify-center gap-2 rounded-2xl border border-pink-200 bg-pink-50/40 px-3 py-3 text-center text-xs font-bold leading-snug text-pink-700 transition-all duration-300 hover:scale-[1.01] hover:bg-pink-50 sm:gap-2.5 sm:px-3 sm:text-sm"
-                >
-                  <Mail className="h-4 w-4 shrink-0" />
-                  <span className="whitespace-nowrap">Email Specs Directly</span>
-                </a>
+                </nav>
               </div>
+
+              <div className="py-6 sm:py-8">
+                {activeTab === "description" && (
+                  <DescriptionTab data={product.description} />
+                )}
+                {activeTab === "spec" && (
+                  <SpecTab
+                    spec={product.rawSpec}
+                    baseHardware={product.baseHardwareSpecifications}
+                  />
+                )}
+                {activeTab === "file-setup" && (
+                  <FileSetupTab data={product.fileSetup} />
+                )}
               </div>
             </div>
-          </div>
-
-          {/* -------------------------------------------------- */}
-          {/* Tabs                                                 */}
-          {/* -------------------------------------------------- */}
-          <div className="mt-10 sm:mt-12">
-            <div className="border-b border-gray-200">
-              <nav
-                className="flex gap-6 sm:gap-8 min-w-max px-0.5"
-                aria-label="Product information tabs"
-              >
-                {tabs.map((tab) => {
-                  const active = tab.id === activeTab;
-                  return (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      aria-selected={active}
-                      className={`relative py-3 text-sm sm:text-[15px] font-medium whitespace-nowrap transition-colors ${
-                        active
-                          ? "text-[#c6005c]"
-                          : "text-gray-500 hover:text-gray-800"
-                      }`}
-                    >
-                      {tab.label}
-                      {active && (
-                        <span className="absolute left-0 right-0 -bottom-px h-0.5 bg-[#c6005c]" />
-                      )}
-                    </button>
-                  );
-                })}
-              </nav>
-            </div>
-
-            <div className="py-6 sm:py-8">
-              {activeTab === "description" && (
-                <DescriptionTab data={product.description} />
-              )}
-              {activeTab === "spec" && (
-                <SpecTab
-                  spec={product.rawSpec}
-                  baseHardware={product.baseHardwareSpecifications}
-                />
-              )}
-              {activeTab === "file-setup" && (
-                <FileSetupTab data={product.fileSetup} />
-              )}
-            </div>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    </SmoothScroll>
+          </main>
+          <Footer />
+        </div>
+      </SmoothScroll>
+    </>
   );
 }
 

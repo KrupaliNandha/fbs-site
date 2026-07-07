@@ -32,7 +32,7 @@
         "answer": "Yes, we support double-sided printing. You can print your logo on the front and contact info, a QR code, social handles, or an appointment schedule on the back."
       }
     ],
-    "image": "/images/shared/printing-materials-showcase.webp"
+    "image": "/images/shared/Product-1.jpg"
   },
   {
     "slug": "brochures",
@@ -67,7 +67,7 @@
         "answer": "Yes, our graphic design team can work with your logo, text, and images to create a clean, modern layout that effectively conveys your message."
       }
     ],
-    "image": "/images/shared/printing-materials-showcase.webp"
+    "image": "/images/shared/Product-2.jpg"
   },
   {
     "slug": "copy-services",
@@ -102,7 +102,7 @@
         "answer": "Yes, you can bring in physical documents for duplication, or send us digital PDF files, which is preferred for the highest quality print output."
       }
     ],
-    "image": "/images/shared/printing-materials-showcase.webp"
+    "image": "/images/shared/product-3.jpg"
   },
   {
     "slug": "t-shirt-prints",
@@ -137,7 +137,7 @@
         "answer": "To preserve the print's vibrancy and lifespan, wash the shirts inside out in cold water and tumble dry on low heat or hang dry. Avoid ironing directly on the printed design."
       }
     ],
-    "image": "/images/shared/printing-materials-showcase.webp"
+    "image": "/images/shared/product-4.jpg"
   },
   {
     "slug": "calendars",
@@ -172,7 +172,7 @@
         "answer": "Yes! You can choose to start your custom calendar from any month of the year (e.g. starting in July for school planners, or January for traditional calendars)."
       }
     ],
-    "image": "/images/services/printing/custom-calendar-printing.webp"
+    "image": "/images/shared/product-5.jpg"
   },
   {
     "slug": "banners",
@@ -207,7 +207,7 @@
         "answer": "Yes, our banners are made of waterproof vinyl and printed with UV-cured inks that resist fading, scratching, and water damage."
       }
     ],
-    "image": "/images/shared/printing-materials-showcase.webp"
+    "image": "/images/shared/product-6.jpg"
   },
   {
     "slug": "carbonless-forms",
@@ -242,7 +242,7 @@
         "answer": "Yes, we offer padded NCR forms bound in booklets of 50 or 100 sheets with a wrap-around cardstock cover to prevent write-through on subsequent sets."
       }
     ],
-    "image": "/images/shared/printing-materials-showcase.webp"
+    "image": "/images/shared/Product-7.jpg"
   },
   {
     "slug": "carryout-menus",
@@ -277,7 +277,7 @@
         "answer": "For basic carryout menus, we use uncoated or coated text paper. For dine-in menus, we recommend our heavy cardstock with heavy-duty lamination for grease and water resistance."
       }
     ],
-    "image": "/images/services/printing/hotel-menu-printing.webp"
+    "image": "/images/shared/Product-8.jpg"
   },
   {
     "slug": "canvas",
@@ -312,6 +312,6 @@
         "answer": "We offer 'Image Wrap' (stretching the edges of your image around the sides), 'Mirror Wrap' (mirroring the edge pixels so no critical detail is lost), or 'Color Wrap' (solid black, white, or custom color borders)."
       }
     ],
-    "image": "/images/services/printing/custom-calendar-printing.webp"
+    "image": "/images/shared/Product-9.webp"
   }
 ]
