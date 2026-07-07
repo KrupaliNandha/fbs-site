@@ -95,14 +95,14 @@ export default async function ServicePage({
       <Navbar />
       <div className="bg-white mt-24">
         {/* Breadcrumb */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-8 pt-8 text-sm">
-          <Link href="/" className="text-pink-600 hover:underline">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-8 text-sm">
+          <Link href="/" className="text-pink-600">
             Home
           </Link>
           <span className="mx-2 text-gray-400">&gt;</span>
           <Link
             href="/services/web-design"
-            className="text-pink-600 hover:underline"
+            className="text-pink-600"
           >
             Services
           </Link>
@@ -111,14 +111,14 @@ export default async function ServicePage({
         </div>
 
         {/* Hero: framed image with floating highlight badge + content */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-8 pt-10 pb-16 relative overflow-hidden">
+        <section className="max-w-7xl mx-auto px-4 sm:px-8 pt-10 pb-16 relative overflow-hidden">
           {/* Soft background blobs, consistent with homepage styling */}
           <div className="absolute -top-20 -left-24 w-72 h-72 bg-pink-100 rounded-full blur-3xl opacity-50 -z-10" />
           <div className="absolute top-40 -right-24 w-80 h-80 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10" />
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div className="grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-start">
             {/* LEFT: Framed image + floating badge */}
-            <div className="lg:sticky lg:top-24">
+            <div className="lg:sticky lg:top-6">
               <div className="relative">
                 <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5">
                   <Image
@@ -143,7 +143,7 @@ export default async function ServicePage({
             </div>
 
             {/* RIGHT: Eyebrow, title, description */}
-            <div className="pt-2 lg:pt-8">
+            <div>
               <span className="inline-block text-xs font-bold tracking-widest uppercase text-pink-600 bg-pink-50 px-3 py-1 rounded-full mb-5">
                 Digital Solution
               </span>
@@ -184,7 +184,7 @@ export default async function ServicePage({
         </section>
 
         {/* CTA band — same brand pink used on the homepage */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-8 pb-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-8 pb-20">
           <div className="bg-[#EC3392] rounded-2xl px-8 py-10 sm:px-12 sm:py-12 text-white flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="text-center sm:text-left">
               <h3 className="text-2xl sm:text-3xl font-bold mb-1">
