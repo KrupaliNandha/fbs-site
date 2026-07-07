@@ -273,7 +273,7 @@ export default function ProductDetailPageClient({
           <section className="bg-gradient-to-br mt-24 xl:mt-20 from-rose-50 via-white to-blue-50">
             <div className="container px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:py-24">
               <p className="flex flex-wrap items-center justify-center gap-x-1 text-sm text-gray-600 sm:text-base lg:justify-start lg:text-lg">
-                    <Link href="/" className="text-pink-600 hover:underline">
+                    <Link href="/" className="text-pink-600">
                       Home
                     </Link>
                     <span className="mx-1">&gt;</span>

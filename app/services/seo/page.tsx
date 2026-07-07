@@ -103,6 +103,17 @@ export default function Page() {
         <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
           <div className="container">
             <div className="mx-auto">
+              <p className="text-gray-600 text-lg">
+                    <Link href="/" className="text-pink-600">
+                      Home
+                    </Link>
+                    {/* <span className="mx-2">&gt;</span>
+                    <Link href="" className="text-pink-600">
+                      Services
+                    </Link> */}
+                    <span className="mx-2">&gt;</span>
+                    <span className="text-gray-800 font-semibold">SEO</span>
+                  </p>
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                 {/* LEFT CONTENT – FIXED */}
                 <div
@@ -117,17 +128,6 @@ export default function Page() {
                     SEO
                   </h1>
 
-                  <p className="text-gray-600 text-lg">
-                    <Link href="/" className="text-pink-600 hover:underline">
-                      Home
-                    </Link>
-                    <span className="mx-2">&gt;</span>
-                    <Link href="" className="text-pink-600">
-                      Services
-                    </Link>
-                    <span className="mx-2">&gt;</span>
-                    <span className="text-gray-800 font-semibold">SEO</span>
-                  </p>
                   {/* Description */}
                   <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
                     At FBS, we are not just another SEO agency, we are your

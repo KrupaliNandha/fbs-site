@@ -143,6 +143,13 @@ export default function DirectMailingPage() {
           {/* Section 1: Hero Section */}
           <section className="bg-gradient-to-br mt-24 xl:mt-20 from-rose-50 via-white to-blue-50">
             <div className="container py-10 sm:py-16 md:py-20 lg:py-24">
+              <p className="text-sm text-gray-600 sm:text-lg">
+                <Link href="/" className="text-pink-600">
+                  Home
+                </Link>
+                <span className="mx-2">&gt;</span>
+                <span className="font-semibold text-gray-800">Direct Mailing</span>
+              </p>
               <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-20">
                 {/* Left Content */}
                 <div
@@ -162,16 +169,6 @@ export default function DirectMailingPage() {
                     Direct Mail
                     <span className="text-pink-600"> Marketing</span>
                   </h1>
-
-                  <p className="text-sm text-gray-600 sm:text-lg">
-                    <Link href="/" className="text-pink-600 hover:underline">
-                      Home
-                    </Link>
-                    <span className="mx-2">&gt;</span>
-                    <span className="text-gray-600">Services</span>
-                    <span className="mx-2">&gt;</span>
-                    <span className="font-semibold text-gray-800">Direct Mailing</span>
-                  </p>
 
                   <p className="mx-auto max-w-2xl text-sm text-gray-600 sm:text-lg lg:mx-0">
                     Reach target demographics and neighborhoods directly in their mailboxes.
@@ -653,8 +650,8 @@ export default function DirectMailingPage() {
                             type="button"
                             onClick={() => setSelectedMailer(m.val)}
                             className={`rounded-xl border px-3 py-2 text-xs font-semibold transition ${selectedMailer === m.val
-                                ? "border-pink-600 bg-pink-50 text-pink-700"
-                                : "border-gray-200 bg-white text-gray-700 hover:border-pink-300"
+                              ? "border-pink-600 bg-pink-50 text-pink-700"
+                              : "border-gray-200 bg-white text-gray-700 hover:border-pink-300"
                               }`}
                           >
                             {m.label}
@@ -679,8 +676,8 @@ export default function DirectMailingPage() {
                             type="button"
                             onClick={() => setSelectedService(s.val)}
                             className={`rounded-xl border px-4 py-2.5 text-xs font-semibold text-left transition ${selectedService === s.val
-                                ? "border-pink-600 bg-pink-50 text-pink-700"
-                                : "border-gray-200 bg-white text-gray-700 hover:border-pink-300"
+                              ? "border-pink-600 bg-pink-50 text-pink-700"
+                              : "border-gray-200 bg-white text-gray-700 hover:border-pink-300"
                               }`}
                           >
                             {s.label}
@@ -701,8 +698,8 @@ export default function DirectMailingPage() {
                             type="button"
                             onClick={() => setSelectedQuantity(q)}
                             className={`rounded-xl border py-2 text-xs font-semibold transition ${selectedQuantity === q
-                                ? "border-pink-600 bg-pink-50 text-pink-700"
-                                : "border-gray-200 bg-white text-gray-700 hover:border-pink-300"
+                              ? "border-pink-600 bg-pink-50 text-pink-700"
+                              : "border-gray-200 bg-white text-gray-700 hover:border-pink-300"
                               }`}
                           >
                             {parseInt(q).toLocaleString()}
@@ -786,8 +783,8 @@ export default function DirectMailingPage() {
                   <div
                     key={idx}
                     className={`overflow-hidden rounded-2xl border bg-white shadow-sm transition-all duration-300 ${isOpen
-                        ? "border-pink-600 shadow-md"
-                        : "border-gray-100 hover:border-pink-200"
+                      ? "border-pink-600 shadow-md"
+                      : "border-gray-100 hover:border-pink-200"
                       }`}
                   >
                     <button

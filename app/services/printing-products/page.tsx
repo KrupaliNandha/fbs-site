@@ -113,13 +113,13 @@ export default function Page() {
             <div className="container">
               <div className="mx-auto">
                 <p className="text-gray-600 text-lg">
-                  <Link href="/" className="text-pink-600 hover:underline">
+                  <Link href="/" className="text-pink-600">
                     Home
                   </Link>
-                  <span className="mx-2">&gt;</span>
+                  {/* <span className="mx-2">&gt;</span>
                   <Link href="/services/printing-products" className="text-pink-600">
                     Services
-                  </Link>
+                  </Link> */}
                   <span className="mx-2">&gt;</span>
                   <span className="text-gray-800 font-semibold">
                     Printing Services

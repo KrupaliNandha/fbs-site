@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import PageLoader from "../../../Components/Preloader";
+import SmoothScroll from "@/app/Components/SmoothScroll";
 
 interface Service {
   slug: string;
@@ -49,6 +50,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
 
   return (
     <>
+        {/* <SmoothScroll children={undefined} /> */}
         {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <Navbar />
       <div className="bg-white mt-24">
@@ -59,7 +61,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
           </Link>
           <span className="mx-2 text-gray-400">&gt;</span>
           <Link href="/services/web-design" className="text-pink-600">
-            Services
+            Web Designing
           </Link>
           <span className="mx-2 text-gray-400">&gt;</span>
           <span className="text-gray-800 font-semibold">{service.title}</span>

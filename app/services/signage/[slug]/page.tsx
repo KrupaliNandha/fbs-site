@@ -27,6 +27,7 @@ import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
 import SmoothScroll from "@/app/Components/SmoothScroll";
 import PageLoader from "@/app/Components/Preloader";
+import Link from "next/link";
 
 type PackageId = string;
 type TabId = "description" | "spec" | "file-setup";
@@ -154,21 +155,21 @@ function mapRawToProductData(raw: any): ProductData {
     gallery: [
       ...(raw?.images?.mainImage
         ? [
-            {
-              id: "main",
-              label: "Main Image",
-              url: raw.images.mainImage.startsWith("/")
-                ? raw.images.mainImage
-                : `/${raw.images.mainImage}`,
-            },
-          ]
+          {
+            id: "main",
+            label: "Main Image",
+            url: raw.images.mainImage.startsWith("/")
+              ? raw.images.mainImage
+              : `/${raw.images.mainImage}`,
+          },
+        ]
         : []),
       ...(Array.isArray(raw?.images?.subImages)
         ? raw.images.subImages.map((img: string, i: number) => ({
-            id: `sub-${i}`,
-            label: `Image ${i + 1}`,
-            url: img.startsWith("/") ? img : `/${img}`,
-          }))
+          id: `sub-${i}`,
+          label: `Image ${i + 1}`,
+          url: img.startsWith("/") ? img : `/${img}`,
+        }))
         : []),
     ],
     bullets: Array.isArray(raw?.features) ? raw.features : [],
@@ -203,51 +204,22 @@ function mapRawToProductData(raw: any): ProductData {
 
 function Breadcrumbs({ productName }: { productName: string }) {
   return (
-    <nav
-      className="flex text-sm text-gray-500 mb-6 sm:mb-8"
-      aria-label="Breadcrumb"
-    >
-      <ol className="inline-flex items-center space-x-1 md:space-x-2">
-        <li className="inline-flex items-center">
-          <a
-            href="/"
-            className="inline-flex items-center hover:text-[#c6005c] transition-colors"
-          >
-            Home
-          </a>
-        </li>
-        <li>
-          <div className="flex items-center">
-            <span className="mx-1 text-gray-400">/</span>
-            <a
-              href="/services"
-              className="hover:text-[#c6005c] transition-colors ml-1"
-            >
-              Services
-            </a>
-          </div>
-        </li>
-        <li>
-          <div className="flex items-center">
-            <span className="mx-1 text-gray-400">/</span>
-            <a
-              href="/services/signage"
-              className="hover:text-[#c6005c] transition-colors ml-1"
-            >
-              Signage
-            </a>
-          </div>
-        </li>
-        <li aria-current="page">
-          <div className="flex items-center">
-            <span className="mx-1 text-gray-400">/</span>
-            <span className="text-gray-900 font-medium ml-1">
-              {productName}
-            </span>
-          </div>
-        </li>
-      </ol>
-    </nav>
+    <>
+      <p className="flex flex-wrap items-center justify-center gap-x-1 text-sm text-gray-600 sm:text-base lg:justify-start lg:text-lg">
+      <Link href="/" className="text-pink-600">
+        Home
+      </Link>
+      <span className="mx-1">&gt;</span>
+      <Link
+        href="/services/signage"
+        className="text-pink-600 hover:underline"
+      >
+        Signage Services
+      </Link>
+      <span className="mx-1">&gt;</span>
+      <span className="font-semibold text-gray-800">{productName}</span>
+    </p>
+    </>
   );
 }
 
@@ -414,9 +386,9 @@ export default function ProductDetailPage() {
       <SmoothScroll>
         <div className="min-h-screen bg-white text-gray-900">
           <Navbar />
-          <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 mt-30">
+          <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 mt-24">
             <Breadcrumbs productName={product.name} />
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 mt-5">
               {/* -------------------------------------------------- */}
               {/* LEFT — Gallery                                       */}
               {/* -------------------------------------------------- */}
@@ -446,11 +418,10 @@ export default function ProductDetailPage() {
                           onClick={() => setActiveImageId(item.id)}
                           aria-label={item.label}
                           aria-pressed={active}
-                          className={`aspect-square rounded-sm border bg-gray-50 flex items-center justify-center overflow-hidden transition-colors ${
-                            active
+                          className={`aspect-square rounded-sm border bg-gray-50 flex items-center justify-center overflow-hidden transition-colors ${active
                               ? "border-[#c6005c] ring-1 ring-[#c6005c]"
                               : "border-gray-200 hover:border-gray-400"
-                          }`}
+                            }`}
                         >
                           {item.url ? (
                             <img
@@ -502,11 +473,10 @@ export default function ProductDetailPage() {
                               key={p.id}
                               onClick={() => setPackageId(p.id)}
                               aria-pressed={active}
-                              className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
-                                active
+                              className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${active
                                   ? "border-[#c6005c] bg-[#c6005c]/5 text-[#c6005c]"
                                   : "border-gray-300 text-gray-700 hover:border-gray-400"
-                              }`}
+                                }`}
                             >
                               {p.label}
                             </button>
@@ -526,11 +496,10 @@ export default function ProductDetailPage() {
                         {sizeGroup.label}
                       </p>
                       <div
-                        className={`grid gap-2.5 ${
-                          sizeGroup.options.length > 3
+                        className={`grid gap-2.5 ${sizeGroup.options.length > 3
                             ? "grid-cols-4"
                             : "grid-cols-2"
-                        }`}
+                          }`}
                       >
                         {sizeGroup.options.map((opt) => {
                           const active =
@@ -545,11 +514,10 @@ export default function ProductDetailPage() {
                                 }))
                               }
                               aria-pressed={active}
-                              className={`rounded-lg border px-2 py-2.5 text-center transition-colors ${
-                                active
+                              className={`rounded-lg border px-2 py-2.5 text-center transition-colors ${active
                                   ? "border-[#c6005c] bg-[#c6005c]/5"
                                   : "border-gray-300 hover:border-gray-400"
-                              }`}
+                                }`}
                             >
                               <span
                                 className={`block text-sm font-semibold ${active ? "text-[#c6005c]" : "text-gray-900"}`}
@@ -603,8 +571,8 @@ export default function ProductDetailPage() {
                         `Quote Request: ${product.name}`,
                       )}&body=${encodeURIComponent(
                         `I would like to get a quote for ${product.name} with the following specifications:\n\n` +
-                          `${selectedOptionsText}\n\n` +
-                          `Please get back to me with estimated pricing.`,
+                        `${selectedOptionsText}\n\n` +
+                        `Please get back to me with estimated pricing.`,
                       )}`}
                       className="flex h-auto min-h-[56px] w-full items-center justify-center gap-2 rounded-2xl border border-pink-200 bg-pink-50/40 px-3 py-3 text-center text-xs font-bold leading-snug text-pink-700 transition-all duration-300 hover:scale-[1.01] hover:bg-pink-50 sm:gap-2.5 sm:px-3 sm:text-sm"
                     >
@@ -634,11 +602,10 @@ export default function ProductDetailPage() {
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
                         aria-selected={active}
-                        className={`relative py-3 text-sm sm:text-[15px] font-medium whitespace-nowrap transition-colors ${
-                          active
+                        className={`relative py-3 text-sm sm:text-[15px] font-medium whitespace-nowrap transition-colors ${active
                             ? "text-[#c6005c]"
                             : "text-gray-500 hover:text-gray-800"
-                        }`}
+                          }`}
                       >
                         {tab.label}
                         {active && (
@@ -991,11 +958,10 @@ function SizeSpecificationBlock({
                 {columns.map((col) => (
                   <td
                     key={col}
-                    className={`py-3 px-3 text-center border-r border-gray-200 last:border-r-0 whitespace-nowrap ${
-                      col === "assembledHeight"
+                    className={`py-3 px-3 text-center border-r border-gray-200 last:border-r-0 whitespace-nowrap ${col === "assembledHeight"
                         ? "text-[#c6005c] font-medium"
                         : "text-gray-700"
-                    }`}
+                      }`}
                   >
                     {row[col]}
                   </td>
@@ -1329,11 +1295,10 @@ function FaqsTab({
               <div
                 key={faq.question}
                 style={isOpen ? { borderColor: "#e60076" } : undefined}
-                className={`overflow-hidden rounded-xl border-2 transition-all duration-300 sm:rounded-2xl ${
-                  isOpen
+                className={`overflow-hidden rounded-xl border-2 transition-all duration-300 sm:rounded-2xl ${isOpen
                     ? "bg-white shadow-lg"
                     : "border-transparent bg-white shadow-md duration-100 translate-y-0 hover:translate-y-[-2px] hover:shadow-lg"
-                }`}
+                  }`}
               >
                 <h3 className="m-0">
                   <button
@@ -1353,9 +1318,8 @@ function FaqsTab({
 
                     <ChevronDown
                       style={isOpen ? { color: "#e60076" } : undefined}
-                      className={`h-5 w-5 shrink-0 text-gray-900 transition-transform duration-300 ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
+                      className={`h-5 w-5 shrink-0 text-gray-900 transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+                        }`}
                     />
                   </button>
                 </h3>
@@ -1364,9 +1328,8 @@ function FaqsTab({
                   id={panelId}
                   role="region"
                   aria-labelledby={buttonId}
-                  className={`grid transition-all duration-300 ease-in-out ${
-                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                  }`}
+                  className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    }`}
                 >
                   <div className="overflow-hidden">
                     <p className="px-5 pb-4 text-sm leading-relaxed text-gray-500 sm:px-6 sm:pb-5 sm:text-base">
