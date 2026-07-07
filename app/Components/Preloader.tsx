@@ -10,6 +10,8 @@ export default function Preloader({
 }) {
   useEffect(() => {
     const timer = setTimeout(() => {
+      // Scroll to top before finishing the preload
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
       onFinish();
     }, 1500);
 
