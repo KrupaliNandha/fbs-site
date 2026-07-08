@@ -16,7 +16,6 @@ import {
   FaSign,
 } from "react-icons/fa";
 import { RiBillLine } from "react-icons/ri";
-import PageLoader from "../../Components/Preloader";
 import Link from "next/link";
 
 export default function Page() {
@@ -104,7 +103,6 @@ export default function Page() {
 
   return (
     <>
-      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <Navbar />
       <SmoothScroll>
         <main>
@@ -116,10 +114,6 @@ export default function Page() {
                   <Link href="/" className="text-pink-600">
                     Home
                   </Link>
-                  {/* <span className="mx-2">&gt;</span>
-                  <Link href="/services/printing-products" className="text-pink-600">
-                    Services
-                  </Link> */}
                   <span className="mx-2">&gt;</span>
                   <span className="text-gray-800 font-semibold">
                     Printing Services

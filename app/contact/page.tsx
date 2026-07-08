@@ -5,15 +5,12 @@ import Footer from "@/app/Components/Footer";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import "aos/dist/aos.css";
-import SmoothScroll from "@/app/Components/SmoothScroll";
 import Slider from "../Components/Slider";
 import Link from "next/link";
 import ContactFormSubmit, {
   type SubmissionState,
 } from "../Components/ContactFormSubmit";
 import FloatingToast from "../Components/FloatingToast";
-
-import PageLoader from "../Components/Preloader";
 
 import {
   FaTwitter,
@@ -87,11 +84,9 @@ export default function Page() {
 
   return (
     <>
-      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <FloatingToast submissionState={toastState} visible={showToast} />
       <Navbar />
-      <SmoothScroll>
-        <main>
+      <main>
         {/* Section - 1 */}
         <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
           <div className="container">
@@ -282,9 +277,8 @@ export default function Page() {
         </section>
 
         <Slider />
-        </main>
-        <Footer />
-      </SmoothScroll>
+      </main>
+      <Footer />
     </>
   );
 }

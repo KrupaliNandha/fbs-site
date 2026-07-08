@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
-import PageLoader from "@/app/Components/Preloader";
 import SmoothScroll from "@/app/Components/SmoothScroll";
 import "aos/dist/aos.css";
 
@@ -135,9 +134,7 @@ export default function DirectMailingPage() {
 
   return (
     <>
-      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <Navbar />
-
       <SmoothScroll>
         <main>
           {/* Section 1: Hero Section */}

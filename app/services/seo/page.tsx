@@ -19,8 +19,6 @@ import {
   Eye,
 } from "lucide-react";
 
-import PageLoader from "../../Components/Preloader";
-
 export default function Page() {
   const [loaderDone, setLoaderDone] = useState(false);
 
@@ -95,7 +93,6 @@ export default function Page() {
 
   return (
     <>
-      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <Navbar />
       <SmoothScroll>
         <main>

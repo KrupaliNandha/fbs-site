@@ -17,8 +17,6 @@ import {
   Check,
   type LucideIcon,
 } from "lucide-react";
-import { useState } from "react";
-import PageLoader from "../../../Components/Preloader";
 import SmoothScroll from "@/app/Components/SmoothScroll";
 
 interface Service {
@@ -45,14 +43,10 @@ const iconMap: Record<string, LucideIcon> = {
 
 export default function WebDesignDetails({ service }: { service: Service }) {
   const Icon = iconMap[service.icon] ?? LayoutGrid;
-    const [loaderDone, setLoaderDone] = useState(false);
-
 
   return (
     <>
-        {/* <SmoothScroll children={undefined} /> */}
-        {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
-          <SmoothScroll children={undefined} />
+      <SmoothScroll children={undefined} />
       <Navbar />
       <div className="bg-white mt-24">
         {/* Breadcrumb */}

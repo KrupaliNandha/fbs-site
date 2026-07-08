@@ -6,8 +6,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import "aos/dist/aos.css";
 import SmoothScroll from "@/app/Components/SmoothScroll";
-
-import PageLoader from "../../Components/Preloader";
 import Link from "next/link";
 
 export default function Page() {
@@ -143,7 +141,6 @@ export default function Page() {
 
   return (
     <>
-      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <Navbar />
       <SmoothScroll>
         <main>

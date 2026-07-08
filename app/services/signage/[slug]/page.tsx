@@ -24,7 +24,6 @@ import { getProductFaqs, ProductFaqItem } from "../../../data/Product-faqs-data"
 import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
 import SmoothScroll from "@/app/Components/SmoothScroll";
-import PageLoader from "@/app/Components/Preloader";
 import Link from "next/link";
 
 type PackageId = string;
@@ -370,7 +369,6 @@ export default function ProductDetailPage() {
 
   return (
     <>
-      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <SmoothScroll>
         <div className="min-h-screen bg-white text-gray-900">
           <Navbar />

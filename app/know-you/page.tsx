@@ -3,12 +3,9 @@
 import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
 import Image from "next/image";
-import SmoothScroll from "@/app/Components/SmoothScroll";
 import Slider from "../Components/Slider";
 import { useEffect, useState, useRef } from "react";
 import "aos/dist/aos.css";
-
-import PageLoader from "../Components/Preloader";
 
 /* ================= HOVER CARD ================= */
 function HoverCard({
@@ -80,9 +77,8 @@ function MapIcon({
   return (
     <div
       ref={ref}
-      className={`absolute -translate-x-1/2 -translate-y-1/2 ${
-        open ? "z-50" : "z-20"
-      }`}
+      className={`absolute -translate-x-1/2 -translate-y-1/2 ${open ? "z-50" : "z-20"
+        }`}
       style={{ top, left }}
     >
       {/* ICON */}
@@ -219,10 +215,8 @@ export default function Page() {
 
   return (
     <>
-      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <Navbar />
-      <SmoothScroll>
-        <main>
+      <main>
         {/* SECTION 1 */}
         <section className="container">
           <div className="relative bg-white rounded-[32px] shadow-xl overflow-hidden">
@@ -310,9 +304,8 @@ export default function Page() {
         </section>
 
         <Slider />
-        </main>
-        <Footer />
-      </SmoothScroll>
+      </main>
+      <Footer />
     </>
   );
 }

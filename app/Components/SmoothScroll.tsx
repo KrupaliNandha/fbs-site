@@ -19,6 +19,10 @@ export default function SmoothScroll({ children }: Props) {
       easing: (t: number) => 1 - Math.pow(1 - t, 4),
     });
 
+    // Expose the Lenis instance globally so other components
+    // (e.g. Preloader) can stop/start scrolling on demand
+    (window as typeof window & { __lenis?: Lenis }).__lenis = lenis;
+
     const raf = (time: number) => {
       lenis.raf(time);
       AOS.refresh();
@@ -29,6 +33,7 @@ export default function SmoothScroll({ children }: Props) {
 
     return () => {
       lenis.destroy();
+      delete (window as typeof window & { __lenis?: Lenis }).__lenis;
     };
   }, []);
 

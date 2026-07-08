@@ -3,7 +3,6 @@
 import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
 import SmoothScroll from "@/app/Components/SmoothScroll";
-import PageLoader from "@/app/Components/Preloader";
 import type {
   RelatedServiceLink,
   ServiceLocationPage,
@@ -42,7 +41,6 @@ export default function ServiceLocationPageClient({
 
   return (
     <>
-      {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
       <Navbar />
       <SmoothScroll>
         <main>

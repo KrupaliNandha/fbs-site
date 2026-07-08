@@ -3,7 +3,6 @@ import Script from "next/script";
 import Link from "next/link";
 import Navbar from "@/app/Components/Navbar";
 import Footer from "@/app/Components/Footer";
-import SmoothScroll from "@/app/Components/SmoothScroll";
 
 export const metadata: Metadata = {
   title: "FAQs About Business Signage & Printing | FBS Signs Illinois",
@@ -142,65 +141,63 @@ export default function FaqPage() {
       </Script>
 
       <Navbar />
-      <SmoothScroll>
-        <main className="container section-padding">
-          {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-3 bg-pink-50 text-pink-500 px-5 py-2 rounded-full shadow mb-6">
-              <span className="w-2 h-2 bg-pink-400 rounded-full" />
-              <span className="text-[11px] font-bold uppercase tracking-widest">
-                Common Questions
-              </span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight">
-              FAQs — Business Signage,{" "}
-              <span className="text-pink-700">Printing &amp; More</span>
-            </h1>
-            <p className="mt-4 text-gray-600 text-lg">
-              Answers about our services, sign types, direct mail, and locations
-              across Illinois. Can&apos;t find what you need?{" "}
-              <Link href="/contact" className="text-pink-700 underline">
-                Contact us directly.
-              </Link>
-            </p>
+      <main className="container section-padding">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-3 bg-pink-50 text-pink-500 px-5 py-2 rounded-full shadow mb-6">
+            <span className="w-2 h-2 bg-pink-400 rounded-full" />
+            <span className="text-[11px] font-bold uppercase tracking-widest">
+              Common Questions
+            </span>
           </div>
-
-          {/* FAQ categories */}
-          <div className="max-w-4xl mx-auto space-y-16">
-            {faqs.map((cat) => (
-              <div key={cat.category}>
-                <h2 className="text-2xl font-bold text-pink-700 mb-6 pb-2 border-b border-pink-100">
-                  {cat.category}
-                </h2>
-                <div className="space-y-6">
-                  {cat.questions.map((item) => (
-                    <div key={item.q} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                        {item.q}
-                      </h3>
-                      <p className="text-gray-600 leading-relaxed">{item.a}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div className="text-center mt-20">
-            <p className="text-gray-600 mb-4 text-lg">
-              Ready to get started or need a custom quote?
-            </p>
-            <Link href="/contact">
-              <button className="inline-flex items-center gap-3 bg-pink-700 text-white px-8 py-4 rounded-full font-semibold shadow-lg transition-all duration-300 hover:bg-pink-800">
-                Contact FBS Signs
-                <span>→</span>
-              </button>
+          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight">
+            FAQs — Business Signage,{" "}
+            <span className="text-pink-700">Printing &amp; More</span>
+          </h1>
+          <p className="mt-4 text-gray-600 text-lg">
+            Answers about our services, sign types, direct mail, and locations
+            across Illinois. Can&apos;t find what you need?{" "}
+            <Link href="/contact" className="text-pink-700 underline">
+              Contact us directly.
             </Link>
-          </div>
-        </main>
-        <Footer />
-      </SmoothScroll>
+          </p>
+        </div>
+
+        {/* FAQ categories */}
+        <div className="max-w-4xl mx-auto space-y-16">
+          {faqs.map((cat) => (
+            <div key={cat.category}>
+              <h2 className="text-2xl font-bold text-pink-700 mb-6 pb-2 border-b border-pink-100">
+                {cat.category}
+              </h2>
+              <div className="space-y-6">
+                {cat.questions.map((item) => (
+                  <div key={item.q} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                      {item.q}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">{item.a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className="text-center mt-20">
+          <p className="text-gray-600 mb-4 text-lg">
+            Ready to get started or need a custom quote?
+          </p>
+          <Link href="/contact">
+            <button className="inline-flex items-center gap-3 bg-pink-700 text-white px-8 py-4 rounded-full font-semibold shadow-lg transition-all duration-300 hover:bg-pink-800">
+              Contact FBS Signs
+              <span>→</span>
+            </button>
+          </Link>
+        </div>
+      </main>
+      <Footer />
     </>
   );
 }
