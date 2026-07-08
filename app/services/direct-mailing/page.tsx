@@ -30,6 +30,22 @@ import {
   HelpCircle,
 } from "lucide-react";
 
+// Shared format data (same JSON used by app/services/direct-mailing/[slug]/page.tsx)
+import rawData from "../../data/direct-mailing.json";
+
+interface MailFormat {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  icon: string;
+  img: string;
+  detailsLabel: string;
+  detailsValue: string;
+}
+
+const directMailFormats = (rawData as { formats: MailFormat[] }).formats;
+
 export default function DirectMailingPage() {
   const [loaderDone, setLoaderDone] = useState(false);
 
@@ -383,7 +399,7 @@ export default function DirectMailingPage() {
           </div>
         </section>
 
-        {/* Section 3: Direct Mail Format Examples */}
+        {/* Section 3: Direct Mail Format Examples — now sourced from JSON + linked to /[slug] */}
         <section className="bg-gray-50 py-10 sm:py-16 md:py-24">
           <div className="container">
             <div className="mx-auto mb-10 sm:mb-16 max-w-3xl text-center" data-aos="fade-up">
@@ -400,31 +416,11 @@ export default function DirectMailingPage() {
             </div>
 
             <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  title: "Postcards",
-                  desc: "Perfect for quick product announcements, coupon discounts, and retail store openings. Extremely cost-effective.",
-                  spec: "Sizes: 4\"x6\", 6\"x9\", 6.25\"x11\" (EDDM)",
-                },
-                {
-                  title: "Letter Mailers",
-                  desc: "Ideal for business letters, newsletters, utility notices, and solicitations. Keeps your communications secure.",
-                  spec: "Options: Single window, Double window, reply envelope",
-                },
-                {
-                  title: "Catalogs & Booklets",
-                  desc: "Saddle-stitched or perfect bound booklets are fantastic for showcasing complete product ranges or seasonal guides.",
-                  spec: "Details: Coated or uncoated stock, up to 64 pages",
-                },
-                {
-                  title: "Folded Self-Mailers",
-                  desc: "Bi-fold, tri-fold, or gate-folded print designs that seal with clear wafer tabs. No envelope needed.",
-                  spec: "Features: Perforation, customized wafer tabbing",
-                },
-              ].map((format, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col rounded-3xl bg-white p-6 shadow-md hover:shadow-lg transition duration-300"
+              {directMailFormats.map((format, idx) => (
+                <Link
+                  key={format.slug}
+                  href={`/services/direct-mailing/${format.slug}`}
+                  className="group flex flex-col rounded-3xl bg-white p-6 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition duration-300"
                   data-aos="fade-up"
                   data-aos-delay={idx * 100}
                 >
@@ -433,14 +429,15 @@ export default function DirectMailingPage() {
                   </div>
                   <h3 className="text-lg font-bold text-gray-950">{format.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-gray-600 flex-grow">
-                    {format.desc}
+                    {format.description}
                   </p>
-                  <div className="mt-4 border-t border-gray-100 pt-3">
+                  <div className="mt-4 flex items-center justify-between gap-3 border-t border-gray-100 pt-3">
                     <span className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                      {format.spec}
+                      {format.detailsLabel}: {format.detailsValue}
                     </span>
+                    <ChevronRight className="h-4 w-4 shrink-0 text-pink-500 opacity-0 -translate-x-1 transition duration-300 group-hover:opacity-100 group-hover:translate-x-0" />
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
