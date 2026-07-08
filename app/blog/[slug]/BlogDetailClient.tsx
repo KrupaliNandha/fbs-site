@@ -6,11 +6,8 @@ import {
   ArrowLeft,
   ArrowRight,
   Calendar,
-  Check,
   ChevronRight,
   Clock,
-  Copy,
-  Heart,
   MessageSquare,
 } from "lucide-react";
 import {
@@ -30,8 +27,6 @@ const slugify = (text: string) =>
     .replace(/(^-|-$)/g, "");
 
 export default function BlogDetailClient({ post }: BlogDetailClientProps) {
-  const [liked, setLiked] = useState(false);
-  const [copied, setCopied] = useState(false);
   const [commentName, setCommentName] = useState("");
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([
@@ -45,12 +40,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
   const relatedPosts = getRelatedPosts(post);
   const headings = post.content.filter((section) => section.type === "heading");
 
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(window.location.href);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
+  
   const handleComment = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!commentName.trim() || !commentText.trim()) return;
@@ -137,33 +127,14 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                 <img
                   src={post.author.avatar}
                   alt={post.author.name}
-                  className="w-12 h-12 rounded-full object-contain bg-white border border-pink-100"
+                  className="w-18 h-18 rounded-full object-contain bg-white border border-pink-100"
                 />
                 <div>
                   <p className="font-bold text-gray-950">{post.author.name}</p>
                   <p className="text-sm text-gray-500">{post.author.role}</p>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-3">
-                <button
-                  onClick={() => setLiked(!liked)}
-                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition ${
-                    liked
-                      ? "bg-pink-100 text-pink-700"
-                      : "bg-gray-100 text-gray-700 hover:bg-pink-100 hover:text-pink-700"
-                  }`}
-                >
-                  <Heart className={`w-4 h-4 ${liked ? "fill-current" : ""}`} />
-                  {liked ? "Liked" : "Like"}
-                </button>
-                <button
-                  onClick={handleCopy}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-700 hover:bg-pink-100 hover:text-pink-700 transition"
-                >
-                  {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                  {copied ? "Copied" : "Share"}
-                </button>
-              </div>
+             
             </div>
 
             <div className="pt-8 space-y-6">
@@ -328,8 +299,10 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
             <h2 className="text-3xl font-bold text-gray-950">
               Related Articles
             </h2>
-            <Link href="/blog" className="text-pink-700 font-bold">
-              View All Articles
+            <Link href="/blog" className="text-pink-700 font-bold flex 
+            items-center gap-1 hover:gap-2 transition">
+              View All Articles 
+              <ArrowRight className="w-4 h-4 inline-block ml-1 " />
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">

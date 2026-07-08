@@ -150,15 +150,77 @@ const createContent = (post: BlogDataItem): BlogContentSection[] => [
   },
 ];
 
-export const blogPosts: BlogPost[] = (blogData as BlogDataItem[]).map((post) => ({
-  ...post,
-  category: cleanCategory(post.category),
-  excerpt: createExcerpt(post),
-  readTime: "4 min read",
-  author,
-  tags: createTags(post),
-  content: createContent(post),
-}));
+const cleanPostText = (text: string): string => {
+  if (!text) return text;
+  return text
+    .replace(/Posterjack/gi, "FBS Prints")
+    .replace(/Canada/g, "USA")
+    .replace(/Canadian/g, "American")
+    .replace(/Toronto/g, "Chicago")
+    .replace(/Toronto's/g, "Chicago's");
+};
+
+const cleanSlug = (slug: string): string => {
+  if (!slug) return slug;
+  return slug
+    .replace(/posterjack/gi, "fbs-prints")
+    .replace(/canada/g, "usa")
+    .replace(/canadian/g, "american")
+    .replace(/toronto/g, "chicago");
+};
+
+// Filter out off-track posts (contests, internal updates, gift certificates, empty data)
+const filteredBlogData = (blogData as BlogDataItem[]).filter((post) => {
+  if (!post.title || !post.slug) return false;
+  
+  const titleLower = post.title.toLowerCase();
+  const slugLower = post.slug.toLowerCase();
+  const categoryLower = (post.category || "").toLowerCase().trim();
+  
+  const offTrackKeywords = [
+    "contest",
+    "giveaway",
+    "website update",
+    "wrapped",
+    "gift certificate",
+    "general-contest-rules",
+    "rules-and-regulations",
+  ];
+  
+  if (offTrackKeywords.some(keyword => titleLower.includes(keyword) || slugLower.includes(keyword))) {
+    return false;
+  }
+  
+  const offTrackCategories = [
+    "news",
+    "contests & giveaways",
+    ""
+  ];
+  
+  if (offTrackCategories.includes(categoryLower)) {
+    return false;
+  }
+  
+  return true;
+});
+
+export const blogPosts: BlogPost[] = filteredBlogData.map((post) => {
+  const cleanedPost: BlogDataItem = {
+    ...post,
+    title: cleanPostText(post.title),
+    slug: cleanSlug(post.slug),
+    category: cleanPostText(post.category),
+  };
+  return {
+    ...cleanedPost,
+    category: cleanCategory(cleanedPost.category),
+    excerpt: createExcerpt(cleanedPost),
+    readTime: "4 min read",
+    author,
+    tags: createTags(cleanedPost),
+    content: createContent(cleanedPost),
+  };
+});
 
 export const getBlogPost = (slug: string) =>
   blogPosts.find((post) => post.slug === slug);

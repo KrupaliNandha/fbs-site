@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { ArrowRight, Calendar, Clock, Search, Newspaper } from "lucide-react";
+import { ArrowRight, Calendar, Clock, Search, Newspaper, ChevronLeft, ChevronRight } from "lucide-react";
 import { BlogPost, formatBlogDate } from "@/app/data/blog";
 
 type BlogListClientProps = {
@@ -13,6 +13,8 @@ type BlogListClientProps = {
 export default function BlogListClient({ posts }: BlogListClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
+  const POSTS_PER_PAGE = 9;
 
   const categories = useMemo(() => {
     const unique = new Set(posts.map((post) => post.category).filter(Boolean));
@@ -36,7 +38,61 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
   }, [posts, searchQuery, selectedCategory]);
 
   const featuredPost = filteredPosts[0];
-  const standardPosts = filteredPosts.slice(1);
+  const standardPosts = useMemo(() => filteredPosts.slice(1), [filteredPosts]);
+
+  const totalPages = Math.ceil(standardPosts.length / POSTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const paginatedPosts = useMemo(() => {
+    return standardPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  }, [standardPosts, startIndex]);
+
+  const getPageNumbers = () => {
+    const pages = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      let start = Math.max(2, currentPage - 1);
+      let end = Math.min(totalPages - 1, currentPage + 1);
+      
+      if (currentPage <= 3) {
+        end = 4;
+      } else if (currentPage >= totalPages - 2) {
+        start = totalPages - 3;
+      }
+      
+      if (start > 2) {
+        pages.push("...");
+      }
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (end < totalPages - 1) {
+        pages.push("...");
+      }
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    const element = document.getElementById("blog-posts-grid");
+    if (element) {
+      const offset = 120; // Offset to keep the header/filters visible
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
 
   return (
     <main className="bg-gray-50 min-h-screen">
@@ -52,10 +108,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
 
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="flex flex-col justify-center text-center lg:text-left space-y-5">
-              <div className="inline-flex items-center gap-2 bg-pink-100 text-pink-700 font-bold text-xs px-4 py-2 rounded-full uppercase tracking-widest w-fit mx-auto lg:mx-0">
-                <Newspaper className="w-4 h-4" />
-                FBS Blog
-              </div>
+              
               <h1 className="font-semibold text-gray-950 leading-tight tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
                 Marketing &amp; Design
                 <span className="text-pink-700"> Insights</span>
@@ -95,13 +148,16 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
         </div>
       </section>
 
-      <section className="container section-padding">
+      <section className="container section-padding" id="blog-posts-grid">
         <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg flex flex-col lg:flex-row items-stretch lg:items-center gap-5 justify-between">
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <button
                 key={category}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  setCurrentPage(1);
+                }}
                 className={`px-4 py-2 rounded-full text-sm font-bold transition ${
                   selectedCategory === category
                     ? "bg-pink-700 text-white"
@@ -119,7 +175,10 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
               type="search"
               placeholder="Search articles..."
               value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
+              onChange={(event) => {
+                setSearchQuery(event.target.value);
+                setCurrentPage(1);
+              }}
               className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:border-pink-600 text-sm font-medium text-gray-900"
             />
           </div>
@@ -137,6 +196,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
               onClick={() => {
                 setSearchQuery("");
                 setSelectedCategory("All");
+                setCurrentPage(1);
               }}
               className="mt-6 rounded-full bg-pink-700 px-6 py-3 text-white font-bold"
             >
@@ -152,12 +212,14 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
               >
                 <div className="lg:col-span-7 h-64 sm:h-72 lg:h-[420px] relative bg-gray-900 overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={featuredPost.image}
-                    alt={featuredPost.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
+                  {featuredPost.image ? (
+                    <img
+                      src={featuredPost.image}
+                      alt={featuredPost.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : null}
                   <span className="absolute top-4 left-4 bg-pink-700 text-white font-bold text-xs px-4 py-2 rounded-full uppercase tracking-wider">
                     Featured
                   </span>
@@ -184,7 +246,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                       {featuredPost.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="bg-pink-50 text-pink-700 text-xs font-bold px-3 py-1 rounded-full"
+                          className="bg-pink-50 text-pink-700 text-xs font-bold px-3 py-1.5 rounded-full"
                         >
                           {tag}
                         </span>
@@ -200,7 +262,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-              {standardPosts.map((post) => (
+              {paginatedPosts.map((post) => (
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
@@ -208,12 +270,14 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                 >
                   <div className="h-56 relative bg-gray-900 overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      referrerPolicy="no-referrer"
-                    />
+                    {post.image ? (
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : null}
                     <span className="absolute top-3 left-3 bg-white text-pink-700 font-bold text-xs px-3 py-1.5 rounded-full">
                       {post.category}
                     </span>
@@ -238,6 +302,53 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                 </Link>
               ))}
             </div>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-2 mt-16 pt-8 border-t border-gray-100">
+                <button
+                  onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 bg-white text-gray-700 hover:border-pink-600 hover:text-pink-700 disabled:opacity-40 disabled:cursor-not-allowed transition duration-300"
+                  aria-label="Previous Page"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                
+                {getPageNumbers().map((page, index) => {
+                  if (page === "...") {
+                    return (
+                      <span key={`ellipsis-${index}`} className="px-3 py-2 text-gray-400">
+                        ...
+                      </span>
+                    );
+                  }
+                  
+                  return (
+                    <button
+                      key={`page-${page}`}
+                      onClick={() => handlePageChange(page as number)}
+                      className={`w-10 h-10 rounded-full font-bold text-sm transition duration-300 flex items-center justify-center ${
+                        currentPage === page
+                          ? "bg-pink-700 text-white shadow-md shadow-pink-200"
+                          : "border border-gray-200 bg-white text-gray-700 hover:border-pink-600 hover:text-pink-700"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  );
+                })}
+                
+                <button
+                  onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 bg-white text-gray-700 hover:border-pink-600 hover:text-pink-700 disabled:opacity-40 disabled:cursor-not-allowed transition duration-300"
+                  aria-label="Next Page"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            )}
           </div>
         )}
       </section>
