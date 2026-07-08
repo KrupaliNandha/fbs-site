@@ -1,0 +1,193 @@
+{
+  "section": {
+    "eyebrow": "PRODUCTION FORMATS",
+    "title": "Popular Direct Mail Formats",
+    "description": "We custom print and process several major mail styles. Tailor dimensions, paper weights, and folding specifications for your unique branding goals.",
+    "sourceUrl": "https://www.fbssigns.com/services/direct-mailing",
+    "note": "Core fields (title, description, sizes/options/details/features) are sourced directly from the live page. Supplemental fields below (turnaround, paper stock, pricing tier, FAQs, etc.) are reasonable industry-standard additions not published on the source page — verify with FBS Signs before using as-is."
+  },
+  "formats": [
+    {
+      "id": "postcards",
+      "slug": "postcards",
+      "title": "Postcards",
+      "description": "Perfect for quick product announcements, coupon discounts, and retail store openings. Extremely cost-effective.",
+      "icon": "file-text",
+      "img": "/images/services/direct-mail/Postcards.webp",
+      "detailsLabel": "Sizes",
+      "detailsValue": "4\"x6\", 6\"x9\", 6.25\"x11\" (EDDM)",
+      "specs": [
+        { "label": "Size", "value": "4\" x 6\"" },
+        { "label": "Size", "value": "6\" x 9\"" },
+        { "label": "Size", "value": "6.25\" x 11\" (EDDM)" }
+      ],
+      "bestFor": [
+        "Product announcements",
+        "Coupons & discounts",
+        "Retail store openings"
+      ],
+      "tags": ["cost-effective", "high-volume", "eddm-eligible"],
+      "paperStock": ["14pt gloss", "14pt matte", "16pt uncoated"],
+      "printSides": "Full color, double-sided (4/4)",
+      "finishingOptions": ["UV coating", "Rounded corners", "Aqueous coating"],
+      "mailClass": ["EDDM Retail", "First-Class", "USPS Marketing Mail"],
+      "turnaround": "3-5 business days",
+      "minQuantity": 500,
+      "priceTier": "$ 9.99",
+      "designServiceAvailable": true,
+      "mailingListServiceAvailable": true,
+      "faqs": [
+        {
+          "question": "Do I need a mailing list for postcards?",
+          "answer": "No — EDDM lets you target every address on a mail route without a purchased list."
+        },
+        {
+          "question": "What's the most popular postcard size?",
+          "answer": "6\"x9\" balances visibility with cost and works for both EDDM and targeted mail."
+        },
+        {
+          "question": "Is there a minimum order quantity for postcards?",
+          "answer": "Yes — runs start at 500 pieces, which keeps per-piece cost low while still qualifying for EDDM and bulk mail rates."
+        }
+      ],
+      "relatedFormats": ["folded-self-mailers"]
+    },
+    {
+      "id": "letter-mailers",
+      "slug": "letter-mailers",
+      "title": "Letter Mailers",
+      "description": "Ideal for business letters, newsletters, utility notices, and solicitations. Keeps your communications secure.",
+      "icon": "file-text",
+      "img": "/images/services/direct-mail/Letter Mailers.webp",
+      "detailsLabel": "Options",
+      "detailsValue": "Single window, Double window, reply envelope",
+      "specs": [
+        { "label": "Envelope Option", "value": "Single window" },
+        { "label": "Envelope Option", "value": "Double window" },
+        { "label": "Envelope Option", "value": "Reply envelope" }
+      ],
+      "bestFor": [
+        "Business letters",
+        "Newsletters",
+        "Utility notices",
+        "Solicitations"
+      ],
+      "tags": ["secure", "professional", "personalized"],
+      "paperStock": ["24lb bond", "70lb text", "Standard #10 envelope"],
+      "printSides": "Full color or black & white, single or double-sided",
+      "finishingOptions": ["Folding & inserting", "Variable data personalization", "Tamper-evident sealing"],
+      "mailClass": ["First-Class", "USPS Marketing Mail"],
+      "turnaround": "4-6 business days",
+      "minQuantity": 250,
+      "priceTier": "$ 11.99",
+      "designServiceAvailable": true,
+      "mailingListServiceAvailable": true,
+      "faqs": [
+        {
+          "question": "Can each letter be personalized?",
+          "answer": "Yes — variable data printing supports individualized names, account numbers, and offers."
+        },
+        {
+          "question": "Do you handle stuffing and sealing?",
+          "answer": "Yes — folding, insertion, and sealing are included in the mailer production run."
+        },
+        {
+          "question": "Can I include a reply envelope with my letter?",
+          "answer": "Yes — reply envelopes can be inserted alongside the letter for donations, payments, or returned forms."
+        }
+      ],
+      "relatedFormats": ["catalogs-booklets"]
+    },
+    {
+      "id": "catalogs-booklets",
+      "slug": "catalogs-booklets",
+      "title": "Catalogs & Booklets",
+      "description": "Saddle-stitched or perfect bound booklets are fantastic for showcasing complete product ranges or seasonal guides.",
+      "icon": "file-text",
+      "img": "/images/services/direct-mail/Catalogs & Booklets.jpg",
+      "detailsLabel": "Details",
+      "detailsValue": "Coated or uncoated stock, up to 64 pages",
+      "specs": [
+        { "label": "Binding", "value": "Saddle-stitched or perfect bound" },
+        { "label": "Stock", "value": "Coated or uncoated" },
+        { "label": "Max Pages", "value": "64" }
+      ],
+      "bestFor": [
+        "Complete product ranges",
+        "Seasonal guides",
+        "Lookbooks"
+      ],
+      "tags": ["premium", "multi-page", "brand-showcase"],
+      "paperStock": ["80lb gloss text", "100lb gloss cover", "Uncoated recycled stock"],
+      "printSides": "Full color, double-sided throughout",
+      "finishingOptions": ["Saddle-stitch binding", "Perfect binding", "Trimming to custom size"],
+      "mailClass": ["USPS Marketing Mail (Flat)", "Bound Printed Matter"],
+      "turnaround": "7-10 business days",
+      "minQuantity": 250,
+      "priceTier": "$ 13.99",
+      "designServiceAvailable": true,
+      "mailingListServiceAvailable": true,
+      "faqs": [
+        {
+          "question": "What's the difference between saddle-stitch and perfect binding?",
+          "answer": "Saddle-stitch staples folded sheets and suits thinner booklets; perfect binding glues a flat spine and suits thicker catalogs."
+        },
+        {
+          "question": "Is there a page limit?",
+          "answer": "Up to 64 pages is standard; higher page counts can be quoted on request."
+        },
+        {
+          "question": "Can I order a small test run before committing to a full print?",
+          "answer": "Yes — short runs starting at 250 copies are available so you can proof the layout and stock before scaling up."
+        }
+      ],
+      "relatedFormats": ["letter-mailers"]
+    },
+    {
+      "id": "folded-self-mailers",
+      "slug": "folded-self-mailers",
+      "title": "Folded Self-Mailers",
+      "description": "Bi-fold, tri-fold, or gate-folded print designs that seal with clear wafer tabs. No envelope needed.",
+      "icon": "file-text",
+      "img": "/images/services/direct-mail/Folded Self-Mailers.jpg",
+      "detailsLabel": "Features",
+      "detailsValue": "Perforation, customized wafer tabbing",
+      "specs": [
+        { "label": "Fold Type", "value": "Bi-fold" },
+        { "label": "Fold Type", "value": "Tri-fold" },
+        { "label": "Fold Type", "value": "Gate-fold" },
+        { "label": "Seal", "value": "Clear wafer tabs" }
+      ],
+      "bestFor": [
+        "Envelope-free mailings",
+        "Coupon inserts (via perforation)",
+        "Multi-panel offers"
+      ],
+      "tags": ["no-envelope", "foldable", "perforated"],
+      "paperStock": ["100lb gloss text", "80lb uncoated text"],
+      "printSides": "Full color, double-sided (4/4)",
+      "finishingOptions": ["Perforation", "Wafer seal tabbing", "Custom fold patterns"],
+      "mailClass": ["EDDM Retail", "USPS Marketing Mail"],
+      "turnaround": "5-7 business days",
+      "minQuantity": 500,
+      "priceTier": "$ 17.99",
+      "designServiceAvailable": true,
+      "mailingListServiceAvailable": true,
+      "faqs": [
+        {
+          "question": "Do self-mailers need an envelope?",
+          "answer": "No — wafer seals hold the folded panels closed so the piece mails on its own."
+        },
+        {
+          "question": "Can I include a tear-off coupon?",
+          "answer": "Yes — perforation lets recipients detach a coupon or reply panel."
+        },
+        {
+          "question": "Which fold type works best for my content?",
+          "answer": "Bi-folds suit simple two-panel offers, tri-folds fit brochure-style content, and gate-folds give the most panels for multi-product layouts."
+        }
+      ],
+      "relatedFormats": ["postcards"]
+    }
+  ]
+}
