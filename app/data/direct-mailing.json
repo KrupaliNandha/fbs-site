@@ -38,16 +38,28 @@
       "mailingListServiceAvailable": true,
       "faqs": [
         {
-          "question": "Do I need a mailing list for postcards?",
-          "answer": "No — EDDM lets you target every address on a mail route without a purchased list."
+          "question": "Do I need a mailing list to send postcards?",
+          "answer": "No — EDDM lets you target every address on a mail route without buying a list, so you can launch a campaign with zero data on hand."
         },
         {
-          "question": "What's the most popular postcard size?",
-          "answer": "6\"x9\" balances visibility with cost and works for both EDDM and targeted mail."
+          "question": "Which postcard size gets the best response rate?",
+          "answer": "6\"x9\" is our most requested size — it's big enough to stand out in the mailbox while still qualifying for EDDM and bulk mail rates."
         },
         {
-          "question": "Is there a minimum order quantity for postcards?",
-          "answer": "Yes — runs start at 500 pieces, which keeps per-piece cost low while still qualifying for EDDM and bulk mail rates."
+          "question": "What's the smallest order I can place?",
+          "answer": "Runs start at 500 pieces. That keeps your per-piece cost low while still hitting the minimum for EDDM and USPS Marketing Mail pricing."
+        },
+        {
+          "question": "Can you design the postcard for me, or do I need my own artwork?",
+          "answer": "Either works. Send print-ready files, or our in-house design team can build the layout from scratch based on your branding and offer."
+        },
+        {
+          "question": "How soon can I expect delivery after I approve my proof?",
+          "answer": "Standard turnaround is 3-5 business days from proof approval to mail drop, depending on quantity and your chosen mail class."
+        },
+        {
+          "question": "Will a glossy finish smear or crack if it's folded in transit?",
+          "answer": "No — our 14pt gloss and matte stocks are coated to resist scuffing and moisture, and they hold up fine through standard USPS handling."
         }
       ],
       "relatedFormats": ["folded-self-mailers"]
@@ -84,16 +96,28 @@
       "mailingListServiceAvailable": true,
       "faqs": [
         {
-          "question": "Can each letter be personalized?",
-          "answer": "Yes — variable data printing supports individualized names, account numbers, and offers."
+          "question": "Can every letter show a different name or account number?",
+          "answer": "Yes — variable data printing personalizes names, account numbers, balances, and offers on each letter without slowing down the print run."
         },
         {
-          "question": "Do you handle stuffing and sealing?",
-          "answer": "Yes — folding, insertion, and sealing are included in the mailer production run."
+          "question": "Do you handle folding, stuffing, and sealing for me?",
+          "answer": "Yes — folding, insertion, and sealing are all done in-house as part of production, so letters arrive ready to mail."
         },
         {
-          "question": "Can I include a reply envelope with my letter?",
-          "answer": "Yes — reply envelopes can be inserted alongside the letter for donations, payments, or returned forms."
+          "question": "Can I include a reply envelope for payments or donations?",
+          "answer": "Yes — a reply envelope can be inserted alongside your letter, ideal for billing statements, fundraising appeals, or returned forms."
+        },
+        {
+          "question": "What's the difference between single and double window envelopes?",
+          "answer": "Single window shows just the recipient address; double window also displays a return address or account number printed on the letter itself."
+        },
+        {
+          "question": "Is my recipient's information kept secure during printing?",
+          "answer": "Yes — we use tamper-evident sealing and controlled production runs, which is standard practice for utility notices and financial correspondence."
+        },
+        {
+          "question": "How small can a test batch be before I commit to a full mailing?",
+          "answer": "Minimum orders start at 250 pieces, letting you validate messaging and personalization accuracy before scaling to your full list."
         }
       ],
       "relatedFormats": ["catalogs-booklets"]
@@ -129,16 +153,28 @@
       "mailingListServiceAvailable": true,
       "faqs": [
         {
-          "question": "What's the difference between saddle-stitch and perfect binding?",
-          "answer": "Saddle-stitch staples folded sheets and suits thinner booklets; perfect binding glues a flat spine and suits thicker catalogs."
+          "question": "Should I choose saddle-stitch or perfect binding for my catalog?",
+          "answer": "Saddle-stitch staples folded sheets and works well for thinner booklets; perfect binding glues a flat spine and suits thicker, higher-page catalogs."
         },
         {
-          "question": "Is there a page limit?",
-          "answer": "Up to 64 pages is standard; higher page counts can be quoted on request."
+          "question": "Is there a maximum page count I need to stay under?",
+          "answer": "64 pages is our standard maximum for this format. Higher page counts can still be produced — just ask for a custom quote."
         },
         {
-          "question": "Can I order a small test run before committing to a full print?",
-          "answer": "Yes — short runs starting at 250 copies are available so you can proof the layout and stock before scaling up."
+          "question": "Can I print a short test run before ordering the full quantity?",
+          "answer": "Yes — short runs starting at 250 copies let you proof layout, binding, and paper stock before committing to a larger print order."
+        },
+        {
+          "question": "What paper stock is best for a premium look and feel?",
+          "answer": "100lb gloss cover on the outside with 80lb gloss text inside gives a durable, upscale finish that photographs and handles well."
+        },
+        {
+          "question": "Will USPS accept a bound catalog as a standard mail piece?",
+          "answer": "Yes — catalogs ship under USPS Marketing Mail Flat or Bound Printed Matter classes, both built specifically for multi-page bound pieces."
+        },
+        {
+          "question": "How long does production take for a 64-page catalog run?",
+          "answer": "Plan on 7-10 business days from final proof approval, which covers printing, binding, trimming, and quality checks before your run ships."
         }
       ],
       "relatedFormats": ["letter-mailers"]
@@ -175,16 +211,28 @@
       "mailingListServiceAvailable": true,
       "faqs": [
         {
-          "question": "Do self-mailers need an envelope?",
-          "answer": "No — wafer seals hold the folded panels closed so the piece mails on its own."
+          "question": "Do I need an envelope to mail a folded self-mailer?",
+          "answer": "No — clear wafer seals hold the folded panels shut, so the piece travels through USPS on its own without any envelope."
         },
         {
-          "question": "Can I include a tear-off coupon?",
-          "answer": "Yes — perforation lets recipients detach a coupon or reply panel."
+          "question": "Can recipients tear off a coupon or reply card?",
+          "answer": "Yes — perforated panels let recipients detach a coupon, reply card, or offer slip while keeping the rest of the mailer intact."
         },
         {
-          "question": "Which fold type works best for my content?",
-          "answer": "Bi-folds suit simple two-panel offers, tri-folds fit brochure-style content, and gate-folds give the most panels for multi-product layouts."
+          "question": "Which fold type fits my content best — bi-fold, tri-fold, or gate-fold?",
+          "answer": "Bi-folds suit simple two-panel offers, tri-folds fit brochure-style layouts, and gate-folds give you the most panels for multi-product spreads."
+        },
+        {
+          "question": "Will the wafer seals hold up through automated mail sorting?",
+          "answer": "Yes — our wafer tabbing meets USPS mailing standards and is tested to stay sealed through automated sorting and delivery equipment."
+        },
+        {
+          "question": "How many panels can I design across a gate-fold layout?",
+          "answer": "A standard gate-fold gives you up to six usable panels, ideal for showcasing multiple products or a step-by-step offer sequence."
+        },
+        {
+          "question": "What's the production timeline compared to a simple postcard?",
+          "answer": "Folded self-mailers take 5-7 business days due to the added folding and wafer-sealing steps, versus 3-5 days for flat postcards."
         }
       ],
       "relatedFormats": ["postcards"]

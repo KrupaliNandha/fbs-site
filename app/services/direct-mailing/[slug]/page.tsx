@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import * as LucideIcons from "lucide-react";
 import {
-  Check,
+  CheckCircle2,
   ChevronDown,
   ChevronRight,
   Clock,
@@ -14,7 +15,6 @@ import {
   Tag,
 } from "lucide-react";
 import rawData from "../../../data/direct-mailing.json";
-import SmoothScroll from "../../../Components/SmoothScroll";
 
 /* ---------------------------------------------------------------------- */
 /*  Types                                                                  */
@@ -84,6 +84,17 @@ function getRelatedFormats(format: MailFormat): MailFormat[] {
 }
 
 /* ---------------------------------------------------------------------- */
+/*  Icon resolver                                                          */
+/* ---------------------------------------------------------------------- */
+
+function resolveIcon(iconName: string) {
+  const IconComponent = (
+    LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>
+  )[iconName];
+  return IconComponent ?? Mail;
+}
+
+/* ---------------------------------------------------------------------- */
 /*  Static params + metadata                                               */
 /* ---------------------------------------------------------------------- */
 
@@ -117,8 +128,6 @@ export async function generateMetadata({
 /*  Copy helpers                                                           */
 /* ---------------------------------------------------------------------- */
 
-// One short punch-line for the caption card that overlaps the hero image,
-// mirroring "Turns one-time buyers into repeat customers" on the reference.
 function buildHeroCaption(format: MailFormat): string {
   return format.bestFor[0] ?? `Built for ${format.title.toLowerCase()}`;
 }
@@ -129,46 +138,30 @@ function buildWhyItMattersCopy(format: MailFormat): string {
   return `${format.title} built on ${stock} hold up in the mailbox and in the hand, which matters more than most people expect — a flimsy piece reads as a flimsy brand. We produce every run on ${mailClass} timelines your campaign can actually plan around, with a ${format.turnaround.toLowerCase()} turnaround so a seasonal push doesn't stall in production. Because everything is printed and finished in-house, changes to quantity, stock, or finishing don't mean starting the quote over.`;
 }
 
-// Pair up bestFor + finishing/service items into "What's Included" card copy,
-// each with a short title + one-line supporting detail (2 lines like reference).
-function buildIncludedCards(
-  format: MailFormat,
-): { title: string; detail: string }[] {
-  const cards: { title: string; detail: string }[] = [];
+// Short, single-line "What's included" statements.
+function buildIncludedItems(format: MailFormat): string[] {
+  const items: string[] = [];
 
   format.bestFor.forEach((item) => {
-    cards.push({
-      title: item,
-      detail: `Optimized paper, finishing, and format choices for ${item.toLowerCase()}.`,
-    });
+    items.push(`Purpose-built for ${item.toLowerCase()}`);
   });
 
-  cards.push({
-    title: format.printSides,
-    detail: `Printed on ${format.paperStock[0]?.toLowerCase() ?? "premium stock"}.`,
-  });
+  items.push(
+    `${format.printSides} on ${format.paperStock[0]?.toLowerCase() ?? "premium stock"}`,
+  );
 
   format.finishingOptions.forEach((option) => {
-    cards.push({
-      title: `${option}`,
-      detail: `Available finishing option for this format.`,
-    });
+    items.push(`${option} finishing available`);
   });
 
   if (format.designServiceAvailable) {
-    cards.push({
-      title: "In-house design service",
-      detail: "Our team can design the piece for you, start to finish.",
-    });
+    items.push("In-house design service, start to finish");
   }
   if (format.mailingListServiceAvailable) {
-    cards.push({
-      title: "Mailing list sourcing",
-      detail: "We can source and target the mailing list for you.",
-    });
+    items.push("Mailing list sourcing and targeting included");
   }
 
-  return cards;
+  return items.slice(0, 8);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -181,127 +174,117 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
   if (!format) notFound();
 
   const related = getRelatedFormats(format);
-  const includedCards = buildIncludedCards(format);
+  const includedItems = buildIncludedItems(format);
+  const badge = format.tags[0]
+    ? format.tags[0].toUpperCase()
+    : "PRODUCTION FORMAT";
 
   return (
-    <SmoothScroll>
-      <main className="bg-white mt-24">
-      {/* Breadcrumb */}
-      <div className="mx-auto max-w-6xl px-6 pt-8">
-        <nav className="flex items-center gap-1.5 text-sm">
-          <Link href="/" className="font-medium text-[#EC1279]">
-            Home
-          </Link>
-          <span className="text-slate-400">&gt;</span>
-          <Link
-            href="/services/direct-mailing"
-            className="font-medium text-[#EC1279]"
-          >
-            Direct Mailing
-          </Link>
-          <span className="text-slate-400">&gt;</span>
-          <span className="font-semibold text-slate-900">{format.title}</span>
-        </nav>
-      </div>
+    <main className="bg-white mt-24">
+      {/* ============================================================ */}
+      {/* SECTION 1 — HERO                                              */}
+      {/* ============================================================ */}
+      <section className="mt-24 xl:mt-20">
+        <div className="container">
+          {/* Breadcrumb */}
+          <p className="text-slate-600 text-base sm:text-lg mb-8">
+            <Link href="/" className="text-pink-600 font-medium">
+              Home
+            </Link>
+            <span className="mx-2">&gt;</span>
+            <Link
+              href="/services/direct-mailing"
+              className="text-pink-600 font-medium"
+            >
+              Direct Mailing
+            </Link>
+            <span className="mx-2">&gt;</span>
+            <span className="text-slate-800 font-semibold">{format.title}</span>
+          </p>
 
-      {/* ------------------------------------------------------------ */}
-      {/* HERO — image left (with overlapping caption card), content    */}
-      {/* right (eyebrow, title, description, tags, what's included)    */}
-      {/* ------------------------------------------------------------ */}
-      <section className="mx-auto max-w-6xl px-6 pb-20 pt-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
-          {/* Left: image + overlapping caption + tags */}
-          <div>
-            <div className="relative overflow-hidden rounded-3xl">
-              <div className="relative aspect-square w-full">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+            {/* LEFT: image with floating caption + tags */}
+            <div>
+              <div className="relative w-full aspect-[4/3.2] rounded-3xl overflow-hidden shadow-xl">
                 <Image
                   src={format.img}
-                  alt={format.title}
+                  alt={`${format.title} visual`}
                   fill
                   sizes="(min-width: 1024px) 45vw, 90vw"
                   className="object-cover"
                   priority
                 />
+
+                {/* Floating caption card, positioned over the image */}
+                <div className="absolute bottom-5 left-5 right-5 sm:right-auto sm:max-w-md bg-white rounded-2xl shadow-lg px-5 py-4 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-pink-600" />
+                  </div>
+                  <p className="text-slate-900 font-semibold text-sm sm:text-base leading-snug">
+                    {buildHeroCaption(format)}
+                  </p>
+                </div>
+              </div>
+
+              {/* Tag pills */}
+              <div className="flex flex-wrap gap-2 mt-5">
+                {format.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-4 py-1.5 rounded-full bg-pink-50 text-pink-600 text-sm font-medium"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
 
-            {/* Floating caption card, overlapping the bottom edge of the image */}
-            <div className="relative z-10 -mt-8 ml-6 mr-6 flex items-center gap-3 rounded-2xl border border-slate-100 bg-white px-5 py-4 shadow-lg shadow-slate-900/10 sm:mr-16">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#FDE8F2]">
-                <Mail className="h-4 w-4 text-[#EC1279]" />
+            {/* RIGHT: content */}
+            <div>
+              <span className="inline-block px-4 py-1.5 rounded-full bg-pink-100 text-pink-600 text-xs sm:text-sm font-bold tracking-wide mb-5">
+                {badge}
               </span>
-              <span className="text-sm font-semibold text-[#0F1B33]">
-                {buildHeroCaption(format)}
-              </span>
-            </div>
 
-            {/* Tag pills */}
-            <div className="mt-6 flex flex-wrap gap-2">
-              {format.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-[#FDE8F2] px-3 py-1.5 text-xs font-semibold text-[#EC1279]"
-                >
-                  {tag}
+              <h1 className="font-extrabold leading-tight tracking-tight text-4xl sm:text-5xl md:text-6xl mb-6">
+                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  {format.title}
                 </span>
-              ))}
-            </div>
-          </div>
+              </h1>
 
-          {/* Right: eyebrow, title, description, CTA-adjacent What's Included */}
-          <div>
-            <span className="inline-block rounded-full bg-[#FDE8F2] px-3 py-1 text-xs font-bold uppercase tracking-[0.1em] text-[#EC1279]">
-              Production Format
-            </span>
-            <h1 className="mt-4 bg-gradient-to-r from-[#EC1279] to-[#7C3AED] bg-clip-text text-4xl font-extrabold leading-tight tracking-tight text-transparent sm:text-5xl">
-              {format.title}
-            </h1>
-            <p className="mt-5 text-[15px] leading-relaxed text-slate-600">
-              {format.description}
-            </p>
+              <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-8">
+                {format.description}
+              </p>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href="/contact"
-                className="rounded-full bg-[#EC1279] px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-[#EC1279]/30 transition hover:bg-[#D40E6B]"
-              >
-                Get a Quote
-              </Link>
-              <Link
-                href="/services/direct-mailing"
-                className="rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400"
-              >
-                Compare All Formats
-              </Link>
-            </div>
-
-            <h2 className="mt-10 text-base font-bold text-[#0F1B33]">
-              What&apos;s included
-            </h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {includedCards.map((card, i) => (
-                <div
-                  key={`${card.title}-${i}`}
-                  className="flex items-start gap-2.5 rounded-2xl border border-slate-100 bg-slate-50 p-4"
-                >
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#EC1279]">
-                    <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                  </span>
-                  <span className="text-sm leading-snug text-slate-700">
-                    <span className="font-semibold text-[#0F1B33]">
-                      {card.title}
-                    </span>{" "}
-                    <span className="text-slate-500">{card.detail}</span>
-                  </span>
+              {/* What's included */}
+              {includedItems.length > 0 && (
+                <div>
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">
+                    What&apos;s included
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    {includedItems.map((item, i) => (
+                      <div
+                        key={i}
+                        className="flex items-start gap-3 bg-slate-50 rounded-xl p-4"
+                      >
+                        <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-pink-600 mt-0.5" />
+                        <p className="text-slate-700 text-sm sm:text-base leading-snug">
+                          {item}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Quick facts strip */}
-      <section className="mx-auto max-w-6xl px-6 pb-16">
+      {/* ============================================================ */}
+      {/* SECTION 2 — Quick facts strip                                 */}
+      {/* ============================================================ */}
+      <section className="container pb-16 pt-16">
         <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 sm:grid-cols-4">
           {[
             { icon: Clock, label: "Turnaround", value: format.turnaround },
@@ -328,59 +311,87 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
         </dl>
       </section>
 
-      {/* ------------------------------------------------------------ */}
-      {/* Why This Format Matters                                       */}
-      {/* ------------------------------------------------------------ */}
-      <section className="mx-auto max-w-6xl px-6 pb-16">
+      {/* ============================================================ */}
+      {/* SECTION 3 — Why This Format Matters                           */}
+      {/* ============================================================ */}
+      <section className="container pb-16">
         <div className="relative rounded-3xl border border-pink-100 bg-gradient-to-br from-pink-50 via-white to-purple-50 px-6 py-10 sm:px-10 sm:py-12 overflow-hidden shadow-sm">
           <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-purple-100 rounded-full blur-3xl opacity-40 z-0" />
-          <div className="relative max-w-3xl mx-auto">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+          <div className="absolute -top-10 -left-10 w-40 h-40 bg-pink-100 rounded-full blur-3xl opacity-40 z-0" />
+
+          <div className="relative max-w-4xl mx-auto">
+            {/* Heading */}
+            <span className="inline-block px-3 py-1 rounded-full bg-white text-[#EC1279] text-xs font-bold tracking-wide shadow-sm mb-4">
+              WHY IT WORKS
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F1B33]">
               Why {format.title} Matter for Your Business
             </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-slate-600">
+            <p className="mt-4 text-[15px] leading-relaxed text-slate-600 max-w-2xl">
               {buildWhyItMattersCopy(format)}
             </p>
 
-            <div className="mt-8 grid gap-6 sm:grid-cols-2">
-              <div>
-                <div className="flex items-center gap-2">
-                  <Layers className="h-4 w-4 text-[#EC1279]" />
+            {/* Paper Stock / Mail Class cards */}
+            <div className="mt-10 grid gap-5 sm:grid-cols-2">
+              <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-6">
+                <div className="flex items-center gap-2.5 mb-4">
+                  <div className="w-9 h-9 rounded-lg bg-pink-50 flex items-center justify-center">
+                    <Layers className="h-4 w-4 text-[#EC1279]" />
+                  </div>
                   <h3 className="text-sm font-bold text-[#0F1B33]">
                     Paper Stock
                   </h3>
                 </div>
-                <ul className="mt-3 space-y-1.5 text-sm text-slate-600">
+                <div className="flex flex-wrap gap-2">
                   {format.paperStock.map((stock) => (
-                    <li key={stock}>{stock}</li>
+                    <span
+                      key={stock}
+                      className="rounded-full bg-slate-50 border border-slate-200 px-3.5 py-1.5 text-xs font-medium text-slate-600"
+                    >
+                      {stock}
+                    </span>
                   ))}
-                </ul>
+                </div>
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[#EC1279]" />
+
+              <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-6">
+                <div className="flex items-center gap-2.5 mb-4">
+                  <div className="w-9 h-9 rounded-lg bg-pink-50 flex items-center justify-center">
+                    <Sparkles className="h-4 w-4 text-[#EC1279]" />
+                  </div>
                   <h3 className="text-sm font-bold text-[#0F1B33]">
                     Mail Class
                   </h3>
                 </div>
-                <ul className="mt-3 space-y-1.5 text-sm text-slate-600">
+                <div className="flex flex-wrap gap-2">
                   {format.mailClass.map((mc) => (
-                    <li key={mc}>{mc}</li>
+                    <span
+                      key={mc}
+                      className="rounded-full bg-slate-50 border border-slate-200 px-3.5 py-1.5 text-xs font-medium text-slate-600"
+                    >
+                      {mc}
+                    </span>
                   ))}
-                </ul>
+                </div>
               </div>
             </div>
 
+            {/* Available Sizes */}
             {format.specs.length > 0 && (
-              <div className="mt-8 border-t border-pink-100/60 pt-6">
-                <h3 className="text-sm font-bold text-[#0F1B33] mb-4">
-                  Available Sizes
-                </h3>
+              <div className="mt-6 rounded-2xl bg-white border border-slate-100 shadow-sm p-6">
+                <div className="flex items-center gap-2.5 mb-4">
+                  <div className="w-9 h-9 rounded-lg bg-pink-50 flex items-center justify-center">
+                    <Tag className="h-4 w-4 text-[#EC1279]" />
+                  </div>
+                  <h3 className="text-sm font-bold text-[#0F1B33]">
+                    Available Sizes
+                  </h3>
+                </div>
                 <div className="flex flex-wrap gap-3">
                   {format.specs.map((spec, i) => (
                     <div
                       key={`${spec.label}-${i}`}
-                      className="rounded-xl bg-white px-5 py-2.5 text-[15px] font-semibold text-slate-700 shadow-sm border border-slate-200 transition-colors hover:border-pink-300"
+                      className="rounded-xl bg-slate-50 px-5 py-2.5 text-[15px] font-semibold text-slate-700 border border-slate-200 transition-colors hover:border-pink-300 hover:bg-pink-50/50"
                     >
                       {spec.label.toLowerCase() !== "size" && (
                         <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mr-1.5">
@@ -397,40 +408,43 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* ------------------------------------------------------------ */}
-      {/* FAQ                                                            */}
-      {/* ------------------------------------------------------------ */}
+      {/* ============================================================ */}
+      {/* SECTION 4 — FAQ + CTA banner                                  */}
+      {/* ============================================================ */}
       {format.faqs?.length > 0 && (
-        <section className="mx-auto max-w-3xl px-6 pb-16">
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 text-center sm:text-left">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-3">
-            {format.faqs.map((faq, index) => (
-              <details
-                key={faq.question}
-                className="group border border-gray-100 rounded-xl bg-white overflow-hidden shadow-sm"
-                {...(index === 0 ? { open: true } : {})}
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-left [&::-webkit-details-marker]:hidden">
-                  <span className="text-sm sm:text-base font-semibold text-gray-900">
-                    {faq.question}
-                  </span>
-                  <ChevronDown className="h-4 w-4 shrink-0 text-[#EC1279] transition-transform duration-300 group-open:rotate-180" />
-                </summary>
-                <p className="px-5 pb-4 text-sm text-gray-600 leading-relaxed">
-                  {faq.answer}
-                </p>
-              </details>
-            ))}
+        <section className="container pb-16">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-center text-[#0F1B33]">
+              Frequently Asked <span className="text-[#EC1279]">Questions</span>
+            </h2>
+            <p className="text-slate-500 text-center mt-2 mb-8 text-sm sm:text-base">
+              Answers to common questions about {format.title.toLowerCase()}.
+            </p>
+
+            <div className="rounded-2xl border border-slate-200 overflow-hidden divide-y divide-slate-200">
+              {format.faqs.map((faq, index) => (
+                <details
+                  key={faq.question}
+                  className={`group ${index % 2 === 0 ? "bg-white" : "bg-slate-50"}`}
+                  {...(index === 0 ? { open: true } : {})}
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-left [&::-webkit-details-marker]:hidden">
+                    <span className="text-base sm:text-lg font-semibold text-gray-900">
+                      {faq.question}
+                    </span>
+                    <ChevronDown className="h-4 w-4 shrink-0 text-[#EC1279] transition-transform duration-300 group-open:rotate-180" />
+                  </summary>
+                  <p className="px-6 pb-5 text-sm text-slate-600 leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
           </div>
         </section>
       )}
 
-      {/* ------------------------------------------------------------ */}
-      {/* CTA banner                                                     */}
-      {/* ------------------------------------------------------------ */}
-      <section className="mx-auto max-w-7xl px-6 pb-16">
+      <section className="container pb-16">
         <div className="rounded-3xl bg-[#0F1B33] px-8 py-12 text-center text-white sm:px-12 sm:py-14">
           <div className="mx-auto max-w-2xl">
             <h3 className="text-2xl font-bold">
@@ -449,29 +463,44 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* ------------------------------------------------------------ */}
-      {/* Explore More Formats                                          */}
-      {/* ------------------------------------------------------------ */}
+      {/* ============================================================ */}
+      {/* SECTION 5 — Explore More Formats                              */}
+      {/* ============================================================ */}
       {related.length > 0 && (
-        <section className="mx-auto max-w-6xl px-6 py-16">
-          <h2 className="text-lg font-bold text-[#0F1B33]">
+        <section className="container py-16">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-[#0F1B33] mb-10">
             Explore More Formats
           </h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-            {related.map((item) => (
-              <Link
-                key={item.slug}
-                href={`/services/direct-mailing/${item.slug}`}
-                className="group flex items-center justify-between rounded-2xl border border-slate-200 px-5 py-4 text-sm font-medium text-slate-700 transition hover:border-[#F5C4DF] hover:bg-[#FDE8F2] hover:text-[#EC1279]"
-              >
-                {item.title}
-                <ChevronRight className="h-4 w-4 shrink-0 transition group-hover:translate-x-0.5" />
-              </Link>
-            ))}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((item) => {
+              const ItemIcon = resolveIcon(item.icon);
+              return (
+                <Link
+                  key={item.slug}
+                  href={`/services/direct-mailing/${item.slug}`}
+                  className="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-pink-200 hover:shadow-md"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#EC1279] flex items-center justify-center flex-shrink-0">
+                      <ItemIcon className="w-5 h-5 text-white" />
+                    </div>
+                    <h3 className="text-base font-bold text-[#0F1B33]">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    {item.description}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#EC1279]">
+                    Learn more
+                    <ChevronRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </section>
       )}
-      </main>
-    </SmoothScroll>
+    </main>
   );
 }
