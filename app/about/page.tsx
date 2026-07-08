@@ -70,11 +70,23 @@ export default function Page() {
   return (
     <>
       <Navbar />
-        <main>
+      <main>
         {/* Section - 1 */}
         <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
           <div className="container">
             <div className="mx-auto">
+              <p className="text-gray-600">
+                <Link href="/" className="text-pink-600 text-lg">
+                  Home
+                </Link>
+                <span className="mx-2 text-lg">&gt;</span>
+                <Link
+                  href="/about"
+                  className="text-gray-800 text-lg"
+                >
+                  About us
+                </Link>
+              </p>
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                 {/* LEFT CONTENT – FIXED */}
                 <div
@@ -89,19 +101,6 @@ export default function Page() {
                     About
                     <span className="text-pink-600"> us</span>
                   </h1>
-
-                  <p className="text-gray-600">
-                    <Link href="/" className="text-pink-600 hover:underline text-lg">
-                      Home
-                    </Link>
-                    <span className="mx-2 text-lg">&gt;</span>
-                    <Link
-                      href="/about"
-                      className="text-gray-800 hover:underline text-lg"
-                    >
-                      About us
-                    </Link>
-                  </p>
 
                   {/* Description */}
                   <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
@@ -176,7 +175,7 @@ export default function Page() {
               <div
                 data-aos="fade-up"
                 className="space-y-6 text-center lg:text-left"
-              >          
+              >
                 {/* Badge */}
                 <span className="inline-block rounded-full bg-pink-100 px-4 py-1 text-sm font-semibold text-pink-600">
                   About FBS Printing
@@ -367,8 +366,8 @@ export default function Page() {
           </div>
         </section>
         <Slider />
-        </main>
-        <Footer />
+      </main>
+      <Footer />
     </>
   );
 }

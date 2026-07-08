@@ -5,7 +5,6 @@ import Footer from "@/app/Components/Footer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import "aos/dist/aos.css";
-import SmoothScroll from "@/app/Components/SmoothScroll";
 import Link from "next/link";
 
 export default function Page() {
@@ -142,265 +141,263 @@ export default function Page() {
   return (
     <>
       <Navbar />
-      <SmoothScroll>
-        <main>
-          {/* Section - 1 */}
-          <section className="bg-gradient-to-br xl:mt-20 mt-20 from-gray-50 to-blue-50">
-            <div className="container">
-              <div className="mx-auto">
-                <p className="text-gray-600 text-lg">
-                  <Link href="/" className="text-pink-600">
-                    Home
-                  </Link>
-                  <span className="mx-2">&gt;</span>
-                  <span className="text-gray-800 font-semibold">Signage</span>
-                </p>
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                  {/* LEFT CONTENT – FIXED */}
-                  <div
-                    data-aos="fade-right"
-                    className="flex flex-col justify-center text-center lg:text-left space-y-5"
-                  >
-                    {/* Heading */}
-                    <h1
-                      className="font-semibold text-gray-950 leading-tight tracking-tight
+      <main>
+        {/* Section - 1 */}
+        <section className="bg-gradient-to-br xl:mt-20 mt-20 from-gray-50 to-blue-50">
+          <div className="container">
+            <div className="mx-auto">
+              <p className="text-gray-600 text-lg">
+                <Link href="/" className="text-pink-600">
+                  Home
+                </Link>
+                <span className="mx-2">&gt;</span>
+                <span className="text-gray-800 font-semibold">Signage</span>
+              </p>
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                {/* LEFT CONTENT – FIXED */}
+                <div
+                  data-aos="fade-right"
+                  className="flex flex-col justify-center text-center lg:text-left space-y-5"
+                >
+                  {/* Heading */}
+                  <h1
+                    className="font-semibold text-gray-950 leading-tight tracking-tight
     text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
-                    >
-                      Sign
-                      <span className="text-pink-600">age</span>
-                    </h1>
+                  >
+                    Sign
+                    <span className="text-pink-600">age</span>
+                  </h1>
 
-                    {/* Description */}
-                    <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
-                      Any business needs signage services since they are so
-                      significant for bringing in consumers, enhancing brand
-                      recognition, and conveying important messages.
-                    </p>
-                  </div>
-
-                  {/* Right Content - Image Grid */}
-                  <div className="relative">
-                    {/* Decorative circles */}
-                    <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-2xl"></div>
-                    <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl"></div>
-                    <div className="absolute top-32 right-10 w-32 h-32 bg-purple-100 rounded-full opacity-50 blur-2xl"></div>
-
-                    {/* Image grid */}
-                    <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
-                      {/* Column 1 */}
-                      <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
-                        <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
-                          <Image
-                            src="/images/services/signage/yard-sign-marketing.webp"
-                            alt="Yard sign marketing"
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Column 2 (Center) */}
-                      <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-40">
-                        <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
-                          <Image
-                            src="/images/services/signage/custom-neon-signage.webp"
-                            alt="Custom neon signage"
-                            fill
-                            className="object-fix"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Column 3 – hidden on mobile */}
-                      <div className="col-span-1 space-y-6 sm:mt-16 ">
-                        <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
-                          <Image
-                            src="/images/services/signage/led-signage.webp"
-                            alt="LED signage example"
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Section - 2 */}
-          <section className="container section-padding">
-            <div className="bg-[#EC3392] rounded-2xl px-6 py-12 text-white">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
-                {/* Left Content */}
-                <div data-aos="fade-right">
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-center lg:text-start">
-                    Get your
-                    <br />
-                    <span className="text-black hover:text-yellow-300">
-                      Business Signage
-                    </span>
-                    <br />
-                    in Best Price.
-                  </h2>
-                </div>
-
-                {/* Right Content */}
-                <div data-aos="fade-left">
-                  <p className="text-base md:text-lg text-pink-100 leading-relaxed text-center lg:text-start">
-                    Businesses may stand out from the competition and leave a
-                    positive impression on potential clients by using effective
-                    signage. Our signage services are intended to assist
-                    businesses in producing eye-catching, effective signage that
-                    draws customers and raises brand awareness. A variety of sign
-                    products, such as banners, decals, car wraps, and more, are
-                    available from us. We will collaborate with you to design
-                    signage that satisfies your unique requirements and advances
-                    your commercial objectives.
+                  {/* Description */}
+                  <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                    Any business needs signage services since they are so
+                    significant for bringing in consumers, enhancing brand
+                    recognition, and conveying important messages.
                   </p>
                 </div>
-              </div>
-            </div>
-          </section>
 
-          {/* Section - 3 */}
-          <section data-aos="zoom-in" className="container section-padding">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {steps.map((item) => {
-                return (
-                  <Link
-                    key={item.id}
-                    href={`/services/signage/${item.slug}`}
-                    className=" group flex h-[220px] bg-gray-200 rounded-2xl items-center justify-center overflow-hidden cursor-pointer border-4 border-transparent hover:border-yellow-400 transition-all duration-300"
-                  >
-                    <div className="flex flex-col items-center justify-center gap-4">
-                      {/* PNG IMAGE ICON */}
-                      {item.image && (
+                {/* Right Content - Image Grid */}
+                <div className="relative">
+                  {/* Decorative circles */}
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl"></div>
+                  <div className="absolute top-32 right-10 w-32 h-32 bg-purple-100 rounded-full opacity-50 blur-2xl"></div>
+
+                  {/* Image grid */}
+                  <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
+                    {/* Column 1 */}
+                    <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                         <Image
-                          src={item.image}
-                          alt={item.text}
-                          width={80}
-                          height={60}
-                          className=" transition-transform duration-300
-              group-hover:-rotate-12"
-                        />
-                      )}
-
-                      <h3 className="text-xl text-black font-semibold text-center">
-                        {item.text}
-                      </h3>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </section>
-
-          {/* Section - 4 */}
-          <section data-aos="fade-up" className="container section-padding">
-            <div className="max-w-6xl mx-auto">
-              {/* Heading */}
-              <div className="text-center mb-10">
-                <h2 className="text-5xl font-bold text-pink-700">
-                  What{" "}
-                  <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                    {" "}
-                    We
-                  </span>{" "}
-                  Print
-                </h2>
-                <p className="text-gray-500 mt-3 text-xl">
-                  Every project is different, and we at our organization work
-                  closely with our clients to make sure we match their particular
-                  demands and specifications. Graphic design, big format printing,
-                  car wraps, and other services are among the many printing and
-                  signage solutions we provide. We have the knowledge and
-                  experience to complete any task, whether it’s a straightforward
-                  banner or a complicated advertising campaign.
-                </p>
-              </div>
-
-              {/* Services */}
-              <div className="grid md:grid-cols-2 gap-x-14 gap-y-6">
-                {steps.map((item, i) => (
-                  <Link
-                    key={i}
-                    href={`/services/signage/${item.slug}`}
-                    className="flex items-center gap-4 border-b pb-4 group hover:translate-x-2 transition-all duration-300"
-                  >
-                    <div className="w-11 h-11 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center">
-                      <Image
-                        src={item.image}
-                        alt={item.text}
-                        width={20}
-                        height={20}
-                        className="object-contain"
-                      />{" "}
-                    </div>
-
-                    <h4 className="text-lg font-semibold text-gray-800 group-hover:text-pink-600">
-                      {item.text}
-                    </h4>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="container section-padding">
-            <div data-aos="fade-up" className="pt-5">
-              <p className="text-center text-xl font-semibold">
-                Allow Us to make your imagination com true! FBS SIGNS is a
-                well-respected sign fabricator nationwide. We know how to take our
-                clients’ input and make it come alive. Our illuminated signs are
-                with the brightest leds and highest quality which will draw
-                customers into your business. Most popular signage are channel
-                letters, which are illuminated signs. They are beneficial for
-                companies located in shopping centers because we can install
-                low-wattage LED lights. We can design your channel letters based
-                on your design ideas and landlord specifications, and municipal
-                regulations. Most importantly, we understand the importance of
-                professionalism and hard work. You can trust us to get the job
-                done front start to finish.
-              </p>
-            </div>
-
-            <div className="pt-15">
-              <div className="px-4">
-                <div
-                  data-aos="fade-up"
-                  data-aos-duration="1500"
-                  data-aos-delay="100"
-                  className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
-                >
-                  {services.map((item, index) => (
-                    <div
-                      key={index}
-                      className="bg-white rounded-2xl p-4 text-center shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(0,0,0,0.12)] transition-all duration-300"
-                    >
-                      <div className="relative w-full h-[250px] rounded-xl overflow-hidden">
-                        <Image
-                          src={item.img}
-                          alt={item.title}
+                          src="/images/services/signage/yard-sign-marketing.webp"
+                          alt="Yard sign marketing"
                           fill
                           className="object-cover"
                         />
                       </div>
-
-                      <h3 className="mt-4 text-lg font-semibold text-gray-700">
-                        {item.title}
-                      </h3>
                     </div>
-                  ))}
+
+                    {/* Column 2 (Center) */}
+                    <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-40">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
+                        <Image
+                          src="/images/services/signage/custom-neon-signage.webp"
+                          alt="Custom neon signage"
+                          fill
+                          className="object-fix"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Column 3 – hidden on mobile */}
+                    <div className="col-span-1 space-y-6 sm:mt-16 ">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
+                        <Image
+                          src="/images/services/signage/led-signage.webp"
+                          alt="LED signage example"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
+        </section>
 
-        </main>
-        <Footer />
-      </SmoothScroll>
+        {/* Section - 2 */}
+        <section className="container section-padding">
+          <div className="bg-[#EC3392] rounded-2xl px-6 py-12 text-white">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
+              {/* Left Content */}
+              <div data-aos="fade-right">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-center lg:text-start">
+                  Get your
+                  <br />
+                  <span className="text-black hover:text-yellow-300">
+                    Business Signage
+                  </span>
+                  <br />
+                  in Best Price.
+                </h2>
+              </div>
+
+              {/* Right Content */}
+              <div data-aos="fade-left">
+                <p className="text-base md:text-lg text-pink-100 leading-relaxed text-center lg:text-start">
+                  Businesses may stand out from the competition and leave a
+                  positive impression on potential clients by using effective
+                  signage. Our signage services are intended to assist
+                  businesses in producing eye-catching, effective signage that
+                  draws customers and raises brand awareness. A variety of sign
+                  products, such as banners, decals, car wraps, and more, are
+                  available from us. We will collaborate with you to design
+                  signage that satisfies your unique requirements and advances
+                  your commercial objectives.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section - 3 */}
+        <section data-aos="zoom-in" className="container section-padding">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {steps.map((item) => {
+              return (
+                <Link
+                  key={item.id}
+                  href={`/services/signage/${item.slug}`}
+                  className=" group flex h-[220px] bg-gray-200 rounded-2xl items-center justify-center overflow-hidden cursor-pointer border-4 border-transparent hover:border-yellow-400 transition-all duration-300"
+                >
+                  <div className="flex flex-col items-center justify-center gap-4">
+                    {/* PNG IMAGE ICON */}
+                    {item.image && (
+                      <Image
+                        src={item.image}
+                        alt={item.text}
+                        width={80}
+                        height={60}
+                        className=" transition-transform duration-300
+              group-hover:-rotate-12"
+                      />
+                    )}
+
+                    <h3 className="text-xl text-black font-semibold text-center">
+                      {item.text}
+                    </h3>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Section - 4 */}
+        <section data-aos="fade-up" className="container section-padding">
+          <div className="max-w-6xl mx-auto">
+            {/* Heading */}
+            <div className="text-center mb-10">
+              <h2 className="text-5xl font-bold text-pink-700">
+                What{" "}
+                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  {" "}
+                  We
+                </span>{" "}
+                Print
+              </h2>
+              <p className="text-gray-500 mt-3 text-xl">
+                Every project is different, and we at our organization work
+                closely with our clients to make sure we match their particular
+                demands and specifications. Graphic design, big format printing,
+                car wraps, and other services are among the many printing and
+                signage solutions we provide. We have the knowledge and
+                experience to complete any task, whether it’s a straightforward
+                banner or a complicated advertising campaign.
+              </p>
+            </div>
+
+            {/* Services */}
+            <div className="grid md:grid-cols-2 gap-x-14 gap-y-6">
+              {steps.map((item, i) => (
+                <Link
+                  key={i}
+                  href={`/services/signage/${item.slug}`}
+                  className="flex items-center gap-4 border-b pb-4 group hover:translate-x-2 transition-all duration-300"
+                >
+                  <div className="w-11 h-11 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center">
+                    <Image
+                      src={item.image}
+                      alt={item.text}
+                      width={20}
+                      height={20}
+                      className="object-contain"
+                    />{" "}
+                  </div>
+
+                  <h4 className="text-lg font-semibold text-gray-800 group-hover:text-pink-600">
+                    {item.text}
+                  </h4>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="container section-padding">
+          <div data-aos="fade-up" className="pt-5">
+            <p className="text-center text-xl font-semibold">
+              Allow Us to make your imagination com true! FBS SIGNS is a
+              well-respected sign fabricator nationwide. We know how to take our
+              clients’ input and make it come alive. Our illuminated signs are
+              with the brightest leds and highest quality which will draw
+              customers into your business. Most popular signage are channel
+              letters, which are illuminated signs. They are beneficial for
+              companies located in shopping centers because we can install
+              low-wattage LED lights. We can design your channel letters based
+              on your design ideas and landlord specifications, and municipal
+              regulations. Most importantly, we understand the importance of
+              professionalism and hard work. You can trust us to get the job
+              done front start to finish.
+            </p>
+          </div>
+
+          <div className="pt-15">
+            <div className="px-4">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="1500"
+                data-aos-delay="100"
+                className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+              >
+                {services.map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-2xl p-4 text-center shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(0,0,0,0.12)] transition-all duration-300"
+                  >
+                    <div className="relative w-full h-[250px] rounded-xl overflow-hidden">
+                      <Image
+                        src={item.img}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+
+                    <h3 className="mt-4 text-lg font-semibold text-gray-700">
+                      {item.title}
+                    </h3>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+      <Footer />
     </>
   );
 }

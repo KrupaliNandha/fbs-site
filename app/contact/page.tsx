@@ -91,6 +91,21 @@ export default function Page() {
         <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
           <div className="container">
             <div className="mx-auto">
+              <p className="text-gray-600">
+                <Link
+                  href="/"
+                  className="text-pink-600 text-lg"
+                >
+                  Home
+                </Link>
+                <span className="mx-2 text-lg">&gt;</span>
+                <Link
+                  href="/about"
+                  className="text-gray-800 text-lg"
+                >
+                  Contact US
+                </Link>
+              </p>
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                 {/* LEFT CONTENT – FIXED */}
                 <div
@@ -105,21 +120,7 @@ export default function Page() {
                     Contact
                     <span className="text-pink-700"> US</span>
                   </h1>
-                  <p className="text-gray-600">
-                    <Link
-                      href="/"
-                      className="text-pink-600 hover:underline text-lg"
-                    >
-                      Home
-                    </Link>
-                    <span className="mx-2 text-lg">&gt;</span>
-                    <Link
-                      href="/about"
-                      className="text-gray-800 hover:underline text-lg"
-                    >
-                      Contact US
-                    </Link>
-                  </p>
+
                   {/* Description */}
                   <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
                     Feel free to get in touch with us using the contact form

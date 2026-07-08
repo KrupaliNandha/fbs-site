@@ -5,7 +5,6 @@ import Footer from "@/app/Components/Footer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import "aos/dist/aos.css";
-import SmoothScroll from "@/app/Components/SmoothScroll";
 import Link from "next/link";
 
 import {
@@ -94,23 +93,22 @@ export default function Page() {
   return (
     <>
       <Navbar />
-      <SmoothScroll>
-        <main>
+      <main>
         {/* Section - 1 */}
         <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
           <div className="container">
             <div className="mx-auto">
               <p className="text-gray-600 text-lg">
-                    <Link href="/" className="text-pink-600">
-                      Home
-                    </Link>
-                    {/* <span className="mx-2">&gt;</span>
+                <Link href="/" className="text-pink-600">
+                  Home
+                </Link>
+                {/* <span className="mx-2">&gt;</span>
                     <Link href="" className="text-pink-600">
                       Services
                     </Link> */}
-                    <span className="mx-2">&gt;</span>
-                    <span className="text-gray-800 font-semibold">SEO</span>
-                  </p>
+                <span className="mx-2">&gt;</span>
+                <span className="text-gray-800 font-semibold">SEO</span>
+              </p>
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                 {/* LEFT CONTENT – FIXED */}
                 <div
@@ -316,9 +314,8 @@ export default function Page() {
           </div>
         </section>
 
-        </main>
-        <Footer />
-      </SmoothScroll>
+      </main>
+      <Footer />
     </>
   );
 }
