@@ -1,11 +1,7 @@
 "use client";
-
-import Navbar from "@/app/Components/Navbar";
-import Footer from "@/app/Components/Footer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import "aos/dist/aos.css";
-import SmoothScroll from "@/app/Components/SmoothScroll";
 import Link from "next/link";
 
 export default function Page() {
@@ -114,8 +110,7 @@ export default function Page() {
 
   return (
     <>
-      <Navbar />
-      <SmoothScroll>
+      
         <main>
           {/* Section - 1 */}
           <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
@@ -501,8 +496,6 @@ export default function Page() {
             </div>
           </section>
         </main>
-        <Footer />
-      </SmoothScroll>
     </>
   );
 }
