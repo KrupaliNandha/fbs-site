@@ -161,7 +161,7 @@ function buildIncludedItems(format: MailFormat): string[] {
     items.push("Mailing list sourcing and targeting included");
   }
 
-  return items.slice(0, 8);
+  return items.slice(0, 6);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -305,7 +305,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
               <dt className="text-xs font-semibold uppercase tracking-wide text-slate-400">
                 {label}
               </dt>
-              <dd className="text-sm font-semibold text-[#0F1B33]">{value}</dd>
+              <dd className="text-md font-semibold text-[#0F1B33]">{value}</dd>
             </div>
           ))}
         </dl>
@@ -319,91 +319,97 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
           <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-purple-100 rounded-full blur-3xl opacity-40 z-0" />
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-pink-100 rounded-full blur-3xl opacity-40 z-0" />
 
-          <div className="relative max-w-4xl mx-auto">
+          <div className="relative z-10 max-w-6xl mx-auto">
             {/* Heading */}
-            <span className="inline-block px-3 py-1 rounded-full bg-white text-[#EC1279] text-xs font-bold tracking-wide shadow-sm mb-4">
-              WHY IT WORKS
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F1B33]">
-              Why {format.title} Matter for Your Business
-            </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-slate-600 max-w-2xl">
-              {buildWhyItMattersCopy(format)}
-            </p>
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <span className="inline-block px-4 py-1.5 rounded-full bg-white text-[#EC1279] text-[11px] font-extrabold uppercase tracking-[0.15em] shadow-sm mb-4">
+                Why It Works
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F1B33] mb-5">
+                Why {format.title} Matter for Your Business
+              </h2>
+              <p className="text-base sm:text-lg leading-relaxed text-slate-600">
+                {buildWhyItMattersCopy(format)}
+              </p>
+            </div>
 
-            {/* Paper Stock / Mail Class cards */}
-            <div className="mt-10 grid gap-5 sm:grid-cols-2">
-              <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-6">
-                <div className="flex items-center gap-2.5 mb-4">
-                  <div className="w-9 h-9 rounded-lg bg-pink-50 flex items-center justify-center">
-                    <Layers className="h-4 w-4 text-[#EC1279]" />
+            {/* Features Grid: Paper Stock, Mail Class, Sizes */}
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {/* Card 1: Paper Stock */}
+              <div className="rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-xl shadow-slate-200/40 p-6 sm:p-8 hover:-translate-y-1 transition-transform duration-300">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-100 to-pink-50 flex items-center justify-center shadow-sm">
+                    <Layers className="h-6 w-6 text-[#EC1279]" />
                   </div>
-                  <h3 className="text-sm font-bold text-[#0F1B33]">
+                  <h3 className="text-lg font-bold text-[#0F1B33]">
                     Paper Stock
                   </h3>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-col gap-3">
                   {format.paperStock.map((stock) => (
-                    <span
+                    <div
                       key={stock}
-                      className="rounded-full bg-slate-50 border border-slate-200 px-3.5 py-1.5 text-xs font-medium text-slate-600"
+                      className="flex items-center justify-between rounded-xl bg-slate-50/80 border border-slate-100 px-4 py-3 text-[15px] font-semibold text-slate-700"
                     >
                       {stock}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-6">
-                <div className="flex items-center gap-2.5 mb-4">
-                  <div className="w-9 h-9 rounded-lg bg-pink-50 flex items-center justify-center">
-                    <Sparkles className="h-4 w-4 text-[#EC1279]" />
-                  </div>
-                  <h3 className="text-sm font-bold text-[#0F1B33]">
-                    Mail Class
-                  </h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {format.mailClass.map((mc) => (
-                    <span
-                      key={mc}
-                      className="rounded-full bg-slate-50 border border-slate-200 px-3.5 py-1.5 text-xs font-medium text-slate-600"
-                    >
-                      {mc}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Available Sizes */}
-            {format.specs.length > 0 && (
-              <div className="mt-6 rounded-2xl bg-white border border-slate-100 shadow-sm p-6">
-                <div className="flex items-center gap-2.5 mb-4">
-                  <div className="w-9 h-9 rounded-lg bg-pink-50 flex items-center justify-center">
-                    <Tag className="h-4 w-4 text-[#EC1279]" />
-                  </div>
-                  <h3 className="text-sm font-bold text-[#0F1B33]">
-                    Available Sizes
-                  </h3>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  {format.specs.map((spec, i) => (
-                    <div
-                      key={`${spec.label}-${i}`}
-                      className="rounded-xl bg-slate-50 px-5 py-2.5 text-[15px] font-semibold text-slate-700 border border-slate-200 transition-colors hover:border-pink-300 hover:bg-pink-50/50"
-                    >
-                      {spec.label.toLowerCase() !== "size" && (
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mr-1.5">
-                          {spec.label}
-                        </span>
-                      )}
-                      {spec.value}
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                     </div>
                   ))}
                 </div>
               </div>
-            )}
+
+              {/* Card 2: Mail Class */}
+              <div className="rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-xl shadow-slate-200/40 p-6 sm:p-8 hover:-translate-y-1 transition-transform duration-300">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center shadow-sm">
+                    <Sparkles className="h-6 w-6 text-[#7C3AED]" />
+                  </div>
+                  <h3 className="text-lg font-bold text-[#0F1B33]">
+                    Mail Class
+                  </h3>
+                </div>
+                <div className="flex flex-col gap-3">
+                  {format.mailClass.map((mc) => (
+                    <div
+                      key={mc}
+                      className="flex items-center justify-between rounded-xl bg-slate-50/80 border border-slate-100 px-4 py-3 text-[15px] font-semibold text-slate-700"
+                    >
+                      {mc}
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Card 3: Available Sizes */}
+              {format.specs.length > 0 && (
+                <div className="rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-xl shadow-slate-200/40 p-6 sm:p-8 sm:col-span-2 lg:col-span-1 hover:-translate-y-1 transition-transform duration-300">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center shadow-sm">
+                      <Tag className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <h3 className="text-lg font-bold text-[#0F1B33]">
+                      Available Sizes
+                    </h3>
+                  </div>
+                  <div className="flex flex-wrap lg:flex-col gap-3">
+                    {format.specs.map((spec, i) => (
+                      <div
+                        key={`${spec.label}-${i}`}
+                        className="flex-1 min-w-[120px] lg:w-full flex items-center justify-center lg:justify-start rounded-xl bg-blue-50/50 px-4 py-3 text-[15px] font-bold text-slate-600 border border-slate-100 transition-colors hover:border-blue-300 hover:bg-blue-50"
+                      >
+                        {spec.label.toLowerCase() !== "size" && (
+                          <span className="text-[11px] uppercase tracking-wider text-slate-600 mr-2">
+                            {spec.label}
+                          </span>
+                        )}
+                        {spec.value}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -488,7 +494,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
                       {item.title}
                     </h3>
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed">
+                  <p className="text-sm text-slate-600 leading-relaxed line-clamp-2">
                     {item.description}
                   </p>
                   <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#EC1279]">
