@@ -52,6 +52,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
     <>
         {/* <SmoothScroll children={undefined} /> */}
         {!loaderDone && <PageLoader onFinish={() => setLoaderDone(true)} />}
+          <SmoothScroll children={undefined} />
       <Navbar />
       <div className="bg-white mt-24">
         {/* Breadcrumb */}
