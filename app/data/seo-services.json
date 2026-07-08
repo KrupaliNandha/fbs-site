@@ -1,0 +1,178 @@
+[
+  {
+    "slug": "website-audit-seo-strategy",
+    "title": "Website Audit & SEO Strategy",
+    "icon": "Search",
+    "image": "/icons/website-audit-seo-strategy.png",
+    "heroImage": "/images/services/seo/seo-audit.jpg",
+    "Image": "/images/services/seo/seo-services-hero.webp",
+    "shortDesc": "We start with a complete website audit to identify opportunities, fix issues, and create a strategy tailored to your goals.",
+    "overview": "Every effective SEO campaign starts with knowing exactly where you stand. We run a full audit of your site's technical health, content, backlink profile, and competitive landscape, then translate those findings into a prioritized, custom strategy built around your business goals rather than a one-size-fits-all checklist.",
+    "benefits": [
+      "A clear, prioritized roadmap instead of guesswork",
+      "Early identification of issues holding back your rankings",
+      "A strategy tied directly to your business goals",
+      "A benchmark to measure future progress against"
+    ],
+    "process": [
+      { "step": "Discovery", "desc": "We learn your business, goals, and target audience." },
+      { "step": "Full Site Audit", "desc": "We review technical health, on-page content, and backlinks." },
+      { "step": "Competitor Review", "desc": "We see where you stand against the businesses you're competing with." },
+      { "step": "Strategy Delivery", "desc": "You get a prioritized action plan built for your goals." }
+    ]
+  },
+  {
+    "slug": "on-page-optimization",
+    "title": "On-Page Optimization",
+    "icon": "Settings",
+    "image": "/icons/on-page-optimization.png",
+    "heroImage": "/images/services/seo/on-page.jpg",
+    "Image": "/images/services/seo/seo-services-hero.webp",
+    "shortDesc": "From keyword research to meta tags, headings, and content improvements, we optimize every page for search engines and users.",
+    "overview": "On-page optimization makes sure every page on your site is working as hard as it can. We research the keywords your customers are actually searching for, then refine titles, meta descriptions, headings, internal links, and content so each page is built to rank and to convert.",
+    "benefits": [
+      "Pages built around real customer search terms",
+      "Improved click-through rates from better titles and descriptions",
+      "Stronger internal linking and site structure",
+      "Content that serves both search engines and real readers"
+    ],
+    "process": [
+      { "step": "Keyword Research", "desc": "We find the terms your customers are searching for." },
+      { "step": "On-Page Audit", "desc": "We review titles, headings, meta tags, and content." },
+      { "step": "Optimization", "desc": "We rewrite and restructure pages for clarity and relevance." },
+      { "step": "Review", "desc": "We track rankings and refine as results come in." }
+    ]
+  },
+  {
+    "slug": "technical-seo",
+    "title": "Technical SEO",
+    "icon": "Cpu",
+    "image": "/icons/technical-seo.png",
+    "heroImage": "/images/services/seo/technical-seo.jpg",
+    "Image": "/images/services/seo/seo-services-hero.webp",
+    "shortDesc": "Fast-loading, mobile-friendly, and error-free websites perform better in rankings. We handle site speed, indexing, structured data, and technical fixes.",
+    "overview": "Search engines reward sites that are fast, crawlable, and free of errors. We dig into your site's technical foundation, fixing indexing issues, improving load times, cleaning up structured data, and making sure your site works flawlessly on every device.",
+    "benefits": [
+      "Faster load times that keep visitors on your site",
+      "Improved crawlability and indexing by search engines",
+      "Structured data that helps you stand out in search results",
+      "A mobile experience that meets modern ranking standards"
+    ],
+    "process": [
+      { "step": "Technical Crawl", "desc": "We scan your entire site for errors and blockers." },
+      { "step": "Speed & Mobile Review", "desc": "We test performance across devices." },
+      { "step": "Structured Data", "desc": "We add schema markup where it helps you stand out." },
+      { "step": "Fixes & Monitoring", "desc": "We resolve issues and keep watching for new ones." }
+    ]
+  },
+  {
+    "slug": "local-seo",
+    "title": "Local SEO",
+    "icon": "MapPin",
+    "image": "/icons/local-seo.png",
+    "heroImage": "/images/services/seo/local-seo.jpg",
+    "Image": "/images/services/seo/seo-services-hero.webp",
+    "shortDesc": "Get found by customers near you! We optimize your Google Business Profile, local citations, and location-based keywords so you dominate local searches.",
+    "overview": "Most customers start their search close to home. We optimize your Google Business Profile, build consistent local citations, and target location-based keywords so your business shows up when nearby customers are ready to buy.",
+    "benefits": [
+      "Higher visibility in local map pack results",
+      "A fully optimized, up-to-date Google Business Profile",
+      "Consistent business listings across the web",
+      "More foot traffic and local phone calls"
+    ],
+    "process": [
+      { "step": "Profile Optimization", "desc": "We build out your Google Business Profile fully." },
+      { "step": "Citation Building", "desc": "We create consistent listings across local directories." },
+      { "step": "Local Keyword Targeting", "desc": "We optimize pages around location-based searches." },
+      { "step": "Reputation Support", "desc": "We help you build and manage local reviews." }
+    ]
+  },
+  {
+    "slug": "content-creation-optimization",
+    "title": "Content Creation & Optimization",
+    "icon": "PenTool",
+    "image": "/icons/content-creation-optimization.png",
+    "Image": "/images/services/seo/seo-services-hero.webp",
+    "heroImage": "/images/services/seo/content-creation-optimization.jpg",
+    "shortDesc": "We create and optimize high-quality content that targets the right keywords, answers your customers' questions, and establishes your brand as an industry authority.",
+    "overview": "Content is how you earn trust and rankings at the same time. We create and refine content that answers the real questions your customers are asking, targets the keywords that matter, and positions your brand as the authority in your space.",
+    "benefits": [
+      "Content built around real customer questions",
+      "Stronger topical authority in your industry",
+      "More organic traffic from long-tail keywords",
+      "Content that supports every stage of the buyer journey"
+    ],
+    "process": [
+      { "step": "Topic Research", "desc": "We find what your audience is actually asking." },
+      { "step": "Content Creation", "desc": "We write content that's helpful, clear, and on-brand." },
+      { "step": "On-Page Optimization", "desc": "We optimize structure, keywords, and formatting." },
+      { "step": "Performance Review", "desc": "We track what's working and refine the rest." }
+    ]
+  },
+  {
+    "slug": "link-building-authority-growth",
+    "title": "Link Building & Authority Growth",
+    "icon": "Link2",
+    "image": "/icons/link-building-authority-growth.png",
+    "heroImage": "/images/services/seo/link-building-authority-growth.jpg",
+    "Image": "/images/services/seo/seo-services-hero.webp",
+    "shortDesc": "We build high quality backlinks that increase your website's credibility and push you higher on search engines.",
+    "overview": "Backlinks remain one of the strongest ranking signals search engines use. We earn high-quality, relevant links from credible sources, building your site's authority the right way — no shortcuts or spammy tactics that put your rankings at risk.",
+    "benefits": [
+      "Increased domain authority and trust",
+      "Higher rankings for competitive keywords",
+      "Referral traffic from reputable sites",
+      "A safe, sustainable link profile"
+    ],
+    "process": [
+      { "step": "Link Audit", "desc": "We review your current backlink profile." },
+      { "step": "Outreach Strategy", "desc": "We identify relevant, high-authority link opportunities." },
+      { "step": "Link Acquisition", "desc": "We earn quality links through outreach and content." },
+      { "step": "Monitoring", "desc": "We track authority growth and remove toxic links." }
+    ]
+  },
+  {
+    "slug": "tracking-reporting",
+    "title": "Tracking & Reporting",
+    "icon": "BarChart3",
+    "image": "/icons/tracking-reporting.png",
+    "heroImage": "/images/services/seo/tracking-reporting.jpg",
+    "Image": "/images/services/seo/seo-services-hero.webp",
+    "shortDesc": "You'll receive transparent reports that show keyword rankings, traffic growth, and ROI. No fluff, just results.",
+    "overview": "You should always know exactly what your SEO investment is producing. We track keyword rankings, organic traffic, conversions, and ROI, and deliver clear, transparent reports so you can see precisely what's working and why.",
+    "benefits": [
+      "Full transparency into rankings and traffic",
+      "Reports tied to real business outcomes, not vanity metrics",
+      "Regular check-ins to review progress",
+      "Data-driven adjustments to your strategy over time"
+    ],
+    "process": [
+      { "step": "Tracking Setup", "desc": "We set up analytics and rank tracking correctly." },
+      { "step": "Monthly Reporting", "desc": "We deliver clear reports on rankings and traffic." },
+      { "step": "Performance Review", "desc": "We walk through what's working and what's next." },
+      { "step": "Strategy Refinement", "desc": "We adjust the plan based on real data." }
+    ]
+  },
+  {
+    "slug": "competitor-analysis",
+    "title": "Competitor Analysis",
+    "icon": "Eye",
+    "image": "/icons/competitor-analysis.png",
+    "heroImage": "/images/services/seo/competitor-analysis.jpg",
+    "Image": "/images/services/seo/seo-services-hero.webp",
+    "shortDesc": "We keep an eye on what your competitors are doing online tracking their keywords, backlinks, and strategies so we can position your business a step ahead.",
+    "overview": "Knowing what your competitors are doing is often the fastest way to find your own opportunities. We track their keywords, content, and backlinks, uncovering gaps and openings you can use to move ahead of them in search results.",
+    "benefits": [
+      "A clear picture of the competitive landscape",
+      "Keyword and content gaps you can capitalize on",
+      "Insight into competitor backlink strategies",
+      "A strategy built to outrank, not just keep pace"
+    ],
+    "process": [
+      { "step": "Competitor Identification", "desc": "We identify who you're really competing with online." },
+      { "step": "Keyword & Content Gap Analysis", "desc": "We find what they rank for that you don't." },
+      { "step": "Backlink Review", "desc": "We study where their authority comes from." },
+      { "step": "Opportunity Plan", "desc": "We turn findings into a clear action plan." }
+    ]
+  }
+]
