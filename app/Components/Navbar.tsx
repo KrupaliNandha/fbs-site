@@ -103,6 +103,11 @@ export default function Navbar() {
                 Contact Us
               </Link>
             </li>
+            <li>
+              <Link href="/blog" className={parentLinkClass("/blog")}>
+                Blog
+              </Link>
+            </li>
           </ul>
 
           {/* DESKTOP RIGHT */}
@@ -171,6 +176,7 @@ export default function Navbar() {
             {[
               ["HOME", "/"],
               ["ABOUT US", "/about"],
+              ["BLOG", "/blog"],
               ["CONTACT", "/contact"],
             ].map(([label, href]) => (
               <li key={href}>
