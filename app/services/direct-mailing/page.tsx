@@ -201,61 +201,49 @@ export default function DirectMailingPage() {
                 </div>
               </div>
 
-              {/* Right Content - Carousel */}
-              <div className="relative group" data-aos="fade-left">
-                <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-pink-100/60 blur-3xl" />
-                <div className="absolute -left-10 bottom-16 h-56 w-56 rounded-full bg-blue-100/60 blur-3xl" />
+              {/* Right Content - Image Grid */}
+              <div className="relative">
+                {/* Decorative circles */}
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-2xl"></div>
+                <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl"></div>
+                <div className="absolute top-32 right-10 w-32 h-32 bg-purple-100 rounded-full opacity-50 blur-2xl"></div>
 
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[20px] sm:rounded-[28px] border border-gray-200 bg-white shadow-[0_25px_80px_rgba(15,23,42,0.10)]">
-                  {/* Slides */}
-                  {carouselImages.map((img, index) => (
-                    <div
-                      key={index}
-                      className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-                        }`}
-                    >
+                {/* Image grid */}
+                <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
+                  {/* Column 1 */}
+                  <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
+                    <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                       <Image
-                        src={img.src}
-                        alt={img.alt}
+                        src="/images/services/direct-mail/direct-mail-marketing.webp"
+                        alt="Direct Mail Marketing Materials Showcase"
                         fill
                         className="object-cover"
-                        priority={index === 0}
                       />
                     </div>
-                  ))}
+                  </div>
 
-                  {/* Navigation Arrows */}
-                  <button
-                    onClick={() =>
-                      setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length)
-                    }
-                    className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-25 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-white/90 backdrop-blur-md text-gray-800 border border-gray-100 shadow-md opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 hover:bg-white active:scale-95"
-                    aria-label="Previous slide"
-                  >
-                    <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
-                  </button>
-
-                  <button
-                    onClick={() =>
-                      setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
-                    }
-                    className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-25 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-white/90 backdrop-blur-md text-gray-800 border border-gray-100 shadow-md opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 hover:bg-white active:scale-95"
-                    aria-label="Next slide"
-                  >
-                    <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
-                  </button>
-
-                  {/* Dot Indicators */}
-                  <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-                    {carouselImages.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentSlide(index)}
-                        className={`h-2 rounded-full transition-all duration-300 ${index === currentSlide ? "w-6 bg-pink-600" : "w-2 bg-white/60 hover:bg-white"
-                          }`}
-                        aria-label={`Go to slide ${index + 1}`}
+                  {/* Column 2 (Center) */}
+                  <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-40">
+                    <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
+                      <Image
+                        src="/images/services/direct-mail/mailing-documentation.webp"
+                        alt="Mailing Documentation and Sorting Preparation"
+                        fill
+                        className="object-cover"
                       />
-                    ))}
+                    </div>
+                  </div>
+
+                  {/* Column 3 – hidden on mobile */}
+                  <div className="col-span-1 space-y-6 sm:mt-16 ">
+                    <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
+                      <Image
+                        src="/images/services/direct-mail/print-design-example.webp"
+                        alt="Printed Direct Mail Design and Catalogs Showcase"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

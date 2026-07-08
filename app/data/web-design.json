@@ -38,6 +38,18 @@
       {
         "q": "Do you write the email content too?",
         "a": "Yes, copywriting, design, and setup are all included. You approve the content before anything goes out."
+      },
+      {
+        "q": "Which email platform do you use to send campaigns?",
+        "a": "We work with popular platforms like Mailchimp, Klaviyo, and similar tools, choosing whichever fits your budget and integrates cleanly with your existing store or website."
+      },
+      {
+        "q": "How do you keep my emails out of the spam folder?",
+        "a": "We monitor sender reputation, clean inactive subscribers regularly, and follow authentication best practices so your campaigns land in the inbox, not spam."
+      },
+      {
+        "q": "Can you set up abandoned cart emails for my online store?",
+        "a": "Yes, abandoned cart sequences are one of the highest-converting automations we build, and they're set up to trigger automatically once your store is connected."
       }
     ]
   },
@@ -80,6 +92,18 @@
       {
         "q": "Is local SEO different from regular SEO?",
         "a": "Yes. Local SEO focuses on things like your Google Business Profile, local citations, and location-based keywords so you show up in the map pack and 'near me' searches."
+      },
+      {
+        "q": "Do I need a new website for SEO to work?",
+        "a": "Not necessarily. Most sites can be optimized as-is, though a slow or outdated site may need technical fixes first to get the full benefit of SEO work."
+      },
+      {
+        "q": "What's included in the monthly SEO report?",
+        "a": "You'll see keyword rankings, organic traffic trends, and a summary of the work completed that month, so progress is always visible, not just promised."
+      },
+      {
+        "q": "Will SEO still work if my competitors are also doing it?",
+        "a": "Yes, SEO isn't winner-take-all. We focus on the specific keywords and gaps your competitors are missing, so you can win rankings even in a competitive market."
       }
     ]
   },
@@ -121,6 +145,18 @@
       {
         "q": "Can you match my existing brand voice?",
         "a": "Yes, we review your current content first and write to match your tone, whether that's friendly and casual or formal and professional."
+      },
+      {
+        "q": "Do you handle research for technical or niche topics?",
+        "a": "Yes, we research each topic thoroughly before writing, and can incorporate input or resources from your team for specialized or technical subjects."
+      },
+      {
+        "q": "How many rounds of revisions are included?",
+        "a": "Every piece includes revision rounds until you're happy with it, we'd rather get the tone and message right than rush something out the door."
+      },
+      {
+        "q": "Can you rewrite existing pages instead of starting from scratch?",
+        "a": "Yes, we regularly refresh outdated website copy and blog posts to improve clarity, tone, and SEO performance without a full rebuild."
       }
     ]
   },
@@ -162,6 +198,18 @@
       {
         "q": "How often is the strategy reviewed?",
         "a": "We review and adjust the plan every quarter based on real performance data, not guesswork."
+      },
+      {
+        "q": "What size business is this strategy service meant for?",
+        "a": "It works for small businesses just getting organized online as well as growing businesses juggling multiple channels that need better coordination."
+      },
+      {
+        "q": "Will you also execute the strategy, or just plan it?",
+        "a": "Both options are available, we can hand you the roadmap to execute internally, or manage the execution ourselves across the recommended channels."
+      },
+      {
+        "q": "How do you decide which KPIs to track?",
+        "a": "KPIs are set based on your actual business goals, whether that's leads, bookings, or sales, so every report ties back to something that matters to your bottom line."
       }
     ]
   },
@@ -203,6 +251,18 @@
       {
         "q": "Is SEO included in web development?",
         "a": "Basic on-page SEO foundations (fast loading, clean structure, mobile usability) are built in from the start; ongoing SEO is available as a separate service if you want to actively grow rankings."
+      },
+      {
+        "q": "Do you provide hosting and domain setup too?",
+        "a": "Yes, we can handle hosting and domain configuration for you, or work with your existing setup if you already have one in place."
+      },
+      {
+        "q": "What happens if I need changes after the site launches?",
+        "a": "Ongoing support is included after launch for updates and small changes, and larger feature additions can be scoped separately as needed."
+      },
+      {
+        "q": "Can you integrate booking or payment tools into my site?",
+        "a": "Yes, appointment booking, payment gateways, and other business tools are integrated based on how your business actually operates day to day."
       }
     ]
   },
@@ -244,6 +304,18 @@
       {
         "q": "Which platforms do you manage?",
         "a": "Instagram and Facebook are our core focus, and we can extend to other platforms like LinkedIn or Pinterest depending on where your audience actually is."
+      },
+      {
+        "q": "Do I need to provide photos or videos for my posts?",
+        "a": "Not necessarily. We can create graphics and short-form video content for you, though sharing your own product or team photos often adds an authentic touch."
+      },
+      {
+        "q": "Will I get to approve content before it's posted?",
+        "a": "Yes, you'll review and approve the monthly content calendar in advance, so nothing goes live without your sign-off."
+      },
+      {
+        "q": "Can social media management help drive sales, not just likes?",
+        "a": "Yes, content is planned around clear calls to action, product highlights, and promotions, not just engagement for its own sake."
       }
     ]
   },
@@ -285,6 +357,18 @@
       {
         "q": "Is a portfolio website good for SEO?",
         "a": "Yes, we build in basic SEO foundations so your case studies and name can actually be found in search, not just shared directly."
+      },
+      {
+        "q": "Can the portfolio include video or animated work?",
+        "a": "Yes, video reels and animated projects can be embedded alongside static images, optimized so they don't slow down page load times."
+      },
+      {
+        "q": "Do you write the case study descriptions for me?",
+        "a": "We can help draft or polish project descriptions, though many clients prefer to write their own so the voice stays personal and authentic."
+      },
+      {
+        "q": "Is this suitable for teams, not just individual freelancers?",
+        "a": "Yes, we build portfolio sites for both individuals and small studios or agencies wanting to showcase collective work under one brand."
       }
     ]
   },
@@ -326,6 +410,18 @@
       {
         "q": "Do you set up shipping and order management too?",
         "a": "Yes, inventory tracking, order status, and shipping setup are all included as part of the build."
+      },
+      {
+        "q": "Can I manage product uploads myself after launch?",
+        "a": "Yes, the backend is built so you can add, edit, and remove products yourself without needing a developer for routine catalog updates."
+      },
+      {
+        "q": "How do you help reduce cart abandonment?",
+        "a": "We optimize the checkout flow for mobile, minimize unnecessary steps, and can set up abandoned cart email reminders to recover lost sales."
+      },
+      {
+        "q": "Will the store work well during high-traffic sales events?",
+        "a": "Yes, stores are built and hosted to handle traffic spikes during promotions and sales events without slowing down or crashing."
       }
     ]
   },
@@ -367,6 +463,18 @@
       {
         "q": "Do you help pick the right apps for my store?",
         "a": "Yes, we recommend and set up apps based on what your store actually needs (reviews, upsells, shipping), instead of adding unnecessary ones that slow the site down."
+      },
+      {
+        "q": "How long does it take to launch a Shopify store?",
+        "a": "Most Shopify builds launch in 2-4 weeks, faster than a fully custom site, since the platform's infrastructure is already handled for you."
+      },
+      {
+        "q": "Can you migrate my existing store to Shopify?",
+        "a": "Yes, we can migrate products, customers, and order history from most existing platforms over to Shopify without losing your data."
+      },
+      {
+        "q": "What ongoing support do you provide after launch?",
+        "a": "We're available for theme updates, app troubleshooting, and small changes, so you're never stuck figuring out a Shopify issue alone."
       }
     ]
   }

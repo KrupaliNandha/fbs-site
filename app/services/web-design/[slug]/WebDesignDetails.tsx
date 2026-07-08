@@ -15,6 +15,7 @@ import {
   Store,
   Check,
   ChevronDown,
+  ChevronRight,
   ArrowRight,
   type LucideIcon,
 } from "lucide-react";
@@ -52,19 +53,19 @@ const iconMap: Record<string, LucideIcon> = {
   Store,
 };
 
-function FaqItem({ faq }: { faq: Faq }) {
-  const [open, setOpen] = useState(false);
+function FaqItem({ faq, index }: { faq: Faq; index: number }) {
+  const [open, setOpen] = useState(index === 0);
   return (
-    <div className="border border-gray-100 rounded-xl bg-white overflow-hidden">
+    <div className={`group ${index % 2 === 0 ? "bg-white" : "bg-slate-50"}`}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
       >
-        <span className="text-sm sm:text-base font-semibold text-gray-900">
+        <span className="text-sm sm:text-base font-semibold text-slate-900">
           {faq.q}
         </span>
         <ChevronDown
-          className={`w-4 h-4 text-pink-600 shrink-0 transition-transform duration-300 ${
+          className={`w-4 h-4 text-[#EC1279] shrink-0 transition-transform duration-300 ${
             open ? "rotate-180" : ""
           }`}
         />
@@ -75,7 +76,7 @@ function FaqItem({ faq }: { faq: Faq }) {
         }`}
       >
         <div className="overflow-hidden">
-          <p className="px-5 pb-4 text-sm text-gray-600 leading-relaxed">
+          <p className="px-6 pb-5 text-sm text-slate-600 leading-relaxed">
             {faq.a}
           </p>
         </div>
@@ -92,56 +93,64 @@ export default function WebDesignDetails({ service }: { service: Service }) {
     .slice(0, 3);
 
   return (
-    <>
-      <div className="bg-white mt-24">
-        {/* Breadcrumb */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-8 text-sm">
-          <Link href="/" className="text-pink-600">
-            Home
-          </Link>
-          <span className="mx-2 text-gray-400">&gt;</span>
-          <Link href="/services/web-design" className="text-pink-600">
-            Web Designing
-          </Link>
-          <span className="mx-2 text-gray-400">&gt;</span>
-          <span className="text-gray-800 font-semibold">{service.title}</span>
-        </div>
+    <main className="bg-white mt-24">
+      {/* ============================================================ */}
+      {/* SECTION 1 — HERO                                              */}
+      {/* ============================================================ */}
+      <section className="mt-24 xl:mt-20 relative overflow-hidden">
+        <div className="absolute -top-20 -left-24 w-72 h-72 bg-pink-100 rounded-full blur-3xl opacity-50 -z-10" />
+        <div className="absolute top-40 -right-24 w-80 h-80 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10" />
 
-        {/* Hero: framed image with floating highlight badge + content */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-8 pt-10 pb-16 relative overflow-hidden">
-          <div className="absolute -top-20 -left-24 w-72 h-72 bg-pink-100 rounded-full blur-3xl opacity-50 -z-10" />
-          <div className="absolute top-40 -right-24 w-80 h-80 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10" />
+        <div className="container">
+          {/* Breadcrumb */}
+          <p className="text-slate-600 text-base sm:text-lg mb-8">
+            <Link href="/" className="text-pink-600 font-medium">
+              Home
+            </Link>
+            <span className="mx-2">&gt;</span>
+            <Link
+              href="/services/web-design"
+              className="text-pink-600 font-medium"
+            >
+              Web Designing
+            </Link>
+            <span className="mx-2">&gt;</span>
+            <span className="text-slate-800 font-semibold">
+              {service.title}
+            </span>
+          </p>
 
-          <div className="grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-start">
+          <div className="grid lg:grid-cols-[1.3fr_1fr] gap-10 lg:gap-16 items-start">
+            {/* LEFT: image + floating highlight + keywords */}
             <div className="lg:sticky lg:top-6">
-              <div className="relative">
-                <div className="relative w-full aspect-4/3 rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5">
-                  <Image
-                    src={service.img}
-                    alt={service.title}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                </div>
+              <div className="relative w-full aspect-[4/3.2] rounded-3xl overflow-hidden shadow-xl">
+                <Image
+                  src={service.img}
+                  alt={service.title}
+                  fill
+                  sizes="(min-width: 1024px) 55vw, 90vw"
+                  className="object-cover"
+                  priority
+                />
 
-                <div className="absolute -bottom-6 left-6 right-6 sm:left-8 sm:right-auto sm:w-[85%] bg-white rounded-2xl shadow-xl px-6 py-4 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center shrink-0">
+                {/* Floating caption card */}
+                <div className="absolute bottom-5 left-5 right-5 sm:right-auto sm:max-w-lg bg-white rounded-2xl shadow-lg px-6 py-4 flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center flex-shrink-0">
                     <Icon className="w-5 h-5 text-pink-600" strokeWidth={2} />
                   </div>
-                  <p className="text-sm sm:text-base font-semibold text-gray-800 leading-snug">
+                  <p className="text-gray-900 font-semibold text-sm sm:text-base leading-snug">
                     {service.highlight}
                   </p>
                 </div>
               </div>
 
-              {/* Keyword chips - visible SEO signal + quick-scan for visitors */}
+              {/* Tag pills */}
               {service.keywords && service.keywords.length > 0 && (
-                <div className="hidden lg:flex flex-wrap gap-2 mt-10">
+                <div className="flex flex-wrap gap-2 mt-5">
                   {service.keywords.slice(0, 5).map((kw) => (
                     <span
                       key={kw}
-                      className="text-xs font-medium text-pink-700 bg-pink-50 border border-pink-100 px-3 py-1.5 rounded-full"
+                      className="px-4 py-1.5 rounded-full bg-pink-50 text-pink-600 text-sm font-medium"
                     >
                       {kw}
                     </span>
@@ -150,6 +159,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
               )}
             </div>
 
+            {/* RIGHT: content */}
             <div>
               <span className="inline-block text-xs font-bold tracking-widest uppercase text-pink-600 bg-pink-50 px-3 py-1 rounded-full mb-5">
                 Digital Solution
@@ -187,93 +197,115 @@ export default function WebDesignDetails({ service }: { service: Service }) {
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* SEO long-form content block */}
-        {service.longContent && (
-          <section className="max-w-7xl mx-auto px-4 sm:px-8 pb-16">
-            <div className="relative rounded-3xl border border-pink-100 bg-linear-to-br from-pink-50 via-white to-purple-50 px-6 py-10 sm:px-10 sm:py-12 overflow-hidden">
-              <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-purple-100 rounded-full blur-3xl opacity-40 z-0" />
-              <div className="relative max-w-3xl">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
-                  Why {service.title} Matters for Your Business
-                </h2>
-                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                  {service.longContent}
-                </p>
-              </div>
-            </div>
-          </section>
-        )}
+      {/* ============================================================ */}
+      {/* SECTION 2 — SEO long-form content block                       */}
+      {/* ============================================================ */}
+      {service.longContent && (
+        <section className="container py-16">
+          <div className="relative rounded-3xl border border-pink-100 bg-linear-to-br from-pink-50 via-white to-purple-50 px-6 py-10 sm:px-10 sm:py-12 overflow-hidden shadow-sm">
+            <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-purple-100 rounded-full blur-3xl opacity-40 z-0" />
+            <div className="absolute -top-10 -left-10 w-40 h-40 bg-pink-100 rounded-full blur-3xl opacity-40 z-0" />
 
-        {/* FAQ section */}
-        {service.faqs && service.faqs.length > 0 && (
-          <section className="max-w-7xl mx-auto px-4 sm:px-8 pb-20">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 text-center sm:text-left">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-3">
-              {service.faqs.map((faq, i) => (
-                <FaqItem key={i} faq={faq} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* CTA */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-8 pb-20">
-          <div className="bg-[#EC3392] rounded-2xl px-8 py-10 sm:px-12 sm:py-12 text-white flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="text-center sm:text-left">
-              <h3 className="text-2xl sm:text-3xl font-bold mb-1">
-                Ready to get started with {service.title}?
-              </h3>
-              <p className="text-pink-100">
-                Let&apos;s talk about what this looks like for your business.
+            <div className="relative max-w-3xl mx-auto">
+              <span className="inline-block px-3 py-1 rounded-full bg-white text-[#EC1279] text-xs font-bold tracking-wide shadow-sm mb-4">
+                WHY IT WORKS
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F1B33]">
+                Why {service.title} Matters for Your Business
+              </h2>
+              <p className="mt-4 text-gray-600 leading-relaxed text-sm sm:text-base">
+                {service.longContent}
               </p>
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* ============================================================ */}
+      {/* SECTION 3 — FAQ                                               */}
+      {/* ============================================================ */}
+      {service.faqs && service.faqs.length > 0 && (
+        <section className="container pb-16">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-center text-[#0F1B33]">
+              Frequently Asked <span className="text-[#EC1279]">Questions</span>
+            </h2>
+            <p className="text-slate-500 text-center mt-2 mb-8 text-sm sm:text-base">
+              Answers to common questions about {service.title.toLowerCase()}.
+            </p>
+
+            <div className="rounded-2xl border border-slate-200 overflow-hidden divide-y divide-slate-200">
+              {service.faqs.map((faq, i) => (
+                <FaqItem key={i} faq={faq} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ============================================================ */}
+      {/* SECTION 4 — CTA                                               */}
+      {/* ============================================================ */}
+      <section className="container pb-16">
+        <div className="rounded-3xl bg-[#0F1B33] px-8 py-12 text-center text-white sm:px-12 sm:py-14">
+          <div className="mx-auto max-w-2xl">
+            <h3 className="text-2xl font-bold">
+              Ready to get started with {service.title}?
+            </h3>
+            <p className="mt-2 text-sm text-slate-300">
+              Let&apos;s talk about what this looks like for your business.
+            </p>
             <Link
-              href="/contact-us"
-              className="whitespace-nowrap bg-white text-pink-600 font-semibold px-6 py-3 rounded-full hover:bg-gray-100 transition-colors"
+              href="/contact"
+              className="mt-6 inline-block rounded-full bg-[#EC1279] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#D40E6B]"
             >
               Book a Service
             </Link>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Related services */}
-        {relatedServices.length > 0 && (
-          <section className="max-w-7xl mx-auto px-4 sm:px-8 pb-24">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">
-              Explore More Services
-            </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {relatedServices.map((s) => {
-                const RelIcon = iconMap[s.icon] ?? LayoutGrid;
-                return (
-                  <Link
-                    key={s.slug}
-                    href={`/services/web-design/${s.slug}`}
-                    className="group flex items-start gap-4 bg-gray-50 border border-gray-100 rounded-2xl p-5 hover:border-pink-200 hover:bg-pink-50/50 transition-colors"
-                  >
-                    <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0">
-                      <RelIcon className="w-5 h-5 text-pink-600" strokeWidth={2} />
+      {/* ============================================================ */}
+      {/* SECTION 5 — Explore More Services                             */}
+      {/* ============================================================ */}
+      {relatedServices.length > 0 && (
+        <section className="container py-16">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-[#0F1B33] mb-10">
+            Explore More Services
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedServices.map((s) => {
+              const RelIcon = iconMap[s.icon] ?? LayoutGrid;
+              return (
+                <Link
+                  key={s.slug}
+                  href={`/services/web-design/${s.slug}`}
+                  className="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-pink-200 hover:shadow-md"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#EC1279] flex items-center justify-center flex-shrink-0">
+                      <RelIcon className="w-5 h-5 text-white" strokeWidth={2} />
                     </div>
-                    <div className="min-w-0">
-                      <p className="font-semibold text-gray-900 text-sm sm:text-base mb-1">
-                        {s.title}
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-xs sm:text-sm text-pink-600 font-medium">
-                        Learn more
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </section>
-        )}
-      </div>
-    </>
+                    <h3 className="text-base font-bold text-[#0F1B33]">
+                      {s.title}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-slate-600 leading-relaxed line-clamp-2">
+                    {s.description}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#EC1279]">
+                    Learn more
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
+    </main>
   );
 }
