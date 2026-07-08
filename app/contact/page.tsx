@@ -1,7 +1,5 @@
 "use client";
 
-import Navbar from "@/app/Components/Navbar";
-import Footer from "@/app/Components/Footer";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import "aos/dist/aos.css";
@@ -85,7 +83,6 @@ export default function Page() {
   return (
     <>
       <FloatingToast submissionState={toastState} visible={showToast} />
-      <Navbar />
       <main>
         {/* Section - 1 */}
         <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
@@ -279,7 +276,6 @@ export default function Page() {
 
         <Slider />
       </main>
-      <Footer />
     </>
   );
 }

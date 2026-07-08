@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Navbar from "@/app/Components/Navbar";
-import Footer from "@/app/Components/Footer";
 import "aos/dist/aos.css";
 
 // Lucide Icons
@@ -133,7 +131,6 @@ export default function DirectMailingPage() {
 
   return (
     <>
-      <Navbar />
       <main>
         {/* Section 1: Hero Section */}
         <section className="bg-gradient-to-br mt-24 xl:mt-20 from-rose-50 via-white to-blue-50">
@@ -816,7 +813,6 @@ export default function DirectMailingPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

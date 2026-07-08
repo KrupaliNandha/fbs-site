@@ -21,8 +21,6 @@ import {
 } from "lucide-react";
 import productDetailData from "../../../data/product-detail.json";
 import { getProductFaqs, ProductFaqItem } from "../../../data/Product-faqs-data";
-import Navbar from "@/app/Components/Navbar";
-import Footer from "@/app/Components/Footer";
 import Link from "next/link";
 
 type PackageId = string;
@@ -369,7 +367,6 @@ export default function ProductDetailPage() {
   return (
     <>
       <div className="min-h-screen bg-white text-gray-900">
-        <Navbar />
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 mt-24">
           <Breadcrumbs productName={product.name} />
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 mt-5">
@@ -604,7 +601,6 @@ export default function ProductDetailPage() {
             <FaqsTab faqs={product.faqs} productName={product.name} />
           </div>
         </section>
-        <Footer />
       </div>
     </>
   );
@@ -1250,8 +1246,8 @@ function FaqsTab({
               key={faq.question}
               style={isOpen ? { borderColor: "#c6005c" } : undefined}
               className={`overflow-hidden rounded-xl border-2 transition-all duration-300 sm:rounded-2xl ${isOpen
-                  ? "bg-white shadow-lg"
-                  : "border-transparent bg-white shadow-md hover:translate-y-[-2px] hover:shadow-lg"
+                ? "bg-white shadow-lg"
+                : "border-transparent bg-white shadow-md hover:translate-y-[-2px] hover:shadow-lg"
                 }`}
             >
               <h3 className="m-0">
@@ -1284,8 +1280,8 @@ function FaqsTab({
                 role="region"
                 aria-labelledby={buttonId}
                 className={`grid transition-all duration-300 ease-in-out ${isOpen
-                    ? "grid-rows-[1fr] opacity-100"
-                    : "grid-rows-[0fr] opacity-0"
+                  ? "grid-rows-[1fr] opacity-100"
+                  : "grid-rows-[0fr] opacity-0"
                   }`}
               >
                 <div className="overflow-hidden">

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Link from "next/link";
-import Navbar from "@/app/Components/Navbar";
-import Footer from "@/app/Components/Footer";
 
 export const metadata: Metadata = {
   title: "FAQs About Business Signage & Printing | FBS Signs Illinois",
@@ -140,7 +138,6 @@ export default function FaqPage() {
         {JSON.stringify(faqSchema)}
       </Script>
 
-      <Navbar />
       <main className="container section-padding">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -197,7 +194,6 @@ export default function FaqPage() {
           </Link>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

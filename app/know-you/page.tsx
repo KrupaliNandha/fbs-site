@@ -1,7 +1,5 @@
 "use client";
 
-import Navbar from "@/app/Components/Navbar";
-import Footer from "@/app/Components/Footer";
 import Image from "next/image";
 import Slider from "../Components/Slider";
 import { useEffect, useState, useRef } from "react";
@@ -215,7 +213,6 @@ export default function Page() {
 
   return (
     <>
-      <Navbar />
       <main>
         {/* SECTION 1 */}
         <section className="container">
@@ -305,7 +302,6 @@ export default function Page() {
 
         <Slider />
       </main>
-      <Footer />
     </>
   );
 }

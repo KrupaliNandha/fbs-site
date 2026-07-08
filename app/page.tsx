@@ -1,11 +1,8 @@
-import Navbar from "@/app/Components/Navbar";
-import Footer from "@/app/Components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import Slider from "./Components/Slider";
 import { RouteStructuredData } from "@/app/Components/RouteStructuredData";
 import HomeAosInit from "./Components/HomeAosInit";
-import HomePreloader from "./Components/HomePreloader";
 import HomeStats from "./Components/HomeStats";
 import HomeVideoHover from "./Components/HomeVideoHover";
 import HomeContactSection from "./Components/HomeContactSection";
@@ -48,8 +45,6 @@ export default function Home() {
     <>
       <RouteStructuredData path="/" />
       <HomeAosInit />
-      <HomePreloader />
-      <Navbar />
       <main>
         {/* Hero Section */}
         <section className="bg-gradient-to-br mt-20 xl:mt-20 from-gray-50 to-blue-50">
@@ -326,7 +321,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import Navbar from "@/app/Components/Navbar";
-import Footer from "@/app/Components/Footer";
-import SmoothScroll from "@/app/Components/SmoothScroll";
 import ServiceAreasClient from "./ServiceAreasClient";
 import { serviceAreas } from "@/app/data/service-areas-data";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
@@ -80,7 +77,6 @@ export default async function ServiceAreasListingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webpageSchema) }}
       />
 
-      <Navbar />
       <main className="bg-gradient-to-br from-gray-50 via-white to-pink-50/20 min-h-screen">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-gray-900 to-pink-950 text-white xl:pt-28 pt-20 pb-20 relative overflow-hidden">
@@ -171,7 +167,6 @@ export default async function ServiceAreasListingPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

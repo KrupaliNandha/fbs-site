@@ -3,8 +3,6 @@ import Script from "next/script";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import Navbar from "@/app/Components/Navbar";
-import Footer from "@/app/Components/Footer";
 import { serviceAreas, getServiceArea } from "@/app/data/service-areas-data";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
 import { absoluteUrl } from "@/app/lib/seo";
@@ -248,7 +246,6 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <Navbar />
       <main className="bg-gradient-to-br from-gray-50 via-white to-pink-50/10 min-h-screen">
 
         {/* Hero Section */}
@@ -576,7 +573,6 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
         </section>
 
       </main>
-      <Footer />
     </>
   );
 }

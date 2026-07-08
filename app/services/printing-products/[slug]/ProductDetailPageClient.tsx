@@ -3,8 +3,6 @@
 import { useEffect, useState, useRef, useMemo, useId } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Navbar from "@/app/Components/Navbar";
-import Footer from "@/app/Components/Footer";
 import "aos/dist/aos.css";
 
 // Icons for UI
@@ -261,7 +259,6 @@ export default function ProductDetailPageClient({
 
   return (
     <>
-      <Navbar />
       <main>
         {/* Section 1: Hero */}
         <section className="bg-gradient-to-br mt-24 xl:mt-20 from-rose-50 via-white to-blue-50">
@@ -663,7 +660,6 @@ export default function ProductDetailPageClient({
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

@@ -1,7 +1,5 @@
 "use client";
 
-import Navbar from "@/app/Components/Navbar";
-import Footer from "@/app/Components/Footer";
 import { useState } from "react";
 
 const privacySections = [
@@ -32,7 +30,6 @@ export default function PrivacyPage() {
 
   return (
     <>
-      <Navbar />
       <main>
         <section className="bg-gradient-to-br from-gray-50 to-blue-50">
           <div className="container">
@@ -84,7 +81,6 @@ export default function PrivacyPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }
