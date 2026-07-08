@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, ChevronDown } from "lucide-react";
 
 import seoServices from "../../../data/seo-services.json";
 import { iconMap } from "../../../Components/Iconsmap";
@@ -40,21 +40,36 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     .filter((s) => s.slug !== service.slug)
     .slice(0, 3);
 
-  // Optional fields (add these to seo-services.json for best results, fallbacks provided)
-  const badge = (service as any).badge || "SEO SERVICE";
-  const highlight = (service as any).highlight || service.shortDesc;
-  const tags: string[] =
-    (service as any).tags ||
-    service.title
-      .split(/&| /)
-      .filter(Boolean)
-      .map((w) => w.trim())
-      .filter((w) => w.length > 2)
-      .slice(0, 4)
-      .map((w) => `${w.toLowerCase()} seo`);
+  const badge = service.badge || "SEO SERVICE";
+  const highlight = service.highlight || service.shortDesc;
+  const tags: string[] = service.tags || [];
+  const faqs = service.faqs || [];
+  const overviewParagraphs = service.overview.split("\n\n").filter(Boolean);
+
+  // JSON-LD structured data for FAQ rich results in Google
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
+  };
 
   return (
     <main>
+      {/* JSON-LD for FAQ rich snippets */}
+      {faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
+
       {/* Section - 1: Hero (breadcrumb + split layout) */}
       <section className="mt-24 xl:mt-20">
         <div className="container">
@@ -99,16 +114,18 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               </div>
 
               {/* Tag pills */}
-              <div className="flex flex-wrap gap-2 mt-5">
-                {tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="px-4 py-1.5 rounded-full bg-pink-50 text-pink-600 text-sm font-medium"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              {tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-5">
+                  {tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="px-4 py-1.5 rounded-full bg-pink-50 text-pink-600 text-sm font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* RIGHT: Content */}
@@ -123,9 +140,16 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 </span>
               </h1>
 
-              <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-                {service.overview}
-              </p>
+              <div className="space-y-4 mb-8">
+                {overviewParagraphs.map((para, i) => (
+                  <p
+                    key={i}
+                    className="text-gray-600 text-base sm:text-lg leading-relaxed"
+                  >
+                    {para}
+                  </p>
+                ))}
+              </div>
 
               {/* What's included */}
               {service.benefits && service.benefits.length > 0 && (
@@ -162,7 +186,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {service.process.map((item, i) => (
               <div
                 key={i}
@@ -205,7 +229,37 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Section - 4: Related Services */}
+      {/* Section - 4: FAQs (native details/summary accordion, no client JS needed) */}
+      {faqs.length > 0 && (
+        <section className="container section-padding">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">
+              Frequently Asked <span className="text-pink-600">Questions</span>
+            </h2>
+            <p className="mt-4 text-gray-600 text-base sm:text-lg">
+              Answers to common questions about {service.title.toLowerCase()}.
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto divide-y divide-gray-200 border border-gray-200 rounded-2xl overflow-hidden bg-white">
+            {faqs.map((faq, i) => (
+              <details key={i} className="group" open={i === 0}>
+                <summary className="list-none cursor-pointer w-full flex items-center justify-between gap-4 px-5 sm:px-6 py-5 hover:bg-gray-50 transition-colors marker:content-none [&::-webkit-details-marker]:hidden">
+                  <span className="text-base sm:text-lg font-semibold text-gray-900">
+                    {faq.q}
+                  </span>
+                  <ChevronDown className="w-5 h-5 flex-shrink-0 text-pink-600 transition-transform duration-300 group-open:rotate-180" />
+                </summary>
+                <p className="px-5 sm:px-6 pb-5 text-gray-600 text-sm sm:text-base leading-relaxed">
+                  {faq.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Section - 5: Related Services */}
       {otherServices.length > 0 && (
         <section className="container section-padding">
           <h2 className="text-center text-2xl sm:text-3xl font-bold text-gray-900 mb-10">
@@ -240,7 +294,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </section>
       )}
 
-      {/* Section - 5: CTA */}
+      {/* Section - 6: CTA */}
       <section className="container section-padding">
         <div>
           <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold text-pink-700">
