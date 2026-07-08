@@ -98,12 +98,14 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
               <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl" />
               <div className="relative rounded-2xl overflow-hidden aspect-video bg-gray-900 shadow-2xl">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
+                {post.image ? (
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : null}
               </div>
             </div>
           </div>
@@ -207,46 +209,6 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
               <p className="text-gray-600 mt-2 leading-relaxed">{post.author.bio}</p>
             </div>
 
-            <div className="mt-10 pt-8 border-t border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-950 flex items-center gap-3">
-                <MessageSquare className="w-6 h-6 text-pink-700" />
-                Discussion ({comments.length})
-              </h2>
-              <form
-                onSubmit={handleComment}
-                className="mt-6 bg-gray-50 rounded-2xl p-5 sm:p-6 space-y-4"
-              >
-                <input
-                  required
-                  value={commentName}
-                  onChange={(event) => setCommentName(event.target.value)}
-                  placeholder="Your name"
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:border-pink-700"
-                />
-                <textarea
-                  required
-                  rows={4}
-                  value={commentText}
-                  onChange={(event) => setCommentText(event.target.value)}
-                  placeholder="Write a comment..."
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:border-pink-700"
-                />
-                <button className="rounded-full bg-pink-700 px-6 py-3 text-white font-bold">
-                  Post Comment
-                </button>
-              </form>
-              <div className="mt-6 space-y-4">
-                {comments.map((comment, index) => (
-                  <div key={`${comment.name}-${index}`} className="bg-white border border-gray-100 rounded-2xl p-5">
-                    <div className="flex justify-between gap-4 text-sm">
-                      <span className="font-bold text-gray-950">{comment.name}</span>
-                      <span className="text-gray-500">{comment.date}</span>
-                    </div>
-                    <p className="text-gray-600 mt-2 leading-relaxed">{comment.text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
           </article>
 
           <aside className="min-w-0">
@@ -270,26 +232,6 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                   </nav>
                 </div>
               )}
-
-              <div className="bg-pink-700 rounded-2xl p-7 text-white shadow-lg">
-                <p className="text-sm font-bold uppercase tracking-widest text-pink-100">
-                  Start a Project
-                </p>
-                <h2 className="text-2xl font-bold mt-3">
-                  Need help with {post.category}?
-                </h2>
-                <p className="text-pink-50 mt-3 leading-relaxed">
-                  Talk with FBS Prints about materials, sizing, timelines, and a
-                  clean quote for your next project.
-                </p>
-                <Link
-                  href="/contact"
-                  className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-pink-700 font-bold"
-                >
-                  Request a Quote
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
             </div>
           </aside>
         </div>
@@ -314,12 +256,14 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
               >
                 <div className="sm:col-span-2 h-52 sm:h-auto bg-gray-900 overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={related.image}
-                    alt={related.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
+                  {related.image ? (
+                    <img
+                      src={related.image}
+                      alt={related.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : null}
                 </div>
                 <div className="sm:col-span-3 p-6">
                   <p className="text-xs font-bold uppercase tracking-widest text-pink-700">
