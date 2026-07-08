@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Preloader from "./Preloader";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import BackToTop from "./BackToTop";
+import SmoothScroll from "./SmoothScroll";
 
 export default function PreloaderWrapper({
   children,
@@ -38,7 +42,19 @@ export default function PreloaderWrapper({
       {isLoading && (
         <Preloader key={navKey} onFinish={() => setIsLoading(false)} />
       )}
-      {children}
+
+      <SmoothScroll>
+        {!isLoading && <Navbar />}
+
+        <main>{children}</main>
+
+        {!isLoading && (
+          <>
+            <Footer />
+            <BackToTop />
+          </>
+        )}
+      </SmoothScroll>
     </>
   );
 }

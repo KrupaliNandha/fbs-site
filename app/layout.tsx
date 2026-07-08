@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import BackToTop from "./Components/BackToTop";
 import { buildPageMetadata, siteConfig } from "@/app/lib/seo";
 import { GlobalStructuredData } from "@/app/Components/RouteStructuredData";
 import { BaseUrlProvider } from "./Components/BaseUrlProvider";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
 import PreloaderWrapper from "./Components/PreloaderWrapper";
-import SmoothScroll from "./Components/SmoothScroll";
-import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -66,14 +62,7 @@ export default async function RootLayout({
       >
         <BaseUrlProvider baseUrl={baseUrl}>
           <GlobalStructuredData />
-          <PreloaderWrapper>
-            <SmoothScroll>
-              <Navbar />
-              <main>{children}</main>
-              <Footer />
-              <BackToTop />
-            </SmoothScroll>
-          </PreloaderWrapper>
+          <PreloaderWrapper>{children}</PreloaderWrapper>
         </BaseUrlProvider>
       </body>
     </html>
