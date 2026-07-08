@@ -50,12 +50,12 @@ export default function Slider() {
   return (
     <div
       data-aos="fade-up"
-      className="container section-padding w-full overflow-hidden"
+      className="w-full overflow-hidden py-20"
     >
       <div>
         <h2 className="text-4xl md:text-5xl font-bold text-center text-pink-700">
           Trusted{" "}
-          <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
             by Leading
           </span>{" "}
           Brands
@@ -68,7 +68,7 @@ export default function Slider() {
           {[...sliders, ...sliders, ...sliders].map((item, index) => (
             <div
               key={`${item.src}-${index}`}
-              className="min-w-[200px] flex justify-center"
+              className="min-w-50 flex justify-center mt-20"
             >
               <Image
                 src={item.src}

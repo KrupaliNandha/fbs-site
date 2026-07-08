@@ -47,7 +47,7 @@ export default function Home() {
       <HomeAosInit />
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-br mt-20 xl:mt-20 from-gray-50 to-blue-50">
+        <section className="bg-linear-to-br mt-20 xl:mt-20 from-gray-50 to-blue-50">
           <div className="container">
             <div className="mx-auto">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -121,7 +121,7 @@ export default function Home() {
                     </div>
 
                     <div className="col-span-1 space-y-4 sm:space-y-6">
-                      <div className="rounded-2xl aspect-square sm:aspect-[3/4] overflow-hidden relative float-2">
+                      <div className="rounded-2xl aspect-square sm:aspect-3/4 overflow-hidden relative float-2">
                         <Image
                           src="/images/home/printing-branding-hero.webp"
                           alt="FBS Signs project showcase"
@@ -173,7 +173,7 @@ export default function Home() {
               className="uppercase p-5 text-5xl text-center text-pink-700 font-bold"
             >
               Look{" "}
-              <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
                 At Our
               </span>{" "}
               Services
@@ -273,7 +273,7 @@ export default function Home() {
                   pt-3 leading-tight"
               >
                 achieve{" "}
-                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
                   Your
                 </span>{" "}
                 Business Goals
