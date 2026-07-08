@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useId } from "react";
 import { useParams } from "next/navigation";
 import {
   ChevronDown,
@@ -18,8 +18,6 @@ import {
   Check,
   AlertTriangle,
   Loader2,
-  Phone,
-  Mail,
 } from "lucide-react";
 import productDetailData from "../../../data/product-detail.json";
 import { getProductFaqs, ProductFaqItem } from "../../../data/Product-faqs-data";
@@ -369,16 +367,6 @@ export default function ProductDetailPage() {
     { id: "file-setup", label: "File Setup" },
   ];
 
-  const selectedOptionsText = currentGroups
-    .map((group) => {
-      const selectedValue = selections[group.key];
-      const selectedLabel =
-        group.options.find((o) => o.value === selectedValue)?.label ||
-        selectedValue ||
-        "None";
-      return `- ${group.label}: ${selectedLabel}`;
-    })
-    .join("\n");
 
   return (
     <>
@@ -543,53 +531,30 @@ export default function ProductDetailPage() {
                         label={group.label}
                         value={selections[group.key] ?? ""}
                         onChange={(value) =>
-                          setSelections((prev) => ({
-                            ...prev,
-                            [group.key]: value,
-                          }))
+                          setSelections((prev) => ({ ...prev, [group.key]: value }))
                         }
                         options={group.options}
                       />
                     );
                   })}
 
-                  {/* Direct Contact Actions (No submission form) */}
-                  <div className="pt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
-                    <a
-                      href="tel:+18552221133"
-                      className="flex h-auto min-h-[56px] w-full items-center justify-center gap-3 rounded-2xl bg-pink-700 px-3 py-3 text-center text-xs font-bold leading-snug text-white shadow-lg transition-all duration-300 hover:scale-[1.01] hover:bg-pink-800 sm:gap-4 sm:px-3 sm:text-sm"
-                    >
-                      <Phone className="h-4 w-4 shrink-0" />
-                      <span className="flex flex-col items-center justify-center leading-tight">
-                        <span>Call to Order:</span>
-                        <span>+1-855-222-1133</span>
-                      </span>
-                    </a>
-
-                    <a
-                      href={`mailto:info@fbsprints.com?subject=${encodeURIComponent(
-                        `Quote Request: ${product.name}`,
-                      )}&body=${encodeURIComponent(
-                        `I would like to get a quote for ${product.name} with the following specifications:\n\n` +
-                        `${selectedOptionsText}\n\n` +
-                        `Please get back to me with estimated pricing.`,
-                      )}`}
-                      className="flex h-auto min-h-[56px] w-full items-center justify-center gap-2 rounded-2xl border border-pink-200 bg-pink-50/40 px-3 py-3 text-center text-xs font-bold leading-snug text-pink-700 transition-all duration-300 hover:scale-[1.01] hover:bg-pink-50 sm:gap-2.5 sm:px-3 sm:text-sm"
-                    >
-                      <Mail className="h-4 w-4 shrink-0" />
-                      <span className="whitespace-nowrap">
-                        Email Specs Directly
-                      </span>
-                    </a>
-                  </div>
-                </div>
-              </div>
+              {/* ── Quote Request Form ── */}
+              <SignageQuoteForm
+                productName={product.name}
+                selections={selections}
+                currentGroups={currentGroups}
+                activePackageLabel={
+                  product.packages.find((p) => p.id === packageId)?.label
+                }
+              />
             </div>
+          </div>
+        </div>
 
-            {/* -------------------------------------------------- */}
-            {/* Tabs                                                 */}
-            {/* -------------------------------------------------- */}
-            <div className="mt-10 sm:mt-12">
+        {/* -------------------------------------------------- */}
+        {/* Tabs                                                 */}
+        {/* -------------------------------------------------- */}
+        <div className="mt-10 sm:mt-12">
               <div className="border-b border-gray-200">
                 <nav
                   className="flex gap-6 sm:gap-8 min-w-max px-0.5"
@@ -1256,7 +1221,7 @@ function FileSetupTab({
 }
 
 /* ================================================================== */
-/*  FAQs tab                                                             */
+/*  FAQs Tab — accordion for product-specific FAQs                      */
 /* ================================================================== */
 
 function FaqsTab({
@@ -1268,80 +1233,303 @@ function FaqsTab({
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
+  if (!faqs || faqs.length === 0) return null;
+
   return (
     <div>
-      <div className="mx-auto mb-20 max-w-3xl text-center sm:mb-12">
-        <h2 className="text-2xl font-extrabold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
-          FAQs for {productName}
-        </h2>
-        <p className="mt-3 text-sm font-medium text-gray-600 sm:mt-4 sm:text-base md:text-lg">
-          Clear answers for common questions about our{" "}
-          {productName.toLowerCase()}.
-        </p>
-      </div>
+      <h2 className="text-2xl font-extrabold text-gray-900 sm:text-3xl md:text-4xl mb-3">
+        FAQs for {productName}
+      </h2>
+      <p className="text-sm text-gray-600 sm:text-base mb-8">
+        Clear answers for common questions about our {productName.toLowerCase()}.
+      </p>
 
-      {faqs.length === 0 ? (
-        <p className="mx-auto max-w-3xl text-center text-sm text-gray-500">
-          No FAQs available for this product yet.
-        </p>
-      ) : (
-        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-3 sm:gap-4">
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
-            const panelId = `faq-panel-${index}`;
-            const buttonId = `faq-button-${index}`;
+      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-3 sm:gap-4">
+        {faqs.map((faq, index) => {
+          const isOpen = openIndex === index;
+          const panelId = `signage-faq-panel-${index}`;
+          const buttonId = `signage-faq-button-${index}`;
 
-            return (
-              <div
-                key={faq.question}
-                style={isOpen ? { borderColor: "#e60076" } : undefined}
-                className={`overflow-hidden rounded-xl border-2 transition-all duration-300 sm:rounded-2xl ${isOpen
-                    ? "bg-white shadow-lg"
-                    : "border-transparent bg-white shadow-md duration-100 translate-y-0 hover:translate-y-[-2px] hover:shadow-lg"
-                  }`}
-              >
-                <h3 className="m-0">
-                  <button
-                    id={buttonId}
-                    type="button"
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
-                    aria-expanded={isOpen}
-                    aria-controls={panelId}
-                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
-                  >
-                    <span
-                      style={isOpen ? { color: "#e60076" } : undefined}
-                      className="text-sm font-semibold leading-snug text-gray-900 sm:text-base"
-                    >
-                      {faq.question}
-                    </span>
-
-                    <ChevronDown
-                      style={isOpen ? { color: "#e60076" } : undefined}
-                      className={`h-5 w-5 shrink-0 text-gray-900 transition-transform duration-300 ${isOpen ? "rotate-180" : ""
-                        }`}
-                    />
-                  </button>
-                </h3>
-
-                <div
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={buttonId}
-                  className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                    }`}
+          return (
+            <div
+              key={faq.question}
+              style={isOpen ? { borderColor: "#c6005c" } : undefined}
+              className={`overflow-hidden rounded-xl border-2 transition-all duration-300 sm:rounded-2xl ${
+                isOpen
+                  ? "bg-white shadow-lg"
+                  : "border-transparent bg-white shadow-md hover:translate-y-[-2px] hover:shadow-lg"
+              }`}
+            >
+              <h3 className="m-0">
+                <button
+                  id={buttonId}
+                  type="button"
+                  onClick={() =>
+                    setOpenIndex((prev) => (prev === index ? null : index))
+                  }
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
                 >
-                  <div className="overflow-hidden">
-                    <p className="px-5 pb-4 text-sm leading-relaxed text-gray-500 sm:px-6 sm:pb-5 sm:text-base">
-                      {faq.answer}
-                    </p>
-                  </div>
+                  <span
+                    style={isOpen ? { color: "#c6005c" } : undefined}
+                    className="text-sm font-semibold leading-snug text-gray-900 sm:text-base"
+                  >
+                    {faq.question}
+                  </span>
+                  <ChevronDown
+                    style={isOpen ? { color: "#c6005c" } : undefined}
+                    className={`h-5 w-5 shrink-0 text-gray-900 transition-transform duration-300 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+              </h3>
+
+              <div
+                id={panelId}
+                role="region"
+                aria-labelledby={buttonId}
+                className={`grid transition-all duration-300 ease-in-out ${
+                  isOpen
+                    ? "grid-rows-[1fr] opacity-100"
+                    : "grid-rows-[0fr] opacity-0"
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <p className="px-5 pb-4 text-sm leading-relaxed text-gray-500 sm:px-6 sm:pb-5 sm:text-base">
+                    {faq.answer}
+                  </p>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ==================================================================
+/*  Signage Quote Form (Web3Forms)                                      */
+/* ================================================================== */
+
+const W3F_API_DOMAIN = ["api", "web3forms", "com"].join(".");
+const W3F_SUBMIT_PATH = "/submit";
+const W3F_ENDPOINT = `https://${W3F_API_DOMAIN}${W3F_SUBMIT_PATH}`;
+const W3F_ACCESS_KEY =
+  process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "YOUR_WEB3FORMS_ACCESS_KEY";
+
+type QuoteState =
+  | { type: "idle" }
+  | { type: "success"; message: string }
+  | { type: "error"; message: string };
+
+function SignageQuoteForm({
+  productName,
+  selections,
+  currentGroups,
+  activePackageLabel,
+}: {
+  productName: string;
+  selections: Record<string, string>;
+  currentGroups: OptionGroup[];
+  activePackageLabel?: string;
+}) {
+  const formId = useId();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [state, setState] = useState<QuoteState>({ type: "idle" });
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+
+    // Honeypot
+    const bot = form.elements.namedItem("botcheck") as HTMLInputElement | null;
+    if (bot?.checked) return;
+
+    if (W3F_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY") {
+      setState({ type: "error", message: "Web3Forms access key is not configured." });
+      return;
+    }
+
+    const fd = new FormData(form);
+
+    // Normalise phone
+    const rawPhone = (fd.get("phone") as string)?.trim() ?? "";
+    if (rawPhone) {
+      fd.set("phone", rawPhone.startsWith("+1") ? rawPhone : `+1 ${rawPhone}`);
+    }
+
+    fd.append("access_key", W3F_ACCESS_KEY);
+    fd.append("subject", `Signage Quote: ${productName}`);
+    fd.append("from_name", "FBS Prints \u2014 Signage Quote");
+    fd.append("replyto", (fd.get("email") as string)?.trim() ?? "");
+
+    // Inject product + all selected options
+    fd.append("Product", productName);
+    if (activePackageLabel) fd.append("Package", activePackageLabel);
+    currentGroups.forEach((g) => {
+      const selectedValue = selections[g.key];
+      const selectedLabel =
+        g.options.find((o) => o.value === selectedValue)?.label ?? selectedValue;
+      fd.append(g.label, selectedLabel ?? "");
+    });
+
+    setIsSubmitting(true);
+    setState({ type: "idle" });
+
+    try {
+      const res = await fetch(W3F_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: fd,
+      });
+      const json = (await res.json()) as {
+        success?: boolean;
+        message?: string;
+        body?: { message?: string };
+      };
+      const msg = json.body?.message ?? json.message ?? "Something went wrong.";
+
+      if (res.ok && json.success) {
+        form.reset();
+        setState({ type: "success", message: msg });
+      } else {
+        setState({ type: "error", message: msg });
+      }
+    } catch {
+      setState({ type: "error", message: "Unable to send. Please try again." });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <div className="border-t border-gray-100 pt-6">
+      <p className="text-sm font-semibold text-gray-900 mb-3">
+        Request a Quote
+      </p>
+
+      <form onSubmit={handleSubmit} className="space-y-3">
+        {/* Honeypot */}
+        <input
+          type="checkbox"
+          name="botcheck"
+          className="hidden"
+          style={{ display: "none" }}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div>
+            <label
+              htmlFor={`${formId}-name`}
+              className="mb-1 block text-xs font-medium text-gray-500"
+            >
+              Full Name *
+            </label>
+            <input
+              id={`${formId}-name`}
+              name="name"
+              type="text"
+              required
+              placeholder="John Doe"
+              autoComplete="name"
+              className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-[#c6005c] focus:ring-2 focus:ring-[#c6005c]/10"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor={`${formId}-phone`}
+              className="mb-1 block text-xs font-medium text-gray-500"
+            >
+              Phone *
+            </label>
+            <div className="flex items-center rounded-xl border border-gray-300 bg-white transition focus-within:border-[#c6005c] focus-within:ring-2 focus-within:ring-[#c6005c]/10">
+              <span className="pl-4 text-sm text-gray-400 font-medium select-none pr-1.5">+1</span>
+              <input
+                id={`${formId}-phone`}
+                name="phone"
+                type="tel"
+                required
+                placeholder="(555) 123-4567"
+                autoComplete="tel"
+                className="w-full bg-transparent pl-1.5 pr-4 py-3 text-sm text-gray-900 outline-none"
+              />
+            </div>
+          </div>
         </div>
-      )}
+
+        <div>
+          <label
+            htmlFor={`${formId}-email`}
+            className="mb-1 block text-xs font-medium text-gray-500"
+          >
+            Email *
+          </label>
+          <input
+            id={`${formId}-email`}
+            name="email"
+            type="email"
+            required
+            placeholder="you@company.com"
+            autoComplete="email"
+            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-[#c6005c] focus:ring-2 focus:ring-[#c6005c]/10"
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor={`${formId}-message`}
+            className="mb-1 block text-xs font-medium text-gray-500"
+          >
+            Additional Notes
+          </label>
+          <textarea
+            id={`${formId}-message`}
+            name="message"
+            rows={3}
+            placeholder="Quantity, dimensions, design details…"
+            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-[#c6005c] focus:ring-2 focus:ring-[#c6005c]/10 resize-none"
+          />
+        </div>
+
+        {/* Status */}
+        {state.type !== "idle" && (
+          <p
+            aria-live="polite"
+            className={`text-sm font-medium ${
+              state.type === "success" ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {state.message}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#c6005c] px-5 py-3 text-sm font-bold text-white shadow-md transition-all duration-200 hover:bg-[#a30049] disabled:cursor-not-allowed disabled:opacity-70"
+        >
+          {isSubmitting ? (
+            <>
+              <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+              Sending…
+            </>
+          ) : (
+            <>Request a Quote</>
+          )}
+        </button>
+
+        <p className="text-center text-[11px] text-gray-400">
+          Or call us at{" "}
+          <a href="tel:+18552221133" className="font-semibold text-[#c6005c] hover:underline">
+            +1-855-222-1133
+          </a>
+        </p>
+      </form>
     </div>
   );
 }
