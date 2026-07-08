@@ -13,7 +13,33 @@
       "Open-rate and click-through tracking with monthly performance reports",
       "List cleanup and deliverability monitoring so your emails actually reach the inbox"
     ],
-    "highlight": "Turns one-time buyers into repeat customers"
+    "highlight": "Turns one-time buyers into repeat customers",
+    "metaTitle": "Email Marketing Services | Automated Campaigns That Convert",
+    "metaDescription": "Grow repeat sales with done-for-you email marketing: welcome sequences, newsletters, and re-engagement campaigns designed to keep customers coming back.",
+    "keywords": [
+      "email marketing services",
+      "email marketing agency",
+      "email automation",
+      "newsletter design",
+      "email marketing campaigns",
+      "customer retention email",
+      "drip email sequences"
+    ],
+    "longContent": "Most businesses already have an email list sitting unused, and that's usually the fastest, cheapest way to bring in more revenue without spending a rupee on ads. A good email marketing service turns that list into a steady stream of repeat orders and referrals, instead of a folder full of ignored addresses. We set up the automation once, and it keeps working for you every single day, welcoming new subscribers, following up on abandoned carts, and reminding people it's time to come back.",
+    "faqs": [
+      {
+        "q": "How often should I send marketing emails?",
+        "a": "It depends on your business, but most brands see the best results sending 1-2 emails a week for promotions and letting automated sequences (welcome, abandoned cart, re-engagement) run continuously in the background."
+      },
+      {
+        "q": "Will email marketing work if I have a small list?",
+        "a": "Yes. A small, engaged list of 200-500 people often converts better than a huge, cold one. We focus on list quality and segmentation first, then help you grow it."
+      },
+      {
+        "q": "Do you write the email content too?",
+        "a": "Yes, copywriting, design, and setup are all included. You approve the content before anything goes out."
+      }
+    ]
   },
   {
     "slug": "search-engine-optimization",
@@ -29,7 +55,33 @@
       "Backlink and citation building from relevant, reputable local sources",
       "Monthly ranking and traffic reports so you can see real progress"
     ],
-    "highlight": "Gets your business found before your competitors"
+    "highlight": "Gets your business found before your competitors",
+    "metaTitle": "SEO Services | Rank Higher on Google & Get Found Locally",
+    "metaDescription": "Professional SEO services that improve your Google rankings, local search visibility, and organic traffic — with monthly reports so you can see real progress.",
+    "keywords": [
+      "seo services",
+      "search engine optimization company",
+      "local seo",
+      "google ranking service",
+      "on page seo",
+      "seo audit",
+      "increase website traffic"
+    ],
+    "longContent": "When someone searches for a business like yours, you want to be the first result they see, not the fifth page they never scroll to. SEO is how you earn that spot, and it's built on hundreds of small, correct decisions: the right keywords, a fast-loading site, clean structure, and a Google Business Profile that actually gets clicked. It takes a few months to show up in the rankings, but once it does, it keeps bringing in customers without you paying for every single click.",
+    "faqs": [
+      {
+        "q": "How long does SEO take to show results?",
+        "a": "Most businesses start seeing noticeable movement in rankings within 3-4 months, with stronger, more stable results building over 6-12 months."
+      },
+      {
+        "q": "Do you guarantee a #1 ranking?",
+        "a": "No one honestly can guarantee a specific ranking spot, since Google's algorithm changes constantly. We guarantee a clear, measurable process and honest monthly reporting instead."
+      },
+      {
+        "q": "Is local SEO different from regular SEO?",
+        "a": "Yes. Local SEO focuses on things like your Google Business Profile, local citations, and location-based keywords so you show up in the map pack and 'near me' searches."
+      }
+    ]
   },
   {
     "slug": "content-writing",
@@ -45,7 +97,32 @@
       "Consistent brand voice across every page and platform",
       "Editing and proofreading passes so nothing goes live with typos"
     ],
-    "highlight": "Words that inform, engage, and convert"
+    "highlight": "Words that inform, engage, and convert",
+    "metaTitle": "Content Writing Services | SEO Blog & Website Copywriting",
+    "metaDescription": "Human-sounding, SEO-friendly content writing for websites, blogs, and product pages that answers real customer questions and helps you rank on Google.",
+    "keywords": [
+      "content writing services",
+      "seo content writing",
+      "website copywriting",
+      "blog writing service",
+      "product description writing",
+      "landing page copywriting"
+    ],
+    "longContent": "Great content isn't about stuffing in keywords, it's about actually answering the question your customer typed into Google before they even land on your site. When your website copy speaks plainly and honestly, people trust it, stay longer, and are far more likely to buy or book. We write every page with two readers in mind at once: the real person deciding whether to choose you, and the search engine deciding whether to show you.",
+    "faqs": [
+      {
+        "q": "Will the content actually sound human, not robotic?",
+        "a": "Yes, every piece is written in plain, natural language and edited by a real person, not left as raw AI output."
+      },
+      {
+        "q": "How many blog posts do I need per month for SEO?",
+        "a": "2-4 well-researched posts a month is usually enough to build steady momentum, quality and consistency matter more than sheer volume."
+      },
+      {
+        "q": "Can you match my existing brand voice?",
+        "a": "Yes, we review your current content first and write to match your tone, whether that's friendly and casual or formal and professional."
+      }
+    ]
   },
   {
     "slug": "digital-marketing-strategy",
@@ -61,7 +138,32 @@
       "Prioritized action plan so effort goes where it matters most first",
       "Quarterly strategy reviews to adjust for what's actually working"
     ],
-    "highlight": "One coordinated plan instead of scattered tactics"
+    "highlight": "One coordinated plan instead of scattered tactics",
+    "metaTitle": "Digital Marketing Strategy Services | Full Growth Roadmap",
+    "metaDescription": "A clear, coordinated digital marketing strategy that aligns SEO, content, email, and social so every channel works toward the same growth goals.",
+    "keywords": [
+      "digital marketing strategy",
+      "digital marketing plan",
+      "marketing consultant",
+      "online marketing strategy",
+      "digital marketing agency",
+      "marketing roadmap"
+    ],
+    "longContent": "Running SEO, social media, and email all at once without a plan is how businesses end up spending money in five directions with nothing to show for it. A digital marketing strategy fixes that by putting every channel on the same page, working toward the same numbers, with a clear order of what to do first. It's the difference between throwing effort at everything and putting it exactly where it will actually bring customers in.",
+    "faqs": [
+      {
+        "q": "Do I need every marketing channel at once?",
+        "a": "No. We start with an audit of your business and budget, then recommend only the channels likely to bring a real return, not every service on our list."
+      },
+      {
+        "q": "How is this different from just hiring for SEO or social media separately?",
+        "a": "A strategy ties all channels together with shared goals and reporting, so they support each other instead of competing for the same budget and audience."
+      },
+      {
+        "q": "How often is the strategy reviewed?",
+        "a": "We review and adjust the plan every quarter based on real performance data, not guesswork."
+      }
+    ]
   },
   {
     "slug": "web-development",
@@ -77,7 +179,32 @@
       "Contact forms, booking tools, and integrations built around how you actually work",
       "Ongoing support and updates after launch, not a one-and-done handoff"
     ],
-    "highlight": "A site that works as hard as you do"
+    "highlight": "A site that works as hard as you do",
+    "metaTitle": "Web Development Services | Fast, Responsive Custom Websites",
+    "metaDescription": "Custom web development that's fast, mobile-friendly, and SEO-ready from day one, with ongoing support after launch so your site keeps working for you.",
+    "keywords": [
+      "web development services",
+      "website development company",
+      "custom website development",
+      "responsive web design",
+      "website design and development",
+      "fast website builder"
+    ],
+    "longContent": "A slow, clunky website quietly turns customers away before they ever read a word of your content, and most business owners never realize it's happening. Web development is about more than just looking good, it's page speed, mobile usability, and a backend you can actually update yourself without calling a developer every time. We build sites that hold up under real traffic and give you full control once they're live.",
+    "faqs": [
+      {
+        "q": "How long does it take to build a website?",
+        "a": "A typical business website takes 3-6 weeks from content collection to launch, depending on the number of pages and features involved."
+      },
+      {
+        "q": "Will I be able to update the site myself after launch?",
+        "a": "Yes, we build on content management systems that let you edit text, images, and pages without touching code."
+      },
+      {
+        "q": "Is SEO included in web development?",
+        "a": "Basic on-page SEO foundations (fast loading, clean structure, mobile usability) are built in from the start; ongoing SEO is available as a separate service if you want to actively grow rankings."
+      }
+    ]
   },
   {
     "slug": "social-media-management",
@@ -93,7 +220,32 @@
       "Hashtag and trend research to keep content relevant and discoverable",
       "Monthly analytics reports showing engagement and audience growth"
     ],
-    "highlight": "Consistent presence without the daily workload"
+    "highlight": "Consistent presence without the daily workload",
+    "metaTitle": "Social Media Management Services | Instagram & Facebook Growth",
+    "metaDescription": "Done-for-you social media management: content calendars, graphics, captions, and community management so your profiles stay active and on-brand.",
+    "keywords": [
+      "social media management services",
+      "social media marketing agency",
+      "instagram management",
+      "facebook page management",
+      "social media content calendar",
+      "social media growth"
+    ],
+    "longContent": "An inactive Instagram or Facebook page can actually hurt trust more than having no page at all, since customers assume the business isn't active anymore. Social media management keeps your profiles consistent, current, and genuinely engaging, without it becoming another job on your plate. We plan the content, design the graphics, and reply to comments and messages, so your page always looks like a business that's paying attention.",
+    "faqs": [
+      {
+        "q": "How many posts per week do you recommend?",
+        "a": "3-5 posts a week across your main platforms is usually enough to stay visible and build consistent engagement, without overwhelming your audience."
+      },
+      {
+        "q": "Do you reply to comments and DMs for us?",
+        "a": "Yes, community management including comments, messages, and reviews is included so your audience always gets a timely response."
+      },
+      {
+        "q": "Which platforms do you manage?",
+        "a": "Instagram and Facebook are our core focus, and we can extend to other platforms like LinkedIn or Pinterest depending on where your audience actually is."
+      }
+    ]
   },
   {
     "slug": "portfolio-website",
@@ -109,7 +261,32 @@
       "Simple content management so you can add new projects without a developer",
       "SEO foundations built in so your work gets discovered, not just admired"
     ],
-    "highlight": "A portfolio that gets your work noticed"
+    "highlight": "A portfolio that gets your work noticed",
+    "metaTitle": "Portfolio Website Design | Showcase Your Work Professionally",
+    "metaDescription": "Custom portfolio website design for photographers, designers, and creatives, built to load fast, look sharp on mobile, and turn visitors into inquiries.",
+    "keywords": [
+      "portfolio website design",
+      "personal portfolio website",
+      "photographer portfolio website",
+      "designer portfolio website",
+      "case study website",
+      "creative portfolio builder"
+    ],
+    "longContent": "Your work might be excellent, but if the website showing it off loads slowly or looks like every other template, that quality gets lost before anyone scrolls past the first image. A portfolio website should feel curated, not cluttered, with your strongest projects front and center and a clear path for someone to actually reach out. We build the gallery around your work, not the other way around.",
+    "faqs": [
+      {
+        "q": "How many projects should I include?",
+        "a": "Quality over quantity, 8-12 of your strongest, most varied projects usually make a stronger impression than a long, unfiltered list."
+      },
+      {
+        "q": "Can I add new work myself after launch?",
+        "a": "Yes, the site is set up with a simple content management system so you can add or swap projects without needing a developer."
+      },
+      {
+        "q": "Is a portfolio website good for SEO?",
+        "a": "Yes, we build in basic SEO foundations so your case studies and name can actually be found in search, not just shared directly."
+      }
+    ]
   },
   {
     "slug": "ecommerce-website",
@@ -125,7 +302,32 @@
       "Mobile-optimized checkout to reduce cart abandonment",
       "Analytics and reporting so you can see what's actually selling"
     ],
-    "highlight": "A store built to turn browsers into buyers"
+    "highlight": "A store built to turn browsers into buyers",
+    "metaTitle": "E-Commerce Website Development | Custom Online Store Design",
+    "metaDescription": "Custom e-commerce website development with secure checkout, inventory management, and mobile-optimized shopping built to reduce cart abandonment.",
+    "keywords": [
+      "ecommerce website development",
+      "online store development",
+      "custom ecommerce website",
+      "ecommerce web design",
+      "online shopping website",
+      "ecommerce store builder"
+    ],
+    "longContent": "Every extra step between a customer finding your product and actually paying for it is a chance for them to abandon the cart and leave. A well-built e-commerce website removes that friction: clear product pages, a checkout that works smoothly on a phone, and a backend that keeps inventory and orders organized as you grow. Whether you're starting with a handful of products or a full catalog, it's built to scale with you.",
+    "faqs": [
+      {
+        "q": "Which payment gateways can you integrate?",
+        "a": "We integrate standard payment gateways for your region, along with UPI and card payments, so customers can pay however they prefer."
+      },
+      {
+        "q": "Can the store handle a large product catalog?",
+        "a": "Yes, the catalog structure and filtering are built to scale from a handful of products to thousands without slowing the site down."
+      },
+      {
+        "q": "Do you set up shipping and order management too?",
+        "a": "Yes, inventory tracking, order status, and shipping setup are all included as part of the build."
+      }
+    ]
   },
   {
     "slug": "shopify-stores",
@@ -141,6 +343,31 @@
       "Staff training so you can manage the store confidently after launch",
       "Ongoing Shopify support for updates, apps, and troubleshooting"
     ],
-    "highlight": "Launch fast on a platform built to manage itself"
+    "highlight": "Launch fast on a platform built to manage itself",
+    "metaTitle": "Shopify Store Setup & Design Services | Launch Fast",
+    "metaDescription": "Custom Shopify store setup and theme design, with product setup, app integrations, and staff training so you can manage everything yourself after launch.",
+    "keywords": [
+      "shopify store setup",
+      "shopify website design",
+      "shopify development services",
+      "shopify theme customization",
+      "shopify expert",
+      "shopify store design"
+    ],
+    "longContent": "Shopify is one of the fastest ways to get a real store online, but a store built from a stock theme rarely looks or performs like a serious brand. We customize the theme to actually match your business, set up your products and apps correctly the first time, and train your team so you're not stuck waiting on a developer every time something small needs changing. It's a professional store without the custom-build price tag or timeline.",
+    "faqs": [
+      {
+        "q": "Do I need to know how to code to manage a Shopify store?",
+        "a": "No, Shopify is built for non-technical users, and we train you on the parts you'll actually use: products, orders, and basic content updates."
+      },
+      {
+        "q": "Can you customize the theme beyond Shopify's templates?",
+        "a": "Yes, we customize the design so it matches your brand rather than looking like a default Shopify theme."
+      },
+      {
+        "q": "Do you help pick the right apps for my store?",
+        "a": "Yes, we recommend and set up apps based on what your store actually needs (reviews, upsells, shipping), instead of adding unnecessary ones that slow the site down."
+      }
+    ]
   }
 ]
