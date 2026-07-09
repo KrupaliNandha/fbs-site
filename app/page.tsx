@@ -9,25 +9,25 @@ import HomeContactSection from "./Components/HomeContactSection";
 
 const ourServices = [
   {
-    img: "/images/services/printing/printing-products-service.webp",
+    img: "/images/home/home1.jpg",
     title: "PRINT ON PRODUCT",
     des: "CUSTOMIZED PRINT",
     href: "/services/printing-products",
   },
   {
-    img: "/images/services/direct-mail/direct-mail-service.webp",
+    img: "/images/home/home3.jpg",
     title: "DIRECT MAILING",
     des: "MARKETING",
     href: "/services/direct-mailing",
   },
   {
-    img: "/images/services/signage/signage-service.webp",
+    img: "/images/home/home6.webp",
     title: "SIGNAGE PRINTING",
     des: "VISIBLE YOUR BUSINESS",
     href: "/services/signage",
   },
   {
-    img: "/images/services/web-design/web-design-service.webp",
+    img: "/images/home/home5.jpg",
     title: "WEBSITE DESIGN",
     des: "GROW ONLINE",
     href: "/services/web-design",
@@ -104,15 +104,15 @@ export default function Home() {
                     <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                         <Image
-                          src="/images/shared/printing-materials-showcase.webp"
-                          alt="Printed materials showcase"
+                          src="/images/home/home1.jpg"
+                          alt="seo service card"
                           fill
                           className="object-cover"
                         />
                       </div>
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
                         <Image
-                          src="/images/services/signage/signage-service.webp"
+                          src="/images/home/home2.webp"
                           alt="Business signage display"
                           fill
                           className="object-cover"
@@ -121,9 +121,9 @@ export default function Home() {
                     </div>
 
                     <div className="col-span-1 space-y-4 sm:space-y-6">
-                      <div className="rounded-2xl aspect-square sm:aspect-3/4 overflow-hidden relative float-2">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
                         <Image
-                          src="/images/home/printing-branding-hero.webp"
+                          src="/images/home/image.png"
                           alt="FBS Signs project showcase"
                           fill
                           priority
@@ -132,7 +132,7 @@ export default function Home() {
                       </div>
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                         <Image
-                          src="/images/shared/website-design-showcase.webp"
+                          src="/images/home/home3.jpg"
                           alt="Website design showcase"
                           fill
                           className="object-cover"
@@ -143,7 +143,7 @@ export default function Home() {
                     <div className="col-span-1 space-y-6 sm:mt-16 hidden sm:block">
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                         <Image
-                          src="/images/services/printing/printing-products-service.webp"
+                          src="/images/home/home5.jpg"
                           alt="Custom printing product display"
                           fill
                           className="object-cover"
@@ -151,7 +151,7 @@ export default function Home() {
                       </div>
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
                         <Image
-                          src="/images/services/direct-mail/direct-mail-service.webp"
+                          src="/images/home/home6.webp"
                           alt="Direct mailing marketing materials"
                           fill
                           className="object-cover"
