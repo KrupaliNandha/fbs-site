@@ -151,7 +151,7 @@ export default function Home() {
                       </div>
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
                         <Image
-                          src="/images/home/home7.webp"
+                          src="/images/home/home6.webp"
                           alt="Direct mailing marketing materials"
                           fill
                           className="object-cover"
