@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useMemo, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, Calendar, Clock, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { BlogPost, formatBlogDate } from "@/app/data/blog";
 
@@ -11,12 +10,19 @@ type BlogListClientProps = {
   posts: BlogPost[];
 };
 
+const BLOG_PAGE_STORAGE_KEY = "blog-list-current-page";
+
 export default function BlogListClient({ posts }: BlogListClientProps) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [currentPage, setCurrentPage] = useState(() => {
+    if (typeof window === "undefined") {
+      return 1;
+    }
+
+    const savedPage = Number(window.sessionStorage.getItem(BLOG_PAGE_STORAGE_KEY));
+    return Number.isFinite(savedPage) && savedPage > 0 ? savedPage : 1;
+  });
   const POSTS_PER_PAGE = 9;
 
   const categories = useMemo(() => {
@@ -42,29 +48,67 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
 
   const featuredPost = filteredPosts[0];
   const standardPosts = useMemo(() => filteredPosts.slice(1), [filteredPosts]);
-
   const totalPages = Math.ceil(standardPosts.length / POSTS_PER_PAGE);
-  const rawPageParam = Number(searchParams.get("page"));
-  const requestedPage =
-    Number.isFinite(rawPageParam) && rawPageParam > 0 ? rawPageParam : 1;
-  const currentPage =
-    totalPages > 0 ? Math.min(requestedPage, totalPages) : 1;
-  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const normalizedCurrentPage =
+    totalPages > 0 ? Math.min(currentPage, totalPages) : 1;
+  const startIndex = (normalizedCurrentPage - 1) * POSTS_PER_PAGE;
   const paginatedPosts = useMemo(() => {
     return standardPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
   }, [standardPosts, startIndex]);
 
-  const updatePageInUrl = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (page <= 1) {
-      params.delete("page");
-    } else {
-      params.set("page", String(page));
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
     }
 
-    const query = params.toString();
-    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    window.sessionStorage.setItem(
+      BLOG_PAGE_STORAGE_KEY,
+      String(normalizedCurrentPage),
+    );
+  }, [normalizedCurrentPage]);
+
+  useEffect(() => {
+    if (normalizedCurrentPage <= 1) {
+      return;
+    }
+
+    const element = document.getElementById("blog-posts-grid");
+
+    if (!element) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      const offset = 120;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "auto",
+      });
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    const element = document.getElementById("blog-posts-grid");
+    if (element) {
+      const offset = 120;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
   };
 
   const getPageNumbers = () => {
@@ -75,15 +119,15 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
       }
     } else {
       pages.push(1);
-      let start = Math.max(2, currentPage - 1);
-      let end = Math.min(totalPages - 1, currentPage + 1);
-      
-      if (currentPage <= 3) {
+      let start = Math.max(2, normalizedCurrentPage - 1);
+      let end = Math.min(totalPages - 1, normalizedCurrentPage + 1);
+
+      if (normalizedCurrentPage <= 3) {
         end = 4;
-      } else if (currentPage >= totalPages - 2) {
+      } else if (normalizedCurrentPage >= totalPages - 2) {
         start = totalPages - 3;
       }
-      
+
       if (start > 2) {
         pages.push("...");
       }
@@ -96,23 +140,6 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
       pages.push(totalPages);
     }
     return pages;
-  };
-
-  const handlePageChange = (page: number) => {
-    updatePageInUrl(page);
-    const element = document.getElementById("blog-posts-grid");
-    if (element) {
-      const offset = 120; // Offset to keep the header/filters visible
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
   };
 
   return (
@@ -129,7 +156,6 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
 
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="flex flex-col justify-center text-center lg:text-left space-y-5">
-              
               <h1 className="font-semibold text-gray-950 leading-tight tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
                 Marketing &amp; Design
                 <span className="text-pink-700"> Insights</span>
@@ -177,7 +203,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                 key={category}
                 onClick={() => {
                   setSelectedCategory(category);
-                  updatePageInUrl(1);
+                  setCurrentPage(1);
                 }}
                 className={`px-4 py-2 rounded-full text-sm font-bold transition ${
                   selectedCategory === category
@@ -198,7 +224,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
               value={searchQuery}
               onChange={(event) => {
                 setSearchQuery(event.target.value);
-                updatePageInUrl(1);
+                setCurrentPage(1);
               }}
               className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:border-pink-600 text-sm font-medium text-gray-900"
             />
@@ -217,7 +243,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
               onClick={() => {
                 setSearchQuery("");
                 setSelectedCategory("All");
-                updatePageInUrl(1);
+                setCurrentPage(1);
               }}
               className="mt-6 rounded-full bg-pink-700 px-6 py-3 text-white font-bold"
             >
@@ -228,11 +254,10 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
           <div className="space-y-10 mt-10">
             {featuredPost && (
               <Link
-                href={`/blog/${featuredPost.slug}${currentPage > 1 ? `?page=${currentPage}` : ""}`}
+                href={`/blog/${featuredPost.slug}`}
                 className="group grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition"
               >
                 <div className="lg:col-span-7 h-64 sm:h-72 lg:h-[420px] relative bg-gray-900 overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   {featuredPost.image ? (
                     <img
                       src={featuredPost.image}
@@ -286,11 +311,10 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
               {paginatedPosts.map((post) => (
                 <Link
                   key={post.id}
-                  href={`/blog/${post.slug}${currentPage > 1 ? `?page=${currentPage}` : ""}`}
+                  href={`/blog/${post.slug}`}
                   className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition flex flex-col"
                 >
                   <div className="h-56 relative bg-gray-900 overflow-hidden">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     {post.image ? (
                       <img
                         src={post.image}
@@ -324,18 +348,17 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
               ))}
             </div>
 
-            {/* Pagination Controls */}
             {totalPages > 1 && (
               <div className="flex justify-center items-center gap-2 mt-16 pt-8 border-t border-gray-100">
                 <button
-                  onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
-                  disabled={currentPage === 1}
+                  onClick={() => handlePageChange(Math.max(normalizedCurrentPage - 1, 1))}
+                  disabled={normalizedCurrentPage === 1}
                   className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 bg-white text-gray-700 hover:border-pink-600 hover:text-pink-700 disabled:opacity-40 disabled:cursor-not-allowed transition duration-300"
                   aria-label="Previous Page"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
-                
+
                 {getPageNumbers().map((page, index) => {
                   if (page === "...") {
                     return (
@@ -344,13 +367,13 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                       </span>
                     );
                   }
-                  
+
                   return (
                     <button
                       key={`page-${page}`}
                       onClick={() => handlePageChange(page as number)}
                       className={`w-10 h-10 rounded-full font-bold text-sm transition duration-300 flex items-center justify-center ${
-                        currentPage === page
+                        normalizedCurrentPage === page
                           ? "bg-pink-700 text-white shadow-md shadow-pink-200"
                           : "border border-gray-200 bg-white text-gray-700 hover:border-pink-600 hover:text-pink-700"
                       }`}
@@ -359,10 +382,10 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                     </button>
                   );
                 })}
-                
+
                 <button
-                  onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
-                  disabled={currentPage === totalPages}
+                  onClick={() => handlePageChange(Math.min(normalizedCurrentPage + 1, totalPages))}
+                  disabled={normalizedCurrentPage === totalPages}
                   className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 bg-white text-gray-700 hover:border-pink-600 hover:text-pink-700 disabled:opacity-40 disabled:cursor-not-allowed transition duration-300"
                   aria-label="Next Page"
                 >

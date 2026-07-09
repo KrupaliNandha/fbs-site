@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
@@ -26,12 +25,9 @@ const slugify = (text: string) =>
     .replace(/(^-|-$)/g, "");
 
 export default function BlogDetailClient({ post }: BlogDetailClientProps) {
-  const searchParams = useSearchParams();
   const relatedPosts = getRelatedPosts(post);
   const headings = post.content.filter((section) => section.type === "heading");
-  const pageParam = searchParams.get("page");
-  const backToBlogHref =
-    pageParam && Number(pageParam) > 1 ? `/blog?page=${pageParam}` : "/blog";
+  const backToBlogHref = "/blog";
   const relatedServiceHref =
     post.category.toLowerCase() === "seo"
       ? "/services/seo"
