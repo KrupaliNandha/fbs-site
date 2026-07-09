@@ -347,7 +347,7 @@ export default function ProductDetailPageClient({
                 <h2 className="text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-left lg:text-5xl">
                   Premium Custom Printing
                   <br />
-                  <span className="text-black">At Competitive Pricing.</span>
+                  <span className="text-black hover:text-yellow-300">At Competitive Pricing.</span>
                 </h2>
               </div>
 

@@ -241,18 +241,25 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto divide-y divide-gray-200 border border-gray-200 rounded-2xl overflow-hidden bg-white">
+          <div className="mx-auto grid max-w-4xl grid-cols-1 gap-3 sm:gap-4">
             {faqs.map((faq, i) => (
-              <details key={i} className="group" open={i === 0}>
-                <summary className="list-none cursor-pointer w-full flex items-center justify-between gap-4 px-5 sm:px-6 py-5 hover:bg-gray-50 transition-colors marker:content-none [&::-webkit-details-marker]:hidden">
-                  <span className="text-base sm:text-lg font-semibold text-gray-900">
+              <details
+                key={i}
+                name="seo-faq"
+                className="group overflow-hidden rounded-xl border-2 border-transparent bg-white shadow-md transition-all duration-300 hover:-translate-y-[2px] hover:shadow-lg open:border-[#EC1279] open:shadow-lg sm:rounded-2xl"
+                open={i === 0}
+              >
+                <summary className="list-none cursor-pointer flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5 marker:content-none [&::-webkit-details-marker]:hidden">
+                  <span className="text-sm font-semibold leading-snug text-gray-900 transition-colors duration-300 group-open:text-[#EC1279] sm:text-base">
                     {faq.q}
                   </span>
-                  <ChevronDown className="w-5 h-5 flex-shrink-0 text-pink-600 transition-transform duration-300 group-open:rotate-180" />
+                  <ChevronDown className="h-5 w-5 shrink-0 text-gray-900 transition-transform duration-300 group-open:rotate-180 group-open:text-[#EC1279]" />
                 </summary>
-                <p className="px-5 sm:px-6 pb-5 text-gray-600 text-sm sm:text-base leading-relaxed">
-                  {faq.a}
-                </p>
+                <div className="overflow-hidden px-5 pb-4 sm:px-6 sm:pb-5">
+                  <p className="text-sm leading-relaxed text-gray-500 sm:text-base">
+                    {faq.a}
+                  </p>
+                </div>
               </details>
             ))}
           </div>

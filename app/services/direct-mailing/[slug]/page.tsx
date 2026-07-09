@@ -427,22 +427,25 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
               Answers to common questions about {format.title.toLowerCase()}.
             </p>
 
-            <div className="rounded-2xl border border-slate-200 overflow-hidden divide-y divide-slate-200">
+            <div className="mx-auto grid max-w-4xl grid-cols-1 gap-3 sm:gap-4">
               {format.faqs.map((faq, index) => (
                 <details
-                  key={faq.question}
-                  className={`group ${index % 2 === 0 ? "bg-white" : "bg-slate-50"}`}
-                  {...(index === 0 ? { open: true } : {})}
+                  key={index}
+                  name="direct-mailing-faq"
+                  className="group overflow-hidden rounded-xl border-2 border-transparent bg-white shadow-md transition-all duration-300 hover:-translate-y-[2px] hover:shadow-lg open:border-[#EC1279] open:shadow-lg sm:rounded-2xl"
+                  open={index === 0}
                 >
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-left [&::-webkit-details-marker]:hidden">
-                    <span className="text-base sm:text-lg font-semibold text-gray-900">
+                  <summary className="list-none cursor-pointer flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5 marker:content-none [&::-webkit-details-marker]:hidden">
+                    <span className="text-sm font-semibold leading-snug text-gray-900 transition-colors duration-300 group-open:text-[#EC1279] sm:text-base">
                       {faq.question}
                     </span>
-                    <ChevronDown className="h-4 w-4 shrink-0 text-[#EC1279] transition-transform duration-300 group-open:rotate-180" />
+                    <ChevronDown className="h-5 w-5 shrink-0 text-gray-900 transition-transform duration-300 group-open:rotate-180 group-open:text-[#EC1279]" />
                   </summary>
-                  <p className="px-6 pb-5 text-sm text-slate-600 leading-relaxed">
-                    {faq.answer}
-                  </p>
+                  <div className="overflow-hidden px-5 pb-4 sm:px-6 sm:pb-5">
+                    <p className="text-sm leading-relaxed text-gray-500 sm:text-base">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </details>
               ))}
             </div>
