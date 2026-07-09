@@ -123,7 +123,7 @@ export default function Page() {
                     <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                         <Image
-                          src="/images/shared/printing-materials-showcase.webp"
+                          src="/images/about/about_hero_wall_design.png"
                           alt="Printed marketing materials"
                           fill
                           className="object-cover"
@@ -135,7 +135,7 @@ export default function Page() {
                     <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-40">
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
                         <Image
-                          src="/images/shared/website-design-showcase.webp"
+                          src="/images/about/about_hero_printing_machine.png"
                           alt="Digital design showcase"
                           fill
                           className="object-cover"
@@ -147,7 +147,7 @@ export default function Page() {
                     <div className="col-span-1 space-y-6 sm:mt-16 ">
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                         <Image
-                          src="/images/services/printing/printing-products-service.webp"
+                          src="/images/about/about_hero_printing_design.png"
                           alt="Custom print product sample"
                           fill
                           className="object-cover"
@@ -208,17 +208,17 @@ export default function Page() {
               </div>
 
               {/* RIGHT IMAGE */}
-              <div data-aos="fade-left" className="relative">
-                <div className="absolute -inset-3 rounded-3xl bg-gradient-to-r from-pink-400 to-green-400 blur-2xl opacity-30"></div>
-
-                <Image
-                  src="/images/about/about-fbs-prints-team.webp"
-                  alt="FBS Prints team collaborating on print and branding projects"
-                  width={700}
-                  height={500}
-                  priority
-                  className="relative w-full h-[320px] md:h-[450px] object-cover rounded-3xl"
-                />
+              <div data-aos="fade-left" className="relative group cursor-pointer">
+                <div className="relative overflow-hidden rounded-3xl shadow-md transition-all duration-500 ease-in-out group-hover:-translate-y-2">
+                  <Image
+                    src="/images/about/about_industrial_people_work.jpeg"
+                    alt="FBS Prints team collaborating on print and branding projects"
+                    width={700}
+                    height={500}
+                    priority
+                    className="w-full h-[320px] md:h-[450px] object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
               </div>
             </div>
           </div>

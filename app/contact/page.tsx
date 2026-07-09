@@ -154,7 +154,7 @@ export default function Page() {
                           src="/images/contact/contact-support-hero.webp"
                           alt="FBS Prints customer support representative"
                           fill
-                          className="object-fix"
+                          className="object-cover"
                         />
                       </div>
                     </div>
