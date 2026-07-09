@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { ArrowRight, Calendar, Clock, Search, Newspaper, ChevronLeft, ChevronRight } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ArrowRight, Calendar, Clock, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { BlogPost, formatBlogDate } from "@/app/data/blog";
 
 type BlogListClientProps = {
@@ -11,9 +12,11 @@ type BlogListClientProps = {
 };
 
 export default function BlogListClient({ posts }: BlogListClientProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [currentPage, setCurrentPage] = useState(1);
   const POSTS_PER_PAGE = 9;
 
   const categories = useMemo(() => {
@@ -41,10 +44,28 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
   const standardPosts = useMemo(() => filteredPosts.slice(1), [filteredPosts]);
 
   const totalPages = Math.ceil(standardPosts.length / POSTS_PER_PAGE);
+  const rawPageParam = Number(searchParams.get("page"));
+  const requestedPage =
+    Number.isFinite(rawPageParam) && rawPageParam > 0 ? rawPageParam : 1;
+  const currentPage =
+    totalPages > 0 ? Math.min(requestedPage, totalPages) : 1;
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const paginatedPosts = useMemo(() => {
     return standardPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
   }, [standardPosts, startIndex]);
+
+  const updatePageInUrl = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (page <= 1) {
+      params.delete("page");
+    } else {
+      params.set("page", String(page));
+    }
+
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  };
 
   const getPageNumbers = () => {
     const pages = [];
@@ -78,7 +99,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
   };
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    updatePageInUrl(page);
     const element = document.getElementById("blog-posts-grid");
     if (element) {
       const offset = 120; // Offset to keep the header/filters visible
@@ -156,7 +177,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                 key={category}
                 onClick={() => {
                   setSelectedCategory(category);
-                  setCurrentPage(1);
+                  updatePageInUrl(1);
                 }}
                 className={`px-4 py-2 rounded-full text-sm font-bold transition ${
                   selectedCategory === category
@@ -177,7 +198,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
               value={searchQuery}
               onChange={(event) => {
                 setSearchQuery(event.target.value);
-                setCurrentPage(1);
+                updatePageInUrl(1);
               }}
               className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:border-pink-600 text-sm font-medium text-gray-900"
             />
@@ -196,7 +217,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
               onClick={() => {
                 setSearchQuery("");
                 setSelectedCategory("All");
-                setCurrentPage(1);
+                updatePageInUrl(1);
               }}
               className="mt-6 rounded-full bg-pink-700 px-6 py-3 text-white font-bold"
             >
@@ -207,7 +228,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
           <div className="space-y-10 mt-10">
             {featuredPost && (
               <Link
-                href={`/blog/${featuredPost.slug}`}
+                href={`/blog/${featuredPost.slug}${currentPage > 1 ? `?page=${currentPage}` : ""}`}
                 className="group grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition"
               >
                 <div className="lg:col-span-7 h-64 sm:h-72 lg:h-[420px] relative bg-gray-900 overflow-hidden">
@@ -265,7 +286,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
               {paginatedPosts.map((post) => (
                 <Link
                   key={post.id}
-                  href={`/blog/${post.slug}`}
+                  href={`/blog/${post.slug}${currentPage > 1 ? `?page=${currentPage}` : ""}`}
                   className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition flex flex-col"
                 >
                   <div className="h-56 relative bg-gray-900 overflow-hidden">

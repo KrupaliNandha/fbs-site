@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
@@ -25,8 +26,12 @@ const slugify = (text: string) =>
     .replace(/(^-|-$)/g, "");
 
 export default function BlogDetailClient({ post }: BlogDetailClientProps) {
+  const searchParams = useSearchParams();
   const relatedPosts = getRelatedPosts(post);
   const headings = post.content.filter((section) => section.type === "heading");
+  const pageParam = searchParams.get("page");
+  const backToBlogHref =
+    pageParam && Number(pageParam) > 1 ? `/blog?page=${pageParam}` : "/blog";
   const relatedServiceHref =
     post.category.toLowerCase() === "seo"
       ? "/services/seo"
@@ -93,7 +98,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
 
       <section className="container section-padding">
         <Link
-          href="/blog"
+          href={backToBlogHref}
           className="inline-flex items-center gap-2 text-gray-700 hover:text-pink-700 font-bold bg-white px-5 py-3 rounded-full shadow transition"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -247,7 +252,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
             <h2 className="text-3xl font-bold text-gray-950">
               Related Articles
             </h2>
-            <Link href="/blog" className="text-pink-700 font-bold flex 
+            <Link href={backToBlogHref} className="text-pink-700 font-bold flex 
             items-center gap-1 hover:gap-2 transition">
               View All Articles 
               <ArrowRight className="w-4 h-4 inline-block ml-1 " />
