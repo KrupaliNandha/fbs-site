@@ -21,7 +21,7 @@ const ourServices = [
     href: "/services/direct-mailing",
   },
   {
-    img: "/images/home/home7.webp",
+    img: "/images/home/home6.webp",
     title: "SIGNAGE PRINTING",
     des: "VISIBLE YOUR BUSINESS",
     href: "/services/signage",
