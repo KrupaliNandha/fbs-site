@@ -51,6 +51,50 @@
         "q": "Can you set up abandoned cart emails for my online store?",
         "a": "Yes, abandoned cart sequences are one of the highest-converting automations we build, and they're set up to trigger automatically once your store is connected."
       }
+    ],
+    "relatedServices": [
+      "digital-marketing-strategy",
+      "content-writing",
+      "ecommerce-website",
+      "shopify-stores",
+      "search-engine-optimization"
+    ],
+    "benefits": [
+      "Owned channel that isn't at the mercy of a social algorithm change",
+      "One of the highest ROI marketing channels for the cost involved",
+      "Automated sequences work around the clock without daily effort from you",
+      "Turns a dormant customer list into a steady source of repeat revenue",
+      "Full data ownership, your subscriber list stays yours no matter what platform you use"
+    ],
+    "process": [
+      {
+        "step": "Audit & Setup",
+        "description": "We review your existing list (or start fresh), set up your sending platform, and configure authentication for good deliverability."
+      },
+      {
+        "step": "Sequence Design",
+        "description": "We map out welcome, nurture, abandoned cart, and win-back flows tailored to your customer journey."
+      },
+      {
+        "step": "Template & Copy",
+        "description": "Branded templates are designed and every email is written to match your voice and goals."
+      },
+      {
+        "step": "Launch & Automate",
+        "description": "Sequences go live and begin running automatically as new subscribers and triggers come in."
+      },
+      {
+        "step": "Optimize & Report",
+        "description": "We track opens, clicks, and conversions monthly, A/B testing to keep improving results over time."
+      }
+    ],
+    "useCases": [
+      "Retail or e-commerce brands wanting to recover abandoned carts and drive repeat purchases",
+      "Service businesses that want to stay top-of-mind with past clients between jobs",
+      "Businesses with an existing customer list that isn't being used for marketing yet",
+      "Brands launching new products or seasonal promotions that need a direct announcement channel",
+      "Companies wanting to reduce reliance on paid ads by nurturing owned audience relationships",
+      "Businesses looking to build a stronger digital presence and drive sustainable growth"
     ]
   },
   {
@@ -105,6 +149,50 @@
         "q": "Will SEO still work if my competitors are also doing it?",
         "a": "Yes, SEO isn't winner-take-all. We focus on the specific keywords and gaps your competitors are missing, so you can win rankings even in a competitive market."
       }
+    ],
+    "relatedServices": [
+      "content-writing",
+      "web-development",
+      "digital-marketing-strategy",
+      "portfolio-website",
+      "ecommerce-website"
+    ],
+    "benefits": [
+      "Keeps bringing in traffic long after the work is done, unlike paid ads",
+      "Builds long-term credibility and trust signals with search engines",
+      "Puts you in front of customers at the exact moment they're ready to buy",
+      "Compounds in value over time instead of resetting every month",
+      "Gives you visibility competitors can't simply buy their way past"
+    ],
+    "process": [
+      {
+        "step": "Audit",
+        "description": "We assess technical health, current rankings, and competitor positioning to find the biggest opportunities."
+      },
+      {
+        "step": "Keyword Research",
+        "description": "We identify the local, high-intent search terms your real customers are actually typing into Google."
+      },
+      {
+        "step": "On-Page & Technical Fixes",
+        "description": "Titles, meta descriptions, site speed, and structure are optimized to build a solid ranking foundation."
+      },
+      {
+        "step": "Content & Authority Building",
+        "description": "Ongoing content, citations, and backlinks are built to strengthen your site's relevance and trust."
+      },
+      {
+        "step": "Track & Report",
+        "description": "Monthly reports show ranking movement and traffic so you always know what's working."
+      }
+    ],
+    "useCases": [
+      "Local businesses wanting to show up in 'near me' searches and the Google map pack",
+      "Service businesses relying on organic search as a primary source of new leads",
+      "E-commerce stores wanting free, ongoing traffic to product and category pages",
+      "Businesses whose website traffic has plateaued or declined over time",
+      "New websites needing a solid foundation before scaling other marketing channels",
+      "Businesses looking to build a stronger digital presence and drive sustainable growth"
     ]
   },
   {
@@ -158,6 +246,50 @@
         "q": "Can you rewrite existing pages instead of starting from scratch?",
         "a": "Yes, we regularly refresh outdated website copy and blog posts to improve clarity, tone, and SEO performance without a full rebuild."
       }
+    ],
+    "relatedServices": [
+      "search-engine-optimization",
+      "email-marketing",
+      "social-media-management",
+      "digital-marketing-strategy",
+      "web-development"
+    ],
+    "benefits": [
+      "Content written for real readers first, which naturally supports SEO too",
+      "Consistent brand voice across every page instead of a patchwork of tones",
+      "Reduces repetitive customer questions by answering them directly on the page",
+      "Every piece is researched, not generic filler that could apply to any business",
+      "Editing and proofreading included, so what's delivered is publish-ready"
+    ],
+    "process": [
+      {
+        "step": "Discovery",
+        "description": "We learn your brand voice, audience, and goals for the content before any writing begins."
+      },
+      {
+        "step": "Research",
+        "description": "We research the topic, competitors, and real customer questions to give the piece a clear purpose."
+      },
+      {
+        "step": "Outline & Brief",
+        "description": "A content brief or outline is shared with you so direction is agreed before writing starts."
+      },
+      {
+        "step": "Writing",
+        "description": "The piece is written in your brand voice, structured around a single clear goal."
+      },
+      {
+        "step": "Edit & Deliver",
+        "description": "Every piece is proofread and refined through revisions until it's ready to publish."
+      }
+    ],
+    "useCases": [
+      "New websites needing complete website copy from scratch",
+      "Businesses wanting a consistent blog to support SEO and build authority",
+      "E-commerce stores needing product descriptions that actually sell, not just list specs",
+      "Businesses with outdated or inconsistent website copy that needs a refresh",
+      "Landing pages for specific campaigns, launches, or promotions",
+      "Businesses looking to build a stronger digital presence and drive sustainable growth"
     ]
   },
   {
@@ -211,6 +343,50 @@
         "q": "How do you decide which KPIs to track?",
         "a": "KPIs are set based on your actual business goals, whether that's leads, bookings, or sales, so every report ties back to something that matters to your bottom line."
       }
+    ],
+    "relatedServices": [
+      "search-engine-optimization",
+      "email-marketing",
+      "social-media-management",
+      "content-writing",
+      "web-development"
+    ],
+    "benefits": [
+      "Every channel works toward the same goal instead of pulling in different directions",
+      "Budget goes to what's proven to work first, not spread thin across everything",
+      "Clear KPIs mean you always know if marketing is actually paying off",
+      "Quarterly reviews keep the plan responsive to what's really happening",
+      "One coordinated story across SEO, content, email, and social builds stronger brand trust"
+    ],
+    "process": [
+      {
+        "step": "Discovery & Audit",
+        "description": "We review your current digital presence, competitors, and business goals to see where you stand today."
+      },
+      {
+        "step": "Journey Mapping",
+        "description": "We map how customers actually move from first hearing about you to becoming a paying customer."
+      },
+      {
+        "step": "Roadmap Building",
+        "description": "A channel-by-channel plan is built with clear priorities, KPIs, and budget allocation."
+      },
+      {
+        "step": "Execution",
+        "description": "You execute internally with our roadmap, or we manage execution across the recommended channels."
+      },
+      {
+        "step": "Quarterly Review",
+        "description": "We revisit the plan every quarter, adjusting priorities based on real performance data."
+      }
+    ],
+    "useCases": [
+      "Businesses running several marketing tactics with no clear coordination between them",
+      "Companies planning a major growth push and needing a clear roadmap first",
+      "Businesses unsure which digital channels are actually worth investing in",
+      "Teams needing a shared plan everyone can align around",
+      "Businesses that have tried marketing before without a clear return",
+      "Businesses looking to build a stronger digital presence and drive sustainable growth"
     ]
   },
   {
@@ -264,6 +440,50 @@
         "q": "Can you integrate booking or payment tools into my site?",
         "a": "Yes, appointment booking, payment gateways, and other business tools are integrated based on how your business actually operates day to day."
       }
+    ],
+    "relatedServices": [
+      "ecommerce-website",
+      "shopify-stores",
+      "portfolio-website",
+      "search-engine-optimization",
+      "content-writing"
+    ],
+    "benefits": [
+      "Fast-loading pages that keep visitors from bouncing before they read anything",
+      "Fully responsive, so your site works properly on any device, not just desktop",
+      "Easy content management means you're never dependent on a developer for small edits",
+      "SEO foundations built in from day one instead of retrofitted later",
+      "Ongoing support after launch, not a one-time handoff you're left alone with"
+    ],
+    "process": [
+      {
+        "step": "Discovery",
+        "description": "We learn about your business, workflow, and what the site actually needs to do for you."
+      },
+      {
+        "step": "Design",
+        "description": "A custom, mobile-first design is created that reflects your brand and guides visitors clearly."
+      },
+      {
+        "step": "Development",
+        "description": "The site is built with clean code, proper performance optimization, and easy content management."
+      },
+      {
+        "step": "Testing",
+        "description": "Cross-browser and cross-device testing ensures everything works correctly before launch."
+      },
+      {
+        "step": "Launch & Support",
+        "description": "The site goes live, with ongoing support available for updates and changes afterward."
+      }
+    ],
+    "useCases": [
+      "Businesses needing a brand-new website built from scratch",
+      "Companies with an outdated site that no longer reflects their brand or converts visitors",
+      "Service businesses needing booking forms, quote tools, or custom integrations",
+      "Businesses wanting a site they can update themselves without ongoing developer costs",
+      "Growing companies needing a site built to scale with new pages and features",
+      "Businesses looking to build a stronger digital presence and drive sustainable growth"
     ]
   },
   {
@@ -317,6 +537,50 @@
         "q": "Can social media management help drive sales, not just likes?",
         "a": "Yes, content is planned around clear calls to action, product highlights, and promotions, not just engagement for its own sake."
       }
+    ],
+    "relatedServices": [
+      "content-writing",
+      "digital-marketing-strategy",
+      "email-marketing",
+      "search-engine-optimization",
+      "ecommerce-website"
+    ],
+    "benefits": [
+      "Consistent, professional presence without the daily time commitment",
+      "Content planned in advance instead of scrambled together last minute",
+      "Community management builds trust through timely, professional responses",
+      "Monthly reporting shows real engagement and growth, not just vanity numbers",
+      "Frees up your time to focus on running the business, not managing a feed"
+    ],
+    "process": [
+      {
+        "step": "Onboarding",
+        "description": "We learn your brand, audience, and goals for social media before planning any content."
+      },
+      {
+        "step": "Content Calendar",
+        "description": "A monthly calendar of posts, captions, and video ideas is planned and shared for your approval."
+      },
+      {
+        "step": "Creation",
+        "description": "Graphics, captions, and short-form videos are created to match your brand and platform best practices."
+      },
+      {
+        "step": "Posting & Engagement",
+        "description": "Content is posted on schedule, with comments, messages, and reviews actively managed."
+      },
+      {
+        "step": "Reporting",
+        "description": "Monthly analytics reports show engagement, reach, and audience growth so you can see real impact."
+      }
+    ],
+    "useCases": [
+      "Businesses with little time to manage their own social profiles consistently",
+      "Brands wanting a more professional, cohesive look across Instagram and Facebook",
+      "Companies wanting to build trust through active community engagement",
+      "Businesses launching new products or promotions that need social visibility",
+      "Brands wanting to track real engagement and growth instead of guessing",
+      "Businesses looking to build a stronger digital presence and drive sustainable growth"
     ]
   },
   {
@@ -370,6 +634,50 @@
         "q": "Is this suitable for teams, not just individual freelancers?",
         "a": "Yes, we build portfolio sites for both individuals and small studios or agencies wanting to showcase collective work under one brand."
       }
+    ],
+    "relatedServices": [
+      "web-development",
+      "content-writing",
+      "search-engine-optimization",
+      "social-media-management",
+      "digital-marketing-strategy"
+    ],
+    "benefits": [
+      "Puts your best work front and center instead of buried in a cluttered layout",
+      "Fast-loading galleries mean visitors actually stick around to see your work",
+      "Looks sharp and professional on every device, not just desktop",
+      "Clear next steps turn impressed visitors into real inquiries",
+      "Easy to update yourself as you complete new projects"
+    ],
+    "process": [
+      {
+        "step": "Discovery",
+        "description": "We learn about your work, style, and the story you want your portfolio to tell."
+      },
+      {
+        "step": "Curation",
+        "description": "Your strongest projects are selected and organized into a clear, browsable structure."
+      },
+      {
+        "step": "Design",
+        "description": "A custom gallery and case-study layout is designed around your actual work, not a generic template."
+      },
+      {
+        "step": "Build",
+        "description": "The site is built with fast image handling and mobile-first responsiveness."
+      },
+      {
+        "step": "Launch",
+        "description": "The portfolio goes live with clear calls to action guiding visitors toward contact or booking."
+      }
+    ],
+    "useCases": [
+      "Photographers, designers, and other creatives wanting to showcase their best work",
+      "Freelancers and consultants wanting a professional online presence for referrals",
+      "Small studios or agencies wanting a shared showcase of collective work",
+      "Professionals wanting a portfolio to support job applications or client pitches",
+      "Creatives whose current portfolio feels outdated or hard to navigate",
+      "Businesses looking to build a stronger digital presence and drive sustainable growth"
     ]
   },
   {
@@ -423,6 +731,50 @@
         "q": "Will the store work well during high-traffic sales events?",
         "a": "Yes, stores are built and hosted to handle traffic spikes during promotions and sales events without slowing down or crashing."
       }
+    ],
+    "relatedServices": [
+      "shopify-stores",
+      "web-development",
+      "email-marketing",
+      "digital-marketing-strategy",
+      "social-media-management"
+    ],
+    "benefits": [
+      "Checkout built to minimize friction and reduce lost sales",
+      "Inventory, orders, and shipping managed from one connected backend",
+      "Scales cleanly whether you have ten products or ten thousand",
+      "Mobile-optimized experience where most online shopping actually happens",
+      "Built-in analytics so you always know what's actually selling"
+    ],
+    "process": [
+      {
+        "step": "Planning",
+        "description": "We map out your product catalog, categories, and the buying journey you want customers to follow."
+      },
+      {
+        "step": "Design",
+        "description": "Product pages, cart, and checkout are designed around clarity and conversion."
+      },
+      {
+        "step": "Development",
+        "description": "The store is built with secure payment integration and backend inventory management."
+      },
+      {
+        "step": "Testing",
+        "description": "Checkout, payments, and mobile experience are tested thoroughly before launch."
+      },
+      {
+        "step": "Launch & Support",
+        "description": "The store goes live, with support available for updates and catalog growth afterward."
+      }
+    ],
+    "useCases": [
+      "Businesses launching a new online store from scratch",
+      "Retailers wanting to move from a marketplace listing to their own branded store",
+      "Businesses with a growing product catalog needing better organization and filtering",
+      "Companies experiencing high cart abandonment on their current store",
+      "Brands wanting full control over their checkout and customer data",
+      "Businesses looking to build a stronger digital presence and drive sustainable growth"
     ]
   },
   {
@@ -476,6 +828,50 @@
         "q": "What ongoing support do you provide after launch?",
         "a": "We're available for theme updates, app troubleshooting, and small changes, so you're never stuck figuring out a Shopify issue alone."
       }
+    ],
+    "relatedServices": [
+      "ecommerce-website",
+      "web-development",
+      "email-marketing",
+      "digital-marketing-strategy",
+      "social-media-management"
+    ],
+    "benefits": [
+      "Fast, reliable infrastructure handled entirely by Shopify",
+      "Custom theme design so your store doesn't look like a generic template",
+      "Non-technical staff can manage the store confidently after training",
+      "App ecosystem lets you add exactly the features your store needs",
+      "Faster launch timeline compared to a fully custom-built store"
+    ],
+    "process": [
+      {
+        "step": "Setup",
+        "description": "We configure your Shopify account, domain, payment gateways, and tax settings correctly from the start."
+      },
+      {
+        "step": "Theme Design",
+        "description": "A custom theme is designed and built to match your brand, not left as a generic default."
+      },
+      {
+        "step": "Product & App Setup",
+        "description": "Your product catalog is set up and the right apps are integrated for reviews, upsells, and shipping."
+      },
+      {
+        "step": "Training",
+        "description": "Your team is trained on managing products, orders, and content confidently."
+      },
+      {
+        "step": "Launch & Support",
+        "description": "The store goes live, with ongoing support for updates, apps, and troubleshooting."
+      }
+    ],
+    "useCases": [
+      "Businesses wanting to launch an online store quickly without custom development",
+      "Retailers migrating from another e-commerce platform to Shopify",
+      "Non-technical business owners who want to manage their own store easily",
+      "Brands needing a professional, custom-looking store without a large build budget",
+      "Businesses wanting reliable, managed infrastructure without hosting headaches",
+      "Businesses looking to build a stronger digital presence and drive sustainable growth"
     ]
   }
 ]

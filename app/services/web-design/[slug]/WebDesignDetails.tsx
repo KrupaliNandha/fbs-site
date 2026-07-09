@@ -17,6 +17,7 @@ import {
   ChevronDown,
   ChevronRight,
   ArrowRight,
+  Sparkles,
   type LucideIcon,
 } from "lucide-react";
 import servicesData from "@/app/data/web-design.json";
@@ -24,6 +25,11 @@ import servicesData from "@/app/data/web-design.json";
 interface Faq {
   q: string;
   a: string;
+}
+
+interface ProcessStep {
+  step: string;
+  description: string;
 }
 
 interface Service {
@@ -39,6 +45,10 @@ interface Service {
   keywords?: string[];
   longContent?: string;
   faqs?: Faq[];
+  benefits?: string[];
+  process?: ProcessStep[];
+  useCases?: string[];
+  relatedServices?: string[];
 }
 
 const iconMap: Record<string, LucideIcon> = {
@@ -88,19 +98,23 @@ function FaqItem({ faq, index }: { faq: Faq; index: number }) {
 export default function WebDesignDetails({ service }: { service: Service }) {
   const Icon = iconMap[service.icon] ?? LayoutGrid;
 
-  const relatedServices = (servicesData as Service[])
-    .filter((s) => s.slug !== service.slug)
-    .slice(0, 3);
+  const allServices = servicesData as Service[];
+
+  // Use the curated relatedServices slugs from the data when available,
+  // falling back to "any other service" only if none were specified.
+  const relatedServices = service.relatedServices?.length
+    ? service.relatedServices
+        .map((slug) => allServices.find((s) => s.slug === slug))
+        .filter((s): s is Service => Boolean(s))
+        .slice(0, 3)
+    : allServices.filter((s) => s.slug !== service.slug).slice(0, 3);
 
   return (
-    <main className="bg-white mt-24">
+    <main className="bg-white mt-16">
       {/* ============================================================ */}
       {/* SECTION 1 — HERO                                              */}
       {/* ============================================================ */}
       <section className="mt-24 xl:mt-20 relative overflow-hidden">
-        <div className="absolute -top-20 -left-24 w-72 h-72 bg-pink-100 rounded-full blur-3xl opacity-50 -z-10" />
-        <div className="absolute top-40 -right-24 w-80 h-80 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10" />
-
         <div className="container">
           {/* Breadcrumb */}
           <p className="text-slate-600 text-base sm:text-lg mb-8">
@@ -120,7 +134,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
             </span>
           </p>
 
-          <div className="grid lg:grid-cols-[1.3fr_1fr] gap-10 lg:gap-16 items-start">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             {/* LEFT: image + floating highlight + keywords */}
             <div className="lg:sticky lg:top-6">
               <div className="relative w-full aspect-[4/3.2] rounded-3xl overflow-hidden shadow-xl">
@@ -225,7 +239,131 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       )}
 
       {/* ============================================================ */}
-      {/* SECTION 3 — FAQ                                               */}
+      {/* SECTION 3 — BENEFITS                                          */}
+      {/* ============================================================ */}
+      {service.benefits && service.benefits.length > 0 && (
+        <section className="container pb-16">
+          <div className="max-w-3xl mx-auto text-center mb-10">
+            <span className="inline-block text-xs font-bold tracking-widest uppercase text-pink-600 bg-pink-50 px-3 py-1 rounded-full mb-4">
+              The Payoff
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F1B33]">
+              What You Actually Get
+            </h2>
+            <p className="text-slate-500 mt-2 text-sm sm:text-base">
+              The real, lasting benefits of investing in{" "}
+              {service.title.toLowerCase()}.
+            </p>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {service.benefits.map((benefit, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-4 rounded-2xl border border-slate-100 bg-slate-50/60 p-5 transition hover:border-pink-100 hover:bg-pink-50/40"
+              >
+                <div className="w-8 h-8 rounded-lg bg-[#0F1B33] flex items-center justify-center flex-shrink-0">
+                  <Sparkles
+                    className="w-4 h-4 text-[#EC1279]"
+                    strokeWidth={2}
+                  />
+                </div>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  {benefit}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ============================================================ */}
+      {/* SECTION 4 — PROCESS                                           */}
+      {/* ============================================================ */}
+      {service.process && service.process.length > 0 && (
+        <section className="container py-16 sm:py-20">
+          <div className="rounded-3xl border border-slate-200 bg-slate-50 px-4 py-12 sm:px-8 sm:py-16 shadow-sm">
+            <div className="max-w-3xl mx-auto text-center mb-14">
+              <span className="inline-block text-xs font-bold tracking-widest uppercase text-pink-600 bg-white px-3 py-1 rounded-full mb-4 shadow-sm">
+                How We Work
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F1B33]">
+                Our {service.title} Process
+              </h2>
+              <p className="text-slate-500 mt-2 text-sm sm:text-base">
+                A clear, step-by-step path from first conversation to results.
+              </p>
+            </div>
+ 
+            {/* ---- Horizontal row of step boxes, wraps naturally on smaller screens ---- */}
+            <div className="grid gap-6 xl:gap-8 sm:grid-cols-2 lg:grid-cols-5 w-full mx-auto">
+              {service.process.map((step, i) => (
+                <div
+                  key={i}
+                  className="group relative flex flex-col rounded-2xl border border-slate-200 bg-white pt-8 pb-6 px-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-pink-200"
+                >
+                  {/* number badge overlapping the top edge of the box */}
+                  <div className="absolute -top-5 left-5 flex w-10 h-10 items-center justify-center rounded-xl bg-[#EC1279] text-sm font-bold text-white shadow-md">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+ 
+                  <h3 className="mb-2 text-sm font-bold text-[#0F1B33] sm:text-base">
+                    {step.step}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-slate-500">
+                    {step.description}
+                  </p>
+ 
+                  {/* connector arrow between boxes on desktop */}
+                  {i < service.process!.length - 1 && (
+                    <div className="hidden lg:flex absolute top-1/2 -right-3 xl:-right-4 translate-x-1/2 -translate-y-1/2 z-10 w-8 h-8 items-center justify-center rounded-full bg-white border border-slate-200 shadow-sm text-pink-500">
+                      <ChevronRight className="w-4 h-4" strokeWidth={3} />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ============================================================ */}
+      {/* SECTION 5 — USE CASES                                         */}
+      {/* ============================================================ */}
+      {service.useCases && service.useCases.length > 0 && (
+        <section className="container py-16 sm:py-20">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <span className="inline-block text-xs font-bold tracking-widest uppercase text-pink-600 bg-pink-50 px-3 py-1 rounded-full mb-4">
+              Is This For You?
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F1B33]">
+              Who {service.title} Is Built For
+            </h2>
+          </div>
+ 
+          <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 max-w-5xl mx-auto">
+            {service.useCases.map((useCase, i) => (
+              <div
+                key={i}
+                className="group flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-pink-200 hover:shadow-md"
+              >
+                <div className="flex w-10 h-10 shrink-0 items-center justify-center rounded-full bg-pink-50 transition-colors duration-300 group-hover:bg-[#EC1279]">
+                  <Check
+                    className="w-5 h-5 text-[#EC1279] transition-colors duration-300 group-hover:text-[#8d0e49]"
+                    strokeWidth={2.5}
+                  />
+                </div>
+                <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-medium">
+                  {useCase}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ============================================================ */}
+      {/* SECTION 6 — FAQ                                               */}
       {/* ============================================================ */}
       {service.faqs && service.faqs.length > 0 && (
         <section className="container pb-16">
@@ -247,7 +385,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       )}
 
       {/* ============================================================ */}
-      {/* SECTION 4 — CTA                                               */}
+      {/* SECTION 7 — CTA                                               */}
       {/* ============================================================ */}
       <section className="container pb-16">
         <div className="rounded-3xl bg-[#0F1B33] px-8 py-12 text-center text-white sm:px-12 sm:py-14">
@@ -269,7 +407,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 5 — Explore More Services                             */}
+      {/* SECTION 8 — Explore More Services                             */}
       {/* ============================================================ */}
       {relatedServices.length > 0 && (
         <section className="container py-16">

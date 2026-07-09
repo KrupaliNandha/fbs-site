@@ -180,7 +180,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
     : "PRODUCTION FORMAT";
 
   return (
-    <main className="bg-white mt-24">
+    <main className="bg-white mt-16">
       {/* ============================================================ */}
       {/* SECTION 1 — HERO                                              */}
       {/* ============================================================ */}
