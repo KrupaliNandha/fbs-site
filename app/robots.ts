@@ -12,6 +12,10 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: absoluteUrl("/sitemap.xml", baseUrl),
+    sitemap: [
+      absoluteUrl("/sitemap.xml", baseUrl),
+      absoluteUrl("/blog-sitemap.xml", baseUrl),
+      absoluteUrl("/image-sitemap.xml", baseUrl),
+    ],
   };
 }

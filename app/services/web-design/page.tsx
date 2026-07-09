@@ -130,7 +130,7 @@ export default function Page() {
                       </span>
                     </p>
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                  {/* LEFT CONTENT – FIXED */}
+                  {/* LEFT CONTENT - FIXED */}
                   <div
                     data-aos="fade-right"
                     className="flex flex-col justify-center text-center lg:text-left space-y-5"
@@ -186,7 +186,7 @@ export default function Page() {
                         </div>
                       </div>
 
-                      {/* Column 3 – hidden on mobile */}
+                      {/* Column 3 - hidden on mobile */}
                       <div className="col-span-1 space-y-6 sm:mt-16 ">
                         <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                           <Image
@@ -301,7 +301,7 @@ export default function Page() {
                 </h2>
 
                   <p className="text-xl text-gray-600 max-w-3xl mx-auto lg:mx-0">
-                    We go beyond design – we build digital solutions that fuel
+                    We go beyond design - we build digital solutions that fuel
                     growth. Whether you need a powerful website, stronger online
                     visibility, or better customer engagement, our team helps
                     you create an online presence that drives sales and builds

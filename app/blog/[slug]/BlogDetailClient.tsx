@@ -1,14 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
   Calendar,
   ChevronRight,
   Clock,
-  MessageSquare,
 } from "lucide-react";
 import {
   BlogPost,
@@ -27,35 +25,16 @@ const slugify = (text: string) =>
     .replace(/(^-|-$)/g, "");
 
 export default function BlogDetailClient({ post }: BlogDetailClientProps) {
-  const [commentName, setCommentName] = useState("");
-  const [commentText, setCommentText] = useState("");
-  const [comments, setComments] = useState([
-    {
-      name: "Local Business Owner",
-      date: "Today",
-      text: "Helpful direction for planning a cleaner print and branding project.",
-    },
-  ]);
-
   const relatedPosts = getRelatedPosts(post);
   const headings = post.content.filter((section) => section.type === "heading");
-
-  
-  const handleComment = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!commentName.trim() || !commentText.trim()) return;
-
-    setComments([
-      {
-        name: commentName.trim(),
-        date: "Just now",
-        text: commentText.trim(),
-      },
-      ...comments,
-    ]);
-    setCommentName("");
-    setCommentText("");
-  };
+  const relatedServiceHref =
+    post.category.toLowerCase() === "seo"
+      ? "/services/seo"
+      : post.category.toLowerCase() === "web design"
+        ? "/services/web-design"
+        : post.category.toLowerCase() === "direct mailing"
+          ? "/services/direct-mailing"
+          : "/services/signage";
 
   return (
     <main className="bg-gray-50 min-h-screen">
@@ -207,6 +186,33 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                 {post.author.name}
               </h2>
               <p className="text-gray-600 mt-2 leading-relaxed">{post.author.bio}</p>
+            </div>
+
+            <div className="mt-8 rounded-2xl bg-pink-700 p-6 text-white">
+              <p className="text-xs font-bold uppercase tracking-widest text-pink-100">
+                Next Step
+              </p>
+              <h2 className="mt-2 text-2xl font-bold">
+                Need help applying this to your business?
+              </h2>
+              <p className="mt-3 text-pink-50 leading-relaxed">
+                Explore the related service page for a deeper breakdown, then contact our team for a quote or project guidance.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href={relatedServiceHref}
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 font-bold text-pink-700"
+                >
+                  Explore Related Service
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-full border border-pink-200 px-5 py-3 font-bold text-white"
+                >
+                  Contact FBS Prints
+                </Link>
+              </div>
             </div>
 
           </article>

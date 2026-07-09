@@ -220,7 +220,7 @@ export default function Navbar() {
                     onClick={() => setMenuOpen(false)}
                     className="block pl-4 py-2 text-black hover:text-white text-md uppercase"
                   >
-                    – {label}
+                    - {label}
                   </Link>
                 ))}
               </div>

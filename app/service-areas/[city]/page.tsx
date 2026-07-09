@@ -5,7 +5,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { serviceAreas, getServiceArea } from "@/app/data/service-areas-data";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
-import { absoluteUrl } from "@/app/lib/seo";
+import { absoluteUrl, siteConfig } from "@/app/lib/seo";
 import { getLocationMarkets } from "@/app/lib/service-location-pages";
 
 interface PageProps {
@@ -45,6 +45,28 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         "max-snippet": -1,
         "max-video-preview": -1,
       },
+    },
+    openGraph: {
+      type: "website",
+      locale: siteConfig.locale,
+      url: canonical,
+      siteName: siteConfig.name,
+      title: `Custom Signs, Print & SEO in ${area.name}, IL | ${area.county} | FBS Signs`,
+      description: `Need signage or marketing in ${area.name}, IL? FBS Signs provides storefront signs, commercial printing, direct mail, web design, and local SEO across ${area.county}.`,
+      images: [
+        {
+          url: absoluteUrl("/images/services/signage/signage-service.webp", baseUrl),
+          width: 1200,
+          height: 630,
+          alt: `Commercial signage and printing in ${area.name}, Illinois`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Custom Signs, Print & SEO in ${area.name}, IL | ${area.county} | FBS Signs`,
+      description: `Need signage or marketing in ${area.name}, IL? FBS Signs provides storefront signs, commercial printing, direct mail, web design, and local SEO across ${area.county}.`,
+      images: [absoluteUrl("/images/services/signage/signage-service.webp", baseUrl)],
     },
   };
 }

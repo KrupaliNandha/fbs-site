@@ -205,7 +205,7 @@ export default function Page() {
                 <span className="text-gray-800 font-semibold">SEO</span>
               </p>
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                {/* LEFT CONTENT – FIXED */}
+                {/* LEFT CONTENT - FIXED */}
                 <div
                   data-aos="fade-right"
                   className="flex flex-col justify-center text-center lg:text-left space-y-5"

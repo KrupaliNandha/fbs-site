@@ -15,6 +15,8 @@ import {
   Tag,
 } from "lucide-react";
 import rawData from "../../../data/direct-mailing.json";
+import { absoluteUrl, siteConfig } from "@/app/lib/seo";
+import { getRequestBaseUrl } from "@/app/lib/request-url";
 
 /* ---------------------------------------------------------------------- */
 /*  Types                                                                  */
@@ -111,15 +113,51 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const format = getFormatBySlug(slug);
-  if (!format) return {};
+  if (!format) {
+    return {
+      title: "Direct Mail Format | FBS Prints",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const baseUrl = await getRequestBaseUrl();
+  const canonical = absoluteUrl(`/services/direct-mailing/${format.slug}`, baseUrl);
+  const image = format.img.startsWith("http") ? format.img : absoluteUrl(format.img, baseUrl);
 
   return {
     title: `${format.title} | Direct Mail Formats | FBS Signs`,
     description: format.description,
+    alternates: {
+      canonical,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     openGraph: {
+      type: "website",
+      locale: siteConfig.locale,
+      url: canonical,
+      siteName: siteConfig.name,
       title: format.title,
       description: format.description,
-      images: [{ url: format.img }],
+      images: [{ url: image, width: 1200, height: 630, alt: format.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: format.title,
+      description: format.description,
+      images: [image],
     },
   };
 }
@@ -173,6 +211,70 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
   const format = getFormatBySlug(slug);
   if (!format) notFound();
 
+  const baseUrl = await getRequestBaseUrl();
+  const canonical = absoluteUrl(`/services/direct-mailing/${format.slug}`, baseUrl);
+  const image = format.img.startsWith("http") ? format.img : absoluteUrl(format.img, baseUrl);
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${canonical}#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: absoluteUrl("/", baseUrl),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Direct Mailing",
+        item: absoluteUrl("/services/direct-mailing", baseUrl),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: format.title,
+        item: canonical,
+      },
+    ],
+  };
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${canonical}#service`,
+    name: format.title,
+    serviceType: "Direct Mail Format",
+    description: format.description,
+    url: canonical,
+    image,
+    provider: {
+      "@id": `${absoluteUrl("/", baseUrl)}#organization`,
+    },
+    areaServed: [
+      { "@type": "State", name: "Illinois" },
+      { "@type": "Country", name: "United States" },
+    ],
+  };
+
+  const faqSchema = format.faqs.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": `${canonical}#faq`,
+        mainEntity: format.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+          },
+        })),
+      }
+    : null;
+
   const related = getRelatedFormats(format);
   const includedItems = buildIncludedItems(format);
   const badge = format.tags[0]
@@ -181,6 +283,20 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
 
   return (
     <main className="bg-white mt-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      {faqSchema ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      ) : null}
       {/* ============================================================ */}
       {/* SECTION 1 — HERO                                              */}
       {/* ============================================================ */}

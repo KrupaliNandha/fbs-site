@@ -36,63 +36,63 @@ export default function Page() {
     {
       id: 1,
       text: "Business Card",
-      pricedes: "Starting at $ 9.99",
+      // pricedes: "Starting at $ 9.99",
       Icon: TiBusinessCard,
       slug: "business-cards"
     },
     {
       id: 2,
       text: "Brochures",
-      pricedes: "Starting at $ 9.99",
+      // pricedes: "Starting at $ 9.99",
       Icon: FaRegNewspaper,
       slug: "brochures"
     },
     {
       id: 3,
       text: "Copy services",
-      pricedes: "Starting at $ 9.99",
+      // pricedes: "Starting at $ 9.99",
       Icon: ImFilesEmpty,
       slug: "copy-services"
     },
     {
       id: 4,
       text: "T-shirt Prints",
-      pricedes: "Starting at $ 9.99",
+      // pricedes: "Starting at $ 9.99",
       Icon: FaTshirt,
       slug: "t-shirt-prints"
     },
     {
       id: 5,
       text: "Calendars",
-      pricedes: "Starting at $ 9.99",
+      // pricedes: "Starting at $ 9.99",
       Icon: FaCalendarAlt,
       slug: "calendars"
     },
     {
       id: 6,
       text: "Banners",
-      pricedes: "Starting at $ 9.99",
+      // pricedes: "Starting at $ 9.99",
       Icon: FaSign,
       slug: "banners"
     },
     {
       id: 7,
       text: "Carbonless Forms",
-      pricedes: "Starting at $ 9.99",
+      // pricedes: "Starting at $ 9.99",
       Icon: RiBillLine,
       slug: "carbonless-forms"
     },
     {
       id: 8,
       text: "Carryout Menus",
-      pricedes: "Starting at $ 9.99",
+      // pricedes: "Starting at $ 9.99",
       Icon: RiBillLine,
       slug: "carryout-menus"
     },
     {
       id: 9,
       text: "Canvas",
-      pricedes: "Starting at $ 9.99",
+      // pricedes: "Starting at $ 9.99",
       Icon: FaRegFileImage,
       slug: "canvas"
     },
@@ -115,7 +115,7 @@ export default function Page() {
                 </span>
               </p>
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                {/* LEFT CONTENT – FIXED */}
+                {/* LEFT CONTENT - FIXED */}
                 <div
                   data-aos="fade-right"
                   className="flex flex-col justify-center text-center lg:text-left space-y-5"
@@ -175,7 +175,7 @@ export default function Page() {
                       </div>
                     </div>
 
-                    {/* Column 3 – hidden on mobile */}
+                    {/* Column 3 - hidden on mobile */}
                     <div className="col-span-1 space-y-6 sm:mt-16 ">
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                         <Image
@@ -214,7 +214,7 @@ export default function Page() {
               <div data-aos="fade-left">
                 <p className="text-base md:text-lg text-pink-100 leading-relaxed text-center lg:text-start">
                   We offer a complete range of printing solutions to meet every
-                  need – from business cards, brochures, and banners to t-shirt
+                  need - from business cards, brochures, and banners to t-shirt
                   prints, calendars, and custom canvas. Whether it’s carryout
                   menus, carbonless forms, or simple copy services, our prints
                   are sharp, vibrant, and tailored to your vision, ensuring your
@@ -262,7 +262,7 @@ export default function Page() {
                         <h3 className="text-3xl text-black font-semibold">
                           {item.text}
                         </h3>
-                        <p className="mt-2 text-black">{item.pricedes}</p>
+                        {/* <p className="mt-2 text-black">{item.pricedes}</p> */}
                       </div>
                     </div>
 

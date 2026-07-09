@@ -234,7 +234,7 @@ export default function DirectMailingPage() {
                     </div>
                   </div>
 
-                  {/* Column 3 – hidden on mobile */}
+                  {/* Column 3 - hidden on mobile */}
                   <div className="col-span-1 space-y-6 sm:mt-16 ">
                     <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                       <Image

@@ -85,7 +85,7 @@ export default function Page() {
                 </Link>
               </p>
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                {/* LEFT CONTENT – FIXED */}
+                {/* LEFT CONTENT - FIXED */}
                 <div
                   data-aos="fade-right"
                   className="flex flex-col justify-center text-center lg:text-left space-y-5"
@@ -143,7 +143,7 @@ export default function Page() {
                       </div>
                     </div>
 
-                    {/* Column 3 – hidden on mobile */}
+                    {/* Column 3 - hidden on mobile */}
                     <div className="col-span-1 space-y-6 sm:mt-16 ">
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                         <Image

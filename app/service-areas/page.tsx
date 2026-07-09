@@ -3,7 +3,7 @@ import Script from "next/script";
 import ServiceAreasClient from "./ServiceAreasClient";
 import { serviceAreas } from "@/app/data/service-areas-data";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
-import { absoluteUrl } from "@/app/lib/seo";
+import { absoluteUrl, siteConfig } from "@/app/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = await getRequestBaseUrl();
@@ -19,6 +19,30 @@ export async function generateMetadata(): Promise<Metadata> {
     robots: {
       index: true,
       follow: true,
+    },
+    openGraph: {
+      type: "website",
+      locale: siteConfig.locale,
+      url: canonical,
+      siteName: siteConfig.name,
+      title: "Service Areas in Illinois | Custom Signage & Printing | FBS Signs",
+      description:
+        "Explore FBS Signs' service areas across 25+ cities in Illinois. We provide custom signage, commercial printing, direct mailing, web design, and SEO services.",
+      images: [
+        {
+          url: absoluteUrl("/images/services/signage/signage-service.webp", baseUrl),
+          width: 1200,
+          height: 630,
+          alt: "FBS Signs service areas in Illinois",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Service Areas in Illinois | Custom Signage & Printing | FBS Signs",
+      description:
+        "Explore FBS Signs' service areas across 25+ cities in Illinois. We provide custom signage, commercial printing, direct mailing, web design, and SEO services.",
+      images: [absoluteUrl("/images/services/signage/signage-service.webp", baseUrl)],
     },
   };
 }

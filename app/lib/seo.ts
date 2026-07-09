@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export type PublicPagePath =
   | "/"
   | "/about"
+  | "/blog"
   | "/contact"
   | "/faq"
   | "/know-you"
@@ -97,6 +98,25 @@ const pageSeo: Record<PublicPagePath, PageSeoConfig> = {
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "About Us", path: "/about" },
+    ],
+  },
+  "/blog": {
+    title: "Blog | FBS Prints",
+    description:
+      "Read FBS Prints insights on signage, printing, direct mail, web design, SEO, and practical growth ideas for local businesses.",
+    keywords: [
+      "FBS Prints blog",
+      "signage articles",
+      "printing tips",
+      "direct mail guides",
+      "web design insights",
+      "SEO advice",
+    ],
+    image: "/images/home/printing-branding-hero.webp",
+    schemaType: "CollectionPage",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Blog", path: "/blog" },
     ],
   },
   "/contact": {

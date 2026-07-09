@@ -15,24 +15,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Feather Angled Flag",
     faqs: [
       {
-        question: "What is the difference between Single Sided Print Thru and Double Sided flags?",
+        question: "What is the difference between Single Sided Print Thru and Double Sided feather flags?",
         answer:
-          "Single Sided Print Thru flags are printed on one side and show a muted, mirrored image on the back due to the dye sublimation process. Double Sided flags are two separate graphics sewn back to back with a silver block-out layer so both sides display full color with no show-through."
+          "Single Sided Print Thru feather flags are printed on one side and show a lighter mirrored image on the reverse, which makes them a budget-friendly option for outdoor promotions, sidewalk advertising, and event visibility. Double Sided feather flags use two printed panels with a block-out layer in between, so both sides show bold, readable graphics, which is better for high-traffic business locations where your message needs to stay clear from either direction."
       },
       {
-        question: "Which base should I choose for outdoor use?",
+        question: "Which flag base is best for outdoor business use?",
         answer:
-          "The ground stake is ideal for soft ground like grass or dirt. For hard surfaces such as concrete or asphalt, the cross base or square base provides stability, and adding a water bag to the cross base gives extra weight in windy conditions."
+          "The right base depends on the installation surface. A ground stake works best for grass, dirt, and other soft ground, while a cross base or square base is better for concrete, sidewalks, and parking lot setups. For windy outdoor conditions, adding a water bag improves stability and helps keep the advertising flag secure during retail events, grand openings, and roadside promotions."
       },
       {
-        question: "What sizes are available and how do I choose one?",
+        question: "What feather flag sizes are available and how do I choose the right one?",
         answer:
-          "Feather flags come in Small (9 ft.), Medium (10.5 ft.), Large (14 ft.), and X-Large (18 ft.). Larger sizes offer greater visibility from a distance, making them a good fit for busy roadways, while smaller sizes work well for entrances and closer foot traffic."
+          "Feather flags are available in Small (9 ft.), Medium (10.5 ft.), Large (14 ft.), and X-Large (18 ft.) sizes. Larger custom flags are ideal for roadside advertising, car dealerships, event marketing, and businesses that need long-distance visibility, while smaller sizes are a better fit for storefront entrances, sidewalks, and trade show environments where customers are viewing the display from a closer range."
       },
       {
-        question: "Can I order just the flag without the pole and base?",
+        question: "Can I order a replacement feather flag without the pole and base?",
         answer:
-          "Yes, the Flag Only option lets you purchase a replacement graphic if you already own the pole hardware, which is useful when updating seasonal designs without buying new equipment each time."
+          "Yes. If you already have the hardware, you can order a flag-only replacement graphic, which is a practical option for seasonal promotions, updated branding, limited-time sales, or new campaign messaging without repurchasing the full display system."
       }
     ]
   },
@@ -41,24 +41,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Banner Stand",
     faqs: [
       {
-        question: "Do I need tools to set up the banner stand?",
+        question: "Do banner stands require tools for setup?",
         answer:
-          "No. The interlocking tube hardware clicks together by hand, and the stretch fabric graphic slips over the frame and zips closed at the bottom, so the entire stand can be assembled in a couple of minutes."
+          "No. Banner stands are designed for fast, tool-free setup, which makes them ideal for trade shows, job fairs, retail events, conferences, and in-store promotions. The interlocking frame assembles by hand and the printed fabric graphic slips over the structure for a clean, professional presentation in just a few minutes."
       },
       {
-        question: "Can I reuse the hardware with a new graphic later?",
+        question: "Can I reuse the banner stand hardware with a new graphic later?",
         answer:
-          "Yes, the fabric graphics are replaceable, so you can order just a new dye-sublimated graphic and reuse your existing frame for future events or updated messaging."
+          "Yes. The hardware is reusable, so you can order a replacement fabric graphic when your branding, offer, or event messaging changes. This makes banner stands a cost-effective display solution for businesses that attend multiple trade shows, expos, community events, or seasonal campaigns throughout the year."
       },
       {
-        question: "What is the difference between the 36 x 90 and 48 x 90 sizes?",
+        question: "What is the difference between the 36 x 90 and 48 x 90 banner stand sizes?",
         answer:
-          "The 48 x 90 stand offers a wider display surface for the same height, giving more room for design elements, while the 36 x 90 has a narrower footprint that fits tighter booth spaces."
+          "The 48 x 90 size gives you more horizontal design space, which is useful for larger logos, product images, or more detailed messaging. The 36 x 90 version has a smaller footprint, which works well for tighter booth layouts, office lobbies, reception areas, and event spaces where floor space is limited."
       },
       {
-        question: "Does the LED Light option work with any size or graphic style?",
+        question: "Are LED lights available for banner stands?",
         answer:
-          "The 2 LED Lights add-on is available with the Graphic + Frame configuration and clips onto the top of the frame to illuminate the display, which is helpful in dim trade show halls or evening events."
+          "Yes. LED lights can be added to illuminate the display, which improves visibility in convention halls, indoor expos, evening events, and other low-light environments. Lighting can make branded graphics easier to read and help your booth or presentation area stand out from surrounding displays."
       }
     ]
   },
@@ -69,22 +69,22 @@ export const productFaqs: ProductFaqEntry[] = [
       {
         question: "Should I choose 13oz vinyl or 8oz mesh for my banner?",
         answer:
-          "13oz vinyl is a solid, opaque material best suited for storefronts and general outdoor use. 8oz mesh has small perforations that let wind pass through, which reduces strain on grommets and hardware in high-wind locations like fences or open fields."
+          "13oz vinyl banners are best for storefronts, indoor promotions, grand openings, construction sites, and general outdoor advertising where you want a solid, opaque surface. 8oz mesh banners are better for windy environments such as fences, athletic fields, job sites, and open outdoor areas because the perforated material allows air to pass through and reduces strain on the banner hardware."
       },
       {
-        question: "What are wind slits and when do I need them?",
+        question: "What are wind slits and when should they be added to a banner?",
         answer:
-          "Wind slits are small cuts added to a banner to let air pass through solid vinyl. They're recommended for banners taller than 4 feet that will be displayed outdoors, since they reduce the chance of tearing or hardware failure in gusty conditions."
+          "Wind slits are small curved cuts placed in a vinyl banner to help air move through the material. They are often recommended for taller outdoor banners, especially those installed in exposed areas, because they can reduce pressure on grommets and mounting points during strong wind conditions."
       },
       {
-        question: "Can I get my banner in a custom size?",
+        question: "Can I order a custom size banner for my business or event?",
         answer:
-          "Yes, both the 13oz vinyl and 8oz mesh banners are available in custom dimensions in addition to standard sizes like 3' x 6' and 4' x 8'."
+          "Yes. Custom vinyl banners are available in custom dimensions as well as standard sizes. This gives businesses flexibility for storefront displays, fence banners, event signage, trade show backdrops, school promotions, and temporary outdoor advertising where exact sizing matters."
       },
       {
-        question: "What's the difference between pole pockets and grommets?",
+        question: "What is the difference between grommets and pole pockets on a banner?",
         answer:
-          "Grommets are metal rings placed every 2 feet along the edges for hanging with rope, zip ties, or bungees. Pole pockets are sewn sleeves at the top and/or bottom that let you slide a pole or dowel through, which works well for banner stands or horizontal street pole displays."
+          "Grommets are reinforced metal rings placed around the edges so the banner can be hung with rope, zip ties, or bungees. Pole pockets are sewn sleeves that allow a pole or rod to slide through the top or bottom of the banner, which is useful for street pole displays, hanging presentations, and banner stand applications."
       }
     ]
   },
@@ -93,24 +93,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Custom Neon LED Sign",
     faqs: [
       {
-        question: "How is LED neon different from traditional glass neon?",
+        question: "How is an LED neon sign different from traditional glass neon?",
         answer:
-          "LED neon uses flexible neon-flex tubing instead of fragile glass, so it's shatterproof, lighter weight, runs cooler, and uses roughly 80% less power while still giving that classic glowing neon look."
+          "LED neon signs use flexible neon-style tubing instead of glass, which makes them lighter, more durable, safer to handle, and more energy efficient. They deliver the glowing neon look many businesses want for retail interiors, restaurants, salons, bars, photo backdrops, and branded wall signage without the fragility and maintenance concerns of traditional neon."
       },
       {
-        question: "What backing options are available for the sign?",
+        question: "What backing options are available for a custom LED neon sign?",
         answer:
-          "Signs can be mounted on clear acrylic for a nearly invisible background, black acrylic for more contrast, or cut to the exact shape of the design with no backing panel at all."
+          "Common backing options include clear acrylic for a minimal floating look, black acrylic for stronger contrast, or contour-cut backing shaped to the design itself. The right backing depends on the visual style, wall color, and installation environment of the business or event space."
       },
       {
-        question: "Can I dim the sign or control it remotely?",
+        question: "Can LED neon signs be dimmed or controlled remotely?",
         answer:
-          "Yes, choosing the Plug-In + Dimmer Remote option lets you adjust brightness and turn the sign on or off without unplugging it, in addition to the standard plug-in adapter option."
+          "Yes. Many custom LED neon signs can be ordered with a dimmer remote, allowing you to adjust brightness and switch the sign on or off more conveniently. This is useful for hospitality spaces, salons, event venues, and branded interiors where lighting mood matters."
       },
       {
-        question: "Is this sign suitable for outdoor use?",
+        question: "Are custom LED neon signs suitable for outdoor use?",
         answer:
-          "LED neon signs are best suited for indoor or covered outdoor locations rather than fully exposed outdoor installs, since prolonged direct weather exposure can affect the acrylic backing and electrical components over time."
+          "LED neon signs are generally best for indoor or covered outdoor applications. While they can perform well in protected environments, fully exposed outdoor conditions can affect the backing and electrical components over time, so permanent exterior signage usually calls for a more weather-rated commercial sign solution."
       }
     ]
   },
@@ -119,24 +119,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Custom Event Tent",
     faqs: [
       {
-        question: "How long does it take to set up the tent?",
+        question: "How long does it take to set up a custom event tent?",
         answer:
-          "The 40mm aluminum hex frame pops up in minutes without any tools, making it practical for vendors and event staff to assemble and break down quickly on-site."
+          "A custom event tent is designed for quick setup, making it a strong option for trade shows, farmers markets, festivals, sports events, school functions, and promotional pop-ups. The aluminum frame opens without tools, helping vendors and event teams build a branded setup in just a few minutes."
       },
       {
-        question: "What's the difference between Canopy Only and Canopy + Frame?",
+        question: "What is the difference between Canopy Only and Canopy plus Frame?",
         answer:
-          "Canopy Only includes just the printed fabric top, which is useful if you already own compatible tent hardware. Canopy + Frame includes both the printed canopy and the full aluminum frame structure."
+          "Canopy Only includes the printed tent top by itself, which works if you already own compatible hardware. Canopy plus Frame includes both the custom printed canopy and the full frame system, making it the better choice for new event setups, outdoor promotions, and branded vendor booths."
       },
       {
-        question: "Can I add walls to block wind or add more branding space?",
+        question: "Can I add walls to a custom canopy tent for more branding or weather protection?",
         answer:
-          "Yes, the Canopy + Frame option can include a full backwall, or a backwall plus two half walls, which helps block wind and gives extra printed surface for your branding."
+          "Yes. Backwalls and half walls can be added to increase printed branding space, block wind, improve privacy, and create a more finished event presentation. This is especially useful for outdoor business marketing, food vendors, mobile activations, and community events."
       },
       {
-        question: "What sizes are available?",
+        question: "What tent sizes are available for event branding?",
         answer:
-          "Tents are available in 10' x 10', 10' x 15', and 10' x 20' configurations to fit different booth footprints at markets, festivals, and trade shows."
+          "Custom event tents are commonly available in 10' x 10', 10' x 15', and 10' x 20' sizes. Smaller tents work well for compact vendor spaces, while larger sizes are a better fit for high-traffic events, product showcases, team stations, and branded outdoor activations."
       }
     ]
   },
@@ -145,24 +145,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Custom Canopy / Awning",
     faqs: [
       {
-        question: "What awning styles are available?",
+        question: "What canopy and awning styles are available for storefronts?",
         answer:
-          "We offer waterfall (slanted front), dome, and box/rectangular frame styles, each giving a different look for entryways, windows, or patio coverage."
+          "Popular canopy and awning styles include waterfall, dome, and box or rectangular frame designs. Each style creates a different visual impression and can be used to improve storefront branding, entryway coverage, restaurant patios, retail windows, and overall curb appeal."
       },
       {
-        question: "What's the difference between vinyl laminated fabric and Sunbrella acrylic?",
+        question: "What is the difference between vinyl laminated fabric and Sunbrella acrylic awning material?",
         answer:
-          "Vinyl laminated fabric is a durable, cost-effective skin material for printed graphics, while Sunbrella acrylic fabric is a premium woven material known for fade resistance and a more textured, fabric-like appearance."
+          "Vinyl laminated fabric is a durable and cost-effective choice for custom printed graphics, while Sunbrella acrylic is a premium woven fabric known for its fade resistance, textured appearance, and upscale look. The best material depends on the brand style, exposure conditions, and long-term maintenance goals of the project."
       },
       {
-        question: "Can the awning be lit up at night?",
+        question: "Can a custom awning be illuminated for nighttime visibility?",
         answer:
-          "Yes, the Backlit LED option adds internal lighting so your branding stays visible after dark, which is popular for restaurants and retail storefronts."
+          "Yes. Backlit LED awnings are available for businesses that want stronger nighttime branding and improved storefront visibility. This is especially popular with restaurants, retail stores, hospitality businesses, and locations that rely on evening traffic."
       },
       {
-        question: "Do I need professional installation?",
+        question: "Do custom awnings require professional measurement and installation?",
         answer:
-          "Yes, awnings are custom fabricated to your building's exact entryway or window dimensions, so professional measurement and installation are required for a proper fit."
+          "Yes. Because awnings are fabricated to fit specific building dimensions, professional measurement and installation are important for safety, appearance, and long-term performance. This ensures the canopy fits the structure properly and complies with local installation requirements."
       }
     ]
   },
@@ -171,24 +171,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "LED Light Box",
     faqs: [
       {
-        question: "What's the difference between a fabric (SEG) face and an acrylic face?",
+        question: "What is the difference between a fabric SEG face and an acrylic face on an LED light box?",
         answer:
-          "A fabric (SEG) face stretches tightly over the frame with a silicone edge for a seamless, frameless appearance. An acrylic face uses a more traditional rigid printed panel that snaps or slides into the frame."
+          "A fabric SEG face uses a silicone edge graphic that stretches tightly into the frame for a seamless, modern look with even illumination. An acrylic face uses a rigid printed panel for a more traditional sign appearance. Both options work well for illuminated retail signage, menu displays, indoor branding, and commercial wayfinding."
       },
       {
-        question: "Can I update the graphic later without buying a new light box?",
+        question: "Can I change the light box graphic without replacing the whole sign?",
         answer:
-          "Yes, graphics are interchangeable, so you can swap in new artwork for seasonal promotions or menu changes while reusing the same frame and LED hardware."
+          "Yes. LED light box graphics are replaceable, which makes them ideal for seasonal promotions, menu updates, retail campaigns, trade show messaging, and branded environments that need fresh visuals without replacing the full frame and lighting system."
       },
       {
-        question: "What's the difference between wall mounted and hanging/ceiling light boxes?",
+        question: "What is the difference between wall-mounted and hanging light boxes?",
         answer:
-          "Wall mounted light boxes attach directly to a wall surface, while hanging/ceiling units are suspended from above, which works well for directional signage in malls, airports, or hallways."
+          "Wall-mounted light boxes attach directly to a wall and are commonly used for menu boards, branded interior displays, and storefront graphics. Hanging or ceiling-mounted light boxes suspend from above, making them effective for malls, airports, hallways, retail aisles, and directional signage where visibility from a distance matters."
       },
       {
-        question: "Is the light box available double sided?",
+        question: "Are LED light boxes available in double-sided formats?",
         answer:
-          "Yes, both wall mounted and hanging light boxes are available in single or double sided configurations, with double sided units useful when the sign will be viewed from two directions."
+          "Yes. Single-sided and double-sided light boxes are both available. Double-sided configurations are especially useful in corridors, shopping centers, trade environments, and other spaces where the display needs to be seen from multiple directions."
       }
     ]
   },
@@ -197,24 +197,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "LED Message Board / Digital Sign",
     faqs: [
       {
-        question: "How do I update the message on the sign?",
+        question: "How do I update content on an LED message board or digital sign?",
         answer:
-          "Content can be updated wirelessly from a phone, tablet, or computer, or through a wired control panel depending on the unit, so you can change pricing or promotions without reprinting anything."
+          "Most LED message boards can be updated wirelessly from a phone, tablet, or computer, while some models also support wired control options. This allows businesses to change promotions, pricing, events, and announcements quickly without printing a new sign each time."
       },
       {
-        question: "Should I choose full color RGB or single color amber?",
+        question: "Should I choose a full color RGB message board or a single color amber display?",
         answer:
-          "Full color RGB supports photos, video, and animated graphics for more dynamic messaging, while single color amber is a more budget-friendly option well suited to simple scrolling text."
+          "Full color RGB displays are better for dynamic content such as photos, animation, and rich promotional messaging, while amber displays are a more economical option for simple scrolling text and basic announcements. The best choice depends on your content strategy, budget, and how much visual impact you want from the sign."
       },
       {
-        question: "Can the sign move between locations?",
+        question: "Can a digital sign be moved between locations?",
         answer:
-          "Yes, the Portable Trailer Mounted option is towable between job sites or events, while the Wall/Pole Mounted option is designed for a fixed, permanent location."
+          "Yes. Portable trailer-mounted LED signs can be transported between job sites, events, schools, and temporary promotions, while wall-mounted or pole-mounted digital signs are designed for fixed, long-term business visibility."
       },
       {
-        question: "Is the sign rated for outdoor weather?",
+        question: "Are LED message boards weather-rated for outdoor commercial use?",
         answer:
-          "Yes, message boards use a weatherproof, outdoor-rated enclosure so they can operate in varying outdoor conditions at gas stations, schools, and retail centers."
+          "Yes. Outdoor LED message boards are typically built with weather-rated enclosures so they can perform in changing outdoor conditions. They are commonly used by schools, gas stations, churches, municipalities, and retail locations that need changeable messaging throughout the year."
       }
     ]
   },
@@ -223,24 +223,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "LED Channel Letters",
     faqs: [
       {
-        question: "What's the difference between front-lit and halo-lit channel letters?",
+        question: "What is the difference between front-lit and halo-lit LED channel letters?",
         answer:
-          "Front-lit letters glow through the acrylic face for a bright, direct look, while halo-lit (reverse) letters project a soft glow onto the wall behind them for a more subtle, modern effect."
+          "Front-lit channel letters illuminate through the face of the letter for a bright, direct storefront look, while halo-lit letters cast light onto the wall behind them for a softer, more upscale effect. Both styles are popular for retail storefront signs, office branding, restaurants, and commercial building signage."
       },
       {
-        question: "What's the difference between raceway and direct wall mounting?",
+        question: "What is the difference between raceway mounting and direct wall mounting for channel letters?",
         answer:
-          "A raceway is a mounting rail that houses the wiring behind the letters and simplifies installation, especially on uneven surfaces. Direct wall mount (flush) installs the letters straight onto the wall for a cleaner, built-in look."
+          "Raceway mounting uses a horizontal support structure that houses wiring and simplifies installation, especially on uneven or leased storefront surfaces. Direct wall mounting places the letters individually on the wall for a cleaner built-in look, but it often requires more surface penetration and electrical planning."
       },
       {
-        question: "Are channel letters custom fitted to my logo?",
+        question: "Are LED channel letters custom made to match my business logo?",
         answer:
-          "Yes, each letter is fabricated to match your logo's exact font, spacing, and color rather than using a stock typeface."
+          "Yes. Channel letters are custom fabricated to match the logo's font, size, spacing, and brand colors, which helps create a more professional storefront identity and stronger brand recognition."
       },
       {
-        question: "Do these signs require permitting?",
+        question: "Do illuminated channel letters require a permit?",
         answer:
-          "Most municipalities require permits for illuminated channel letters, and professional installation is required since the components are UL listed electrical fixtures."
+          "In most cities, yes. Illuminated channel letter signs usually require permitting, code review, and professional installation because they are electrical commercial signs attached to the building exterior."
       }
     ]
   },
@@ -249,24 +249,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Monument Sign",
     faqs: [
       {
-        question: "What base finish options are available?",
+        question: "What monument sign base finishes are available?",
         answer:
-          "Bases can be finished in brick, stone veneer, stucco, aluminum panel, or high-density foam to match your building's architecture and surrounding landscaping."
+          "Monument sign bases can be finished in materials such as brick, stone veneer, stucco, aluminum panel, or high-density foam, depending on the look of the property and the level of architectural integration you want. These finish options help the sign feel consistent with the building, landscape, and surrounding environment."
       },
       {
-        question: "What's the difference between single tenant and multi-tenant monuments?",
+        question: "What is the difference between a single-tenant and multi-tenant monument sign?",
         answer:
-          "A single tenant monument displays one business's name and branding, while a multi-tenant monument organizes several business names into one shared structure, common at shopping centers and office parks."
+          "A single-tenant monument sign displays one business or organization, while a multi-tenant monument sign includes several panels for shopping centers, office parks, medical campuses, and commercial plazas. The right option depends on whether the sign is meant to represent one brand or multiple occupants on the property."
       },
       {
-        question: "Can the sign include a digital changeable copy section?",
+        question: "Can a monument sign include a digital changeable message section?",
         answer:
-          "Yes, multi-tenant monuments can include a digital changeable copy section for real-time updates, in addition to standard illuminated or non-illuminated static panels."
+          "Yes. A monument sign can be designed with a digital message center or changeable copy area, which is useful for promotions, events, announcements, and organizations that need to update messaging regularly without replacing the main sign structure."
       },
       {
-        question: "What's involved in installing a monument sign?",
+        question: "What is involved in monument sign installation?",
         answer:
-          "Monument signs require a site survey, permitting, and a poured concrete footing engineered to local code, so professional installation is necessary."
+          "Monument sign installation usually includes a site survey, permit review, foundation work, engineering, and a poured concrete footing designed to local code. Because these are permanent ground signs, professional fabrication and installation are essential for safety and compliance."
       }
     ]
   },
@@ -275,24 +275,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Pylon Sign",
     faqs: [
       {
-        question: "When is a pylon sign a better choice than a monument sign?",
+        question: "When is a pylon sign better than a monument sign?",
         answer:
-          "Pylon signs are tall and pole-mounted, making them a better fit for businesses set back from the road or needing visibility from a distance, while monument signs sit closer to ground level and suit shorter sightlines."
+          "A pylon sign is better when a business sits farther back from the road or needs long-range visibility from passing traffic. Monument signs work closer to the ground, while pylon signs rise higher and are more effective for highways, major corridors, gas stations, shopping centers, and multi-business sites."
       },
       {
-        question: "What's the difference between single pole and double pole construction?",
+        question: "What is the difference between single-pole and double-pole pylon construction?",
         answer:
-          "Single pole pylons use one central support column, while double pole designs use two poles for added stability, which is typically needed for taller structures or larger multi-tenant panel sections."
+          "Single-pole pylon signs use one central support, while double-pole pylons use two supports for added stability and larger sign faces. Double-pole construction is often preferred for taller structures, wider cabinets, and multi-tenant signage where engineering demands are greater."
       },
       {
-        question: "Can I add a digital price display to the sign?",
+        question: "Can a pylon sign include a digital price display or changeable copy?",
         answer:
-          "Yes, the Double Pole Pylon option includes a digital LED price/changeable copy display, which is popular with gas stations and quick-service businesses that update pricing frequently."
+          "Yes. Many pylon signs can incorporate digital LED price displays or message components, which makes them especially useful for gas stations, convenience stores, quick-service restaurants, and roadside businesses that update pricing or promotions frequently."
       },
       {
-        question: "What kind of engineering or permitting is required?",
+        question: "What engineering and permits are required for a pylon sign?",
         answer:
-          "Pylon signs require structural engineering for local wind load requirements, permitting, an engineered poured concrete footing, and typically a crane for installation."
+          "Pylon signs typically require structural engineering, local permit approval, an engineered footing, and crane-assisted installation. Because they are large permanent exterior signs, code compliance and professional installation are critical from both a safety and legal standpoint."
       }
     ]
   },
@@ -301,24 +301,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Signicade A-Frame Sign",
     faqs: [
       {
-        question: "What's the difference between the printed panel and dry-erase versions?",
+        question: "What is the difference between printed panel and dry-erase A-frame signs?",
         answer:
-          "The printed panel version has a fixed full color graphic best suited for permanent branding, while the dry-erase version lets staff write and update messaging with a marker for daily specials or announcements."
+          "A printed panel A-frame sign is best for permanent branding, recurring promotions, and consistent business messaging, while a dry-erase version is more flexible for daily specials, temporary notices, event directions, and changing promotions. The best choice depends on how often the message needs to be updated."
       },
       {
-        question: "Is the sign double sided?",
+        question: "Are Signicade A-frame signs double sided?",
         answer:
-          "Yes, both sides of the A-frame display your message, so it's visible to foot or vehicle traffic approaching from either direction."
+          "Yes. A-frame signs display your message on both sides, which improves visibility for foot traffic and vehicle traffic approaching from either direction. This makes them a popular option for sidewalks, storefronts, restaurants, schools, and event entrances."
       },
       {
-        question: "Can I store the sign easily overnight?",
+        question: "Can an A-frame sign be stored easily when the business is closed?",
         answer:
-          "Yes, the frame folds completely flat, making it easy to bring inside for storage when your business is closed."
+          "Yes. The frame folds flat, so it is easy to carry inside and store overnight. This helps protect the sign and keeps daily setup simple for businesses that use sidewalk signage during open hours only."
       },
       {
-        question: "What panel material should I choose?",
+        question: "What panel material should I choose for an A-frame sign?",
         answer:
-          "Corrugated plastic (Coroplast) is a lightweight, economical choice for everyday use, while aluminum composite panels offer a more rigid, upscale appearance for long-term outdoor display."
+          "Corrugated plastic is a lightweight and economical option for short- to medium-term use, while aluminum composite panels offer a more rigid and durable solution for long-term outdoor presentation and a more premium visual finish."
       }
     ]
   },
@@ -327,24 +327,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Trade Show Display Package",
     faqs: [
       {
-        question: "How portable is the pop-up backdrop kit?",
+        question: "How portable is a trade show display package?",
         answer:
-          "The frame is lightweight aluminum and packs into an included travel case light enough to check as luggage, with tool-free setup in minutes."
+          "Trade show display packages are built for portability, with lightweight frames and compact carrying cases that make transport easier for expos, conferences, conventions, recruiting events, and mobile brand activations. Many setups are designed to be assembled quickly without specialized tools."
       },
       {
-        question: "Can I reuse the frame with new graphics for future shows?",
+        question: "Can I reuse the trade show display frame with new graphics?",
         answer:
-          "Yes, hardware is reusable between shows, so you can order a new graphic when your messaging changes without replacing the frame itself."
+          "Yes. Reusable hardware allows you to update graphics for different campaigns, events, or seasonal promotions without purchasing an entirely new display system, which helps lower long-term marketing costs."
       },
       {
-        question: "What comes with the Table Throw + Counter Package?",
+        question: "What is included in a table throw and counter trade show package?",
         answer:
-          "This package includes a custom printed table throw and the option to add a branded podium or counter, which is useful for product demos, literature displays, or point-of-sale setups."
+          "A table throw and counter package usually includes a custom printed table cover and the option to add a branded counter or podium for demos, literature, customer conversations, and product displays. This helps create a more polished and functional event booth."
       },
       {
-        question: "What size backdrop should I choose?",
+        question: "What trade show backdrop size should I choose?",
         answer:
-          "8' wide backdrops fit smaller booth spaces, while 10' wide backdrops give a larger branded presence and are common for standard trade show booth allotments."
+          "An 8-foot backdrop is a practical choice for smaller booth spaces, while a 10-foot backdrop creates a larger branded presence and fits standard trade show booth dimensions more comfortably. The best size depends on your booth footprint and the amount of visual impact you want."
       }
     ]
   },
@@ -353,24 +353,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Vehicle Graphics / Decals",
     faqs: [
       {
-        question: "Should I choose cut vinyl lettering or printed decals?",
+        question: "Should I choose cut vinyl lettering or printed vehicle decals?",
         answer:
-          "Cut vinyl lettering works well for simple logos, phone numbers, and text. Printed decals with UV lamination are better suited for detailed graphics, photos, or color gradients."
+          "Cut vinyl lettering is ideal for simple business names, phone numbers, URLs, and clean logo applications. Printed decals are better for detailed graphics, photos, gradients, and full-color branding. The right choice depends on how much visual detail your company vehicle graphics need."
       },
       {
-        question: "Should I use removable or permanent adhesive?",
+        question: "What is the difference between removable and permanent adhesive for vehicle graphics?",
         answer:
-          "Removable adhesive is a good fit for leased or rental vehicles since it can be taken off without damage, while permanent adhesive is better for long-term branding on vehicles you own."
+          "Removable adhesive is often preferred for leased or short-term vehicles because it can be taken off more easily, while permanent adhesive is a stronger long-term option for company-owned vehicles that need durable branding over time."
       },
       {
-        question: "How much of the vehicle can be covered?",
+        question: "How much of the vehicle can be covered with graphics or decals?",
         answer:
-          "Coverage ranges from simple door logos up to door logos with rear window lettering or custom hood and side accent graphics, depending on the level of branding you want."
+          "Coverage can range from simple door logos and lettering to larger branded graphics that extend across side panels, rear windows, hoods, and tailgates. This flexibility makes vehicle graphics a strong option for contractors, service companies, delivery fleets, and local business advertising."
       },
       {
-        question: "Is professional installation required?",
+        question: "Is professional installation recommended for vehicle graphics?",
         answer:
-          "Professional installation is recommended to avoid bubbling or misalignment, especially for larger printed decal graphics."
+          "Yes. Professional installation helps prevent bubbling, wrinkles, misalignment, and premature lifting, especially on larger decals or more detailed graphics. A clean installation also improves the long-term appearance of the vehicle branding."
       }
     ]
   },
@@ -379,24 +379,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Vehicle Wrap",
     faqs: [
       {
-        question: "What's the difference between a full wrap and a partial wrap?",
+        question: "What is the difference between a full wrap and a partial vehicle wrap?",
         answer:
-          "A full wrap covers the entire exterior of the vehicle for maximum branding impact, while a partial wrap covers select areas like the rear and sides or the hood and sides at a lower cost."
+          "A full wrap covers nearly the entire vehicle for maximum brand exposure and a dramatic visual impact, while a partial wrap covers selected sections such as the sides, rear, or hood at a lower cost. Both options can be effective for mobile advertising, depending on your budget and branding goals."
       },
       {
-        question: "Which finish should I choose: gloss, matte, or satin?",
+        question: "Which vehicle wrap finish should I choose: gloss, matte, or satin?",
         answer:
-          "Gloss gives a shiny, factory-like finish, matte offers a flat, non-reflective look, and satin sits in between with a subtle sheen — the right choice mostly comes down to the aesthetic you want."
+          "Gloss wraps create a polished, high-shine finish similar to factory paint, matte wraps have a flatter non-reflective appearance, and satin finishes offer a softer middle ground. The best wrap finish depends on your brand style, vehicle type, and the overall impression you want the wrapped vehicle to make."
       },
       {
-        question: "Will a wrap damage my vehicle's paint?",
+        question: "Will a vehicle wrap damage factory paint?",
         answer:
-          "No, wraps are designed to be fully removable by a trained installer without damaging the factory paint underneath, which is why they work well for both owned and leased vehicles."
+          "When installed and removed correctly, a vehicle wrap should not damage factory paint in good condition. In fact, wrap film can help protect the painted surface underneath from everyday wear and sun exposure during the life of the wrap."
       },
       {
-        question: "How long does a vehicle wrap last?",
+        question: "How long does a commercial vehicle wrap typically last?",
         answer:
-          "With proper care, cast vinyl wrap film typically lasts 5-7 years, though direct sun exposure and washing habits can affect its lifespan."
+          "A professionally installed cast vinyl vehicle wrap typically lasts about 5 to 7 years, depending on sun exposure, maintenance, washing habits, and whether the vehicle is stored indoors or outdoors."
       }
     ]
   },
@@ -405,24 +405,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Window Lettering & Graphics",
     faqs: [
       {
-        question: "What's the difference between frosted film and perforated window film?",
+        question: "What is the difference between frosted film and perforated window film?",
         answer:
-          "Frosted/etched film adds privacy and a premium glass-etched look, commonly used on conference room windows. Perforated window film lets you print full color graphics on the outside of a window while people inside can still see out."
+          "Frosted window film is used to create privacy and give glass a clean etched appearance, making it popular for offices, conference rooms, and interior branding. Perforated window film allows full-color graphics on the outside while still letting people inside see out, which makes it ideal for storefront advertising and promotional window graphics."
       },
       {
-        question: "Can lettering be applied to both interior and exterior glass?",
+        question: "Can window lettering be applied to interior or exterior glass?",
         answer:
-          "Yes, cut vinyl lettering and printed graphics can be applied to either the interior or exterior side of the glass depending on your preference and the surface conditions."
+          "Yes. Window lettering and graphics can be installed on either the interior or exterior side of the glass, depending on the design, weather exposure, visibility goals, and the condition of the surface."
       },
       {
-        question: "Do you offer metallic or gold vinyl for lettering?",
+        question: "Do you offer metallic or premium vinyl options for window graphics?",
         answer:
-          "Yes, in addition to standard color vinyl, gold or metallic vinyl is available for a more premium look on logos or business names."
+          "Yes. In addition to standard colored vinyl, metallic and gold vinyl options are available for businesses that want a more premium storefront look for logos, names, hours, and branded glass signage."
       },
       {
-        question: "Is professional installation necessary?",
+        question: "Is professional installation important for window graphics?",
         answer:
-          "Professional installation is recommended, particularly for larger perforated film or frosted panels, to ensure a bubble-free, even application."
+          "Yes. Professional installation is strongly recommended for window lettering, frosted film, and perforated window graphics to ensure a clean, bubble-free finish and accurate alignment across the glass surface."
       }
     ]
   },
@@ -431,24 +431,24 @@ export const productFaqs: ProductFaqEntry[] = [
     name: "Custom Yard Sign",
     faqs: [
       {
-        question: "What comes with the sign for installation?",
+        question: "What hardware is included with a custom yard sign?",
         answer:
-          "Standard yard signs can include a wire H-stake for tool-free ground installation, letting you set up the sign directly without additional hardware."
+          "Many custom yard signs can be ordered with a wire H-stake for fast ground installation, which makes them easy to set up for real estate, events, political campaigns, school promotions, contractor advertising, and local directional signage."
       },
       {
-        question: "What's the difference between a standard yard sign and a real estate rider?",
+        question: "What is the difference between a yard sign and a real estate rider?",
         answer:
-          "A standard yard sign is the main advertising panel, while a real estate rider is a smaller sign, such as 6\" x 24\", that attaches below the main sign to add details like 'Open House' or an agent's name."
+          "A yard sign is the main display panel, while a rider is a smaller add-on panel attached above or below it to show extra information such as open house details, a phone number, an agent name, or a limited-time message."
       },
       {
-        question: "How long will the sign hold up outdoors?",
+        question: "How durable are custom yard signs outdoors?",
         answer:
-          "The corrugated plastic material is weatherproof and designed to hold up well outdoors for weeks or months, making it suitable for short-term campaigns as well as longer seasonal use."
+          "Custom yard signs printed on corrugated plastic are weather-resistant and suitable for outdoor use over weeks or months, depending on the conditions. They are commonly used for temporary promotions, directional events, site marketing, and seasonal campaigns."
       },
       {
-        question: "Can I print on both sides?",
+        question: "Can yard signs be printed on both sides?",
         answer:
-          "Yes, single or double sided printing is available, with double sided giving visibility from both directions of foot or vehicle traffic."
+          "Yes. Single-sided and double-sided printing are both available. Double-sided yard signs improve visibility from multiple directions, which is especially useful near roads, intersections, sidewalks, and event entrances."
       }
     ]
   }

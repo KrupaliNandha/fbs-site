@@ -5,6 +5,8 @@ import { CheckCircle2, ChevronDown } from "lucide-react";
 
 import seoServices from "../../../data/seo-services.json";
 import { iconMap } from "../../../Components/Iconsmap";
+import { absoluteUrl, siteConfig } from "@/app/lib/seo";
+import { getRequestBaseUrl } from "@/app/lib/request-url";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -19,11 +21,54 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const service = seoServices.find((s) => s.slug === slug);
-  if (!service) return {};
+  if (!service) {
+    return {
+      title: "SEO Service | FBS Prints",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const baseUrl = await getRequestBaseUrl();
+  const canonical = absoluteUrl(`/services/seo/${service.slug}`, baseUrl);
+  const image = service.heroImage.startsWith("http")
+    ? service.heroImage
+    : absoluteUrl(service.heroImage, baseUrl);
 
   return {
     title: `${service.title} | FBS Signs SEO Services`,
     description: service.shortDesc,
+    alternates: {
+      canonical,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+    openGraph: {
+      type: "website",
+      locale: siteConfig.locale,
+      url: canonical,
+      siteName: siteConfig.name,
+      title: `${service.title} | FBS Signs SEO Services`,
+      description: service.shortDesc,
+      images: [{ url: image, width: 1200, height: 630, alt: service.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.title} | FBS Signs SEO Services`,
+      description: service.shortDesc,
+      images: [image],
+    },
   };
 }
 
@@ -45,6 +90,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   const tags: string[] = service.tags || [];
   const faqs = service.faqs || [];
   const overviewParagraphs = service.overview.split("\n\n").filter(Boolean);
+  const baseUrl = await getRequestBaseUrl();
+  const canonical = absoluteUrl(`/services/seo/${service.slug}`, baseUrl);
+  const image = service.heroImage.startsWith("http")
+    ? service.heroImage
+    : absoluteUrl(service.heroImage, baseUrl);
 
   // JSON-LD structured data for FAQ rich results in Google
   const faqJsonLd = {
@@ -60,8 +110,60 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     })),
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${canonical}#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: absoluteUrl("/", baseUrl),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "SEO",
+        item: absoluteUrl("/services/seo", baseUrl),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.title,
+        item: canonical,
+      },
+    ],
+  };
+
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${canonical}#service`,
+    name: service.title,
+    serviceType: "SEO Service",
+    description: service.shortDesc,
+    url: canonical,
+    image,
+    provider: {
+      "@id": `${absoluteUrl("/", baseUrl)}#organization`,
+    },
+    areaServed: [
+      { "@type": "State", name: "Illinois" },
+      { "@type": "Country", name: "United States" },
+    ],
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
       {/* JSON-LD for FAQ rich snippets */}
       {faqs.length > 0 && (
         <script

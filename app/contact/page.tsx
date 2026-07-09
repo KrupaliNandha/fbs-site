@@ -104,7 +104,7 @@ export default function Page() {
                 </Link>
               </p>
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                {/* LEFT CONTENT – FIXED */}
+                {/* LEFT CONTENT - FIXED */}
                 <div
                   data-aos="fade-right"
                   className="flex flex-col justify-center text-center lg:text-left space-y-5"
@@ -159,7 +159,7 @@ export default function Page() {
                       </div>
                     </div>
 
-                    {/* Column 3 – hidden on mobile */}
+                    {/* Column 3 - hidden on mobile */}
                     <div className="col-span-1 space-y-6 sm:mt-16 ">
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                         <Image
@@ -180,7 +180,7 @@ export default function Page() {
         {/* Section - 2 */}
         <section data-aos="fade-up" className="container section-padding">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2">
-            {/* LEFT – Contact Info */}
+            {/* LEFT - Contact Info */}
             <div
               data-aos="fade-right"
               className="p-5 md:p-10 bg-pink-50 rounded-2xl shadow-lg flex flex-col gap-5"
@@ -240,7 +240,7 @@ export default function Page() {
               </div>
             </div>
 
-            {/* RIGHT – Form */}
+            {/* RIGHT - Form */}
             <div
               data-aos="fade-left"
               className="p-10 bg-white rounded-2xl shadow-lg"
