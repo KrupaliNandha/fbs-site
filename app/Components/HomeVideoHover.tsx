@@ -7,7 +7,7 @@ export default function HomeVideoHover() {
     <section className="container section-padding overflow-x-hidden">
       <div className="relative group overflow-hidden shadow-lg rounded-2xl">
         <Image
-          src="/images/home/printing-service-showcase.webp"
+          src="/images/home/video.jpg"
           alt="FBS Signs print and signage service showcase"
           width={800}
           height={500}

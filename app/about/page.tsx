@@ -123,7 +123,7 @@ export default function Page() {
                     <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                         <Image
-                          src="/images/shared/printing-materials-showcase.webp"
+                          src="/images/home/printing-branding-hero.webp"
                           alt="Printed marketing materials"
                           fill
                           className="object-cover"

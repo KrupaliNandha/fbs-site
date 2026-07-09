@@ -30,30 +30,70 @@ export default function HomeContactSection() {
       <FloatingToast submissionState={toastState} visible={showToast} />
       <section className="container section-padding">
         <div className="grid grid-cols-1 lg:grid-cols-3 rounded-3xl shadow-xl overflow-hidden">
-          <div className="relative text-white flex flex-col justify-center gap-14 p-10 z-0">
+          <div className="relative text-white flex flex-col justify-center gap-6 p-8 sm:p-10 z-0 bg-gradient-to-br from-[#0F1B33] via-[#1a1040] to-[#3b0f36]">
+            {/* full-strength photo, darkened by the overlay below rather than faded via opacity */}
             <Image
               src="/images/home/contact-section-background.webp"
               alt=""
               fill
-              className="object-cover -z-10 opacity-50 blur-sm"
+              className="object-cover -z-10 blur-sm"
             />
-            <div className="absolute inset-0 bg-black/5"></div>
+            <div className="absolute inset-0 -z-10"></div>
 
-            <div className="flex flex-col items-center text-center gap-3">
-              <FaMapMarkerAlt className="text-pink-600 text-3xl" />
-              <p className="text-xl font-medium">Illinois, USA</p>
-            </div>
+              <div>
+              <span className="inline-block text-xs font-bold tracking-widest uppercase text-pink-700 bg-white/10 px-3 py-1 rounded-full mb-6">
+                  Get In Touch
+                </span>
+              </div>
 
-            <div className="flex flex-col items-center text-center gap-3">
-              <FaPhoneAlt className="text-pink-600 text-3xl" />
-              <p className="text-lg font-medium">+1-855-222-1133</p>
-            </div>
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-4 rounded-2xl bg-white/20 border border-white/10 p-4 transition-colors hover:bg-white/30">
+                  <div className="w-12 h-12 rounded-xl bg-pink-600 flex items-center justify-center shrink-0">
+                    <FaMapMarkerAlt className="text-white text-lg" />
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-black mb-0.5">
+                      Location
+                    </p>
+                    <p className="text-base font-semibold">Illinois, USA</p>
+                  </div>
+                </div>
 
-            <div className="flex flex-col items-center text-center gap-3">
-              <FaEnvelope className="text-pink-600 text-3xl" />
-              <p className="text-lg font-medium">info@fbsprints.com</p>
+                <div className="flex items-center gap-4 rounded-2xl bg-white/20 border border-white/10 p-4 transition-colors hover:bg-white/10">
+                  <div className="w-12 h-12 rounded-xl bg-pink-600 flex items-center justify-center shrink-0">
+                    <FaPhoneAlt className="text-white text-base" />
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-black mb-0.5">
+                      Phone
+                    </p>
+                    <a
+                      href="tel:+18552221133"
+                      className="text-base font-semibold hover:text-pink-500 transition-colors"
+                    >
+                      +1-855-222-1133
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 rounded-2xl bg-white/20 border border-white/10 p-4 transition-colors hover:bg-white/10">
+                  <div className="w-12 h-12 rounded-xl bg-pink-600 flex items-center justify-center shrink-0">
+                    <FaEnvelope className="text-white text-base" />
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-black mb-0.5">
+                      Email
+                    </p>
+                    <a
+                      href="mailto:info@fbsprints.com"
+                      className="text-base font-semibold hover:text-pink-500 transition-colors break-all"
+                    >
+                      info@fbsprints.com
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
 
           <div className="lg:col-span-2 bg-white p-5">
             <div className="text-center mb-12">
