@@ -63,7 +63,7 @@ export function GET() {
   ];
 
   const cityPages = serviceAreas.map((city) => ({
-    label: `Service Area: ${city.city}, ${city.stateCode}`,
+    label: `Service Area: ${city.name}, ${city.stateCode}`,
     url: absoluteUrl(`/service-areas/${city.slug}`, baseUrl),
   }));
 
