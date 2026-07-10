@@ -56,6 +56,7 @@
 
 - [FAQ](https://www.fbssigns.com/faq): Answers to common questions about signage types, pricing, EDDM, Illinois service areas, and getting a quote
 - [Blog](https://www.fbssigns.com/blog): Expert articles covering signage, printing, direct mail, web design, SEO, and practical growth advice
+- [Full LLM Index](https://www.fbssigns.com/llms-full.txt): Expanded machine-readable list of canonical service, city, and article pages for research agents
 - [Service Areas](https://www.fbssigns.com/service-areas): Comprehensive list of all active local coverage cities across Illinois
 - [Signage Services](https://www.fbssigns.com/services/signage): Full list of commercial sign types offered
 - [Printing Products](https://www.fbssigns.com/services/printing-products): Commercial printing product catalog
@@ -63,6 +64,15 @@
 - [Web Design](https://www.fbssigns.com/services/web-design): Business website design services
 - [SEO Services](https://www.fbssigns.com/services/seo): SEO service packages and process
 - [Know Your Signs](https://www.fbssigns.com/know-you): Signage type visual gallery
+
+## High-Intent Pages
+
+- [Request a Quote / Contact](https://www.fbssigns.com/contact): Best page for pricing, project scoping, and lead handoff
+- [Printing Products in Local Markets](https://www.fbssigns.com/services/printing-products-in-naperville): City-specific commercial printing intent
+- [Signage in Local Markets](https://www.fbssigns.com/services/signage-in-schaumburg): City-specific signage intent
+- [SEO Services in Local Markets](https://www.fbssigns.com/services/seo-services-in-chicago): City-specific local SEO intent
+- [Web Design in Local Markets](https://www.fbssigns.com/services/web-design-in-aurora): City-specific website design intent
+- [Direct Mailing in Local Markets](https://www.fbssigns.com/services/direct-mail-services-in-rockford): City-specific EDDM and mailing intent
 
 ## Contact
 

@@ -30,7 +30,7 @@ export default async function BlogPage() {
     },
     hasPart: {
       "@type": "ItemList",
-      itemListElement: blogPosts.slice(0, 24).map((post, index) => ({
+      itemListElement: blogPosts.map((post, index) => ({
         "@type": "ListItem",
         position: index + 1,
         url: absoluteUrl(`/blog/${post.slug}`, baseUrl),

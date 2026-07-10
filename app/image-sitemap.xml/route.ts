@@ -8,6 +8,15 @@ import signageProducts from "@/app/data/product-detail.json";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fbssigns.com";
 
+function escapeXml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
 function normalizeImageUrl(url: string | undefined) {
   if (!url) return null;
   return url.startsWith("http") ? url : absoluteUrl(url.startsWith("/") ? url : `/${url}`, baseUrl);
@@ -21,10 +30,10 @@ export function GET() {
     imageEntries.set(
       `${pagePath}:::${imageUrl}`,
       `  <url>
-    <loc>${absoluteUrl(pagePath, baseUrl)}</loc>
+    <loc>${escapeXml(absoluteUrl(pagePath, baseUrl))}</loc>
     <image:image>
-      <image:loc>${imageUrl}</image:loc>
-      <image:title>${title}</image:title>
+      <image:loc>${escapeXml(imageUrl)}</image:loc>
+      <image:title>${escapeXml(title)}</image:title>
     </image:image>
   </url>`,
     );
