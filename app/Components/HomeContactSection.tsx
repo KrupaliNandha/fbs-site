@@ -30,7 +30,7 @@ export default function HomeContactSection() {
       <FloatingToast submissionState={toastState} visible={showToast} />
       <section className="container section-padding">
         <div className="grid grid-cols-1 lg:grid-cols-3 rounded-3xl shadow-xl overflow-hidden">
-          <div className="relative text-white flex flex-col justify-center gap-6 p-8 sm:p-10 z-0 bg-gradient-to-br from-[#0F1B33] via-[#1a1040] to-[#3b0f36]">
+          <div className="relative text-white flex flex-col justify-center gap-6 p-8 sm:p-10 z-0 bg-gradient-to-br from-primary-dark via-primary-dark to-primary-dark">
             {/* full-strength photo, darkened by the overlay below rather than faded via opacity */}
             <Image
               src="/images/home/contact-section-background.webp"
@@ -41,14 +41,14 @@ export default function HomeContactSection() {
             <div className="absolute inset-0 -z-10"></div>
 
               <div>
-              <span className="inline-block text-xs font-bold tracking-widest uppercase text-pink-700 bg-white/10 px-3 py-1 rounded-full mb-6">
+              <span className="inline-block text-xs font-bold tracking-widest uppercase text-primary bg-white/10 px-3 py-1 rounded-full mb-6">
                   Get In Touch
                 </span>
               </div>
 
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-4 rounded-2xl bg-white/20 border border-white/10 p-4 transition-colors hover:bg-white/30">
-                  <div className="w-12 h-12 rounded-xl bg-pink-600 flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center shrink-0">
                     <FaMapMarkerAlt className="text-white text-lg" />
                   </div>
                   <div>
@@ -60,7 +60,7 @@ export default function HomeContactSection() {
                 </div>
 
                 <div className="flex items-center gap-4 rounded-2xl bg-white/20 border border-white/10 p-4 transition-colors hover:bg-white/10">
-                  <div className="w-12 h-12 rounded-xl bg-pink-600 flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center shrink-0">
                     <FaPhoneAlt className="text-white text-base" />
                   </div>
                   <div>
@@ -69,7 +69,7 @@ export default function HomeContactSection() {
                     </p>
                     <a
                       href="tel:+18552221133"
-                      className="text-base font-semibold hover:text-pink-500 transition-colors"
+                      className="text-base font-semibold hover:text-primary transition-colors"
                     >
                       +1-855-222-1133
                     </a>
@@ -77,7 +77,7 @@ export default function HomeContactSection() {
                 </div>
 
                 <div className="flex items-center gap-4 rounded-2xl bg-white/20 border border-white/10 p-4 transition-colors hover:bg-white/10">
-                  <div className="w-12 h-12 rounded-xl bg-pink-600 flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center shrink-0">
                     <FaEnvelope className="text-white text-base" />
                   </div>
                   <div>
@@ -86,7 +86,7 @@ export default function HomeContactSection() {
                     </p>
                     <a
                       href="mailto:info@fbsprints.com"
-                      className="text-base font-semibold hover:text-pink-500 transition-colors break-all"
+                      className="text-base font-semibold hover:text-primary transition-colors break-all"
                     >
                       info@fbsprints.com
                     </a>
@@ -97,17 +97,17 @@ export default function HomeContactSection() {
 
           <div className="lg:col-span-2 bg-white p-5">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-pink-700">
+              <h2 className="text-4xl font-bold text-primary">
                 Contact Us If You Need A Custom
-                <span className="block text-pink-600">
+                <span className="block text-primary">
                   Design{" "}
-                  <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                     Without
                   </span>{" "}
                   Delay!
                 </span>
               </h2>
-              <p className="mt-4 text-gray-600">
+              <p className="mt-4 text-primary-dark/70">
                 To make an appointment, please call us. We&apos;d love to pamper
                 you!
               </p>

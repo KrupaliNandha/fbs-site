@@ -113,19 +113,19 @@ export default function Page() {
       
         <main>
           {/* Section - 1 */}
-          <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
+          <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
             <div className="container">
               <div className="mx-auto">
-                <p className="text-gray-600 text-lg">
-                      <Link href="/" className="text-pink-600 hover:underline">
+                <p className="text-primary-dark/70 text-lg">
+                      <Link href="/" className="text-primary hover:underline">
                         Home
                       </Link>
                       {/* <span className="mx-2">&gt;</span> */}
-                      {/* <Link href="/services" className="text-pink-600">
+                      {/* <Link href="/services" className="text-primary">
                         Services
                       </Link> */}
                       <span className="mx-2">&gt;</span>
-                      <span className="text-gray-800 font-semibold">
+                      <span className="text-primary-dark font-semibold">
                         Web Designing
                       </span>
                     </p>
@@ -137,14 +137,14 @@ export default function Page() {
                   >
                     {/* Heading */}
                     <h1
-                      className="font-semibold text-gray-950 leading-tight tracking-tight
+                      className="font-semibold text-primary-dark leading-tight tracking-tight
     text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
                     >
                       Web
-                      <span className="text-pink-600"> Designing</span>
+                      <span className="text-primary"> Designing</span>
                     </h1>
                     {/* Description */}
-                    <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                    <p className="text-primary-dark/70 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
                       At FBS Prints, we create modern, user-friendly websites
                       that not only look great but also work seamlessly across
                       all devices. Our web design blends creativity with
@@ -156,9 +156,9 @@ export default function Page() {
                   {/* Right Content - Image Grid */}
                   <div className="relative">
                     {/* Decorative circles */}
-                    <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-2xl"></div>
-                    <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl"></div>
-                    <div className="absolute top-32 right-10 w-32 h-32 bg-purple-100 rounded-full opacity-50 blur-2xl"></div>
+                    <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+                    <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
+                    <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
 
                     {/* Image grid */}
                     <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
@@ -206,14 +206,14 @@ export default function Page() {
 
           {/* Section - 2 */}
           <section className="container section-padding">
-            <div className="bg-[#EC3392] rounded-2xl px-6 py-12 text-white">
+            <div className="bg-primary rounded-2xl px-6 py-12 text-white">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
                 {/* Left Content */}
                 <div data-aos="fade-right">
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-center lg:text-start">
                     Our Web Design
                     <br />
-                    <span className="text-black hover:text-yellow-300">
+                    <span className="text-black hover:text-primary-light">
                       Is More Than Just An
                     </span>
                     <br />
@@ -223,7 +223,7 @@ export default function Page() {
 
                 {/* Right Content */}
                 <div data-aos="fade-left">
-                  <p className="text-base md:text-lg text-pink-100 leading-relaxed text-center lg:text-start">
+                  <p className="text-base md:text-lg text-primary-light leading-relaxed text-center lg:text-start">
                     FBS Prints crafts visually striking, responsive, and
                     conversion-focused websites tailored to your brand. From
                     clean layouts to smooth user experiences, we ensure your
@@ -238,7 +238,7 @@ export default function Page() {
           {/* Section - 3 */}
           <section className="container relative bg-white py-10 overflow-hidden">
             {/* Single deliberate accent glow instead of two competing blobs */}
-            <div className="absolute -top-32 -left-32 w-96 h-96 bg-pink-200 rounded-full blur-3xl opacity-30"></div>
+            <div className="absolute -top-32 -left-32 w-96 h-96 bg-primary-light rounded-full blur-3xl opacity-30"></div>
 
             <div className="relative z-10">
               <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-20">
@@ -249,7 +249,7 @@ export default function Page() {
                   {/* Floating card */}
                   <div className="relative">
                     {/* shadow glow */}
-                    <div className="absolute inset-0 bg-pink-500/20 blur-2xl rounded-3xl"></div>
+                    <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-3xl"></div>
 
                     <Image
                       src="/images/services/web-design/Web-1.jpg"
@@ -257,7 +257,7 @@ export default function Page() {
                       width={600}
                       height={600}
                       priority
-                      className="relative rounded-3xl shadow-2xl border border-gray-100 h-auto w-full max-w-full"
+                      className="relative rounded-3xl shadow-2xl border border-primary-light h-auto w-full max-w-full"
                     />
 
                     {/* Floating stats — real numbers instead of repeated labels */}
@@ -265,10 +265,10 @@ export default function Page() {
                       data-aos="fade-up"
                       className="absolute -bottom-10 -left-6 bg-white rounded-2xl shadow-xl px-6 py-4"
                     >
-                      <p className="text-2xl font-extrabold text-gray-900 leading-none">
+                      <p className="text-2xl font-extrabold text-primary-dark leading-none">
                         40%
                       </p>
-                      <p className="mt-1 text-xs font-medium text-gray-500">
+                      <p className="mt-1 text-xs font-medium text-primary-dark/60">
                         More Leads Generated
                       </p>
                     </div>
@@ -277,10 +277,10 @@ export default function Page() {
                       data-aos="fade-down"
                       className="absolute -top-4 -right-6 bg-white rounded-2xl shadow-xl px-6 py-4"
                     >
-                      <p className="text-2xl font-extrabold text-gray-900 leading-none">
+                      <p className="text-2xl font-extrabold text-primary-dark leading-none">
                         2.4s
                       </p>
-                      <p className="mt-1 text-xs font-medium text-gray-500">
+                      <p className="mt-1 text-xs font-medium text-primary-dark/60">
                         Average Load Time
                       </p>
                     </div>
@@ -292,15 +292,15 @@ export default function Page() {
                   data-aos="fade-left"
                   className="space-y-8 text-center lg:text-left"
                 >
-                  <h2 className="text-4xl lg:text-6xl font-extrabold leading-tight text-gray-900">
+                  <h2 className="text-4xl lg:text-6xl font-extrabold leading-tight text-primary-dark">
                   We help brands{" "}
-                  <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                     you take your business
                   </span>{" "}
                   to the next level
                 </h2>
 
-                  <p className="text-xl text-gray-600 max-w-3xl mx-auto lg:mx-0">
+                  <p className="text-xl text-primary-dark/70 max-w-3xl mx-auto lg:mx-0">
                     We go beyond design - we build digital solutions that fuel
                     growth. Whether you need a powerful website, stronger online
                     visibility, or better customer engagement, our team helps
@@ -319,15 +319,15 @@ export default function Page() {
             <div className=" mx-auto">
               {/* HEADING */}
               <div className="max-w-4xl mx-auto text-center mb-10">
-                <h2 className="text-4xl md:text-5xl font-extrabold text-pink-700 leading-tight">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-primary leading-tight">
                   Unique{" "}
-                  <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                     Bespoke Digital{" "}
                   </span>
                   Solutions
                 </h2>
 
-                <p className="mt-6 text-gray-600 text-lg leading-relaxed">
+                <p className="mt-6 text-primary-dark/70 text-lg leading-relaxed">
                   We craft responsive, SEO-optimized, and scalable digital
                   experiences. Our services combine design, development, and
                   marketing to build a strong online presence.
@@ -340,19 +340,19 @@ export default function Page() {
                   <Link
                     key={item.slug}
                     href={`/services/web-design/${item.slug}`}
-                    className="group relative rounded-2xl bg-white border border-gray-200 p-8
-          shadow-sm hover:shadow-xl hover:shadow-pink-100 hover:-translate-y-1
+                    className="group relative rounded-2xl bg-white border border-primary-light p-8
+          shadow-sm hover:shadow-xl hover:shadow-primary-light hover:-translate-y-1
           transition-all duration-300"
                   >
                     {/* TOP ACCENT */}
                     <span
-                      className="absolute top-0 left-0 h-1 w-0 bg-gradient-to-br from-pink-500 to-pink-600
+                      className="absolute top-0 left-0 h-1 w-0 bg-gradient-to-br from-primary to-primary
             group-hover:w-full transition-all duration-300 rounded-t-2xl"
                     />
 
                     {/* ICON */}
                     <div
-                      className="mb-6 w-20 h-20 p-3 rounded-xl bg-white shadow-lg shadow-gray-200
+                      className="mb-6 w-20 h-20 p-3 rounded-xl bg-white shadow-lg shadow-primary-light
             flex items-center justify-center"
                     >
                       <Image
@@ -364,12 +364,12 @@ export default function Page() {
                     </div>
 
                     {/* TITLE */}
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    <h3 className="text-xl font-semibold text-primary-dark mb-3">
                       {item.title}
                     </h3>
 
                     {/* DESCRIPTION */}
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <p className="text-primary-dark/70 text-sm leading-relaxed">
                       {item.description}
                     </p>
                   </Link>
@@ -384,9 +384,9 @@ export default function Page() {
             className="container section-padding bg-white"
           >
             <div className="pt-5 space-y-6 mb-12 max-w-7xl mx-auto">
-              <p className="text-center text-3xl lg:text-4xl xl:text-5xl font-bold mx-auto text-pink-700">
+              <p className="text-center text-3xl lg:text-4xl xl:text-5xl font-bold mx-auto text-primary">
                 &quot;Designing{" "}
-                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                   Digital Experiences That Captivate, Inspire, And Leave a
                   Lasting
                 </span>{" "}
@@ -406,7 +406,7 @@ export default function Page() {
                     <Link
                       key={item.slug}
                       href={`/services/web-design/${item.slug}`}
-                      className="block bg-white rounded-2xl p-4 text-center shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(0,0,0,0.12)] transition-all duration-300"
+                      className="block bg-white rounded-2xl p-4 text-center shadow-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-300"
                     >
                       <div className="relative w-full h-[250px] rounded-xl overflow-hidden">
                         <Image
@@ -417,7 +417,7 @@ export default function Page() {
                         />
                       </div>
 
-                      <h3 className="mt-4 text-lg font-semibold text-gray-700">
+                      <h3 className="mt-4 text-lg font-semibold text-primary-dark/80">
                         {item.title}
                       </h3>
                     </Link>
@@ -432,16 +432,16 @@ export default function Page() {
             <div className="mx-auto">
               {/* HEADING */}
               <div className="max-w-5xl mx-auto text-center mb-10">
-                <h2 className="text-4xl md:text-5xl font-extrabold text-pink-700 tracking-tight">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-primary tracking-tight">
                   Our Clients&apos;{" "}
-                  <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent relative">
+                  <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent relative">
                     Success
-                    <span className="absolute -bottom-2 left-0 w-full h-1 bg-pink-200 rounded-full"></span>
+                    <span className="absolute -bottom-2 left-0 w-full h-1 bg-primary-light rounded-full"></span>
                   </span>{" "}
                   Is Our Success
                 </h2>
 
-                <p className="mt-6 text-gray-600 text-lg md:text-xl leading-relaxed">
+                <p className="mt-6 text-primary-dark/70 text-lg md:text-xl leading-relaxed">
                   We build intuitive, high-performing digital experiences for
                   businesses of all sizes. From strategy and design to
                   development and optimization, everything we do is focused on
@@ -455,7 +455,7 @@ export default function Page() {
                   <div
                     key={index}
                     className="group relative bg-white rounded-3xl p-10
-      border border-gray-200 shadow-sm
+      border border-primary-light shadow-sm
       hover:-translate-y-2 hover:shadow-2xl
       transition-all duration-300"
                   >
@@ -474,21 +474,21 @@ export default function Page() {
                     </div>
 
                     {/* TITLE */}
-                    <p className="mt-6 text-lg font-semibold text-gray-900 mb-4 leading-snug">
+                    <p className="mt-6 text-lg font-semibold text-primary-dark mb-4 leading-snug">
                       {item.title}
                     </p>
 
                     {/* DESCRIPTION */}
-                    <p className="text-gray-600 leading-relaxed mb-8">
+                    <p className="text-primary-dark/70 leading-relaxed mb-8">
                       {item.description}
                     </p>
 
                     {/* AUTHOR */}
-                    <div className="pt-6 border-t border-gray-100">
-                      <p className="text-pink-700 font-semibold text-xl">
+                    <div className="pt-6 border-t border-primary-light">
+                      <p className="text-primary font-semibold text-xl">
                         {item.name}
                       </p>
-                      <p className="text-lg text-gray-500">{item.role}</p>
+                      <p className="text-lg text-primary-dark/60">{item.role}</p>
                     </div>
                   </div>
                 ))}

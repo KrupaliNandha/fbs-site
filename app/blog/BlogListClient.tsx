@@ -143,32 +143,32 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
   };
 
   return (
-    <main className="bg-gray-50 min-h-screen">
-      <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
+    <main className="bg-primary-light/40 min-h-screen">
+      <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
         <div className="container">
-          <p className="text-gray-600 text-lg">
-            <Link href="/" className="text-pink-600">
+          <p className="text-primary-dark/70 text-lg">
+            <Link href="/" className="text-primary">
               Home
             </Link>
             <span className="mx-2">&gt;</span>
-            <span className="text-gray-800 font-semibold">Blog</span>
+            <span className="text-primary-dark font-semibold">Blog</span>
           </p>
 
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="flex flex-col justify-center text-center lg:text-left space-y-5">
-              <h1 className="font-semibold text-gray-950 leading-tight tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+              <h1 className="font-semibold text-primary-dark leading-tight tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
                 Marketing &amp; Design
-                <span className="text-pink-700"> Insights</span>
+                <span className="text-primary"> Insights</span>
               </h1>
-              <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+              <p className="text-primary-dark/70 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
                 Practical printing, signage, decor, and branding ideas for
                 businesses that want cleaner visuals and stronger customer impact.
               </p>
             </div>
 
             <div className="relative">
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-2xl" />
-              <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl" />
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl" />
+              <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl" />
               <div className="relative grid grid-cols-3 gap-3 sm:gap-4">
                 {[
                   "/images/shared/Product-1.jpg",
@@ -207,8 +207,8 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                 }}
                 className={`px-4 py-2 rounded-full text-sm font-bold transition ${
                   selectedCategory === category
-                    ? "bg-pink-700 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-pink-100 hover:text-pink-700"
+                    ? "bg-primary text-white"
+                    : "bg-primary-light/70 text-primary-dark/80 hover:bg-primary-light hover:text-primary"
                 }`}
               >
                 {category}
@@ -217,7 +217,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
           </div>
 
           <div className="relative w-full lg:max-w-sm">
-            <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-primary-dark/45" />
             <input
               type="search"
               placeholder="Search articles..."
@@ -226,17 +226,17 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                 setSearchQuery(event.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:border-pink-600 text-sm font-medium text-gray-900"
+              className="w-full pl-11 pr-4 py-3 bg-primary-light/40 border border-primary-light rounded-full focus:outline-none focus:border-primary text-sm font-medium text-primary-dark"
             />
           </div>
         </div>
 
         {filteredPosts.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-2xl shadow-lg mt-10">
-            <h2 className="text-2xl font-bold text-gray-950">
+            <h2 className="text-2xl font-bold text-primary-dark">
               No articles match your search
             </h2>
-            <p className="text-gray-600 mt-3">
+            <p className="text-primary-dark/70 mt-3">
               Try a broader keyword or reset the filter.
             </p>
             <button
@@ -245,7 +245,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                 setSelectedCategory("All");
                 setCurrentPage(1);
               }}
-              className="mt-6 rounded-full bg-pink-700 px-6 py-3 text-white font-bold"
+              className="mt-6 rounded-full bg-primary px-6 py-3 text-white font-bold"
             >
               Reset Search
             </button>
@@ -257,7 +257,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                 href={`/blog/${featuredPost.slug}`}
                 className="group grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition"
               >
-                <div className="lg:col-span-7 h-64 sm:h-72 lg:h-[420px] relative bg-gray-900 overflow-hidden">
+                <div className="lg:col-span-7 h-64 sm:h-72 lg:h-[420px] relative bg-primary-dark overflow-hidden">
                   {featuredPost.image ? (
                     <img
                       src={featuredPost.image}
@@ -266,40 +266,40 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                       referrerPolicy="no-referrer"
                     />
                   ) : null}
-                  <span className="absolute top-4 left-4 bg-pink-700 text-white font-bold text-xs px-4 py-2 rounded-full uppercase tracking-wider">
+                  <span className="absolute top-4 left-4 bg-primary text-white font-bold text-xs px-4 py-2 rounded-full uppercase tracking-wider">
                     Featured
                   </span>
                 </div>
                 <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-center gap-6">
                   <div className="space-y-3">
-                    <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-gray-500">
+                    <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-primary-dark/60">
                       <span className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-pink-700" />
+                        <Calendar className="w-4 h-4 text-primary" />
                         {formatBlogDate(featuredPost.date)}
                       </span>
                       <span className="flex items-center gap-2">
-                        <Clock className="w-4 h-4 text-pink-700" />
+                        <Clock className="w-4 h-4 text-primary" />
                         {featuredPost.readTime}
                       </span>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-950 group-hover:text-pink-700 transition line-clamp-2">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-primary-dark group-hover:text-primary transition line-clamp-2">
                       {featuredPost.title}
                     </h2>
-                    <p className="text-gray-600 leading-relaxed line-clamp-3">
+                    <p className="text-primary-dark/70 leading-relaxed line-clamp-3">
                       {featuredPost.excerpt}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {featuredPost.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="bg-pink-50 text-pink-700 text-xs font-bold px-3 py-1.5 rounded-full"
+                          className="bg-primary-light text-primary text-xs font-bold px-3 py-1.5 rounded-full"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-2 text-pink-700 font-bold">
+                  <span className="inline-flex items-center gap-2 text-primary font-bold">
                     Read Article
                     <ArrowRight className="w-4 h-4 transition group-hover:translate-x-1" />
                   </span>
@@ -314,7 +314,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                   href={`/blog/${post.slug}`}
                   className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition flex flex-col"
                 >
-                  <div className="h-56 relative bg-gray-900 overflow-hidden">
+                  <div className="h-56 relative bg-primary-dark overflow-hidden">
                     {post.image ? (
                       <img
                         src={post.image}
@@ -323,23 +323,23 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                         referrerPolicy="no-referrer"
                       />
                     ) : null}
-                    <span className="absolute top-3 left-3 bg-white text-pink-700 font-bold text-xs px-3 py-1.5 rounded-full">
+                    <span className="absolute top-3 left-3 bg-white text-primary font-bold text-xs px-3 py-1.5 rounded-full">
                       {post.category}
                     </span>
                   </div>
                   <div className="p-6 flex flex-col grow">
-                    <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-gray-500">
+                    <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-primary-dark/60">
                       <span>{formatBlogDate(post.date)}</span>
                       <span>|</span>
                       <span>{post.readTime}</span>
                     </div>
-                    <h3 className="mt-3 text-xl font-bold text-gray-950 group-hover:text-pink-700 transition line-clamp-2">
+                    <h3 className="mt-3 text-xl font-bold text-primary-dark group-hover:text-primary transition line-clamp-2">
                       {post.title}
                     </h3>
-                    <p className="mt-3 text-gray-600 text-sm leading-relaxed line-clamp-3 grow">
+                    <p className="mt-3 text-primary-dark/70 text-sm leading-relaxed line-clamp-3 grow">
                       {post.excerpt}
                     </p>
-                    <span className="mt-5 inline-flex items-center gap-2 text-pink-700 font-bold text-sm">
+                    <span className="mt-5 inline-flex items-center gap-2 text-primary font-bold text-sm">
                       Read More
                       <ArrowRight className="w-4 h-4 transition group-hover:translate-x-1" />
                     </span>
@@ -349,11 +349,11 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
             </div>
 
             {totalPages > 1 && (
-              <div className="flex justify-center items-center gap-2 mt-16 pt-8 border-t border-gray-100">
+              <div className="flex justify-center items-center gap-2 mt-16 pt-8 border-t border-primary-light">
                 <button
                   onClick={() => handlePageChange(Math.max(normalizedCurrentPage - 1, 1))}
                   disabled={normalizedCurrentPage === 1}
-                  className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 bg-white text-gray-700 hover:border-pink-600 hover:text-pink-700 disabled:opacity-40 disabled:cursor-not-allowed transition duration-300"
+                  className="flex items-center justify-center w-10 h-10 rounded-full border border-primary-light bg-white text-primary-dark/80 hover:border-primary hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed transition duration-300"
                   aria-label="Previous Page"
                 >
                   <ChevronLeft className="w-5 h-5" />
@@ -362,7 +362,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                 {getPageNumbers().map((page, index) => {
                   if (page === "...") {
                     return (
-                      <span key={`ellipsis-${index}`} className="px-3 py-2 text-gray-400">
+                      <span key={`ellipsis-${index}`} className="px-3 py-2 text-primary-dark/45">
                         ...
                       </span>
                     );
@@ -374,8 +374,8 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                       onClick={() => handlePageChange(page as number)}
                       className={`w-10 h-10 rounded-full font-bold text-sm transition duration-300 flex items-center justify-center ${
                         normalizedCurrentPage === page
-                          ? "bg-pink-700 text-white shadow-md shadow-pink-200"
-                          : "border border-gray-200 bg-white text-gray-700 hover:border-pink-600 hover:text-pink-700"
+                          ? "bg-primary text-white shadow-md shadow-primary-light"
+                          : "border border-primary-light bg-white text-primary-dark/80 hover:border-primary hover:text-primary"
                       }`}
                     >
                       {page}
@@ -386,7 +386,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                 <button
                   onClick={() => handlePageChange(Math.min(normalizedCurrentPage + 1, totalPages))}
                   disabled={normalizedCurrentPage === totalPages}
-                  className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 bg-white text-gray-700 hover:border-pink-600 hover:text-pink-700 disabled:opacity-40 disabled:cursor-not-allowed transition duration-300"
+                  className="flex items-center justify-center w-10 h-10 rounded-full border border-primary-light bg-white text-primary-dark/80 hover:border-primary hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed transition duration-300"
                   aria-label="Next Page"
                 >
                   <ChevronRight className="w-5 h-5" />

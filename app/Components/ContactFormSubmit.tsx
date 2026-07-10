@@ -166,7 +166,7 @@ export default function ContactFormSubmit({
         <div>
           <label
             htmlFor={`${formId}-first-name`}
-            className="text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-primary-dark/80"
           >
             First Name
           </label>
@@ -177,14 +177,14 @@ export default function ContactFormSubmit({
             placeholder="Enter your first name"
             autoComplete="given-name"
             required
-            className="mt-2 w-full rounded-xl border px-4 py-3 border-gray-300 outline-none focus:ring-0"
+            className="mt-2 w-full rounded-xl border px-4 py-3 border-primary-light outline-none focus:ring-0"
           />
         </div>
 
         <div>
           <label
             htmlFor={`${formId}-last-name`}
-            className="text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-primary-dark/80"
           >
             Last Name
           </label>
@@ -195,14 +195,14 @@ export default function ContactFormSubmit({
             placeholder="Enter your last name"
             autoComplete="family-name"
             required
-            className="mt-2 w-full rounded-xl border px-4 py-3 border-gray-300 outline-none focus:ring-0"
+            className="mt-2 w-full rounded-xl border px-4 py-3 border-primary-light outline-none focus:ring-0"
           />
         </div>
 
         <div>
           <label
             htmlFor={`${formId}-email`}
-            className="text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-primary-dark/80"
           >
             Email Id
           </label>
@@ -213,19 +213,19 @@ export default function ContactFormSubmit({
             placeholder="Enter your email id"
             autoComplete="email"
             required
-            className="mt-2 w-full rounded-xl border px-4 py-3 border-gray-300 outline-none focus:ring-0"
+            className="mt-2 w-full rounded-xl border px-4 py-3 border-primary-light outline-none focus:ring-0"
           />
         </div>
 
         <div>
           <label
             htmlFor={`${formId}-phone`}
-            className="text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-primary-dark/80"
           >
             Phone Number
           </label>
-          <div className="mt-2 flex items-center border border-gray-300 rounded-xl focus-within:border-gray-400 bg-white">
-            <span className="pl-4 text-gray-500 font-medium select-none">+1</span>
+          <div className="mt-2 flex items-center border border-primary-light rounded-xl focus-within:border-primary bg-white">
+            <span className="pl-4 text-primary-dark/60 font-medium select-none">+1</span>
             <input
               id={`${formId}-phone`}
               name="phone"
@@ -241,7 +241,7 @@ export default function ContactFormSubmit({
         <div className="md:col-span-2">
           <label
             htmlFor={`${formId}-company`}
-            className="text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-primary-dark/80"
           >
             Company Name
           </label>
@@ -251,14 +251,14 @@ export default function ContactFormSubmit({
             type="text"
             placeholder="Enter your company name"
             autoComplete="organization"
-            className="mt-2 w-full rounded-xl border px-4 py-3 border-gray-300 outline-none focus:ring-0"
+            className="mt-2 w-full rounded-xl border px-4 py-3 border-primary-light outline-none focus:ring-0"
           />
         </div>
 
         <div className="md:col-span-2">
           <label
             htmlFor={`${formId}-message`}
-            className="text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-primary-dark/80"
           >
             Comments / Questions
           </label>
@@ -268,18 +268,18 @@ export default function ContactFormSubmit({
             rows={5}
             placeholder="Enter your message here..."
             required
-            className="mt-2 w-full rounded-xl border px-4 py-3 border-gray-300 outline-none focus:ring-0"
+            className="mt-2 w-full rounded-xl border px-4 py-3 border-primary-light outline-none focus:ring-0"
           ></textarea>
         </div>
 
-        <div className="md:col-span-2 text-sm text-gray-500">
+        <div className="md:col-span-2 text-sm text-primary-dark/60">
           By filling this form, you agree to our
-          <span className="text-pink-600 font-medium">
+          <span className="text-primary font-medium">
             {" "}
             Terms & Conditions{" "}
           </span>
           and
-          <span className="text-pink-600 font-medium"> Privacy Policy</span>
+          <span className="text-primary font-medium"> Privacy Policy</span>
         </div>
 
         <div
@@ -293,7 +293,7 @@ export default function ContactFormSubmit({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="rounded-full cursor-pointer px-8 py-3 text-white font-semibold bg-pink-700 hover:scale-105 transition disabled:cursor-not-allowed disabled:opacity-70"
+            className="rounded-full cursor-pointer px-8 py-3 text-white font-semibold bg-primary hover:scale-105 transition disabled:cursor-not-allowed disabled:opacity-70"
           >
             {isSubmitting ? "Sending..." : "Send Message"}
           </button>
@@ -322,7 +322,7 @@ export default function ContactFormSubmit({
           placeholder="First Name"
           autoComplete="given-name"
           required
-          className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-pink-600 focus:outline-none transition"
+          className="border border-primary-light p-4 rounded-lg w-full focus:ring-2 focus:ring-primary focus:outline-none transition"
         />
         <input
           id={`${formId}-last-name`}
@@ -331,7 +331,7 @@ export default function ContactFormSubmit({
           placeholder="Last Name"
           autoComplete="family-name"
           required
-          className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-pink-600 focus:outline-none transition"
+          className="border border-primary-light p-4 rounded-lg w-full focus:ring-2 focus:ring-primary focus:outline-none transition"
         />
       </div>
 
@@ -342,10 +342,10 @@ export default function ContactFormSubmit({
         placeholder="Email"
         autoComplete="email"
         required
-        className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-pink-600 focus:outline-none transition"
+        className="border border-primary-light p-4 rounded-lg w-full focus:ring-2 focus:ring-primary focus:outline-none transition"
       />
-      <div className="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-pink-600 focus-within:border-pink-600 transition bg-white w-full">
-        <span className="pl-4 text-gray-500 font-medium select-none">+1</span>
+      <div className="flex items-center border border-primary-light rounded-lg focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition bg-white w-full">
+        <span className="pl-4 text-primary-dark/60 font-medium select-none">+1</span>
         <input
           id={`${formId}-phone`}
           name="phone"
@@ -361,14 +361,14 @@ export default function ContactFormSubmit({
         name="inquiry_subject"
         type="text"
         placeholder="Subject"
-        className="border border-gray-300 p-4 rounded-lg w-full focus:ring-2 focus:ring-pink-600 focus:outline-none transition"
+        className="border border-primary-light p-4 rounded-lg w-full focus:ring-2 focus:ring-primary focus:outline-none transition"
       />
       <textarea
         id={`${formId}-message`}
         name="message"
         placeholder="Message"
         required
-        className="border border-gray-300 p-4 rounded-lg w-full min-h-[140px] focus:ring-2 focus:ring-pink-600 focus:outline-none transition"
+        className="border border-primary-light p-4 rounded-lg w-full min-h-[140px] focus:ring-2 focus:ring-primary focus:outline-none transition"
       />
       <p className="text-center lg:text-start">
         By filling this form, you have read, understood and agreed to Terms and
@@ -380,7 +380,7 @@ export default function ContactFormSubmit({
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 cursor-pointer rounded-full bg-pink-600 text-white font-bold text-lg hover:scale-105 transition-transform disabled:cursor-not-allowed disabled:opacity-70"
+        className="w-full py-4 cursor-pointer rounded-full bg-primary text-white font-bold text-lg hover:scale-105 transition-transform disabled:cursor-not-allowed disabled:opacity-70"
       >
         {isSubmitting ? "Sending..." : "Send Message"}
       </button>

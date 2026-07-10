@@ -49,9 +49,9 @@ export default function ServiceAreasClient({ cities }: ServiceAreasClientProps) 
             placeholder="Search your city or county..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-6 py-4 rounded-full border-2 border-pink-100 bg-white text-gray-900 shadow-md focus:border-pink-600 focus:outline-none text-lg transition-all duration-300"
+            className="w-full px-6 py-4 rounded-full border-2 border-primary-light bg-white text-primary-dark shadow-md focus:border-primary focus:outline-none text-lg transition-all duration-300"
           />
-          <div className="absolute right-5 top-1/2 -translate-y-1/2 text-pink-600">
+          <div className="absolute right-5 top-1/2 -translate-y-1/2 text-primary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -68,7 +68,7 @@ export default function ServiceAreasClient({ cities }: ServiceAreasClientProps) 
             </svg>
           </div>
         </div>
-        <p className="mt-4 text-gray-500 font-medium">
+        <p className="mt-4 text-primary-dark/60 font-medium">
           Showing {filteredCities.length} of {cities.length} Illinois cities we serve
         </p>
       </div>
@@ -81,39 +81,39 @@ export default function ServiceAreasClient({ cities }: ServiceAreasClientProps) 
               key={city.slug}
               data-aos="fade-up"
               data-aos-delay={(index % 4) * 100}
-              className="group bg-white rounded-3xl border border-pink-50 p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full hover:-translate-y-1"
+              className="group bg-white rounded-3xl border border-primary-light p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full hover:-translate-y-1"
             >
               <div className="flex-1">
                 {/* City Card Header */}
                 <div className="flex justify-between items-start mb-4">
-                  <div className="bg-pink-50 text-pink-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                  <div className="bg-primary-light text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                     {city.stateCode}
                   </div>
-                  <span className="text-xs text-gray-400 font-medium">
+                  <span className="text-xs text-primary-dark/45 font-medium">
                     Updated {city.updatedAt}
                   </span>
                 </div>
 
                 {/* City Name */}
-                <h3 className="text-2xl font-bold text-gray-900 group-hover:text-pink-700 transition-colors duration-300">
+                <h3 className="text-2xl font-bold text-primary-dark group-hover:text-primary transition-colors duration-300">
                   {city.name}
                 </h3>
-                <p className="text-sm text-pink-500 font-semibold mb-4">
+                <p className="text-sm text-primary font-semibold mb-4">
                   {city.county}
                 </p>
 
                 {/* City Description Preview */}
-                <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-3">
+                <p className="text-primary-dark/70 text-sm leading-relaxed mb-6 line-clamp-3">
                   {city.introduction}
                 </p>
 
                 {/* Landmarks */}
                 <div className="mb-6">
-                  <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-2">
+                  <span className="text-xs font-bold text-primary-dark/45 uppercase tracking-wider block mb-2">
                     Key Landmark
                   </span>
                   <div className="flex flex-wrap gap-2">
-                    <span className="inline-block bg-gray-50 text-gray-700 text-xs font-medium px-3 py-1 rounded-full border border-gray-100">
+                    <span className="inline-block bg-primary-light/40 text-primary-dark/80 text-xs font-medium px-3 py-1 rounded-full border border-primary-light">
                       {city.landmarks[0]}
                     </span>
                   </div>
@@ -123,7 +123,7 @@ export default function ServiceAreasClient({ cities }: ServiceAreasClientProps) 
               {/* View Page Link */}
               <Link
                 href={`/service-areas/${city.slug}`}
-                className="mt-auto inline-flex items-center justify-between w-full bg-pink-50 text-pink-700 group-hover:bg-pink-700 group-hover:text-white px-5 py-3 rounded-2xl font-semibold transition-all duration-300"
+                className="mt-auto inline-flex items-center justify-between w-full bg-primary-light text-primary group-hover:bg-primary group-hover:text-white px-5 py-3 rounded-2xl font-semibold transition-all duration-300"
               >
                 <span>Explore Service Area</span>
                 <span className="transform transition-transform duration-300 group-hover:translate-x-1">
@@ -134,13 +134,13 @@ export default function ServiceAreasClient({ cities }: ServiceAreasClientProps) 
           ))}
         </div>
       ) : (
-        <div className="text-center py-20 bg-gray-50 rounded-3xl max-w-md mx-auto">
-          <p className="text-gray-500 text-lg font-medium">
+        <div className="text-center py-20 bg-primary-light/40 rounded-3xl max-w-md mx-auto">
+          <p className="text-primary-dark/60 text-lg font-medium">
             No service areas found matching "{searchTerm}"
           </p>
           <button
             onClick={() => setSearchTerm("")}
-            className="mt-4 px-6 py-2 bg-pink-700 text-white rounded-full font-semibold shadow-md hover:bg-pink-800 transition-colors"
+            className="mt-4 px-6 py-2 bg-primary text-white rounded-full font-semibold shadow-md hover:bg-primary-dark transition-colors"
           >
             Clear Search
           </button>

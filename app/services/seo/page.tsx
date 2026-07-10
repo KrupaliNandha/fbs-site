@@ -120,7 +120,7 @@ function FaqAccordion({ faqs }: { faqs: { q: string; a: string }[] }) {
         return (
           <div
             key={faq.q}
-            style={isOpen ? { borderColor: "#EC1279" } : undefined}
+            style={isOpen ? { borderColor: "var(--color-primary)" } : undefined}
             className={`overflow-hidden rounded-xl border-2 transition-all duration-300 sm:rounded-2xl ${
               isOpen
                 ? "bg-white shadow-lg"
@@ -137,15 +137,15 @@ function FaqAccordion({ faqs }: { faqs: { q: string; a: string }[] }) {
                 className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
               >
                 <span
-                  style={isOpen ? { color: "#EC1279" } : undefined}
-                  className="text-sm font-semibold leading-snug text-gray-900 sm:text-base"
+                  style={isOpen ? { color: "var(--color-primary)" } : undefined}
+                  className="text-sm font-semibold leading-snug text-primary-dark sm:text-base"
                 >
                   {faq.q}
                 </span>
 
                 <ChevronDown
-                  style={isOpen ? { color: "#EC1279" } : undefined}
-                  className={`h-5 w-5 shrink-0 text-gray-900 transition-transform duration-300 ${
+                  style={isOpen ? { color: "var(--color-primary)" } : undefined}
+                  className={`h-5 w-5 shrink-0 text-primary-dark transition-transform duration-300 ${
                     isOpen ? "rotate-180" : ""
                   }`}
                 />
@@ -163,7 +163,7 @@ function FaqAccordion({ faqs }: { faqs: { q: string; a: string }[] }) {
               }`}
             >
               <div className="overflow-hidden">
-                <p className="px-5 pb-4 text-sm leading-relaxed text-gray-500 sm:px-6 sm:pb-5 sm:text-base">
+                <p className="px-5 pb-4 text-sm leading-relaxed text-primary-dark/60 sm:px-6 sm:pb-5 sm:text-base">
                   {faq.a}
                 </p>
               </div>
@@ -194,15 +194,15 @@ export default function Page() {
     <>
       <main>
         {/* Section - 1 */}
-        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
+        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
           <div className="container">
             <div className="mx-auto">
-              <p className="text-gray-600 text-lg">
-                <Link href="/" className="text-pink-600">
+              <p className="text-primary-dark/70 text-lg">
+                <Link href="/" className="text-primary">
                   Home
                 </Link>
                 <span className="mx-2">&gt;</span>
-                <span className="text-gray-800 font-semibold">SEO</span>
+                <span className="text-primary-dark font-semibold">SEO</span>
               </p>
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                 {/* LEFT CONTENT - FIXED */}
@@ -211,13 +211,13 @@ export default function Page() {
                   className="flex flex-col justify-center text-center lg:text-left space-y-5"
                 >
                   <h1
-                    className="font-semibold text-gray-950 leading-tight tracking-tight
+                    className="font-semibold text-primary-dark leading-tight tracking-tight
     text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
                   >
                     SEO
                   </h1>
 
-                  <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                  <p className="text-primary-dark/70 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
                     At FBS, we are not just another SEO agency, we are your
                     dedicated partner in achieving online success.
                   </p>
@@ -225,9 +225,9 @@ export default function Page() {
 
                 {/* Right Content - Image Grid */}
                 <div className="relative">
-                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-2xl"></div>
-                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl"></div>
-                  <div className="absolute top-32 right-10 w-32 h-32 bg-purple-100 rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
+                  <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
 
                   <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
                     <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
@@ -271,20 +271,20 @@ export default function Page() {
 
         {/* Section - 2 */}
         <section className="container section-padding">
-          <div className="bg-[#EC3392] rounded-2xl px-6 py-12 text-white">
+          <div className="bg-primary rounded-2xl px-6 py-12 text-white">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
               <div data-aos="fade-right">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-center lg:text-start">
                   Your Partner in
                   <br />
-                  <span className="text-black hover:text-yellow-300">SEO</span>
+                  <span className="text-black hover:text-primary-light">SEO</span>
                   <br />
                   Excellence
                 </h2>
               </div>
 
               <div data-aos="fade-left">
-                <p className="text-base md:text-lg text-pink-100 leading-relaxed text-center lg:text-start">
+                <p className="text-base md:text-lg text-primary-light leading-relaxed text-center lg:text-start">
                   Having a beautiful website isn't enough if no one can find it.
                   That's where our Search Engine Optimization (SEO) services
                   come in. At FBS Prints, we help your business climb the search
@@ -301,11 +301,11 @@ export default function Page() {
         {/* Section - 3 */}
         <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-              Our <span className="text-pink-600">SEO Services</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary-dark leading-tight">
+              Our <span className="text-primary">SEO Services</span>
             </h2>
 
-            <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-gray-600 font-medium">
+            <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-primary-dark/70 font-medium">
               Don't be afraid to give up the good to go for the great
             </p>
           </div>
@@ -318,7 +318,7 @@ export default function Page() {
                 className="group rounded-2xl p-6 bg-white hover:shadow-xl transition duration-300 flex flex-col h-full cursor-pointer"
               >
                 <div className="flex items-center gap-4 mb-5">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center text-white shadow-md transition-transform duration-300 group-hover:scale-110">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-primary to-primary flex items-center justify-center text-white shadow-md transition-transform duration-300 group-hover:scale-110">
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -328,18 +328,18 @@ export default function Page() {
                     />
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-primary-dark group-hover:text-primary transition-colors">
                     {item.title}
                   </h3>
                 </div>
 
-                <div className="w-10 h-[3px] bg-pink-500 mb-4 transition-all duration-300 group-hover:w-16"></div>
+                <div className="w-10 h-[3px] bg-primary mb-4 transition-all duration-300 group-hover:w-16"></div>
 
-                <p className="text-gray-600 text-base sm:text-lg leading-relaxed mt-auto">
+                <p className="text-primary-dark/70 text-base sm:text-lg leading-relaxed mt-auto">
                   {item.shortDesc}
                 </p>
 
-                <span className="mt-4 text-sm font-semibold text-pink-600 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                <span className="mt-4 text-sm font-semibold text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                   Learn more <span aria-hidden="true">→</span>
                 </span>
               </Link>
@@ -384,12 +384,12 @@ export default function Page() {
                 key={i}
                 data-aos="fade-up"
                 data-aos-delay={i * 100}
-                className="text-center rounded-2xl border border-pink-100 bg-pink-50/40 px-4 py-8"
+                className="text-center rounded-2xl border border-primary-light bg-primary-light/40 px-4 py-8"
               >
-                <p className="text-3xl sm:text-4xl font-extrabold text-pink-600">
+                <p className="text-3xl sm:text-4xl font-extrabold text-primary">
                   {stat.value}
                 </p>
-                <p className="mt-2 text-sm sm:text-base text-gray-600 leading-snug">
+                <p className="mt-2 text-sm sm:text-base text-primary-dark/70 leading-snug">
                   {stat.label}
                 </p>
               </div>
@@ -400,10 +400,10 @@ export default function Page() {
         {/* Section - 6 — OUR PROCESS */}
         <section className="container section-padding">
           <div className="text-center mx-auto mb-14">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900">
-              Our <span className="text-pink-600">SEO Process</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary-dark">
+              Our <span className="text-primary">SEO Process</span>
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-gray-600">
+            <p className="mt-4 text-base sm:text-lg text-primary-dark/70">
               A clear, step-by-step path from first audit to lasting rankings.
             </p>
           </div>
@@ -414,15 +414,15 @@ export default function Page() {
                 key={i}
                 data-aos="fade-up"
                 data-aos-delay={i * 100}
-                className="relative flex flex-col rounded-2xl border border-gray-200 bg-white pt-9 pb-6 px-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-pink-200"
+                className="relative flex flex-col rounded-2xl border border-primary-light bg-white pt-9 pb-6 px-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary-light"
               >
-                <div className="absolute -top-5 left-5 flex w-10 h-10 items-center justify-center rounded-xl bg-pink-600 text-sm font-bold text-white shadow-md">
+                <div className="absolute -top-5 left-5 flex w-10 h-10 items-center justify-center rounded-xl bg-primary text-sm font-bold text-white shadow-md">
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <h3 className="mb-2 text-sm sm:text-base font-bold text-gray-900">
+                <h3 className="mb-2 text-sm sm:text-base font-bold text-primary-dark">
                   {step.step}
                 </h3>
-                <p className="text-sm leading-relaxed text-gray-600">
+                <p className="text-sm leading-relaxed text-primary-dark/70">
                   {step.description}
                 </p>
               </div>
@@ -431,14 +431,14 @@ export default function Page() {
         </section>
 
         {/* Section - 7 — BENEFITS */}
-        <section className="bg-gray-50 py-16 sm:py-20">
+        <section className="bg-primary-light/40 py-16 sm:py-20">
           <div className="container">
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary-dark">
                 Why Businesses Choose{" "}
-                <span className="text-pink-600">Our SEO</span>
+                <span className="text-primary">Our SEO</span>
               </h2>
-              <p className="mt-4 text-base sm:text-lg text-gray-600">
+              <p className="mt-4 text-base sm:text-lg text-primary-dark/70">
                 Real, lasting benefits, not just a ranking checklist.
               </p>
             </div>
@@ -451,18 +451,18 @@ export default function Page() {
                     key={i}
                     data-aos="fade-up"
                     data-aos-delay={i * 100}
-                    className="rounded-2xl bg-white border border-gray-100 p-6 shadow-sm transition hover:shadow-md hover:border-pink-100"
+                    className="rounded-2xl bg-white border border-primary-light p-6 shadow-sm transition hover:shadow-md hover:border-primary-light"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-pink-50 flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center mb-4">
                       <BenefitIcon
-                        className="w-6 h-6 text-pink-600"
+                        className="w-6 h-6 text-primary"
                         strokeWidth={2}
                       />
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2">
+                    <h3 className="text-base font-bold text-primary-dark mb-2">
                       {benefit.title}
                     </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">
+                    <p className="text-sm text-primary-dark/70 leading-relaxed">
                       {benefit.description}
                     </p>
                   </div>
@@ -476,11 +476,11 @@ export default function Page() {
         <section className="container section-padding">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary-dark">
                 Frequently Asked{" "}
-                <span className="text-pink-600">Questions</span>
+                <span className="text-primary">Questions</span>
               </h2>
-              <p className="mt-4 text-base sm:text-lg text-gray-600">
+              <p className="mt-4 text-base sm:text-lg text-primary-dark/70">
                 Answers to the questions we hear most about SEO.
               </p>
             </div>
@@ -492,15 +492,15 @@ export default function Page() {
         {/* Section - 9 */}
         <section className="container section-padding">
           <div>
-            <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold text-pink-700">
+            <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold text-primary">
               Ready to grow? Start your SEO journey with FBS Signs today.
             </h2>
           </div>
           <div className="max-w-4xl mx-auto px-4">
-            <p className="text-center text-xl md:text-2xl font-medium text-gray-700 leading-relaxed pt-8">
+            <p className="text-center text-xl md:text-2xl font-medium text-primary-dark/80 leading-relaxed pt-8">
               Whether you are starting from scratch or looking to outrank
               established competitors,{" "}
-              <span className="font-semibold text-gray-900">FBS Signs</span>{" "}
+              <span className="font-semibold text-primary-dark">FBS Signs</span>{" "}
               builds an SEO strategy around your business goals — not a generic
               template. Contact us for a free audit and let us show you exactly
               where you stand.
@@ -508,7 +508,7 @@ export default function Page() {
             <div className="flex justify-center mt-8">
               <Link
                 href="/contact"
-                className="inline-block rounded-full bg-pink-600 px-8 py-3 text-sm sm:text-base font-semibold text-white transition hover:bg-pink-700"
+                className="inline-block rounded-full bg-primary px-8 py-3 text-sm sm:text-base font-semibold text-white transition hover:bg-primary"
               >
                 Get Your Free SEO Audit
               </Link>

@@ -176,16 +176,16 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       <section className="mt-24 xl:mt-20">
         <div className="container">
           {/* Breadcrumb */}
-          <p className="text-gray-600 text-base sm:text-lg mb-8">
-            <Link href="/" className="text-pink-600 font-medium">
+          <p className="text-primary-dark/70 text-base sm:text-lg mb-8">
+            <Link href="/" className="text-primary font-medium">
               Home
             </Link>
             <span className="mx-2">&gt;</span>
-            <Link href="/services/seo" className="text-pink-600 font-medium">
+            <Link href="/services/seo" className="text-primary font-medium">
               SEO
             </Link>
             <span className="mx-2">&gt;</span>
-            <span className="text-gray-800 font-semibold">{service.title}</span>
+            <span className="text-primary-dark font-semibold">{service.title}</span>
           </p>
 
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
@@ -202,14 +202,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
                 {/* Floating caption card */}
                 <div className="absolute bottom-5 left-5 right-5 sm:right-auto sm:max-w-md bg-white rounded-2xl shadow-lg px-5 py-4 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center flex-shrink-0">
                     {Icon ? (
-                      <Icon className="w-5 h-5 text-pink-600" />
+                      <Icon className="w-5 h-5 text-primary" />
                     ) : (
-                      <div className="w-5 h-5 rounded bg-pink-600" />
+                      <div className="w-5 h-5 rounded bg-primary" />
                     )}
                   </div>
-                  <p className="text-gray-900 font-semibold text-sm sm:text-base leading-snug">
+                  <p className="text-primary-dark font-semibold text-sm sm:text-base leading-snug">
                     {highlight}
                   </p>
                 </div>
@@ -221,7 +221,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                   {tags.map((tag, i) => (
                     <span
                       key={i}
-                      className="px-4 py-1.5 rounded-full bg-pink-50 text-pink-600 text-sm font-medium"
+                      className="px-4 py-1.5 rounded-full bg-primary-light text-primary text-sm font-medium"
                     >
                       {tag}
                     </span>
@@ -232,12 +232,12 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
             {/* RIGHT: Content */}
             <div>
-              <span className="inline-block px-4 py-1.5 rounded-full bg-pink-100 text-pink-600 text-xs sm:text-sm font-bold tracking-wide mb-5">
+              <span className="inline-block px-4 py-1.5 rounded-full bg-primary-light text-primary text-xs sm:text-sm font-bold tracking-wide mb-5">
                 {badge}
               </span>
 
               <h1 className="font-extrabold leading-tight tracking-tight text-4xl sm:text-5xl md:text-6xl mb-6">
-                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                   {service.title}
                 </span>
               </h1>
@@ -246,7 +246,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 {overviewParagraphs.map((para, i) => (
                   <p
                     key={i}
-                    className="text-gray-600 text-base sm:text-lg leading-relaxed"
+                    className="text-primary-dark/70 text-base sm:text-lg leading-relaxed"
                   >
                     {para}
                   </p>
@@ -256,17 +256,17 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               {/* What's included */}
               {service.benefits && service.benefits.length > 0 && (
                 <div>
-                  <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                  <h2 className="text-lg sm:text-xl font-bold text-primary-dark mb-4">
                     What&apos;s included
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {service.benefits.map((benefit, i) => (
                       <div
                         key={i}
-                        className="flex items-start gap-3 bg-gray-50 rounded-xl p-4"
+                        className="flex items-start gap-3 bg-primary-light/40 rounded-xl p-4"
                       >
-                        <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-pink-600 mt-0.5" />
-                        <p className="text-gray-700 text-sm sm:text-base leading-snug">
+                        <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-primary mt-0.5" />
+                        <p className="text-primary-dark/80 text-sm sm:text-base leading-snug">
                           {benefit}
                         </p>
                       </div>
@@ -283,8 +283,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {service.process && service.process.length > 0 && (
         <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 mt-8">
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">
-              How It <span className="text-pink-600">Works</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-primary-dark">
+              How It <span className="text-primary">Works</span>
             </h2>
           </div>
 
@@ -292,15 +292,15 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             {service.process.map((item, i) => (
               <div
                 key={i}
-                className="rounded-2xl p-6 bg-white hover:shadow-xl transition duration-300 flex flex-col h-full border border-gray-100"
+                className="rounded-2xl p-6 bg-white hover:shadow-xl transition duration-300 flex flex-col h-full border border-primary-light"
               >
-                <span className="text-pink-500 font-bold text-sm mb-3">
+                <span className="text-primary font-bold text-sm mb-3">
                   Step {i + 1}
                 </span>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-lg sm:text-xl font-semibold text-primary-dark mb-2">
                   {item.step}
                 </h3>
-                <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                <p className="text-primary-dark/70 text-sm sm:text-base leading-relaxed">
                   {item.desc}
                 </p>
               </div>
@@ -335,10 +335,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {faqs.length > 0 && (
         <section className="container section-padding">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">
-              Frequently Asked <span className="text-pink-600">Questions</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-primary-dark">
+              Frequently Asked <span className="text-primary">Questions</span>
             </h2>
-            <p className="mt-4 text-gray-600 text-base sm:text-lg">
+            <p className="mt-4 text-primary-dark/70 text-base sm:text-lg">
               Answers to common questions about {service.title.toLowerCase()}.
             </p>
           </div>
@@ -348,17 +348,17 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <details
                 key={i}
                 name="seo-faq"
-                className="group overflow-hidden rounded-xl border-2 border-transparent bg-white shadow-md transition-all duration-300 hover:-translate-y-[2px] hover:shadow-lg open:border-[#EC1279] open:shadow-lg sm:rounded-2xl"
+                className="group overflow-hidden rounded-xl border-2 border-transparent bg-white shadow-md transition-all duration-300 hover:-translate-y-[2px] hover:shadow-lg open:border-primary open:shadow-lg sm:rounded-2xl"
                 open={i === 0}
               >
                 <summary className="list-none cursor-pointer flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5 marker:content-none [&::-webkit-details-marker]:hidden">
-                  <span className="text-sm font-semibold leading-snug text-gray-900 transition-colors duration-300 group-open:text-[#EC1279] sm:text-base">
+                  <span className="text-sm font-semibold leading-snug text-primary-dark transition-colors duration-300 group-open:text-primary sm:text-base">
                     {faq.q}
                   </span>
-                  <ChevronDown className="h-5 w-5 shrink-0 text-gray-900 transition-transform duration-300 group-open:rotate-180 group-open:text-[#EC1279]" />
+                  <ChevronDown className="h-5 w-5 shrink-0 text-primary-dark transition-transform duration-300 group-open:rotate-180 group-open:text-primary" />
                 </summary>
                 <div className="overflow-hidden px-5 pb-4 sm:px-6 sm:pb-5">
-                  <p className="text-sm leading-relaxed text-gray-500 sm:text-base">
+                  <p className="text-sm leading-relaxed text-primary-dark/60 sm:text-base">
                     {faq.a}
                   </p>
                 </div>
@@ -371,7 +371,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {/* Section - 5: Related Services */}
       {otherServices.length > 0 && (
         <section className="container section-padding">
-          <h2 className="text-center text-2xl sm:text-3xl font-bold text-gray-900 mb-10">
+          <h2 className="text-center text-2xl sm:text-3xl font-bold text-primary-dark mb-10">
             Explore Other Services
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -381,19 +381,19 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 <Link
                   key={s.slug}
                   href={`/services/seo/${s.slug}`}
-                  className="group rounded-2xl p-6 bg-white hover:shadow-xl transition duration-300 border border-gray-100"
+                  className="group rounded-2xl p-6 bg-white hover:shadow-xl transition duration-300 border border-primary-light"
                 >
                   <div className="flex items-center gap-3 mb-3">
                     {OtherIcon && (
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center text-white">
+                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary flex items-center justify-center text-white">
                         <OtherIcon className="w-5 h-5" />
                       </div>
                     )}
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">
+                    <h3 className="text-base sm:text-lg font-semibold text-primary-dark group-hover:text-primary transition-colors">
                       {s.title}
                     </h3>
                   </div>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-primary-dark/70 text-sm leading-relaxed">
                     {s.shortDesc}
                   </p>
                 </Link>
@@ -406,20 +406,20 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {/* Section - 6: CTA */}
       <section className="container section-padding">
         <div>
-          <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold text-pink-700">
+          <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold text-primary">
             Ready to grow? Start your SEO journey with FBS Signs today.
           </h2>
         </div>
         <div className="max-w-4xl mx-auto px-4">
-          <p className="text-center text-xl md:text-2xl font-medium text-gray-700 leading-relaxed pt-8">
+          <p className="text-center text-xl md:text-2xl font-medium text-primary-dark/80 leading-relaxed pt-8">
             Whether you are starting from scratch or looking to outrank established competitors,{" "}
-            <span className="font-semibold text-gray-900">FBS Signs</span>{" "}
+            <span className="font-semibold text-primary-dark">FBS Signs</span>{" "}
             builds an SEO strategy around your business goals — not a generic template. Contact us for a free audit and let us show you exactly where you stand.
           </p>
           <div className="flex justify-center mt-8">
             <Link
               href="/services/seo"
-              className="text-pink-600 font-semibold hover:underline"
+              className="text-primary font-semibold hover:underline"
             >
               ← Back to all SEO services
             </Link>

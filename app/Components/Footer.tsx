@@ -71,7 +71,7 @@ export default function Footer() {
       </section>
 
       {/* ===== FOOTER MAIN ===== */}
-      <section className="relative bg-gradient-to-br from-gray-100 to-gray-300">
+      <section className="relative bg-gradient-to-br from-primary-light to-primary-light">
         <div className="p-5 section-padding">
           {/* Glass Card */}
           <div className="backdrop-blur-xl bg-white/70 rounded-3xl shadow-2xl p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
@@ -84,14 +84,14 @@ export default function Footer() {
                 height={80}
               />
               <h3 className="text-xl font-bold mt-4">FBS Prints</h3>
-              <p className="text-gray-600 mt-3">
+              <p className="text-primary-dark/70 mt-3">
                 Premium printing solutions designed to elevate your brand.
               </p>
             </div>
 
             {/* Pages */}
             <div>
-              <h4 className="text-lg font-semibold text-pink-600 mb-4">
+              <h4 className="text-lg font-semibold text-primary mb-4">
                 Quick Links
               </h4>
               <ul className="space-y-2 font-medium">
@@ -99,7 +99,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="hover:text-pink-600 transition"
+                      className="hover:text-primary transition"
                     >
                       {link.name}
                     </Link>
@@ -110,7 +110,7 @@ export default function Footer() {
 
             {/* Services */}
             <div>
-              <h4 className="text-lg font-semibold text-pink-600 mb-4">
+              <h4 className="text-lg font-semibold text-primary mb-4">
                 Services
               </h4>
               <ul className="space-y-2 font-medium">
@@ -136,21 +136,21 @@ export default function Footer() {
 
             {/* Contact */}
             <div>
-              <h4 className="text-lg font-semibold text-pink-600 mb-4">
+              <h4 className="text-lg font-semibold text-primary mb-4">
                 Contact
               </h4>
 
               <div className="space-y-4 font-medium">
                 <p className="flex items-center gap-2 text-sm sm:text-base whitespace-nowrap">
-                  <FaPhoneAlt className="text-pink-600 shrink-0" />
+                  <FaPhoneAlt className="text-primary shrink-0" />
                   <span>+1-855-222-1133</span>
                 </p>
                 <p className="flex items-center gap-2 text-sm sm:text-base break-all sm:break-normal">
-                  <FaEnvelope className="text-pink-600 shrink-0" />
+                  <FaEnvelope className="text-primary shrink-0" />
                   <span>info@fbsprints.com</span>
                 </p>
                 <p className="flex items-center gap-2 text-sm sm:text-base">
-                  <FaMapMarkerAlt className="text-pink-600 shrink-0" />
+                  <FaMapMarkerAlt className="text-primary shrink-0" />
                   <span>Serving Naperville &amp; Schaumburg, IL</span>
                 </p>
               </div>
@@ -167,8 +167,8 @@ export default function Footer() {
         flex items-center justify-center
         w-10 h-10 sm:w-8 sm:h-8
         rounded-full bg-white shadow
-        text-pink-600
-        hover:bg-pink-600 hover:text-white
+        text-primary
+        hover:bg-primary hover:text-white
         transition-all hover:-translate-y-1
         active:scale-95
       "
@@ -183,7 +183,7 @@ export default function Footer() {
       </section>
 
       {/* ===== BOTTOM BAR ===== */}
-      <div className="bg-pink-700 text-white py-4">
+      <div className="bg-primary text-white py-4">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center text-sm">
           <p>© 2026 FBS PRINTS. All rights reserved.</p>
           <Link href="/privacy" className="hover:underline">

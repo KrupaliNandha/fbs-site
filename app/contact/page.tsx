@@ -85,20 +85,20 @@ export default function Page() {
       <FloatingToast submissionState={toastState} visible={showToast} />
       <main>
         {/* Section - 1 */}
-        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
+        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
           <div className="container">
             <div className="mx-auto">
-              <p className="text-gray-600">
+              <p className="text-primary-dark/70">
                 <Link
                   href="/"
-                  className="text-pink-600 text-lg"
+                  className="text-primary text-lg"
                 >
                   Home
                 </Link>
                 <span className="mx-2 text-lg">&gt;</span>
                 <Link
                   href="/about"
-                  className="text-gray-800 text-lg"
+                  className="text-primary-dark text-lg"
                 >
                   Contact US
                 </Link>
@@ -111,15 +111,15 @@ export default function Page() {
                 >
                   {/* Heading */}
                   <h1
-                    className="font-semibold text-gray-950 leading-tight tracking-tight
+                    className="font-semibold text-primary-dark leading-tight tracking-tight
     text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
                   >
                     Contact
-                    <span className="text-pink-700"> US</span>
+                    <span className="text-primary"> US</span>
                   </h1>
 
                   {/* Description */}
-                  <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                  <p className="text-primary-dark/70 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
                     Feel free to get in touch with us using the contact form
                     provided below. We will reply to your inquiry as quickly as
                     possible.
@@ -129,9 +129,9 @@ export default function Page() {
                 {/* Right Content - Image Grid */}
                 <div className="relative">
                   {/* Decorative circles */}
-                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-2xl"></div>
-                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl"></div>
-                  <div className="absolute top-32 right-10 w-32 h-32 bg-purple-100 rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
+                  <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
 
                   {/* Image grid */}
                   <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
@@ -183,32 +183,32 @@ export default function Page() {
             {/* LEFT - Contact Info */}
             <div
               data-aos="fade-right"
-              className="p-5 md:p-10 bg-pink-50 rounded-2xl shadow-lg flex flex-col gap-5"
+              className="p-5 md:p-10 bg-primary-light rounded-2xl shadow-lg flex flex-col gap-5"
             >
-              <h2 className="text-4xl font-bold text-pink-700 text-center lg:text-start">
+              <h2 className="text-4xl font-bold text-primary text-center lg:text-start">
                 Contact Me
               </h2>
-              <p className="text-gray-600 leading-relaxed text-center lg:text-start">
+              <p className="text-primary-dark/70 leading-relaxed text-center lg:text-start">
                 Reach out for inquiries, quotes, or just to say hello! We reply
                 as fast as possible.
               </p>
 
               <div className="space-y-3">
                 <div className="flex items-center gap-4 lg:justify-self-start justify-self-center items-center">
-                  <FaMapMarkerAlt className="text-pink-700 text-2xl lg:text-3xl" />
-                  <p className="text-lg font-medium text-gray-800">
+                  <FaMapMarkerAlt className="text-primary text-2xl lg:text-3xl" />
+                  <p className="text-lg font-medium text-primary-dark">
                     Serving Naperville & Schaumburg, IL
                   </p>
                 </div>
                 <div className="flex items-center gap-4 lg:justify-self-start justify-self-center items-center">
-                  <FaPhoneAlt className="text-pink-700 text-2xl lg:text-3xl" />
-                  <p className="text-lg font-medium text-gray-800">
+                  <FaPhoneAlt className="text-primary text-2xl lg:text-3xl" />
+                  <p className="text-lg font-medium text-primary-dark">
                     +1-855-222-1133
                   </p>
                 </div>
                 <div className="flex items-center gap-4 lg:justify-self-start justify-self-center items-center">
-                  <FaEnvelope className="text-pink-700 text-2xl lg:text-3xl" />
-                  <p className="text-lg font-medium text-gray-800">
+                  <FaEnvelope className="text-primary text-2xl lg:text-3xl" />
+                  <p className="text-lg font-medium text-primary-dark">
                     info@fbsprints.com
                   </p>
                 </div>
@@ -221,7 +221,7 @@ export default function Page() {
                     href={url}
                     target="_blank"
                     aria-label={name}
-                    className="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow text-pink-700 hover:bg-pink-600 hover:text-white transition"
+                    className="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow text-primary hover:bg-primary hover:text-white transition"
                   >
                     <Icon className="text-2xl " />
                   </Link>
@@ -245,12 +245,12 @@ export default function Page() {
               data-aos="fade-left"
               className="p-10 bg-white rounded-2xl shadow-lg"
             >
-              <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center lg:text-start">
+              <h2 className="text-3xl font-bold text-primary-dark mb-6 text-center lg:text-start">
                 Contact Us If You Need A <br />
                 Custom Design Without Delay!
               </h2>
 
-              <p className="mb-5 text-yellow-500 text-center lg:text-start">
+              <p className="mb-5 text-primary text-center lg:text-start">
                 To Make An Appointment, Please Call Us. We Would Love To Pamper
                 You!
               </p>

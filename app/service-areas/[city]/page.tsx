@@ -268,17 +268,17 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <main className="bg-gradient-to-br from-gray-50 via-white to-pink-50/10 min-h-screen">
+      <main className="bg-gradient-to-br from-white via-white to-primary-light/10 min-h-screen">
 
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-gray-900 to-pink-950 text-white xl:pt-28 pt-20 pb-20 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-pink-700/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-900/20 rounded-full blur-3xl" />
+        <section className="bg-gradient-to-br from-primary-dark to-primary-dark text-white xl:pt-28 pt-20 pb-20 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-dark/20 rounded-full blur-3xl" />
 
           <div className="container relative z-10 max-w-6xl mx-auto px-4">
             <div className="flex justify-center lg:justify-start">
-              <div className="inline-flex items-center gap-3 bg-pink-500/10 text-pink-300 px-5 py-2 rounded-full border border-pink-500/20 shadow-lg mb-6">
-                <span className="w-2 h-2 bg-pink-400 rounded-full animate-pulse" />
+              <div className="inline-flex items-center gap-3 bg-primary/10 text-primary-light px-5 py-2 rounded-full border border-primary/20 shadow-lg mb-6">
+                <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                 <span className="text-[11px] font-bold uppercase tracking-widest">
                   {area.name} Service Area
                 </span>
@@ -289,34 +289,34 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
               <div>
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight mb-6">
                   Signage, Printing &amp; SEO in <br />
-                  <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                     {area.name}, IL
                   </span>
                 </h1>
 
                 {/* Breadcrumbs */}
-                <div className="flex items-center gap-2 text-sm text-gray-400 mb-6 font-medium">
-                  <Link href="/" className="hover:text-pink-400 transition-colors">Home</Link>
+                <div className="flex items-center gap-2 text-sm text-primary-dark/45 mb-6 font-medium">
+                  <Link href="/" className="hover:text-primary transition-colors">Home</Link>
                   <span>/</span>
-                  <Link href="/service-areas" className="hover:text-pink-400 transition-colors">Service Areas</Link>
+                  <Link href="/service-areas" className="hover:text-primary transition-colors">Service Areas</Link>
                   <span>/</span>
-                  <span className="text-pink-300 font-bold">{area.name}</span>
+                  <span className="text-primary-light font-bold">{area.name}</span>
                 </div>
 
-                <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-8">
+                <p className="text-primary-light/80 text-base sm:text-lg leading-relaxed mb-8">
                   {area.introduction}
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
                     href="/contact"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-pink-700 hover:bg-pink-800 text-white px-8 py-4 font-bold shadow-lg transition-all duration-300"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-dark text-white px-8 py-4 font-bold shadow-lg transition-all duration-300"
                   >
                     Request a Free Quote
                   </Link>
                   <Link
                     href="/service-areas"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-600 hover:bg-white/10 text-white px-8 py-4 font-semibold transition-all duration-300"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-primary-light/40 hover:bg-white/10 text-white px-8 py-4 font-semibold transition-all duration-300"
                   >
                     View All Service Cities
                   </Link>
@@ -325,8 +325,8 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
 
               {/* Right Side Visuals */}
               <div className="relative">
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100/10 rounded-full blur-2xl" />
-                <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100/10 rounded-full blur-3xl" />
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light/10 rounded-full blur-2xl" />
+                <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light/10 rounded-full blur-3xl" />
                 <div className="grid grid-cols-2 gap-4">
                   <div className="relative h-60 rounded-2xl overflow-hidden shadow-md float-1">
                     <Image
@@ -352,37 +352,37 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
 
         {/* AI & Search Engine Optimization Answer Box (AEO/GEO Section) */}
         <section className="container py-12 px-4 max-w-5xl mx-auto">
-          <div className="bg-gradient-to-br from-pink-50/60 via-white to-purple-50/40 rounded-3xl p-8 md:p-10 border border-pink-100/80 shadow-md">
+          <div className="bg-gradient-to-br from-primary-light/60 via-white to-primary-light/40 rounded-3xl p-8 md:p-10 border border-primary-light/80 shadow-md">
             <div className="flex items-center gap-3 mb-6">
-              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-pink-100 text-pink-600 font-bold text-sm">
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary-light text-primary font-bold text-sm">
                 ✨
               </span>
-              <h2 className="text-2xl font-extrabold text-gray-900 leading-tight">
+              <h2 className="text-2xl font-extrabold text-primary-dark leading-tight">
                 Local Quick Answers: Services in {area.name}, IL
               </h2>
             </div>
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white/85 p-6 rounded-2xl border border-pink-50/60 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <h3 className="text-base font-bold text-gray-900 mb-2">What marketing &amp; branding services are available in {area.name}?</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+              <div className="bg-white/85 p-6 rounded-2xl border border-primary-light/60 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <h3 className="text-base font-bold text-primary-dark mb-2">What marketing &amp; branding services are available in {area.name}?</h3>
+                <p className="text-primary-dark/70 text-sm leading-relaxed">
                   FBS Signs provides end-to-end design, fabrication, and marketing services in {area.name}, IL. This includes custom storefront signs, business print collateral, targeted direct mailing (EDDM), modern web design, and local SEO services tailored to the regional business market.
                 </p>
               </div>
-              <div className="bg-white/85 p-6 rounded-2xl border border-pink-50/60 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <h3 className="text-base font-bold text-gray-900 mb-2">How does FBS Signs handle zoning regulations for custom signage in {area.name}?</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+              <div className="bg-white/85 p-6 rounded-2xl border border-primary-light/60 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <h3 className="text-base font-bold text-primary-dark mb-2">How does FBS Signs handle zoning regulations for custom signage in {area.name}?</h3>
+                <p className="text-primary-dark/70 text-sm leading-relaxed">
                   We manage the entire commercial sign permit and approval process directly with {area.name}'s building division and zoning board. Our custom exterior signs, channel letters, and monument graphics are engineered to meet all local zoning requirements.
                 </p>
               </div>
-              <div className="bg-white/85 p-6 rounded-2xl border border-pink-50/60 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <h3 className="text-base font-bold text-gray-900 mb-2">Can I launch target mailers in specific carrier routes in the {area.name} area?</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+              <div className="bg-white/85 p-6 rounded-2xl border border-primary-light/60 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <h3 className="text-base font-bold text-primary-dark mb-2">Can I launch target mailers in specific carrier routes in the {area.name} area?</h3>
+                <p className="text-primary-dark/70 text-sm leading-relaxed">
                   Yes. We specialize in planning and executing targeted Every Door Direct Mail (EDDM) campaigns, matching your print collateral to specific postal carrier routes and residential areas in {area.name} to maximize local lead acquisition.
                 </p>
               </div>
-              <div className="bg-white/85 p-6 rounded-2xl border border-pink-50/60 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <h3 className="text-base font-bold text-gray-900 mb-2">Why is local SEO vital for business growth in {area.county}?</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+              <div className="bg-white/85 p-6 rounded-2xl border border-primary-light/60 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <h3 className="text-base font-bold text-primary-dark mb-2">Why is local SEO vital for business growth in {area.county}?</h3>
+                <p className="text-primary-dark/70 text-sm leading-relaxed">
                   Optimizing your local online footprint ensures that your business ranks at the top of local map packs and regional searches. By integrating structured schema markup, local landing pages, and geographical citations, we build trust with search engines and LLM answer engines.
                 </p>
               </div>
@@ -392,25 +392,25 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
 
         {/* Localized GEO Section */}
         <section className="container py-16 px-4">
-          <div className="bg-white rounded-3xl p-8 md:p-12 border border-pink-50 shadow-xl max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+          <div className="bg-white rounded-3xl p-8 md:p-12 border border-primary-light shadow-xl max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
             <div>
-              <span className="text-pink-600 font-bold text-xs uppercase tracking-widest block mb-2">
+              <span className="text-primary font-bold text-xs uppercase tracking-widest block mb-2">
                 GEO &amp; Local Focus
               </span>
-              <h2 className="text-3xl font-extrabold text-gray-900 mb-4 leading-tight">
+              <h2 className="text-3xl font-extrabold text-primary-dark mb-4 leading-tight">
                 Serving the {area.name} Community
               </h2>
-              <div className="w-12 h-1 bg-pink-600 rounded-full mb-6" />
-              <p className="text-gray-600 leading-relaxed mb-6">
+              <div className="w-12 h-1 bg-primary rounded-full mb-6" />
+              <p className="text-primary-dark/70 leading-relaxed mb-6">
                 {area.localSeoContent}
               </p>
 
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Key Locations &amp; Landmarks:</h3>
+              <h3 className="text-lg font-bold text-primary-dark mb-3">Key Locations &amp; Landmarks:</h3>
               <div className="flex flex-wrap gap-2">
                 {area.landmarks.map((landmark) => (
                   <span
                     key={landmark}
-                    className="inline-flex items-center bg-pink-50 text-pink-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-pink-100"
+                    className="inline-flex items-center bg-primary-light text-primary text-xs font-semibold px-3 py-1.5 rounded-full border border-primary-light"
                   >
                     {landmark}
                   </span>
@@ -433,12 +433,12 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
         </section>
 
         {/* Why Choose Us */}
-        <section className="container py-12 px-4 bg-pink-50/30 rounded-3xl max-w-6xl mx-auto mb-16">
+        <section className="container py-12 px-4 bg-primary-light/30 rounded-3xl max-w-6xl mx-auto mb-16">
           <div className="text-center mb-12">
-            <span className="text-pink-600 font-bold text-xs uppercase tracking-widest block mb-2">
+            <span className="text-primary font-bold text-xs uppercase tracking-widest block mb-2">
               Why Partner With Us
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-primary-dark leading-tight">
               Why Choose FBS Signs in {area.name}
             </h2>
           </div>
@@ -446,13 +446,13 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
             {area.whyChooseUs.map((point) => (
               <div
                 key={point.title}
-                className="bg-white p-8 rounded-2xl border border-pink-50 shadow-md flex flex-col h-full hover:shadow-lg transition-all duration-300"
+                className="bg-white p-8 rounded-2xl border border-primary-light shadow-md flex flex-col h-full hover:shadow-lg transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center font-bold text-xl mb-6">
+                <div className="w-12 h-12 rounded-xl bg-primary-light text-primary flex items-center justify-center font-bold text-xl mb-6">
                   ✓
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{point.title}</h3>
-                <p className="text-gray-600 leading-relaxed text-sm">{point.description}</p>
+                <h3 className="text-xl font-bold text-primary-dark mb-3">{point.title}</h3>
+                <p className="text-primary-dark/70 leading-relaxed text-sm">{point.description}</p>
               </div>
             ))}
           </div>
@@ -461,13 +461,13 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
         {/* Services Offered Section */}
         <section className="container py-12 px-4 max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-pink-600 font-bold text-xs uppercase tracking-widest block mb-2">
+            <span className="text-primary font-bold text-xs uppercase tracking-widest block mb-2">
               Our Services
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-primary-dark leading-tight">
               Services Available in {area.name}
             </h2>
-            <p className="text-gray-600 mt-3 text-base max-w-2xl mx-auto">
+            <p className="text-primary-dark/70 mt-3 text-base max-w-2xl mx-auto">
               {area.servicesDescription}
             </p>
           </div>
@@ -476,7 +476,7 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
             {services.map((service) => (
               <div
                 key={service.title}
-                className="group bg-white rounded-3xl border border-pink-50 p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full hover:-translate-y-1"
+                className="group bg-white rounded-3xl border border-primary-light p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full hover:-translate-y-1"
               >
                 <div className="relative h-48 w-full rounded-2xl overflow-hidden mb-6">
                   <Image
@@ -486,15 +486,15 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 group-hover:text-pink-700 transition-colors mb-3">
+                <h3 className="text-2xl font-bold text-primary-dark group-hover:text-primary transition-colors mb-3">
                   {service.title}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-grow">
+                <p className="text-primary-dark/70 text-sm leading-relaxed mb-6 flex-grow">
                   {service.desc}
                 </p>
                 <Link
                   href={service.href}
-                  className="inline-flex items-center justify-between w-full bg-pink-50 text-pink-700 group-hover:bg-pink-700 group-hover:text-white px-5 py-3 rounded-2xl font-semibold transition-all duration-300"
+                  className="inline-flex items-center justify-between w-full bg-primary-light text-primary group-hover:bg-primary group-hover:text-white px-5 py-3 rounded-2xl font-semibold transition-all duration-300"
                 >
                   <span>Learn More</span>
                   <span className="transform transition-transform duration-300 group-hover:translate-x-1">
@@ -509,10 +509,10 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
         {/* FAQs section */}
         <section className="container py-16 px-4 max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-pink-600 font-bold text-xs uppercase tracking-widest block mb-2">
+            <span className="text-primary font-bold text-xs uppercase tracking-widest block mb-2">
               Frequently Asked Questions
             </span>
-            <h2 className="text-3xl font-extrabold text-gray-900 leading-tight">
+            <h2 className="text-3xl font-extrabold text-primary-dark leading-tight">
               {area.name} Service FAQs
             </h2>
           </div>
@@ -521,13 +521,13 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
             {area.faqs.map((faq, index) => (
               <details
                 key={index}
-                className="group border border-pink-100 bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 [&_summary::-webkit-details-marker]:hidden"
+                className="group border border-primary-light bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 [&_summary::-webkit-details-marker]:hidden"
               >
                 <summary className="flex items-center justify-between cursor-pointer focus:outline-none">
-                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-pink-700 transition-colors">
+                  <h3 className="text-lg font-bold text-primary-dark group-hover:text-primary transition-colors">
                     {faq.question}
                   </h3>
-                  <span className="ml-1.5 flex-shrink-0 rounded-full bg-pink-50 text-pink-700 p-1.5 group-open:rotate-180 transition-transform duration-300">
+                  <span className="ml-1.5 flex-shrink-0 rounded-full bg-primary-light text-primary p-1.5 group-open:rotate-180 transition-transform duration-300">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -540,7 +540,7 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
                     </svg>
                   </span>
                 </summary>
-                <p className="mt-4 text-gray-600 leading-relaxed text-sm border-t border-gray-50 pt-4">
+                <p className="mt-4 text-primary-dark/70 leading-relaxed text-sm border-t border-primary-light/50 pt-4">
                   {faq.answer}
                 </p>
               </details>
@@ -551,10 +551,10 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
         {/* Nearby Cities Matrix */}
         <section className="container py-12 px-4 max-w-6xl mx-auto mb-16">
           <div className="text-center mb-8">
-            <span className="text-pink-600 font-bold text-xs uppercase tracking-widest block mb-2">
+            <span className="text-primary font-bold text-xs uppercase tracking-widest block mb-2">
               Regional Coverage
             </span>
-            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-primary-dark leading-tight">
               Other Service Areas Near {area.name}
             </h2>
           </div>
@@ -565,7 +565,7 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
                 <Link
                   key={citySlug + "-" + idx}
                   href={`/service-areas/${citySlug}`}
-                  className="flex items-center justify-center p-4 rounded-xl border border-pink-100 bg-white text-gray-800 text-sm font-semibold hover:border-pink-600 hover:text-pink-700 hover:shadow-md transition-all duration-300 text-center"
+                  className="flex items-center justify-center p-4 rounded-xl border border-primary-light bg-white text-primary-dark text-sm font-semibold hover:border-primary hover:text-primary hover:shadow-md transition-all duration-300 text-center"
                 >
                   {cityName}
                 </Link>
@@ -576,17 +576,17 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
 
         {/* CTA Section */}
         <section className="container py-12 px-4 mb-16">
-          <div className="bg-gradient-to-r from-pink-600 to-pink-700 rounded-3xl px-6 py-12 text-white text-center max-w-5xl mx-auto shadow-xl">
+          <div className="bg-gradient-to-r from-primary to-primary-dark rounded-3xl px-6 py-12 text-white text-center max-w-5xl mx-auto shadow-xl">
             <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">
               Ready to Grow Your Presence in {area.name}?
             </h2>
-            <p className="max-w-2xl mx-auto mt-4 text-base md:text-lg text-pink-100 leading-relaxed">
+            <p className="max-w-2xl mx-auto mt-4 text-base md:text-lg text-primary-light leading-relaxed">
               Connect with our local experts today. We provide free consultations, local code advice, and detailed quotes.
             </p>
             <div className="pt-8">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-pink-700 font-bold shadow-lg transition-all duration-300 hover:scale-105"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-primary font-bold shadow-lg transition-all duration-300 hover:scale-105"
               >
                 Get A Free Quote
               </Link>

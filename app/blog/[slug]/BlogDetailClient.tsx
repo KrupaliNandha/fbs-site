@@ -38,45 +38,45 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
           : "/services/signage";
 
   return (
-    <main className="bg-gray-50 min-h-screen">
-      <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
+    <main className="bg-primary-light/40 min-h-screen">
+      <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
         <div className="container">
-          <p className="text-gray-600 text-lg flex flex-wrap items-center">
-            <Link href="/" className="text-pink-600">
+          <p className="text-primary-dark/70 text-lg flex flex-wrap items-center">
+            <Link href="/" className="text-primary">
               Home
             </Link>
             <span className="mx-2">&gt;</span>
-            <Link href="/blog" className="text-pink-600">
+            <Link href="/blog" className="text-primary">
               Blog
             </Link>
             <span className="mx-2">&gt;</span>
-            <span className="text-gray-800 font-semibold">Article</span>
+            <span className="text-primary-dark font-semibold">Article</span>
           </p>
 
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="flex flex-col justify-center text-center lg:text-left space-y-5">
-              <span className="inline-flex bg-pink-100 text-pink-700 font-bold text-xs px-4 py-2 rounded-full uppercase tracking-widest w-fit mx-auto lg:mx-0">
+              <span className="inline-flex bg-primary-light text-primary font-bold text-xs px-4 py-2 rounded-full uppercase tracking-widest w-fit mx-auto lg:mx-0">
                 {post.category}
               </span>
-              <h1 className="font-semibold text-gray-950 leading-tight tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+              <h1 className="font-semibold text-primary-dark leading-tight tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
                 {post.title}
               </h1>
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm font-semibold text-gray-600">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm font-semibold text-primary-dark/70">
                 <span className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-pink-700" />
+                  <Calendar className="w-4 h-4 text-primary" />
                   {formatBlogDate(post.date)}
                 </span>
                 <span className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-pink-700" />
+                  <Clock className="w-4 h-4 text-primary" />
                   {post.readTime}
                 </span>
               </div>
             </div>
 
             <div className="relative">
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-2xl" />
-              <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl" />
-              <div className="relative rounded-2xl overflow-hidden aspect-video bg-gray-900 shadow-2xl">
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl" />
+              <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl" />
+              <div className="relative rounded-2xl overflow-hidden aspect-video bg-primary-dark shadow-2xl">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {post.image ? (
                   <img
@@ -95,7 +95,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
       <section className="container section-padding">
         <Link
           href={backToBlogHref}
-          className="inline-flex items-center gap-2 text-gray-700 hover:text-pink-700 font-bold bg-white px-5 py-3 rounded-full shadow transition"
+          className="inline-flex items-center gap-2 text-primary-dark/80 hover:text-primary font-bold bg-white px-5 py-3 rounded-full shadow transition"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Blog
@@ -103,17 +103,17 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_390px] xl:grid-cols-[minmax(0,1fr)_430px] gap-10 xl:gap-12 mt-10 overflow-visible">
           <article className="bg-white rounded-2xl p-6 sm:p-10 shadow-lg min-w-0">
-            <div className="flex flex-col sm:flex-row justify-between gap-5 pb-8 border-b border-gray-100">
+            <div className="flex flex-col sm:flex-row justify-between gap-5 pb-8 border-b border-primary-light">
               <div className="flex items-center gap-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={post.author.avatar}
                   alt={post.author.name}
-                  className="w-18 h-18 rounded-full object-contain bg-white border border-pink-100"
+                  className="w-18 h-18 rounded-full object-contain bg-white border border-primary-light"
                 />
                 <div>
-                  <p className="font-bold text-gray-950">{post.author.name}</p>
-                  <p className="text-sm text-gray-500">{post.author.role}</p>
+                  <p className="font-bold text-primary-dark">{post.author.name}</p>
+                  <p className="text-sm text-primary-dark/60">{post.author.role}</p>
                 </div>
               </div>
              
@@ -125,7 +125,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                   return (
                     <p
                       key={index}
-                      className="text-gray-700 text-base sm:text-lg leading-relaxed"
+                      className="text-primary-dark/80 text-base sm:text-lg leading-relaxed"
                     >
                       {section.content}
                     </p>
@@ -139,10 +139,10 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                     <Heading
                       key={index}
                       id={id}
-                      className={`font-bold text-gray-950 scroll-mt-32 ${
+                      className={`font-bold text-primary-dark scroll-mt-32 ${
                         section.level === 3
                           ? "text-2xl mt-8"
-                          : "text-3xl mt-10 border-b border-gray-100 pb-3"
+                          : "text-3xl mt-10 border-b border-primary-light pb-3"
                       }`}
                     >
                       {section.content}
@@ -156,9 +156,9 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                       {section.items.map((item) => (
                         <li
                           key={item}
-                          className="flex items-start gap-3 text-gray-700 leading-relaxed"
+                          className="flex items-start gap-3 text-primary-dark/80 leading-relaxed"
                         >
-                          <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-100 text-pink-700">
+                          <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-light text-primary">
                             <ChevronRight className="w-4 h-4" />
                           </span>
                           <span>{item}</span>
@@ -171,7 +171,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                 return (
                   <blockquote
                     key={index}
-                    className="border-l-4 border-pink-700 bg-pink-50 rounded-r-2xl p-5 text-gray-800 font-medium italic"
+                    className="border-l-4 border-primary bg-primary-light rounded-r-2xl p-5 text-primary-dark font-medium italic"
                   >
                     {section.content}
                   </blockquote>
@@ -179,37 +179,37 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
               })}
             </div>
 
-            <div className="mt-10 pt-8 border-t border-gray-100 bg-gray-50 rounded-2xl p-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-pink-700">
+            <div className="mt-10 pt-8 border-t border-primary-light bg-primary-light/40 rounded-2xl p-6">
+              <p className="text-xs font-bold uppercase tracking-widest text-primary">
                 Author Biography
               </p>
-              <h2 className="text-xl font-bold text-gray-950 mt-2">
+              <h2 className="text-xl font-bold text-primary-dark mt-2">
                 {post.author.name}
               </h2>
-              <p className="text-gray-600 mt-2 leading-relaxed">{post.author.bio}</p>
+              <p className="text-primary-dark/70 mt-2 leading-relaxed">{post.author.bio}</p>
             </div>
 
-            <div className="mt-8 rounded-2xl bg-pink-700 p-6 text-white">
-              <p className="text-xs font-bold uppercase tracking-widest text-pink-100">
+            <div className="mt-8 rounded-2xl bg-primary p-6 text-white">
+              <p className="text-xs font-bold uppercase tracking-widest text-primary-light">
                 Next Step
               </p>
               <h2 className="mt-2 text-2xl font-bold">
                 Need help applying this to your business?
               </h2>
-              <p className="mt-3 text-pink-50 leading-relaxed">
+              <p className="mt-3 text-primary-light leading-relaxed">
                 Explore the related service page for a deeper breakdown, then contact our team for a quote or project guidance.
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link
                   href={relatedServiceHref}
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 font-bold text-pink-700"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 font-bold text-primary"
                 >
                   Explore Related Service
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full border border-pink-200 px-5 py-3 font-bold text-white"
+                  className="inline-flex items-center gap-2 rounded-full border border-primary-light px-5 py-3 font-bold text-white"
                 >
                   Contact FBS Prints
                 </Link>
@@ -221,8 +221,8 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
           <aside className="min-w-0">
             <div className="lg:sticky lg:top-36 lg:max-h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-1 space-y-8">
               {headings.length > 0 && (
-                <div className="hidden lg:block bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                  <h2 className="text-sm font-bold uppercase tracking-widest text-gray-950 border-b border-gray-100 pb-3">
+                <div className="hidden lg:block bg-white rounded-2xl p-6 shadow-lg border border-primary-light">
+                  <h2 className="text-sm font-bold uppercase tracking-widest text-primary-dark border-b border-primary-light pb-3">
                     Table of Contents
                   </h2>
                   <nav className="mt-4 space-y-3">
@@ -230,9 +230,9 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                       <a
                         key={section.content}
                         href={`#${slugify(section.content)}`}
-                        className="flex items-start gap-2 text-sm text-gray-600 hover:text-pink-700 font-semibold transition"
+                        className="flex items-start gap-2 text-sm text-primary-dark/70 hover:text-primary font-semibold transition"
                       >
-                        <ChevronRight className="w-4 h-4 shrink-0 mt-0.5 text-pink-200" />
+                        <ChevronRight className="w-4 h-4 shrink-0 mt-0.5 text-primary-light" />
                         <span className="leading-relaxed">{section.content}</span>
                       </a>
                     ))}
@@ -243,12 +243,12 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
           </aside>
         </div>
 
-        <div className="mt-14 pt-10 border-t border-gray-200">
+        <div className="mt-14 pt-10 border-t border-primary-light">
           <div className="flex flex-col sm:flex-row justify-between gap-4 sm:items-end">
-            <h2 className="text-3xl font-bold text-gray-950">
+            <h2 className="text-3xl font-bold text-primary-dark">
               Related Articles
             </h2>
-            <Link href={backToBlogHref} className="text-pink-700 font-bold flex 
+            <Link href={backToBlogHref} className="text-primary font-bold flex 
             items-center gap-1 hover:gap-2 transition">
               View All Articles 
               <ArrowRight className="w-4 h-4 inline-block ml-1 " />
@@ -261,7 +261,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                 href={`/blog/${related.slug}`}
                 className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition grid sm:grid-cols-5"
               >
-                <div className="sm:col-span-2 h-52 sm:h-auto bg-gray-900 overflow-hidden">
+                <div className="sm:col-span-2 h-52 sm:h-auto bg-primary-dark overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   {related.image ? (
                     <img
@@ -273,13 +273,13 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                   ) : null}
                 </div>
                 <div className="sm:col-span-3 p-6">
-                  <p className="text-xs font-bold uppercase tracking-widest text-pink-700">
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary">
                     {related.category}
                   </p>
-                  <h3 className="text-xl font-bold text-gray-950 group-hover:text-pink-700 transition mt-3">
+                  <h3 className="text-xl font-bold text-primary-dark group-hover:text-primary transition mt-3">
                     {related.title}
                   </h3>
-                  <p className="text-gray-500 text-sm mt-4">
+                  <p className="text-primary-dark/60 text-sm mt-4">
                     {formatBlogDate(related.date)} | {related.readTime}
                   </p>
                 </div>

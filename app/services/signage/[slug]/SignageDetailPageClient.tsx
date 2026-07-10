@@ -199,19 +199,19 @@ function mapRawToProductData(raw: any): ProductData {
 function Breadcrumbs({ productName }: { productName: string }) {
   return (
     <>
-      <p className="flex flex-wrap items-center justify-center gap-x-1 text-sm text-gray-600 sm:text-base lg:justify-start lg:text-lg">
-        <Link href="/" className="text-pink-600">
+      <p className="flex flex-wrap items-center justify-center gap-x-1 text-sm text-primary-dark/70 sm:text-base lg:justify-start lg:text-lg">
+        <Link href="/" className="text-primary">
           Home
         </Link>
         <span className="mx-1">&gt;</span>
         <Link
           href="/services/signage"
-          className="text-pink-600 hover:underline"
+          className="text-primary hover:underline"
         >
           Signage Services
         </Link>
         <span className="mx-1">&gt;</span>
-        <span className="font-semibold text-gray-800">{productName}</span>
+        <span className="font-semibold text-primary-dark">{productName}</span>
       </p>
     </>
   );
@@ -366,7 +366,7 @@ export default function ProductDetailPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-white text-gray-900">
+      <div className="min-h-screen bg-white text-primary-dark">
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 mt-24">
           <Breadcrumbs productName={product.name} />
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 mt-5">
@@ -374,7 +374,7 @@ export default function ProductDetailPage() {
             {/* LEFT — Gallery                                       */}
             {/* -------------------------------------------------- */}
             <div className="lg:col-span-7">
-              <div className="relative aspect-[4/5] sm:aspect-[16/11] lg:aspect-[16/12] w-full bg-gray-50 border border-gray-200 rounded-sm flex items-center justify-center overflow-hidden">
+              <div className="relative aspect-[4/5] sm:aspect-[16/11] lg:aspect-[16/12] w-full bg-primary-light/40 border border-primary-light rounded-sm flex items-center justify-center overflow-hidden">
                 {activeImage?.url ? (
                   <img
                     src={activeImage.url}
@@ -383,7 +383,7 @@ export default function ProductDetailPage() {
                   />
                 ) : (
                   <Flag
-                    className="h-16 w-16 sm:h-24 sm:w-24 text-[#c6005c]"
+                    className="h-16 w-16 sm:h-24 sm:w-24 text-primary"
                     strokeWidth={1.5}
                   />
                 )}
@@ -399,9 +399,9 @@ export default function ProductDetailPage() {
                         onClick={() => setActiveImageId(item.id)}
                         aria-label={item.label}
                         aria-pressed={active}
-                        className={`aspect-square rounded-sm border bg-gray-50 flex items-center justify-center overflow-hidden transition-colors ${active
-                          ? "border-[#c6005c] ring-1 ring-[#c6005c]"
-                          : "border-gray-200 hover:border-gray-400"
+                        className={`aspect-square rounded-sm border bg-primary-light/40 flex items-center justify-center overflow-hidden transition-colors ${active
+                          ? "border-primary ring-1 ring-primary"
+                          : "border-primary-light hover:border-primary"
                           }`}
                       >
                         {item.url ? (
@@ -412,7 +412,7 @@ export default function ProductDetailPage() {
                           />
                         ) : (
                           <Flag
-                            className="h-5 w-5 text-[#c6005c]"
+                            className="h-5 w-5 text-primary"
                             strokeWidth={1.5}
                           />
                         )}
@@ -429,21 +429,21 @@ export default function ProductDetailPage() {
             {/* RIGHT — Buy box                                      */}
             {/* -------------------------------------------------- */}
             <div className="lg:col-span-5">
-              <p className="text-xs font-semibold uppercase tracking-wide text-[#c6005c]">
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">
                 Product Details
               </p>
-              <h1 className="mt-1.5 text-2xl sm:text-[28px] font-bold text-gray-900">
+              <h1 className="mt-1.5 text-2xl sm:text-[28px] font-bold text-primary-dark">
                 {product.name}
               </h1>
-              <p className="mt-3 text-sm sm:text-[14px] leading-relaxed text-gray-600">
+              <p className="mt-3 text-sm sm:text-[14px] leading-relaxed text-primary-dark/70">
                 {product.shortDescription}
               </p>
 
-              <div className="mt-6 border-2 rounded-2xl p-3 shadow-xl border-gray-100 pt-6 space-y-6">
+              <div className="mt-6 border-2 rounded-2xl p-3 shadow-xl border-primary-light pt-6 space-y-6">
                 {/* What's included — only shown if there's more than one package */}
                 {product.packages.length > 1 && (
                   <div>
-                    <p className="text-sm font-semibold text-gray-900 mb-2.5">
+                    <p className="text-sm font-semibold text-primary-dark mb-2.5">
                       What&apos;s included
                     </p>
                     <div className="flex flex-wrap gap-2.5">
@@ -455,8 +455,8 @@ export default function ProductDetailPage() {
                             onClick={() => setPackageId(p.id)}
                             aria-pressed={active}
                             className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${active
-                              ? "border-[#c6005c] bg-[#c6005c]/5 text-[#c6005c]"
-                              : "border-gray-300 text-gray-700 hover:border-gray-400"
+                              ? "border-primary bg-primary/5 text-primary"
+                              : "border-primary-light text-primary-dark/80 hover:border-primary"
                               }`}
                           >
                             {p.label}
@@ -473,7 +473,7 @@ export default function ProductDetailPage() {
                   which just shows up below as a normal dropdown) */}
                 {sizeGroup && (
                   <div>
-                    <p className="text-sm font-semibold text-gray-900 mb-2.5">
+                    <p className="text-sm font-semibold text-primary-dark mb-2.5">
                       {sizeGroup.label}
                     </p>
                     <div
@@ -496,12 +496,12 @@ export default function ProductDetailPage() {
                             }
                             aria-pressed={active}
                             className={`rounded-lg border px-2 py-2.5 text-center transition-colors ${active
-                              ? "border-[#c6005c] bg-[#c6005c]/5"
-                              : "border-gray-300 hover:border-gray-400"
+                              ? "border-primary bg-primary/5"
+                              : "border-primary-light hover:border-primary"
                               }`}
                           >
                             <span
-                              className={`block text-sm font-semibold ${active ? "text-[#c6005c]" : "text-gray-900"}`}
+                              className={`block text-sm font-semibold ${active ? "text-primary" : "text-primary-dark"}`}
                             >
                               {opt.label}
                             </span>
@@ -548,7 +548,7 @@ export default function ProductDetailPage() {
           {/* Tabs                                                 */}
           {/* -------------------------------------------------- */}
           <div className="mt-10 sm:mt-12">
-            <div className="border-b border-gray-200">
+            <div className="border-b border-primary-light">
               <nav
                 className="flex gap-6 sm:gap-8 min-w-max px-0.5"
                 aria-label="Product information tabs"
@@ -561,13 +561,13 @@ export default function ProductDetailPage() {
                       onClick={() => setActiveTab(tab.id)}
                       aria-selected={active}
                       className={`relative py-3 text-sm sm:text-[15px] font-medium whitespace-nowrap transition-colors ${active
-                        ? "text-[#c6005c]"
-                        : "text-gray-500 hover:text-gray-800"
+                        ? "text-primary"
+                        : "text-primary-dark/60 hover:text-primary-dark"
                         }`}
                     >
                       {tab.label}
                       {active && (
-                        <span className="absolute left-0 right-0 -bottom-px h-0.5 bg-[#c6005c]" />
+                        <span className="absolute left-0 right-0 -bottom-px h-0.5 bg-primary" />
                       )}
                     </button>
                   );
@@ -596,7 +596,7 @@ export default function ProductDetailPage() {
         {/* FAQs — its own full-width section, visually separated   */}
         {/* from the tabs above via background + spacing            */}
         {/* -------------------------------------------------- */}
-        <section className="border-t border-gray-100 bg-gray-50/60 py-12 sm:py-16">
+        <section className="border-t border-primary-light bg-primary-light/60 py-12 sm:py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <FaqsTab faqs={product.faqs} productName={product.name} />
           </div>
@@ -621,16 +621,16 @@ function StateScreen({
     <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-center px-6">
       {kind === "loading" ? (
         <>
-          <Loader2 className="h-6 w-6 text-[#c6005c] animate-spin" />
-          <p className="text-sm text-gray-500">Loading product details…</p>
+          <Loader2 className="h-6 w-6 text-primary animate-spin" />
+          <p className="text-sm text-primary-dark/60">Loading product details…</p>
         </>
       ) : (
         <>
-          <AlertTriangle className="h-6 w-6 text-[#c6005c]" />
-          <p className="text-sm font-medium text-gray-900">
+          <AlertTriangle className="h-6 w-6 text-primary" />
+          <p className="text-sm font-medium text-primary-dark">
             Couldn&apos;t load product details
           </p>
-          <p className="text-sm text-gray-500">{message}</p>
+          <p className="text-sm text-primary-dark/60">{message}</p>
         </>
       )}
     </div>
@@ -676,8 +676,8 @@ function FieldSelect({
 
   return (
     <div>
-      <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-900">
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#c6005c]/10 text-[#c6005c]">
+      <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-primary-dark">
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
           {icon}
         </span>
         {label}
@@ -690,20 +690,20 @@ function FieldSelect({
           className={`
             w-full flex items-center justify-between
             rounded-lg border bg-white px-4 py-3
-            text-sm font-medium text-gray-900 transition-colors
+            text-sm font-medium text-primary-dark transition-colors
             focus:outline-none
-            ${isOpen ? "border-[#c6005c]" : "border-gray-300 hover:border-gray-400"}
+            ${isOpen ? "border-primary" : "border-primary-light hover:border-primary"}
           `}
         >
           <span>{selectedOption?.label}</span>
           <ChevronDown
-            className={`h-5 w-5 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+            className={`h-5 w-5 text-primary-dark/45 transition-transform ${isOpen ? "rotate-180" : ""}`}
           />
         </button>
 
         {isOpen && (
-          <div className="absolute left-0 right-0 z-10 mt-1 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-xl">
-            <ul className="max-h-60 overflow-auto p-1.5 text-sm text-gray-900 flex flex-col gap-0.5">
+          <div className="absolute left-0 right-0 z-10 mt-1 overflow-hidden rounded-lg border border-primary-light bg-white shadow-xl">
+            <ul className="max-h-60 overflow-auto p-1.5 text-sm text-primary-dark flex flex-col gap-0.5">
               {options.map((option) => (
                 <li
                   key={option.value}
@@ -713,7 +713,7 @@ function FieldSelect({
                   }}
                   className={`
                     cursor-pointer rounded-md px-3 py-2 transition-colors text-left
-                    ${option.value === value ? "bg-[#c6005c]/10 text-[#c6005c] font-semibold" : "text-gray-900 hover:bg-gray-100"}
+                    ${option.value === value ? "bg-primary/10 text-primary font-semibold" : "text-primary-dark hover:bg-primary-light/70"}
                   `}
                 >
                   {option.label}
@@ -757,12 +757,12 @@ function FeatureGrid({ bullets }: { bullets: string[] }) {
         return (
           <div
             key={b}
-            className="flex items-start gap-3 rounded-lg border border-gray-100 bg-gray-50 p-3"
+            className="flex items-start gap-3 rounded-lg border border-primary-light bg-primary-light/40 p-3"
           >
-            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#c6005c]/10 text-[#c6005c]">
+            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
               <Icon className="h-4 w-4" />
             </span>
-            <span className="pt-1 text-sm leading-snug text-gray-700">{b}</span>
+            <span className="pt-1 text-sm leading-snug text-primary-dark/80">{b}</span>
           </div>
         );
       })}
@@ -786,12 +786,12 @@ function DescriptionTab({
 }) {
   return (
     <div className="w-full">
-      <h2 className="text-lg font-semibold text-gray-900">Description</h2>
+      <h2 className="text-lg font-semibold text-primary-dark">Description</h2>
 
       {data.paragraphs.map((p, i) => (
         <p
           key={i}
-          className="mt-3 text-sm sm:text-[15px] leading-relaxed text-gray-700"
+          className="mt-3 text-sm sm:text-[15px] leading-relaxed text-primary-dark/80"
         >
           {p}
         </p>
@@ -802,9 +802,9 @@ function DescriptionTab({
           {data.extraNotes.map((note, i) => (
             <li
               key={i}
-              className="text-sm sm:text-[14px] leading-relaxed text-gray-700 flex items-start gap-2"
+              className="text-sm sm:text-[14px] leading-relaxed text-primary-dark/80 flex items-start gap-2"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#c6005c] mt-2 shrink-0"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0"></span>
               <span>{note}</span>
             </li>
           ))}
@@ -813,10 +813,10 @@ function DescriptionTab({
 
       {data.applications && (
         <>
-          <h3 className="mt-6 text-sm font-semibold text-gray-900">
+          <h3 className="mt-6 text-sm font-semibold text-primary-dark">
             {data.applications.title}
           </h3>
-          <p className="mt-1.5 text-sm sm:text-[15px] leading-relaxed text-gray-700">
+          <p className="mt-1.5 text-sm sm:text-[15px] leading-relaxed text-primary-dark/80">
             {data.applications.content}
           </p>
         </>
@@ -876,26 +876,26 @@ function SizeSpecificationBlock({
             src={image}
             alt="Size Specification Diagram"
             onError={() => setImgFailed(true)}
-            className="w-full max-h-[260px] h-auto rounded-sm border border-gray-200 bg-gray-50 object-contain p-2"
+            className="w-full max-h-[260px] h-auto rounded-sm border border-primary-light bg-primary-light/40 object-contain p-2"
           />
         ) : (
-          <div className="w-full h-auto min-h-[300px] bg-gray-50 flex items-center justify-center text-sm text-gray-400 border border-gray-200 rounded-2xl">
+          <div className="w-full h-auto min-h-[300px] bg-primary-light/40 flex items-center justify-center text-sm text-primary-dark/45 border border-primary-light rounded-2xl">
             No diagram available
           </div>
         )}
       </div>
 
       <div className="lg:col-span-7 overflow-x-auto">
-        <table className="w-full text-sm border-collapse min-w-[560px] border border-gray-200">
+        <table className="w-full text-sm border-collapse min-w-[560px] border border-primary-light">
           <thead>
-            <tr className="bg-gray-50 border-b border-gray-200">
-              <th className="text-center font-semibold text-gray-800 py-2.5 px-3 border-r border-gray-200">
+            <tr className="bg-primary-light/40 border-b border-primary-light">
+              <th className="text-center font-semibold text-primary-dark py-2.5 px-3 border-r border-primary-light">
                 Size
               </th>
               {columns.map((col) => (
                 <th
                   key={col}
-                  className="text-center font-semibold text-gray-800 py-2.5 px-3 border-r border-gray-200 last:border-r-0 whitespace-nowrap"
+                  className="text-center font-semibold text-primary-dark py-2.5 px-3 border-r border-primary-light last:border-r-0 whitespace-nowrap"
                 >
                   {labelizeKey(col)}
                 </th>
@@ -906,17 +906,17 @@ function SizeSpecificationBlock({
             {ascendingRows.map((row) => (
               <tr
                 key={row.size}
-                className="border-b border-gray-100 last:border-b-0"
+                className="border-b border-primary-light last:border-b-0"
               >
-                <td className="py-3 px-3 text-center font-semibold text-gray-900 border-r border-gray-200 whitespace-nowrap">
+                <td className="py-3 px-3 text-center font-semibold text-primary-dark border-r border-primary-light whitespace-nowrap">
                   {row._abbrev}
                 </td>
                 {columns.map((col) => (
                   <td
                     key={col}
-                    className={`py-3 px-3 text-center border-r border-gray-200 last:border-r-0 whitespace-nowrap ${col === "assembledHeight"
-                      ? "text-[#c6005c] font-medium"
-                      : "text-gray-700"
+                    className={`py-3 px-3 text-center border-r border-primary-light last:border-r-0 whitespace-nowrap ${col === "assembledHeight"
+                      ? "text-primary font-medium"
+                      : "text-primary-dark/80"
                       }`}
                   >
                     {row[col]}
@@ -945,11 +945,11 @@ function SpecValue({ nodeKey, value }: { nodeKey: string; value: any }) {
         <img
           src={value}
           alt={labelizeKey(nodeKey)}
-          className="w-full max-w-md h-auto rounded-lg border border-gray-200 bg-gray-50"
+          className="w-full max-w-md h-auto rounded-lg border border-primary-light bg-primary-light/40"
         />
       );
     }
-    return <p className="text-sm text-gray-700">{value}</p>;
+    return <p className="text-sm text-primary-dark/80">{value}</p>;
   }
 
   if (Array.isArray(value)) {
@@ -962,9 +962,9 @@ function SpecValue({ nodeKey, value }: { nodeKey: string; value: any }) {
           {value.map((v, i) => (
             <li
               key={i}
-              className="flex items-start gap-2 text-sm text-gray-700"
+              className="flex items-start gap-2 text-sm text-primary-dark/80"
             >
-              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#c6005c] flex-shrink-0" />
+              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
               {v}
             </li>
           ))}
@@ -979,7 +979,7 @@ function SpecValue({ nodeKey, value }: { nodeKey: string; value: any }) {
         {value.map((item, i) => (
           <div
             key={i}
-            className="border border-gray-200 rounded-lg p-3 bg-white"
+            className="border border-primary-light rounded-lg p-3 bg-white"
           >
             {Object.entries(item).map(([k, v]) => (
               <SpecEntry
@@ -998,7 +998,7 @@ function SpecValue({ nodeKey, value }: { nodeKey: string; value: any }) {
 
   if (isPlainObject(value)) {
     return (
-      <div className="space-y-2 border border-gray-200 rounded-lg p-3 bg-white">
+      <div className="space-y-2 border border-primary-light rounded-lg p-3 bg-white">
         {Object.entries(value).map(([k, v]) => (
           <SpecEntry key={k} label={labelizeKey(k)} nodeKey={k} value={v} />
         ))}
@@ -1006,7 +1006,7 @@ function SpecValue({ nodeKey, value }: { nodeKey: string; value: any }) {
     );
   }
 
-  return <p className="text-sm text-gray-700">{String(value)}</p>;
+  return <p className="text-sm text-primary-dark/80">{String(value)}</p>;
 }
 
 function SpecEntry({
@@ -1025,9 +1025,9 @@ function SpecEntry({
   if (typeof value === "string" && !nodeKey.toLowerCase().includes("image")) {
     return (
       <p
-        className={compact ? "text-xs text-gray-700" : "text-sm text-gray-700"}
+        className={compact ? "text-xs text-primary-dark/80" : "text-sm text-primary-dark/80"}
       >
-        <span className="font-medium text-gray-900">{label}:</span> {value}
+        <span className="font-medium text-primary-dark">{label}:</span> {value}
       </p>
     );
   }
@@ -1035,7 +1035,7 @@ function SpecEntry({
   return (
     <div className={compact ? "mt-1" : "mt-1.5"}>
       <p
-        className={`font-medium text-gray-900 ${compact ? "text-xs" : "text-sm"}`}
+        className={`font-medium text-primary-dark ${compact ? "text-xs" : "text-sm"}`}
       >
         {label}
       </p>
@@ -1057,10 +1057,10 @@ function SpecTab({
 
   return (
     <div>
-      <h2 className="text-lg font-semibold text-gray-900">Spec</h2>
+      <h2 className="text-lg font-semibold text-primary-dark">Spec</h2>
 
       {entries.length === 0 && (
-        <p className="mt-3 text-sm text-gray-500">
+        <p className="mt-3 text-sm text-primary-dark/60">
           No specifications available for this product yet.
         </p>
       )}
@@ -1078,13 +1078,13 @@ function SpecTab({
           return (
             <div key={key}>
               {!isSizeSpec && (
-                <h3 className="text-sm font-semibold text-gray-900">
+                <h3 className="text-sm font-semibold text-primary-dark">
                   {labelizeKey(key)}
                 </h3>
               )}
               {isSizeSpec ? (
                 <>
-                  <p className="text-sm text-gray-500 -mt-1 mb-2.5">
+                  <p className="text-sm text-primary-dark/60 -mt-1 mb-2.5">
                     Size &amp; Specifications
                   </p>
                   <SizeSpecificationBlock
@@ -1104,16 +1104,16 @@ function SpecTab({
 
       {baseHardware && baseHardware.length > 0 && (
         <div className="mt-10">
-          <h3 className="text-sm font-semibold text-gray-900">
+          <h3 className="text-sm font-semibold text-primary-dark">
             Base Hardware Specifications
           </h3>
           <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-4">
             {baseHardware.map((b) => (
               <div
                 key={b.id}
-                className="border border-gray-200 rounded-sm overflow-hidden"
+                className="border border-primary-light rounded-sm overflow-hidden"
               >
-                <div className="aspect-square bg-gray-50 flex items-center justify-center">
+                <div className="aspect-square bg-primary-light/40 flex items-center justify-center">
                   {b.image ? (
                     <img
                       src={b.image.startsWith("/") ? b.image : `/${b.image}`}
@@ -1125,10 +1125,10 @@ function SpecTab({
                   )}
                 </div>
                 <div className="p-3">
-                  <p className="text-sm font-semibold text-gray-900">
+                  <p className="text-sm font-semibold text-primary-dark">
                     {b.name}
                   </p>
-                  <div className="mt-1.5 space-y-1 text-xs text-gray-600">
+                  <div className="mt-1.5 space-y-1 text-xs text-primary-dark/70">
                     {b.specifications &&
                       Object.entries(b.specifications).map(([k, v]) => (
                         <p key={k}>
@@ -1147,7 +1147,7 @@ function SpecTab({
 }
 
 function BaseIcon({ id }: { id: string }) {
-  const iconProps = { className: "h-8 w-8 text-gray-400" };
+  const iconProps = { className: "h-8 w-8 text-primary-dark/45" };
   switch (id) {
     case "ground_stake":
       return <MoveVertical {...iconProps} />;
@@ -1156,7 +1156,7 @@ function BaseIcon({ id }: { id: string }) {
     case "water_bag":
       return <CircleDot {...iconProps} />;
     case "square_base":
-      return <div className="h-8 w-8 rounded-sm bg-gray-300" />;
+      return <div className="h-8 w-8 rounded-sm bg-primary-light" />;
     default:
       return <CircleDot {...iconProps} />;
   }
@@ -1173,16 +1173,16 @@ function FileSetupTab({
 }) {
   return (
     <div>
-      <h2 className="text-lg font-semibold text-gray-900">File Setup</h2>
+      <h2 className="text-lg font-semibold text-primary-dark">File Setup</h2>
 
       {data.requirements.length > 0 && (
         <ul className="mt-4 space-y-2 max-w-3xl">
           {data.requirements.map((r) => (
             <li
               key={r}
-              className="flex items-start gap-2 text-sm text-gray-700"
+              className="flex items-start gap-2 text-sm text-primary-dark/80"
             >
-              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#c6005c] flex-shrink-0" />
+              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
               {r}
             </li>
           ))}
@@ -1191,16 +1191,16 @@ function FileSetupTab({
 
       {data.tips.length > 0 && (
         <>
-          <h3 className="mt-6 text-sm font-semibold text-gray-900">
+          <h3 className="mt-6 text-sm font-semibold text-primary-dark">
             Additional Tips
           </h3>
           <ul className="mt-2 space-y-2 max-w-3xl">
             {data.tips.map((t) => (
               <li
                 key={t}
-                className="flex items-start gap-2 text-sm text-gray-700"
+                className="flex items-start gap-2 text-sm text-primary-dark/80"
               >
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#c6005c] flex-shrink-0" />
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
                 {t}
               </li>
             ))}
@@ -1228,10 +1228,10 @@ function FaqsTab({
 
   return (
     <div>
-      <h2 className="text-2xl font-extrabold text-gray-900 sm:text-3xl md:text-4xl mb-3">
+      <h2 className="text-2xl font-extrabold text-primary-dark sm:text-3xl md:text-4xl mb-3">
         FAQs for {productName}
       </h2>
-      <p className="text-sm text-gray-600 sm:text-base mb-8">
+      <p className="text-sm text-primary-dark/70 sm:text-base mb-8">
         Clear answers for common questions about our {productName.toLowerCase()}.
       </p>
 
@@ -1244,7 +1244,7 @@ function FaqsTab({
           return (
             <div
               key={faq.question}
-              style={isOpen ? { borderColor: "#c6005c" } : undefined}
+              style={isOpen ? { borderColor: "var(--color-primary)" } : undefined}
               className={`overflow-hidden rounded-xl border-2 transition-all duration-300 sm:rounded-2xl ${isOpen
                 ? "bg-white shadow-lg"
                 : "border-transparent bg-white shadow-md hover:translate-y-[-2px] hover:shadow-lg"
@@ -1262,14 +1262,14 @@ function FaqsTab({
                   className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
                 >
                   <span
-                    style={isOpen ? { color: "#c6005c" } : undefined}
-                    className="text-sm font-semibold leading-snug text-gray-900 sm:text-base"
+                    style={isOpen ? { color: "var(--color-primary)" } : undefined}
+                    className="text-sm font-semibold leading-snug text-primary-dark sm:text-base"
                   >
                     {faq.question}
                   </span>
                   <ChevronDown
-                    style={isOpen ? { color: "#c6005c" } : undefined}
-                    className={`h-5 w-5 shrink-0 text-gray-900 transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+                    style={isOpen ? { color: "var(--color-primary)" } : undefined}
+                    className={`h-5 w-5 shrink-0 text-primary-dark transition-transform duration-300 ${isOpen ? "rotate-180" : ""
                       }`}
                   />
                 </button>
@@ -1285,7 +1285,7 @@ function FaqsTab({
                   }`}
               >
                 <div className="overflow-hidden">
-                  <p className="px-5 pb-4 text-sm leading-relaxed text-gray-500 sm:px-6 sm:pb-5 sm:text-base">
+                  <p className="px-5 pb-4 text-sm leading-relaxed text-primary-dark/60 sm:px-6 sm:pb-5 sm:text-base">
                     {faq.answer}
                   </p>
                 </div>
@@ -1394,8 +1394,8 @@ function SignageQuoteForm({
   }
 
   return (
-    <div className="border-t border-gray-100 pt-6">
-      <p className="text-sm font-semibold text-gray-900 mb-3">
+    <div className="border-t border-primary-light pt-6">
+      <p className="text-sm font-semibold text-primary-dark mb-3">
         Request a Quote
       </p>
 
@@ -1414,7 +1414,7 @@ function SignageQuoteForm({
           <div>
             <label
               htmlFor={`${formId}-name`}
-              className="mb-1 block text-xs font-medium text-gray-500"
+              className="mb-1 block text-xs font-medium text-primary-dark/60"
             >
               Full Name *
             </label>
@@ -1425,18 +1425,18 @@ function SignageQuoteForm({
               required
               placeholder="John Doe"
               autoComplete="name"
-              className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-[#c6005c] focus:ring-2 focus:ring-[#c6005c]/10"
+              className="w-full rounded-xl border border-primary-light bg-white px-4 py-3 text-sm text-primary-dark outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
             />
           </div>
           <div>
             <label
               htmlFor={`${formId}-phone`}
-              className="mb-1 block text-xs font-medium text-gray-500"
+              className="mb-1 block text-xs font-medium text-primary-dark/60"
             >
               Phone *
             </label>
-            <div className="flex items-center rounded-xl border border-gray-300 bg-white transition focus-within:border-[#c6005c] focus-within:ring-2 focus-within:ring-[#c6005c]/10">
-              <span className="pl-4 text-sm text-gray-400 font-medium select-none pr-1.5">+1</span>
+            <div className="flex items-center rounded-xl border border-primary-light bg-white transition focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10">
+              <span className="pl-4 text-sm text-primary-dark/45 font-medium select-none pr-1.5">+1</span>
               <input
                 id={`${formId}-phone`}
                 name="phone"
@@ -1444,7 +1444,7 @@ function SignageQuoteForm({
                 required
                 placeholder="(555) 123-4567"
                 autoComplete="tel"
-                className="w-full bg-transparent pl-1.5 pr-4 py-3 text-sm text-gray-900 outline-none"
+                className="w-full bg-transparent pl-1.5 pr-4 py-3 text-sm text-primary-dark outline-none"
               />
             </div>
           </div>
@@ -1453,7 +1453,7 @@ function SignageQuoteForm({
         <div>
           <label
             htmlFor={`${formId}-email`}
-            className="mb-1 block text-xs font-medium text-gray-500"
+            className="mb-1 block text-xs font-medium text-primary-dark/60"
           >
             Email *
           </label>
@@ -1464,14 +1464,14 @@ function SignageQuoteForm({
             required
             placeholder="you@company.com"
             autoComplete="email"
-            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-[#c6005c] focus:ring-2 focus:ring-[#c6005c]/10"
+            className="w-full rounded-xl border border-primary-light bg-white px-4 py-3 text-sm text-primary-dark outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
           />
         </div>
 
         <div>
           <label
             htmlFor={`${formId}-message`}
-            className="mb-1 block text-xs font-medium text-gray-500"
+            className="mb-1 block text-xs font-medium text-primary-dark/60"
           >
             Additional Notes
           </label>
@@ -1480,7 +1480,7 @@ function SignageQuoteForm({
             name="message"
             rows={3}
             placeholder="Quantity, dimensions, design details…"
-            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-[#c6005c] focus:ring-2 focus:ring-[#c6005c]/10 resize-none"
+            className="w-full rounded-xl border border-primary-light bg-white px-4 py-3 text-sm text-primary-dark outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10 resize-none"
           />
         </div>
 
@@ -1498,7 +1498,7 @@ function SignageQuoteForm({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#c6005c] px-5 py-3 text-sm font-bold text-white shadow-md transition-all duration-200 hover:bg-[#a30049] disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-bold text-white shadow-md transition-all duration-200 hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isSubmitting ? (
             <>
@@ -1510,9 +1510,9 @@ function SignageQuoteForm({
           )}
         </button>
 
-        <p className="text-center text-[11px] text-gray-400">
+        <p className="text-center text-[11px] text-primary-dark/45">
           Or call us at{" "}
-          <a href="tel:+18552221133" className="font-semibold text-[#c6005c] hover:underline">
+          <a href="tel:+18552221133" className="font-semibold text-primary hover:underline">
             +1-855-222-1133
           </a>
         </p>

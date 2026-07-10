@@ -16,10 +16,10 @@ function HoverCard({
   thumb: string;
 }) {
   return (
-    <div className="absolute  bottom-full left-1/2 -translate-x-1/2 mb-4 w-[250px] sm:w-[360px] rounded-2xl bg-pink-700 text-white shadow-2xl z-40">
+    <div className="absolute  bottom-full left-1/2 -translate-x-1/2 mb-4 w-[250px] sm:w-[360px] rounded-2xl bg-primary text-white shadow-2xl z-40">
       <div className="flex gap-4 p-4">
         {/* IMAGE */}
-        <div className="relative w-20 sm:w-30 h-40 sm:h:45 bg-gray-300 rounded-xl overflow-hidden shrink-0">
+        <div className="relative w-20 sm:w-30 h-40 sm:h:45 bg-primary-light rounded-xl overflow-hidden shrink-0">
           <Image
             src={thumb}
             alt={title}
@@ -33,7 +33,7 @@ function HoverCard({
         <div className="flex-1 text-center">
           <h4 className="text-md sm:text-2xl font-bold">{title}</h4>
           <p className="text-sm mt-2 text-white/90">{desc}</p>
-          <button className="mt-4 bg-white text-pink-700 px-4 py-1.5 rounded-lg text-md font-semibold">
+          <button className="mt-4 bg-white text-primary px-4 py-1.5 rounded-lg text-md font-semibold">
             Know More
           </button>
         </div>
@@ -84,8 +84,8 @@ function MapIcon({
         onClick={() => setOpen(!open)}
         className="relative w-10 h-10 sm:w-12 sm:h-12 cursor-pointer"
       >
-        <span className="absolute inset-0 rounded-full bg-pink-500 opacity-30 animate-ping"></span>
-        <div className="absolute w-full h-full rounded-full bg-pink-700 shadow-lg overflow-hidden z-10">
+        <span className="absolute inset-0 rounded-full bg-primary opacity-30 animate-ping"></span>
+        <div className="absolute w-full h-full rounded-full bg-primary shadow-lg overflow-hidden z-10">
           <Image
             src={img}
             alt={title}
@@ -221,16 +221,16 @@ export default function Page() {
               {/* LEFT CONTENT */}
               <div
                 data-aos="fade-right"
-                className=" relative z-10 bg-white border-l-4 border-pink-600 p-5 sm:p-5 md:p-5 lg:p-8 lg:ml-14 lg:-mr-24 rounded-b-[32px] lg:rounded-2xl shadow-lg order-2 lg:order-1"
+                className=" relative z-10 bg-white border-l-4 border-primary p-5 sm:p-5 md:p-5 lg:p-8 lg:ml-14 lg:-mr-24 rounded-b-[32px] lg:rounded-2xl shadow-lg order-2 lg:order-1"
               >
-                <div className="h-1 w-14 bg-pink-600 rounded-full mb-5"></div>
+                <div className="h-1 w-14 bg-primary rounded-full mb-5"></div>
 
-                <h1 className="mt-5 text-gray-600 font-bold text-4xl md:text-5xl lg:text-6xl text-center lg:text-start">
+                <h1 className="mt-5 text-primary-dark/70 font-bold text-4xl md:text-5xl lg:text-6xl text-center lg:text-start">
                   Know Your
-                  <span className="text-pink-700"> Signs</span>
+                  <span className="text-primary"> Signs</span>
                 </h1>
 
-                <p className="mt-5 text-gray-600 text-sm sm:text-base leading-relaxed lg:max-w-md text-center lg:text-start">
+                <p className="mt-5 text-primary-dark/70 text-sm sm:text-base leading-relaxed lg:max-w-md text-center lg:text-start">
                   FBS Prints & Signs showcases an extensive collection of
                   business signage, awnings, and vehicle wraps we&apos;ve
                   designed and installed for our clients. Our gallery is

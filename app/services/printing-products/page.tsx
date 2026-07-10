@@ -102,15 +102,15 @@ export default function Page() {
     <>
       <main>
         {/* Section - 1 */}
-        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
+        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
           <div className="container">
             <div className="mx-auto">
-              <p className="text-gray-600 text-lg">
-                <Link href="/" className="text-pink-600">
+              <p className="text-primary-dark/70 text-lg">
+                <Link href="/" className="text-primary">
                   Home
                 </Link>
                 <span className="mx-2">&gt;</span>
-                <span className="text-gray-800 font-semibold">
+                <span className="text-primary-dark font-semibold">
                   Printing Services
                 </span>
               </p>
@@ -122,15 +122,15 @@ export default function Page() {
                 >
                   {/* Heading */}
                   <h1
-                    className="font-semibold text-gray-950 leading-tight tracking-tight
+                    className="font-semibold text-primary-dark leading-tight tracking-tight
     text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
                   >
                     Printing
-                    <span className="text-pink-600"> Products</span>
+                    <span className="text-primary"> Products</span>
                   </h1>
 
                   {/* Description */}
-                  <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                  <p className="text-primary-dark/70 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
                     We offer a comprehensive range of printing services for
                     products like business cards, brochures, flyers, posters,
                     and more. To ensure that your printed items are of the
@@ -145,9 +145,9 @@ export default function Page() {
                 {/* Right Content - Image Grid */}
                 <div className="relative">
                   {/* Decorative circles */}
-                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-2xl"></div>
-                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl"></div>
-                  <div className="absolute top-32 right-10 w-32 h-32 bg-purple-100 rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
+                  <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
 
                   {/* Image grid */}
                   <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
@@ -195,14 +195,14 @@ export default function Page() {
 
         {/* Section - 2 */}
         <section className="container section-padding">
-          <div className="bg-[#EC3392] rounded-2xl px-6 py-12 text-white">
+          <div className="bg-primary rounded-2xl px-6 py-12 text-white">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
               {/* Left Content */}
               <div data-aos="fade-right">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-center lg:text-start">
                   Get your
                   <br />
-                  <span className="text-black hover:text-yellow-300">
+                  <span className="text-black hover:text-primary-light">
                     Printing Product
                   </span>
                   <br />
@@ -212,7 +212,7 @@ export default function Page() {
 
               {/* Right Content */}
               <div data-aos="fade-left">
-                <p className="text-base md:text-lg text-pink-100 leading-relaxed text-center lg:text-start">
+                <p className="text-base md:text-lg text-primary-light leading-relaxed text-center lg:text-start">
                   We offer a complete range of printing solutions to meet every
                   need - from business cards, brochures, and banners to t-shirt
                   prints, calendars, and custom canvas. Whether it’s carryout
@@ -239,11 +239,11 @@ export default function Page() {
                   <div
 
                     className="
-                    group flex h-[220px] bg-gray-200
+                    group flex h-[220px] bg-primary-light
                     rounded-2xl items-center justify-center
                     overflow-hidden cursor-pointer
                     border-4 border-transparent
-                    hover:border-yellow-400
+                    hover:border-primary
                     transition-all duration-300
                   "
                   >
@@ -254,7 +254,7 @@ export default function Page() {
                           className="
                           w-15 h-15
                           transition-transform duration-300
-                          group-hover:-rotate-15 justify-self-center text-pink-700
+                          group-hover:-rotate-15 justify-self-center text-primary
                         "
                         />
                       )}
@@ -279,15 +279,15 @@ export default function Page() {
           <div className="max-w-6xl mx-auto px-6">
             {/* Heading */}
             <div className="text-center mb-10">
-              <h2 className="text-5xl font-bold text-pink-700">
+              <h2 className="text-5xl font-bold text-primary">
                 What{" "}
-                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                   {" "}
                   We
                 </span>{" "}
                 Print
               </h2>
-              <p className="text-gray-500 mt-3 text-xl">
+              <p className="text-primary-dark/60 mt-3 text-xl">
                 Every project is different, and we at our organization work
                 closely with our clients to make sure we match their particular
                 demands and specifications. Graphic design, big format printing,
@@ -305,11 +305,11 @@ export default function Page() {
                   key={i}
                   className="flex items-center gap-4 border-b pb-4 group hover:translate-x-2 transition-all duration-300"
                 >
-                  <div className="w-11 h-11 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center">
+                  <div className="w-11 h-11 rounded-full bg-primary-light text-primary flex items-center justify-center">
                     {item.Icon && <item.Icon className="w-5 h-5" />}
                   </div>
 
-                  <h4 className="text-lg font-semibold text-gray-800 group-hover:text-pink-600">
+                  <h4 className="text-lg font-semibold text-primary-dark group-hover:text-primary">
                     {item.text}
                   </h4>
                 </div>

@@ -69,17 +69,17 @@ export default function Page() {
     <>
       <main>
         {/* Section - 1 */}
-        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-gray-50 to-blue-50">
+        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
           <div className="container">
             <div className="mx-auto">
-              <p className="text-gray-600">
-                <Link href="/" className="text-pink-600 text-lg">
+              <p className="text-primary-dark/70">
+                <Link href="/" className="text-primary text-lg">
                   Home
                 </Link>
                 <span className="mx-2 text-lg">&gt;</span>
                 <Link
                   href="/about"
-                  className="text-gray-800 text-lg"
+                  className="text-primary-dark text-lg"
                 >
                   About us
                 </Link>
@@ -92,15 +92,15 @@ export default function Page() {
                 >
                   {/* Heading */}
                   <h1
-                    className="font-semibold text-gray-950 leading-tight tracking-tight
+                    className="font-semibold text-primary-dark leading-tight tracking-tight
     text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
                   >
                     About
-                    <span className="text-pink-600"> us</span>
+                    <span className="text-primary"> us</span>
                   </h1>
 
                   {/* Description */}
-                  <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                  <p className="text-primary-dark/70 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
                     Our first priority is to satisfy our customers. We value the
                     time and money of our clients and work for their business.
                     If you place your trust in us, you will undoubtedly be able
@@ -113,9 +113,9 @@ export default function Page() {
                 {/* Right Content - Image Grid */}
                 <div className="relative">
                   {/* Decorative circles */}
-                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-2xl"></div>
-                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl"></div>
-                  <div className="absolute top-32 right-10 w-32 h-32 bg-purple-100 rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
+                  <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
 
                   {/* Image grid */}
                   <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
@@ -174,19 +174,19 @@ export default function Page() {
                 className="space-y-6 text-center lg:text-left"
               >
                 {/* Badge */}
-                <span className="inline-block rounded-full bg-pink-100 px-4 py-1 text-sm font-semibold text-pink-600">
+                <span className="inline-block rounded-full bg-primary-light px-4 py-1 text-sm font-semibold text-primary">
                   About FBS Printing
                 </span>
 
                 <h2 className="text-4xl md:text-5xl font-extrabold leading-tight">
                   Printing that’s
-                  <span className="text-pink-600">
+                  <span className="text-primary">
                     {" "}
                     fast, bold & reliable
                   </span>
                 </h2>
 
-                <p className="text-gray-600 text-base md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                <p className="text-primary-dark/70 text-base md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0">
                   The goal of our business is to offer quick, affordable, and
                   easy service, but we also place a great value on the caliber
                   of our goods. FBS blends quick turnaround time with a keen eye
@@ -199,7 +199,7 @@ export default function Page() {
                 <div className="pt-6">
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-2 rounded-full bg-pink-600 px-8 py-3 text-white font-semibold shadow-lg hover:scale-105 transition-all duration-300"
+                    className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-white font-semibold shadow-lg hover:scale-105 transition-all duration-300"
                   >
                     Contact Us
                     <span>→</span>
@@ -226,13 +226,13 @@ export default function Page() {
 
         {/* Section - 3 */}
         <section className="container section-padding">
-          <div className="bg-[#EC3392] rounded-2xl px-6 py-12 text-white">
+          <div className="bg-primary rounded-2xl px-6 py-12 text-white">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto ">
               {/* Left Content */}
               <div data-aos="fade-right">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-center lg:text-start">
                   We Offer <br />
-                  <span className="text-black hover:text-yellow-300">
+                  <span className="text-black hover:text-primary-light">
                     A Low Price Guarantee
                   </span>
                   <br />
@@ -242,7 +242,7 @@ export default function Page() {
 
               {/* Right Content */}
               <div data-aos="fade-left">
-                <p className="text-base md:text-lg text-pink-100 leading-relaxed text-center lg:text-start">
+                <p className="text-base md:text-lg text-primary-light leading-relaxed text-center lg:text-start">
                   Customer loyalty is fueled by affordable prices, high quality,
                   originality, and our business practices. Every day, thousands
                   of companies and individuals rely on FBS for their printing,
@@ -262,10 +262,10 @@ export default function Page() {
             {/* Heading */}
             <h2
               data-aos="fade-up"
-              className="text-pink-700 text-center text-4xl md:text-5xl font-bold mb-12"
+              className="text-primary text-center text-4xl md:text-5xl font-bold mb-12"
             >
               How{" "}
-              <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                 {" "}
                 Does This
               </span>{" "}
@@ -284,7 +284,7 @@ export default function Page() {
                   {/* Step Number */}
                   <div
                     className="mx-auto mb-6 h-14 w-14 rounded-full 
-                       bg-pink-600 text-white flex items-center 
+                       bg-primary text-white flex items-center 
                        justify-center text-xl font-bold
                        group-hover:scale-110 transition"
                   >
@@ -297,7 +297,7 @@ export default function Page() {
                   </h2>
 
                   {/* Description */}
-                  <p className="text-gray-600 text-base leading-relaxed">
+                  <p className="text-primary-dark/70 text-base leading-relaxed">
                     {item.details}
                   </p>
                 </div>
@@ -311,13 +311,13 @@ export default function Page() {
           <div className="max-w-6xl mx-auto px-6">
             {/* Heading */}
             <div className="text-center mb-10">
-              <h2 className="text-5xl font-bold text-pink-700">
+              <h2 className="text-5xl font-bold text-primary">
                 FBS{" "}
-                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                   PRINTS
                 </span>
               </h2>
-              <p className="text-gray-500 mt-3 text-xl">
+              <p className="text-primary-dark/60 mt-3 text-xl">
                 Every project is different, and we at our organization work
                 closely with our clients to make sure we match their particular
                 demands and specifications. Graphic design, big format printing,
@@ -343,16 +343,16 @@ export default function Page() {
                   >
                     {/* ICON */}
                     <div
-                      className="w-11 h-11 flex-shrink-0 rounded-full bg-pink-100
-                        text-pink-600 flex items-center justify-center"
+                      className="w-11 h-11 flex-shrink-0 rounded-full bg-primary-light
+                        text-primary flex items-center justify-center"
                     >
                       {item.icon}
                     </div>
 
                     {/* TEXT */}
                     <h4
-                      className="text-lg font-semibold text-gray-800
-                       group-hover:text-pink-600"
+                      className="text-lg font-semibold text-primary-dark
+                       group-hover:text-primary"
                     >
                       {item.label}
                     </h4>

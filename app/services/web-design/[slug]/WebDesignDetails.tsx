@@ -80,7 +80,7 @@ function FaqAccordion({ faqs }: { faqs: Faq[] }) {
         return (
           <div
             key={faq.q}
-            style={isOpen ? { borderColor: "#EC1279" } : undefined}
+            style={isOpen ? { borderColor: "var(--color-primary)" } : undefined}
             className={`overflow-hidden rounded-xl border-2 transition-all duration-300 sm:rounded-2xl ${isOpen
               ? "bg-white shadow-lg"
               : "border-transparent bg-white shadow-md duration-100 translate-y-0 hover:translate-y-[-2px] hover:shadow-lg"
@@ -96,15 +96,15 @@ function FaqAccordion({ faqs }: { faqs: Faq[] }) {
                 className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
               >
                 <span
-                  style={isOpen ? { color: "#EC1279" } : undefined}
-                  className="text-sm font-semibold leading-snug text-gray-900 sm:text-base"
+                  style={isOpen ? { color: "var(--color-primary)" } : undefined}
+                  className="text-sm font-semibold leading-snug text-primary-dark sm:text-base"
                 >
                   {faq.q}
                 </span>
 
                 <ChevronDown
-                  style={isOpen ? { color: "#EC1279" } : undefined}
-                  className={`h-5 w-5 shrink-0 text-gray-900 transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+                  style={isOpen ? { color: "var(--color-primary)" } : undefined}
+                  className={`h-5 w-5 shrink-0 text-primary-dark transition-transform duration-300 ${isOpen ? "rotate-180" : ""
                     }`}
                 />
               </button>
@@ -118,7 +118,7 @@ function FaqAccordion({ faqs }: { faqs: Faq[] }) {
                 }`}
             >
               <div className="overflow-hidden">
-                <p className="px-5 pb-4 text-sm leading-relaxed text-gray-500 sm:px-6 sm:pb-5 sm:text-base">
+                <p className="px-5 pb-4 text-sm leading-relaxed text-primary-dark/60 sm:px-6 sm:pb-5 sm:text-base">
                   {faq.a}
                 </p>
               </div>
@@ -152,19 +152,19 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       <section className="mt-24 xl:mt-20 relative overflow-hidden">
         <div className="container">
           {/* Breadcrumb */}
-          <p className="text-slate-600 text-base sm:text-lg mb-8">
-            <Link href="/" className="text-pink-600 font-medium">
+          <p className="text-primary-dark/70 text-base sm:text-lg mb-8">
+            <Link href="/" className="text-primary font-medium">
               Home
             </Link>
             <span className="mx-2">&gt;</span>
             <Link
               href="/services/web-design"
-              className="text-pink-600 font-medium"
+              className="text-primary font-medium"
             >
               Web Designing
             </Link>
             <span className="mx-2">&gt;</span>
-            <span className="text-slate-800 font-semibold">
+            <span className="text-primary-dark font-semibold">
               {service.title}
             </span>
           </p>
@@ -184,10 +184,10 @@ export default function WebDesignDetails({ service }: { service: Service }) {
 
                 {/* Floating caption card */}
                 <div className="absolute bottom-5 left-5 right-5 sm:right-auto sm:max-w-lg bg-white rounded-2xl shadow-lg px-6 py-4 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5 h-5 text-pink-600" strokeWidth={2} />
+                  <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-5 h-5 text-primary" strokeWidth={2} />
                   </div>
-                  <p className="text-gray-900 font-semibold text-sm sm:text-base leading-snug">
+                  <p className="text-primary-dark font-semibold text-sm sm:text-base leading-snug">
                     {service.highlight}
                   </p>
                 </div>
@@ -199,7 +199,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
                   {service.keywords.slice(0, 5).map((kw) => (
                     <span
                       key={kw}
-                      className="px-4 py-1.5 rounded-full bg-pink-50 text-pink-600 text-sm font-medium"
+                      className="px-4 py-1.5 rounded-full bg-primary-light text-primary text-sm font-medium"
                     >
                       {kw}
                     </span>
@@ -210,21 +210,21 @@ export default function WebDesignDetails({ service }: { service: Service }) {
 
             {/* RIGHT: content */}
             <div>
-              <span className="inline-block text-xs font-bold tracking-widest uppercase text-pink-600 bg-pink-50 px-3 py-1 rounded-full mb-5">
+              <span className="inline-block text-xs font-bold tracking-widest uppercase text-primary bg-primary-light px-3 py-1 rounded-full mb-5">
                 Digital Solution
               </span>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-6">
-                <span className="bg-linear-to-r from-pink-600 via-fuchsia-600 to-purple-700 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-primary via-primary to-primary-dark bg-clip-text text-transparent">
                   {service.title}
                 </span>
               </h1>
 
-              <p className="text-gray-600 leading-relaxed mb-8 sm:mb-10">
+              <p className="text-primary-dark/70 leading-relaxed mb-8 sm:mb-10">
                 {service.description}
               </p>
 
-              <h2 className="text-lg font-bold text-gray-900 mb-4">
+              <h2 className="text-lg font-bold text-primary-dark mb-4">
                 What&apos;s included
               </h2>
 
@@ -232,13 +232,13 @@ export default function WebDesignDetails({ service }: { service: Service }) {
                 {service.features.map((feature, i) => (
                   <div
                     key={i}
-                    className="flex items-start gap-3 bg-gray-50 border border-gray-100 rounded-xl p-4"
+                    className="flex items-start gap-3 bg-primary-light/40 border border-primary-light rounded-xl p-4"
                   >
                     <Check
-                      className="w-4 h-4 text-pink-600 mt-1 shrink-0"
+                      className="w-4 h-4 text-primary mt-1 shrink-0"
                       strokeWidth={3}
                     />
-                    <span className="text-sm text-gray-700 leading-snug">
+                    <span className="text-sm text-primary-dark/80 leading-snug">
                       {feature}
                     </span>
                   </div>
@@ -254,18 +254,18 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       {/* ============================================================ */}
       {service.longContent && (
         <section className="container py-16">
-          <div className="relative rounded-3xl border border-pink-100 bg-linear-to-br from-pink-50 via-white to-purple-50 px-6 py-10 sm:px-10 sm:py-12 overflow-hidden shadow-sm">
-            <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-purple-100 rounded-full blur-3xl opacity-40 z-0" />
-            <div className="absolute -top-10 -left-10 w-40 h-40 bg-pink-100 rounded-full blur-3xl opacity-40 z-0" />
+          <div className="relative rounded-3xl border border-primary-light bg-linear-to-br from-primary-light via-white to-primary-light px-6 py-10 sm:px-10 sm:py-12 overflow-hidden shadow-sm">
+            <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-primary-light rounded-full blur-3xl opacity-40 z-0" />
+            <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary-light rounded-full blur-3xl opacity-40 z-0" />
 
             <div className="relative max-w-3xl mx-auto">
-              <span className="inline-block px-3 py-1 rounded-full bg-white text-[#EC1279] text-xs font-bold tracking-wide shadow-sm mb-4">
+              <span className="inline-block px-3 py-1 rounded-full bg-white text-primary text-xs font-bold tracking-wide shadow-sm mb-4">
                 WHY IT WORKS
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F1B33]">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-primary-dark">
                 Why {service.title} Matters for Your Business
               </h2>
-              <p className="mt-4 text-gray-600 leading-relaxed text-sm sm:text-base">
+              <p className="mt-4 text-primary-dark/70 leading-relaxed text-sm sm:text-base">
                 {service.longContent}
               </p>
             </div>
@@ -279,13 +279,13 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       {service.benefits && service.benefits.length > 0 && (
         <section className="container pb-16">
           <div className="max-w-3xl mx-auto text-center mb-10">
-            <span className="inline-block text-xs font-bold tracking-widest uppercase text-pink-600 bg-pink-50 px-3 py-1 rounded-full mb-4">
+            <span className="inline-block text-xs font-bold tracking-widest uppercase text-primary bg-primary-light px-3 py-1 rounded-full mb-4">
               The Payoff
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F1B33]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-primary-dark">
               What You Actually Get
             </h2>
-            <p className="text-slate-500 mt-2 text-sm sm:text-base">
+            <p className="text-primary-dark/60 mt-2 text-sm sm:text-base">
               The real, lasting benefits of investing in{" "}
               {service.title.toLowerCase()}.
             </p>
@@ -295,15 +295,15 @@ export default function WebDesignDetails({ service }: { service: Service }) {
             {service.benefits.map((benefit, i) => (
               <div
                 key={i}
-                className="flex items-start gap-4 rounded-2xl border border-slate-100 bg-slate-50/60 p-5 transition hover:border-pink-100 hover:bg-pink-50/40"
+                className="flex items-start gap-4 rounded-2xl border border-primary-light bg-primary-light/60 p-5 transition hover:border-primary-light hover:bg-primary-light/40"
               >
-                <div className="w-8 h-8 rounded-lg bg-[#0F1B33] flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-primary-dark flex items-center justify-center flex-shrink-0">
                   <Sparkles
-                    className="w-4 h-4 text-[#EC1279]"
+                    className="w-4 h-4 text-primary"
                     strokeWidth={2}
                   />
                 </div>
-                <p className="text-sm text-slate-700 leading-relaxed">
+                <p className="text-sm text-primary-dark/80 leading-relaxed">
                   {benefit}
                 </p>
               </div>
@@ -317,15 +317,15 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       {/* ============================================================ */}
       {service.process && service.process.length > 0 && (
         <section className="container py-16 sm:py-20">
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 px-4 py-12 sm:px-8 sm:py-16 shadow-sm">
+          <div className="rounded-3xl border border-primary-light bg-primary-light/50 px-4 py-12 sm:px-8 sm:py-16 shadow-sm">
             <div className="max-w-3xl mx-auto text-center mb-14">
-              <span className="inline-block text-xs font-bold tracking-widest uppercase text-pink-600 bg-white px-3 py-1 rounded-full mb-4 shadow-sm">
+              <span className="inline-block text-xs font-bold tracking-widest uppercase text-primary bg-white px-3 py-1 rounded-full mb-4 shadow-sm">
                 How We Work
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F1B33]">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-primary-dark">
                 Our {service.title} Process
               </h2>
-              <p className="text-slate-500 mt-2 text-sm sm:text-base">
+              <p className="text-primary-dark/60 mt-2 text-sm sm:text-base">
                 A clear, step-by-step path from first conversation to results.
               </p>
             </div>
@@ -335,23 +335,23 @@ export default function WebDesignDetails({ service }: { service: Service }) {
               {service.process.map((step, i) => (
                 <div
                   key={i}
-                  className="group relative flex flex-col rounded-2xl border border-slate-200 bg-white pt-8 pb-6 px-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-pink-200"
+                  className="group relative flex flex-col rounded-2xl border border-primary-light bg-white pt-8 pb-6 px-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary-light"
                 >
                   {/* number badge overlapping the top edge of the box */}
-                  <div className="absolute -top-5 left-5 flex w-10 h-10 items-center justify-center rounded-xl bg-[#EC1279] text-sm font-bold text-white shadow-md">
+                  <div className="absolute -top-5 left-5 flex w-10 h-10 items-center justify-center rounded-xl bg-primary text-sm font-bold text-white shadow-md">
                     {String(i + 1).padStart(2, "0")}
                   </div>
  
-                  <h3 className="mb-2 text-sm font-bold text-[#0F1B33] sm:text-base">
+                  <h3 className="mb-2 text-sm font-bold text-primary-dark sm:text-base">
                     {step.step}
                   </h3>
-                  <p className="text-sm leading-relaxed text-slate-500">
+                  <p className="text-sm leading-relaxed text-primary-dark/60">
                     {step.description}
                   </p>
  
                   {/* connector arrow between boxes on desktop */}
                   {i < service.process!.length - 1 && (
-                    <div className="hidden lg:flex absolute top-1/2 -right-3 xl:-right-4 translate-x-1/2 -translate-y-1/2 z-10 w-8 h-8 items-center justify-center rounded-full bg-white border border-slate-200 shadow-sm text-pink-500">
+                    <div className="hidden lg:flex absolute top-1/2 -right-3 xl:-right-4 translate-x-1/2 -translate-y-1/2 z-10 w-8 h-8 items-center justify-center rounded-full bg-white border border-primary-light shadow-sm text-primary">
                       <ChevronRight className="w-4 h-4" strokeWidth={3} />
                     </div>
                   )}
@@ -368,10 +368,10 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       {service.useCases && service.useCases.length > 0 && (
         <section className="container py-16 sm:py-20">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <span className="inline-block text-xs font-bold tracking-widest uppercase text-pink-600 bg-pink-50 px-3 py-1 rounded-full mb-4">
+            <span className="inline-block text-xs font-bold tracking-widest uppercase text-primary bg-primary-light px-3 py-1 rounded-full mb-4">
               Is This For You?
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F1B33]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-primary-dark">
               Who {service.title} Is Built For
             </h2>
           </div>
@@ -380,15 +380,15 @@ export default function WebDesignDetails({ service }: { service: Service }) {
             {service.useCases.map((useCase, i) => (
               <div
                 key={i}
-                className="group flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-pink-200 hover:shadow-md"
+                className="group flex items-start gap-4 rounded-2xl border border-primary-light bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-primary-light hover:shadow-md"
               >
-                <div className="flex w-10 h-10 shrink-0 items-center justify-center rounded-full bg-pink-50 transition-colors duration-300 group-hover:bg-[#EC1279]">
+                <div className="flex w-10 h-10 shrink-0 items-center justify-center rounded-full bg-primary-light transition-colors duration-300 group-hover:bg-primary">
                   <Check
-                    className="w-5 h-5 text-[#EC1279] transition-colors duration-300 group-hover:text-white"
+                    className="w-5 h-5 text-primary transition-colors duration-300 group-hover:text-white"
                     strokeWidth={2.5}
                   />
                 </div>
-                <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-medium">
+                <p className="text-sm sm:text-base text-primary-dark/80 leading-relaxed font-medium">
                   {useCase}
                 </p>
               </div>
@@ -403,10 +403,10 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       {service.faqs && service.faqs.length > 0 && (
         <section className="container pb-16">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-center text-[#0F1B33]">
-              Frequently Asked <span className="text-[#EC1279]">Questions</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-center text-primary-dark">
+              Frequently Asked <span className="text-primary">Questions</span>
             </h2>
-            <p className="text-slate-500 text-center mt-2 mb-8 text-sm sm:text-base">
+            <p className="text-primary-dark/60 text-center mt-2 mb-8 text-sm sm:text-base">
               Answers to common questions about {service.title.toLowerCase()}.
             </p>
 
@@ -419,17 +419,17 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       {/* SECTION 7 — CTA                                               */}
       {/* ============================================================ */}
       <section className="container pb-16">
-        <div className="rounded-3xl bg-[#0F1B33] px-8 py-12 text-center text-white sm:px-12 sm:py-14">
+        <div className="rounded-3xl bg-primary-dark px-8 py-12 text-center text-white sm:px-12 sm:py-14">
           <div className="mx-auto max-w-2xl">
             <h3 className="text-2xl font-bold">
               Ready to get started with {service.title}?
             </h3>
-            <p className="mt-2 text-sm text-slate-300">
+            <p className="mt-2 text-sm text-primary-light/80">
               Let&apos;s talk about what this looks like for your business.
             </p>
             <Link
               href="/contact"
-              className="mt-6 inline-block rounded-full bg-[#EC1279] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#D40E6B]"
+              className="mt-6 inline-block rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white transition hover:bg-primary-dark"
             >
               Book a Service
             </Link>
@@ -442,7 +442,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       {/* ============================================================ */}
       {relatedServices.length > 0 && (
         <section className="container py-16">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-[#0F1B33] mb-10">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-primary-dark mb-10">
             Explore More Services
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -452,20 +452,20 @@ export default function WebDesignDetails({ service }: { service: Service }) {
                 <Link
                   key={s.slug}
                   href={`/services/web-design/${s.slug}`}
-                  className="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-pink-200 hover:shadow-md"
+                  className="group rounded-2xl border border-primary-light bg-white p-6 transition hover:border-primary-light hover:shadow-md"
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#EC1279] flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
                       <RelIcon className="w-5 h-5 text-white" strokeWidth={2} />
                     </div>
-                    <h3 className="text-base font-bold text-[#0F1B33]">
+                    <h3 className="text-base font-bold text-primary-dark">
                       {s.title}
                     </h3>
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed line-clamp-2">
+                  <p className="text-sm text-primary-dark/70 leading-relaxed line-clamp-2">
                     {s.description}
                   </p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#EC1279]">
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
                     Learn more
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                   </span>

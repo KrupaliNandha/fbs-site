@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #ec1279;
+  --color-primary-dark: #0f1b33;
+  --color-primary-light: #fdf2f8;
+}
+
+:root {
+  --color-primary: #ec1279;
+  --color-primary-dark: #0f1b33;
+  --color-primary-light: #fdf2f8;
+}
+
 .container {
   max-width: 1880px;
   margin: 0 auto;

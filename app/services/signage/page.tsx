@@ -140,15 +140,15 @@ export default function Page() {
     <>
       <main>
         {/* Section - 1 */}
-        <section className="bg-gradient-to-br xl:mt-20 mt-20 from-gray-50 to-blue-50">
+        <section className="bg-gradient-to-br xl:mt-20 mt-20 from-white to-primary-light">
           <div className="container">
             <div className="mx-auto">
-              <p className="text-gray-600 text-lg">
-                <Link href="/" className="text-pink-600">
+              <p className="text-primary-dark/70 text-lg">
+                <Link href="/" className="text-primary">
                   Home
                 </Link>
                 <span className="mx-2">&gt;</span>
-                <span className="text-gray-800 font-semibold">Signage</span>
+                <span className="text-primary-dark font-semibold">Signage</span>
               </p>
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                 {/* LEFT CONTENT - FIXED */}
@@ -158,15 +158,15 @@ export default function Page() {
                 >
                   {/* Heading */}
                   <h1
-                    className="font-semibold text-gray-950 leading-tight tracking-tight
+                    className="font-semibold text-primary-dark leading-tight tracking-tight
     text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
                   >
                     Sign
-                    <span className="text-pink-600">age</span>
+                    <span className="text-primary">age</span>
                   </h1>
 
                   {/* Description */}
-                  <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                  <p className="text-primary-dark/70 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
                     Any business needs signage services since they are so
                     significant for bringing in consumers, enhancing brand
                     recognition, and conveying important messages.
@@ -176,9 +176,9 @@ export default function Page() {
                 {/* Right Content - Image Grid */}
                 <div className="relative">
                   {/* Decorative circles */}
-                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-2xl"></div>
-                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl"></div>
-                  <div className="absolute top-32 right-10 w-32 h-32 bg-purple-100 rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
+                  <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
 
                   {/* Image grid */}
                   <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
@@ -226,14 +226,14 @@ export default function Page() {
 
         {/* Section - 2 */}
         <section className="container section-padding">
-          <div className="bg-[#EC3392] rounded-2xl px-6 py-12 text-white">
+          <div className="bg-primary rounded-2xl px-6 py-12 text-white">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
               {/* Left Content */}
               <div data-aos="fade-right">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-center lg:text-start">
                   Get your
                   <br />
-                  <span className="text-black hover:text-yellow-300">
+                  <span className="text-black hover:text-primary-light">
                     Business Signage
                   </span>
                   <br />
@@ -243,7 +243,7 @@ export default function Page() {
 
               {/* Right Content */}
               <div data-aos="fade-left">
-                <p className="text-base md:text-lg text-pink-100 leading-relaxed text-center lg:text-start">
+                <p className="text-base md:text-lg text-primary-light leading-relaxed text-center lg:text-start">
                   Businesses may stand out from the competition and leave a
                   positive impression on potential clients by using effective
                   signage. Our signage services are intended to assist
@@ -267,7 +267,7 @@ export default function Page() {
                 <Link
                   key={item.id}
                   href={`/services/signage/${item.slug}`}
-                  className=" group flex h-[220px] bg-gray-200 rounded-2xl items-center justify-center overflow-hidden cursor-pointer border-4 border-transparent hover:border-yellow-400 transition-all duration-300"
+                  className=" group flex h-[220px] bg-primary-light rounded-2xl items-center justify-center overflow-hidden cursor-pointer border-4 border-transparent hover:border-primary transition-all duration-300"
                 >
                   <div className="flex flex-col items-center justify-center gap-4">
                     {/* PNG IMAGE ICON */}
@@ -297,15 +297,15 @@ export default function Page() {
           <div className="max-w-6xl mx-auto">
             {/* Heading */}
             <div className="text-center mb-10">
-              <h2 className="text-5xl font-bold text-pink-700">
+              <h2 className="text-5xl font-bold text-primary">
                 What{" "}
-                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                   {" "}
                   We
                 </span>{" "}
                 Print
               </h2>
-              <p className="text-gray-500 mt-3 text-xl">
+              <p className="text-primary-dark/60 mt-3 text-xl">
                 Every project is different, and we at our organization work
                 closely with our clients to make sure we match their particular
                 demands and specifications. Graphic design, big format printing,
@@ -324,7 +324,7 @@ export default function Page() {
                   href={`/services/signage/${item.slug}`}
                   className="flex items-center gap-4 border-b pb-4 group hover:translate-x-2 transition-all duration-300"
                 >
-                  <div className="w-11 h-11 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center">
+                  <div className="w-11 h-11 rounded-full bg-primary-light text-primary flex items-center justify-center">
                     <Image
                       src={item.image}
                       alt={item.text}
@@ -334,7 +334,7 @@ export default function Page() {
                     />{" "}
                   </div>
 
-                  <h4 className="text-lg font-semibold text-gray-800 group-hover:text-pink-600">
+                  <h4 className="text-lg font-semibold text-primary-dark group-hover:text-primary">
                     {item.text}
                   </h4>
                 </Link>
@@ -372,7 +372,7 @@ export default function Page() {
                 {services.map((item, index) => (
                   <div
                     key={index}
-                    className="bg-white rounded-2xl p-4 text-center shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(0,0,0,0.12)] transition-all duration-300"
+                    className="bg-white rounded-2xl p-4 text-center shadow-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-300"
                   >
                     <div className="relative w-full h-[250px] rounded-xl overflow-hidden">
                       <Image
@@ -383,7 +383,7 @@ export default function Page() {
                       />
                     </div>
 
-                    <h3 className="mt-4 text-lg font-semibold text-gray-700">
+                    <h3 className="mt-4 text-lg font-semibold text-primary-dark/80">
                       {item.title}
                     </h3>
                   </div>

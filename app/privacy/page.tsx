@@ -31,20 +31,20 @@ export default function PrivacyPage() {
   return (
     <>
       <main>
-        <section className="bg-gradient-to-br from-gray-50 to-blue-50">
+        <section className="bg-gradient-to-br from-white to-primary-light">
           <div className="container">
             <div className="mx-auto py-16 sm:py-20 lg:py-24">
               <div className="max-w-4xl mx-auto text-center space-y-5">
-                <div className="inline-flex items-center gap-3 bg-pink-50 text-pink-500 px-5 py-2 rounded-full shadow-lg">
-                  <span className="w-2 h-2 bg-pink-400 rounded-full animate-pulse" />
+                <div className="inline-flex items-center gap-3 bg-primary-light text-primary px-5 py-2 rounded-full shadow-lg">
+                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                   <span className="text-[11px] font-bold uppercase tracking-widest">
                     Privacy &amp; Data Use
                   </span>
                 </div>
-                <h1 className="font-semibold text-gray-950 leading-tight tracking-tight text-4xl sm:text-5xl md:text-6xl">
+                <h1 className="font-semibold text-primary-dark leading-tight tracking-tight text-4xl sm:text-5xl md:text-6xl">
                   Privacy Policy
                 </h1>
-                <p className="text-gray-600 text-base sm:text-lg max-w-3xl mx-auto">
+                <p className="text-primary-dark/70 text-base sm:text-lg max-w-3xl mx-auto">
                   This page explains how FBS Prints handles information submitted
                   through the website, quote requests, and direct communication.
                 </p>
@@ -58,22 +58,22 @@ export default function PrivacyPage() {
             {privacySections.map((section) => (
               <article
                 key={section.title}
-                className="rounded-3xl bg-white p-8 shadow-lg border border-pink-100"
+                className="rounded-3xl bg-white p-8 shadow-lg border border-primary-light"
               >
-                <h2 className="text-2xl md:text-3xl font-bold text-pink-700">
+                <h2 className="text-2xl md:text-3xl font-bold text-primary">
                   {section.title}
                 </h2>
-                <p className="mt-4 text-gray-600 leading-relaxed text-base md:text-lg">
+                <p className="mt-4 text-primary-dark/70 leading-relaxed text-base md:text-lg">
                   {section.body}
                 </p>
               </article>
             ))}
 
-            <article className="rounded-3xl bg-gradient-to-r from-pink-600 to-pink-700 p-8 text-white shadow-lg">
+            <article className="rounded-3xl bg-gradient-to-r from-primary to-primary-dark p-8 text-white shadow-lg">
               <h2 className="text-2xl md:text-3xl font-bold">
                 Contact regarding privacy questions
               </h2>
-              <p className="mt-4 text-pink-100 text-base md:text-lg leading-relaxed">
+              <p className="mt-4 text-primary-light text-base md:text-lg leading-relaxed">
                 For privacy or data-use questions, contact FBS Prints at
                 {" "}info@fbsprints.com or call +1-855-222-1133.
               </p>

@@ -47,7 +47,7 @@ export default function Home() {
       <HomeAosInit />
       <main>
         {/* Hero Section */}
-        <section className="bg-linear-to-br mt-20 xl:mt-20 from-gray-50 to-blue-50">
+        <section className="bg-linear-to-br mt-20 xl:mt-20 from-white to-primary-light">
           <div className="container">
             <div className="mx-auto">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -57,8 +57,8 @@ export default function Home() {
                   className="flex flex-col justify-center text-center lg:text-left space-y-5"
                 >
                   <div className="flex justify-center lg:justify-start">
-                    <div className="inline-flex items-center gap-3 bg-pink-50 text-pink-500 px-5 py-2 rounded-full shadow-lg">
-                      <span className="w-2 h-2 bg-pink-400 rounded-full animate-pulse" />
+                    <div className="inline-flex items-center gap-3 bg-primary-light text-primary px-5 py-2 rounded-full shadow-lg">
+                      <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                       <span className="text-[11px] font-bold uppercase tracking-widest">
                         Printing &amp; Branding Experts
                       </span>
@@ -66,17 +66,17 @@ export default function Home() {
                   </div>
 
                   <h1
-                    className="font-semibold text-gray-950 leading-tight tracking-tight
+                    className="font-semibold text-primary-dark leading-tight tracking-tight
                       text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-7xl"
                   >
                     Signage &amp; Printing{" "}
                     <br />
-                    <span className="text-pink-700">
+                    <span className="text-primary">
                       For Illinois Businesses
                     </span>
                   </h1>
 
-                  <p className="text-gray-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
+                  <p className="text-primary-dark/70 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
                     FBS Signs delivers custom business signage, large-format printing,
                     direct mail, web design, and SEO services for businesses across
                     Illinois and nationwide. Price guarantee on all services.
@@ -84,7 +84,7 @@ export default function Home() {
 
                   <div className="flex justify-center lg:justify-start pt-4">
                     <Link href="/contact">
-                      <button className="group inline-flex items-center gap-3 bg-pink-700 text-white px-8 py-4 rounded-full font-semibold shadow-lg transition-all duration-300">
+                      <button className="group inline-flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-full font-semibold shadow-lg transition-all duration-300">
                         Get a Free Quote
                         <span className="transform transition-transform duration-300 group-hover:translate-x-1">
                           →
@@ -96,9 +96,9 @@ export default function Home() {
 
                 {/* Right Content - Image Grid */}
                 <div className="relative">
-                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-2xl"></div>
-                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-pink-100 rounded-full opacity-50 blur-3xl"></div>
-                  <div className="absolute top-32 right-10 w-32 h-32 bg-purple-100 rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
+                  <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
 
                   <div className="relative grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                     <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
@@ -170,10 +170,10 @@ export default function Home() {
           <div className="px-4">
             <h2
               data-aos="fade-up"
-              className="uppercase p-5 text-5xl text-center text-pink-700 font-bold"
+              className="uppercase p-5 text-5xl text-center text-primary font-bold"
             >
               Look{" "}
-              <span className="bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                 At Our
               </span>{" "}
               Services
@@ -185,7 +185,7 @@ export default function Home() {
               {ourServices.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-200 p-3 rounded-2xl relative w-full shadow-lg transition-transform duration-300 hover:scale-105"
+                  className="bg-primary-light p-3 rounded-2xl relative w-full shadow-lg transition-transform duration-300 hover:scale-105"
                 >
                   <Image
                     src={item.img}
@@ -198,7 +198,7 @@ export default function Home() {
                     <h2 className="text-lg sm:text-xl md:text-2xl font-semibold">
                       {item.title}
                     </h2>
-                    <p className="text-sm md:text-md text-gray-600">
+                    <p className="text-sm md:text-md text-primary-dark/70">
                       {item.des}
                     </p>
                   </div>
@@ -210,7 +210,7 @@ export default function Home() {
                         md:w-12 md:h-12 cursor-pointer"
                     >
                       <div
-                        className="bg-pink-700 text-white rounded-full text-xl flex justify-center items-center
+                        className="bg-primary text-white rounded-full text-xl flex justify-center items-center
                           shadow-md hover:scale-110 transition-transform
                           w-11 h-11 md:w-9 md:h-9"
                       >
@@ -231,21 +231,21 @@ export default function Home() {
         <section className="container section-padding overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center max-w-[85rem] mx-auto">
             <div data-aos="fade-right" className="text-center lg:text-left">
-              <h2 className="text-4xl sm:text-5xl font-bold text-pink-700 leading-tight">
+              <h2 className="text-4xl sm:text-5xl font-bold text-primary leading-tight">
                 Our Work
               </h2>
               <div className="pt-5 flex justify-center lg:justify-start">
-                <div className="w-16 h-[3px] bg-pink-700 rounded-full"></div>
+                <div className="w-16 h-[3px] bg-primary rounded-full"></div>
               </div>
               <div className="space-y-5 mt-6">
-                <p className="text-gray-600 text-base sm:text-xl font-semibold">
+                <p className="text-primary-dark/70 text-base sm:text-xl font-semibold">
                   Over the years, FBS Signs has turned countless ideas into
                   high-quality prints and signage that leave a lasting impression.
                   From small local businesses to large franchise rollouts across
                   Illinois, our team blends creativity with precision to deliver
                   outstanding results every time.
                 </p>
-                <p className="text-gray-600 text-base sm:text-xl font-semibold max-w-4xl mx-auto lg:mx-0">
+                <p className="text-primary-dark/70 text-base sm:text-xl font-semibold max-w-4xl mx-auto lg:mx-0">
                   With over 25 years of experience and a passion for excellence,
                   we have completed more than 150 projects for clients across
                   industries including QSR restaurants, hospitality, retail, and
@@ -268,17 +268,17 @@ export default function Home() {
                 Customized Printing to
               </h2>
               <h2
-                className="uppercase font-bold text-pink-700 text-3xl
+                className="uppercase font-bold text-primary text-3xl
                   sm:text-4xl md:text-6xl lg:text-7xl
                   pt-3 leading-tight"
               >
                 achieve{" "}
-                <span className="bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                   Your
                 </span>{" "}
                 Business Goals
               </h2>
-              <p className="text-sm sm:text-base md:text-lg pt-4 text-gray-700">
+              <p className="text-sm sm:text-base md:text-lg pt-4 text-primary-dark/80">
                 We create tailored printing and signage solutions designed to make your
                 brand stand out and your message clear. From eye-catching
                 designs to premium materials, every print and sign is crafted to support
@@ -286,7 +286,7 @@ export default function Home() {
                 results for your business.
               </p>
               <div className="pt-6 flex justify-center md:justify-start">
-                <div className="w-16 h-[3px] bg-pink-700 rounded-full"></div>
+                <div className="w-16 h-[3px] bg-primary rounded-full"></div>
               </div>
             </div>
 
@@ -296,7 +296,7 @@ export default function Home() {
                 alt="Custom printing and signage materials supporting business growth goals"
                 width={800}
                 height={500}
-                className="w-full h-[220px] sm:h-[300px] md:h-[400px] lg:h-[500px] object-cover rounded-2xl shadow-xl shadow-pink-20"
+                className="w-full h-[220px] sm:h-[300px] md:h-[400px] lg:h-[500px] object-cover rounded-2xl shadow-xl shadow-primary-light"
               />
             </div>
           </div>

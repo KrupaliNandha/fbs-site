@@ -34,7 +34,7 @@ export default function Navbar() {
   const dropdownLinkClass = (path: string) =>
     pathname === path
       ? "block px-4 py-2"
-      : "block px-4 py-2 rounded-lg text-gray-500 transition hover:text-gray-700";
+      : "block px-4 py-2 rounded-lg text-primary-dark/60 transition hover:text-primary-dark/80";
 
   return (
     <>
@@ -120,10 +120,10 @@ export default function Navbar() {
               unoptimized
               className="w-24 h-auto"
             />
-            <button className="flex items-center gap-3 bg-yellow-400 px-3 py-2 rounded-full">
+            <button className="flex items-center gap-3 bg-primary px-3 py-2 rounded-full">
               <span className="font-semibold">BOOK A SERVICE</span>
               <Link href="/contact">
-                <span className="flex items-center justify-center w-10 h-10 bg-pink-700 text-white rounded-full">
+                <span className="flex items-center justify-center w-10 h-10 bg-primary text-white rounded-full">
                   <FiArrowUpRight />
                 </span>
               </Link>

@@ -303,19 +303,19 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
       <section className="mt-24 xl:mt-20">
         <div className="container">
           {/* Breadcrumb */}
-          <p className="text-slate-600 text-base sm:text-lg mb-8">
-            <Link href="/" className="text-pink-600 font-medium">
+          <p className="text-primary-dark/70 text-base sm:text-lg mb-8">
+            <Link href="/" className="text-primary font-medium">
               Home
             </Link>
             <span className="mx-2">&gt;</span>
             <Link
               href="/services/direct-mailing"
-              className="text-pink-600 font-medium"
+              className="text-primary font-medium"
             >
               Direct Mailing
             </Link>
             <span className="mx-2">&gt;</span>
-            <span className="text-slate-800 font-semibold">{format.title}</span>
+            <span className="text-primary-dark font-semibold">{format.title}</span>
           </p>
 
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
@@ -333,10 +333,10 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
 
                 {/* Floating caption card, positioned over the image */}
                 <div className="absolute bottom-5 left-5 right-5 sm:right-auto sm:max-w-md bg-white rounded-2xl shadow-lg px-5 py-4 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-5 h-5 text-pink-600" />
+                  <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-primary" />
                   </div>
-                  <p className="text-slate-900 font-semibold text-sm sm:text-base leading-snug">
+                  <p className="text-primary-dark font-semibold text-sm sm:text-base leading-snug">
                     {buildHeroCaption(format)}
                   </p>
                 </div>
@@ -347,7 +347,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
                 {format.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-4 py-1.5 rounded-full bg-pink-50 text-pink-600 text-sm font-medium"
+                    className="px-4 py-1.5 rounded-full bg-primary-light text-primary text-sm font-medium"
                   >
                     {tag}
                   </span>
@@ -357,34 +357,34 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
 
             {/* RIGHT: content */}
             <div>
-              <span className="inline-block px-4 py-1.5 rounded-full bg-pink-100 text-pink-600 text-xs sm:text-sm font-bold tracking-wide mb-5">
+              <span className="inline-block px-4 py-1.5 rounded-full bg-primary-light text-primary text-xs sm:text-sm font-bold tracking-wide mb-5">
                 {badge}
               </span>
 
               <h1 className="font-extrabold leading-tight tracking-tight text-4xl sm:text-5xl md:text-6xl mb-6">
-                <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                   {format.title}
                 </span>
               </h1>
 
-              <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-8">
+              <p className="text-primary-dark/70 text-base sm:text-lg leading-relaxed mb-8">
                 {format.description}
               </p>
 
               {/* What's included */}
               {includedItems.length > 0 && (
                 <div>
-                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">
+                  <h2 className="text-lg sm:text-xl font-bold text-primary-dark mb-4">
                     What&apos;s included
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {includedItems.map((item, i) => (
                       <div
                         key={i}
-                        className="flex items-start gap-3 bg-slate-50 rounded-xl p-4"
+                        className="flex items-start gap-3 bg-primary-light/50 rounded-xl p-4"
                       >
-                        <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-pink-600 mt-0.5" />
-                        <p className="text-slate-700 text-sm sm:text-base leading-snug">
+                        <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-primary mt-0.5" />
+                        <p className="text-primary-dark/80 text-sm sm:text-base leading-snug">
                           {item}
                         </p>
                       </div>
@@ -401,7 +401,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
       {/* SECTION 2 — Quick facts strip                                 */}
       {/* ============================================================ */}
       <section className="container pb-16 pt-16">
-        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 sm:grid-cols-4">
+        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-primary-light bg-primary-light sm:grid-cols-4">
           {[
             { icon: Clock, label: "Turnaround", value: format.turnaround },
             {
@@ -417,11 +417,11 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
             { icon: Tag, label: "Price Tier", value: format.priceTier },
           ].map(({ icon: Icon, label, value }) => (
             <div key={label} className="flex flex-col gap-2 bg-white p-5">
-              <Icon className="h-4 w-4 text-[#EC1279]" />
-              <dt className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+              <Icon className="h-4 w-4 text-primary" />
+              <dt className="text-xs font-semibold uppercase tracking-wide text-primary-dark/45">
                 {label}
               </dt>
-              <dd className="text-md font-semibold text-[#0F1B33]">{value}</dd>
+              <dd className="text-md font-semibold text-primary-dark">{value}</dd>
             </div>
           ))}
         </dl>
@@ -431,20 +431,20 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
       {/* SECTION 3 — Why This Format Matters                           */}
       {/* ============================================================ */}
       <section className="container pb-16">
-        <div className="relative rounded-3xl border border-pink-100 bg-gradient-to-br from-pink-50 via-white to-purple-50 px-6 py-10 sm:px-10 sm:py-12 overflow-hidden shadow-sm">
-          <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-purple-100 rounded-full blur-3xl opacity-40 z-0" />
-          <div className="absolute -top-10 -left-10 w-40 h-40 bg-pink-100 rounded-full blur-3xl opacity-40 z-0" />
+        <div className="relative rounded-3xl border border-primary-light bg-gradient-to-br from-primary-light via-white to-primary-light px-6 py-10 sm:px-10 sm:py-12 overflow-hidden shadow-sm">
+          <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-primary-light rounded-full blur-3xl opacity-40 z-0" />
+          <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary-light rounded-full blur-3xl opacity-40 z-0" />
 
           <div className="relative z-10 max-w-6xl mx-auto">
             {/* Heading */}
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="inline-block px-4 py-1.5 rounded-full bg-white text-[#EC1279] text-[11px] font-extrabold uppercase tracking-[0.15em] shadow-sm mb-4">
+              <span className="inline-block px-4 py-1.5 rounded-full bg-white text-primary text-[11px] font-extrabold uppercase tracking-[0.15em] shadow-sm mb-4">
                 Why It Works
               </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F1B33] mb-5">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-primary-dark mb-5">
                 Why {format.title} Matter for Your Business
               </h2>
-              <p className="text-base sm:text-lg leading-relaxed text-slate-600">
+              <p className="text-base sm:text-lg leading-relaxed text-primary-dark/70">
                 {buildWhyItMattersCopy(format)}
               </p>
             </div>
@@ -452,12 +452,12 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
             {/* Features Grid: Paper Stock, Mail Class, Sizes */}
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {/* Card 1: Paper Stock */}
-              <div className="rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-xl shadow-slate-200/40 p-6 sm:p-8 hover:-translate-y-1 transition-transform duration-300">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-xl shadow-primary-light p-6 sm:p-8 hover:-translate-y-1 transition-transform duration-300">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-100 to-pink-50 flex items-center justify-center shadow-sm">
-                    <Layers className="h-6 w-6 text-[#EC1279]" />
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-light to-primary-light flex items-center justify-center shadow-sm">
+                    <Layers className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="text-lg font-bold text-[#0F1B33]">
+                  <h3 className="text-lg font-bold text-primary-dark">
                     Paper Stock
                   </h3>
                 </div>
@@ -465,7 +465,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
                   {format.paperStock.map((stock) => (
                     <div
                       key={stock}
-                      className="flex items-center justify-between rounded-xl bg-slate-50/80 border border-slate-100 px-4 py-3 text-[15px] font-semibold text-slate-700"
+                      className="flex items-center justify-between rounded-xl bg-primary-light/60 border border-primary-light px-4 py-3 text-[15px] font-semibold text-primary-dark/80"
                     >
                       {stock}
                       <CheckCircle2 className="w-4 h-4 text-emerald-500" />
@@ -475,12 +475,12 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
               </div>
 
               {/* Card 2: Mail Class */}
-              <div className="rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-xl shadow-slate-200/40 p-6 sm:p-8 hover:-translate-y-1 transition-transform duration-300">
+              <div className="rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-xl shadow-primary-light p-6 sm:p-8 hover:-translate-y-1 transition-transform duration-300">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center shadow-sm">
-                    <Sparkles className="h-6 w-6 text-[#7C3AED]" />
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-light to-primary-light flex items-center justify-center shadow-sm">
+                    <Sparkles className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="text-lg font-bold text-[#0F1B33]">
+                  <h3 className="text-lg font-bold text-primary-dark">
                     Mail Class
                   </h3>
                 </div>
@@ -488,7 +488,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
                   {format.mailClass.map((mc) => (
                     <div
                       key={mc}
-                      className="flex items-center justify-between rounded-xl bg-slate-50/80 border border-slate-100 px-4 py-3 text-[15px] font-semibold text-slate-700"
+                      className="flex items-center justify-between rounded-xl bg-primary-light/60 border border-primary-light px-4 py-3 text-[15px] font-semibold text-primary-dark/80"
                     >
                       {mc}
                       <CheckCircle2 className="w-4 h-4 text-emerald-500" />
@@ -499,12 +499,12 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
 
               {/* Card 3: Available Sizes */}
               {format.specs.length > 0 && (
-                <div className="rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-xl shadow-slate-200/40 p-6 sm:p-8 sm:col-span-2 lg:col-span-1 hover:-translate-y-1 transition-transform duration-300">
+                <div className="rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-xl shadow-primary-light p-6 sm:p-8 sm:col-span-2 lg:col-span-1 hover:-translate-y-1 transition-transform duration-300">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center shadow-sm">
-                      <Tag className="h-6 w-6 text-blue-600" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-light to-primary-light flex items-center justify-center shadow-sm">
+                      <Tag className="h-6 w-6 text-primary" />
                     </div>
-                    <h3 className="text-lg font-bold text-[#0F1B33]">
+                    <h3 className="text-lg font-bold text-primary-dark">
                       Available Sizes
                     </h3>
                   </div>
@@ -512,10 +512,10 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
                     {format.specs.map((spec, i) => (
                       <div
                         key={`${spec.label}-${i}`}
-                        className="flex-1 min-w-[120px] lg:w-full flex items-center justify-center lg:justify-start rounded-xl bg-blue-50/50 px-4 py-3 text-[15px] font-bold text-slate-600 border border-slate-100 transition-colors hover:border-blue-300 hover:bg-blue-50"
+                        className="flex-1 min-w-[120px] lg:w-full flex items-center justify-center lg:justify-start rounded-xl bg-primary-light/50 px-4 py-3 text-[15px] font-bold text-primary-dark/70 border border-primary-light transition-colors hover:border-primary hover:bg-primary-light"
                       >
                         {spec.label.toLowerCase() !== "size" && (
-                          <span className="text-[11px] uppercase tracking-wider text-slate-600 mr-2">
+                          <span className="text-[11px] uppercase tracking-wider text-primary-dark/70 mr-2">
                             {spec.label}
                           </span>
                         )}
@@ -536,10 +536,10 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
       {format.faqs?.length > 0 && (
         <section className="container pb-16">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-center text-[#0F1B33]">
-              Frequently Asked <span className="text-[#EC1279]">Questions</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-center text-primary-dark">
+              Frequently Asked <span className="text-primary">Questions</span>
             </h2>
-            <p className="text-slate-500 text-center mt-2 mb-8 text-sm sm:text-base">
+            <p className="text-primary-dark/60 text-center mt-2 mb-8 text-sm sm:text-base">
               Answers to common questions about {format.title.toLowerCase()}.
             </p>
 
@@ -548,17 +548,17 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
                 <details
                   key={index}
                   name="direct-mailing-faq"
-                  className="group overflow-hidden rounded-xl border-2 border-transparent bg-white shadow-md transition-all duration-300 hover:-translate-y-[2px] hover:shadow-lg open:border-[#EC1279] open:shadow-lg sm:rounded-2xl"
+                  className="group overflow-hidden rounded-xl border-2 border-transparent bg-white shadow-md transition-all duration-300 hover:-translate-y-[2px] hover:shadow-lg open:border-primary open:shadow-lg sm:rounded-2xl"
                   open={index === 0}
                 >
                   <summary className="list-none cursor-pointer flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5 marker:content-none [&::-webkit-details-marker]:hidden">
-                    <span className="text-sm font-semibold leading-snug text-gray-900 transition-colors duration-300 group-open:text-[#EC1279] sm:text-base">
+                    <span className="text-sm font-semibold leading-snug text-primary-dark transition-colors duration-300 group-open:text-primary sm:text-base">
                       {faq.question}
                     </span>
-                    <ChevronDown className="h-5 w-5 shrink-0 text-gray-900 transition-transform duration-300 group-open:rotate-180 group-open:text-[#EC1279]" />
+                    <ChevronDown className="h-5 w-5 shrink-0 text-primary-dark transition-transform duration-300 group-open:rotate-180 group-open:text-primary" />
                   </summary>
                   <div className="overflow-hidden px-5 pb-4 sm:px-6 sm:pb-5">
-                    <p className="text-sm leading-relaxed text-gray-500 sm:text-base">
+                    <p className="text-sm leading-relaxed text-primary-dark/60 sm:text-base">
                       {faq.answer}
                     </p>
                   </div>
@@ -570,17 +570,17 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
       )}
 
       <section className="container pb-16">
-        <div className="rounded-3xl bg-[#0F1B33] px-8 py-12 text-center text-white sm:px-12 sm:py-14">
+        <div className="rounded-3xl bg-primary-dark px-8 py-12 text-center text-white sm:px-12 sm:py-14">
           <div className="mx-auto max-w-2xl">
             <h3 className="text-2xl font-bold">
               Ready to get started with {format.title}?
             </h3>
-            <p className="mt-2 text-sm text-slate-300">
+            <p className="mt-2 text-sm text-primary-light/80">
               Let&apos;s talk about what this looks like for your business.
             </p>
             <Link
               href="/contact"
-              className="mt-6 inline-block rounded-full bg-[#EC1279] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#D40E6B]"
+              className="mt-6 inline-block rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white transition hover:bg-primary-dark"
             >
               Get a Quote
             </Link>
@@ -593,7 +593,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
       {/* ============================================================ */}
       {related.length > 0 && (
         <section className="container py-16">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-[#0F1B33] mb-10">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-primary-dark mb-10">
             Explore More Formats
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -603,20 +603,20 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
                 <Link
                   key={item.slug}
                   href={`/services/direct-mailing/${item.slug}`}
-                  className="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-pink-200 hover:shadow-md"
+                  className="group rounded-2xl border border-primary-light bg-white p-6 transition hover:border-primary-light hover:shadow-md"
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#EC1279] flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
                       <ItemIcon className="w-5 h-5 text-white" />
                     </div>
-                    <h3 className="text-base font-bold text-[#0F1B33]">
+                    <h3 className="text-base font-bold text-primary-dark">
                       {item.title}
                     </h3>
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed line-clamp-2">
+                  <p className="text-sm text-primary-dark/70 leading-relaxed line-clamp-2">
                     {item.description}
                   </p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#EC1279]">
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
                     Learn more
                     <ChevronRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
                   </span>

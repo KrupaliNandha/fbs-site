@@ -53,9 +53,9 @@ export default function Slider() {
       className="w-full overflow-hidden py-20"
     >
       <div>
-        <h2 className="text-4xl md:text-5xl font-bold text-center text-pink-700">
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-primary">
           Trusted{" "}
-          <span className="bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
             by Leading
           </span>{" "}
           Brands
