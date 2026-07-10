@@ -137,19 +137,10 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
 
     setIsPageLoading(true);
     setCurrentPage(page);
-    const element = document.getElementById("blog-posts-grid");
-    if (element) {
-      const offset = 120;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
 
     pageLoadingTimer.current = window.setTimeout(() => {
       setIsPageLoading(false);
