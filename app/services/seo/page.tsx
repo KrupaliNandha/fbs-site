@@ -233,7 +233,7 @@ export default function Page() {
                     <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                         <Image
-                          src="/images/seo/seo-3.jpg"
+                          src="/images/SEO/seo-3.jpg"
                           alt="Local marketing campaign planning materials"
                           fill
                           className="object-cover"
@@ -244,7 +244,7 @@ export default function Page() {
                     <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-40">
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
                         <Image
-                          src="/images/seo/seo-2.jpg"
+                          src="/images/SEO/seo-2.jpg"
                           alt="Digital marketing and SEO support materials"
                           fill
                           className="object-cover"
@@ -255,7 +255,7 @@ export default function Page() {
                     <div className="col-span-1 space-y-6 sm:mt-16 ">
                       <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
                         <Image
-                          src="/images/seo/seo-1.jpg"
+                          src="/images/SEO/seo-1.jpg"
                           alt="Branded print assets supporting local campaigns"
                           fill
                           className="object-cover"
