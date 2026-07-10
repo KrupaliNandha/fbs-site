@@ -272,14 +272,17 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                     />
                   ) : null}
                 </div>
-                <div className="sm:col-span-3 p-6">
+                <div className="sm:col-span-3 p-6 flex h-full flex-col">
                   <p className="text-xs font-bold uppercase tracking-widest text-primary">
                     {related.category}
                   </p>
                   <h3 className="text-xl font-bold text-primary-dark group-hover:text-primary transition mt-3">
                     {related.title}
                   </h3>
-                  <p className="text-primary-dark/60 text-sm mt-4">
+                  <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-primary-dark/70">
+                    {related.excerpt}
+                  </p>
+                  <p className="text-primary-dark/60 text-sm mt-auto pt-4">
                     {formatBlogDate(related.date)} | {related.readTime}
                   </p>
                 </div>
