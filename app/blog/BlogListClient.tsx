@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, Calendar, Clock, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { BlogPost, formatBlogDate } from "@/app/data/blog";
 
@@ -12,9 +12,33 @@ type BlogListClientProps = {
 
 const BLOG_PAGE_STORAGE_KEY = "blog-list-current-page";
 
+const BlogCardSkeleton = () => (
+  <div className="overflow-hidden rounded-2xl bg-white shadow-lg">
+    <div className="h-56 animate-pulse bg-primary-light" />
+    <div className="space-y-4 p-6">
+      <div className="flex gap-3">
+        <div className="h-3 w-24 animate-pulse rounded-full bg-primary-light" />
+        <div className="h-3 w-16 animate-pulse rounded-full bg-primary-light" />
+      </div>
+      <div className="space-y-2">
+        <div className="h-5 w-full animate-pulse rounded-full bg-primary-light" />
+        <div className="h-5 w-4/5 animate-pulse rounded-full bg-primary-light" />
+      </div>
+      <div className="space-y-2 pt-1">
+        <div className="h-3 w-full animate-pulse rounded-full bg-primary-light/80" />
+        <div className="h-3 w-11/12 animate-pulse rounded-full bg-primary-light/80" />
+        <div className="h-3 w-3/5 animate-pulse rounded-full bg-primary-light/80" />
+      </div>
+      <div className="h-4 w-24 animate-pulse rounded-full bg-primary-light" />
+    </div>
+  </div>
+);
+
 export default function BlogListClient({ posts }: BlogListClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [isPageLoading, setIsPageLoading] = useState(false);
+  const pageLoadingTimer = useRef<ReturnType<typeof window.setTimeout> | null>(null);
   const [currentPage, setCurrentPage] = useState(() => {
     if (typeof window === "undefined") {
       return 1;
@@ -94,7 +118,24 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
     return () => window.clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (pageLoadingTimer.current) {
+        window.clearTimeout(pageLoadingTimer.current);
+      }
+    };
+  }, []);
+
   const handlePageChange = (page: number) => {
+    if (page === normalizedCurrentPage || page < 1 || page > totalPages) {
+      return;
+    }
+
+    if (pageLoadingTimer.current) {
+      window.clearTimeout(pageLoadingTimer.current);
+    }
+
+    setIsPageLoading(true);
     setCurrentPage(page);
     const element = document.getElementById("blog-posts-grid");
     if (element) {
@@ -109,6 +150,11 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
         behavior: "smooth",
       });
     }
+
+    pageLoadingTimer.current = window.setTimeout(() => {
+      setIsPageLoading(false);
+      pageLoadingTimer.current = null;
+    }, 350);
   };
 
   const getPageNumbers = () => {
@@ -204,6 +250,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                 onClick={() => {
                   setSelectedCategory(category);
                   setCurrentPage(1);
+                  setIsPageLoading(false);
                 }}
                 className={`px-4 py-2 rounded-full text-sm font-bold transition ${
                   selectedCategory === category
@@ -225,6 +272,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
               onChange={(event) => {
                 setSearchQuery(event.target.value);
                 setCurrentPage(1);
+                setIsPageLoading(false);
               }}
               className="w-full pl-11 pr-4 py-3 bg-primary-light/40 border border-primary-light rounded-full focus:outline-none focus:border-primary text-sm font-medium text-primary-dark"
             />
@@ -244,6 +292,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                 setSearchQuery("");
                 setSelectedCategory("All");
                 setCurrentPage(1);
+                setIsPageLoading(false);
               }}
               className="mt-6 rounded-full bg-primary px-6 py-3 text-white font-bold"
             >
@@ -308,7 +357,12 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-              {paginatedPosts.map((post) => (
+              {isPageLoading ? (
+                Array.from({ length: POSTS_PER_PAGE }, (_, index) => (
+                  <BlogCardSkeleton key={`blog-card-skeleton-${index}`} />
+                ))
+              ) : (
+                paginatedPosts.map((post) => (
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
@@ -345,52 +399,79 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
                     </span>
                   </div>
                 </Link>
-              ))}
+                ))
+              )}
             </div>
 
             {totalPages > 1 && (
-              <div className="flex justify-center items-center gap-2 mt-16 pt-8 border-t border-primary-light">
-                <button
-                  onClick={() => handlePageChange(Math.max(normalizedCurrentPage - 1, 1))}
-                  disabled={normalizedCurrentPage === 1}
-                  className="flex items-center justify-center w-10 h-10 rounded-full border border-primary-light bg-white text-primary-dark/80 hover:border-primary hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed transition duration-300"
-                  aria-label="Previous Page"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
+              <div className="mt-16 border-t border-primary-light pt-8">
+                <div className="flex items-center justify-between gap-3 sm:hidden">
+                  <button
+                    onClick={() => handlePageChange(Math.max(normalizedCurrentPage - 1, 1))}
+                    disabled={normalizedCurrentPage === 1}
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary-light bg-white text-primary-dark/80 transition duration-300 hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-40"
+                    aria-label="Previous Page"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
 
-                {getPageNumbers().map((page, index) => {
-                  if (page === "...") {
+                  <div className="min-w-0 rounded-full bg-white px-5 py-2 text-center text-sm font-bold text-primary-dark shadow-sm">
+                    Page {normalizedCurrentPage} of {totalPages}
+                  </div>
+
+                  <button
+                    onClick={() => handlePageChange(Math.min(normalizedCurrentPage + 1, totalPages))}
+                    disabled={normalizedCurrentPage === totalPages}
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary-light bg-white text-primary-dark/80 transition duration-300 hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-40"
+                    aria-label="Next Page"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
+
+                <div className="hidden justify-center items-center gap-2 sm:flex">
+                  <button
+                    onClick={() => handlePageChange(Math.max(normalizedCurrentPage - 1, 1))}
+                    disabled={normalizedCurrentPage === 1}
+                    className="flex items-center justify-center w-10 h-10 rounded-full border border-primary-light bg-white text-primary-dark/80 hover:border-primary hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed transition duration-300"
+                    aria-label="Previous Page"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+
+                  {getPageNumbers().map((page, index) => {
+                    if (page === "...") {
+                      return (
+                        <span key={`ellipsis-${index}`} className="px-3 py-2 text-primary-dark/45">
+                          ...
+                        </span>
+                      );
+                    }
+
                     return (
-                      <span key={`ellipsis-${index}`} className="px-3 py-2 text-primary-dark/45">
-                        ...
-                      </span>
+                      <button
+                        key={`page-${page}`}
+                        onClick={() => handlePageChange(page as number)}
+                        className={`w-10 h-10 rounded-full font-bold text-sm transition duration-300 flex items-center justify-center ${
+                          normalizedCurrentPage === page
+                            ? "bg-primary text-white shadow-md shadow-primary-light"
+                            : "border border-primary-light bg-white text-primary-dark/80 hover:border-primary hover:text-primary"
+                        }`}
+                      >
+                        {page}
+                      </button>
                     );
-                  }
+                  })}
 
-                  return (
-                    <button
-                      key={`page-${page}`}
-                      onClick={() => handlePageChange(page as number)}
-                      className={`w-10 h-10 rounded-full font-bold text-sm transition duration-300 flex items-center justify-center ${
-                        normalizedCurrentPage === page
-                          ? "bg-primary text-white shadow-md shadow-primary-light"
-                          : "border border-primary-light bg-white text-primary-dark/80 hover:border-primary hover:text-primary"
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  );
-                })}
-
-                <button
-                  onClick={() => handlePageChange(Math.min(normalizedCurrentPage + 1, totalPages))}
-                  disabled={normalizedCurrentPage === totalPages}
-                  className="flex items-center justify-center w-10 h-10 rounded-full border border-primary-light bg-white text-primary-dark/80 hover:border-primary hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed transition duration-300"
-                  aria-label="Next Page"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
+                  <button
+                    onClick={() => handlePageChange(Math.min(normalizedCurrentPage + 1, totalPages))}
+                    disabled={normalizedCurrentPage === totalPages}
+                    className="flex items-center justify-center w-10 h-10 rounded-full border border-primary-light bg-white text-primary-dark/80 hover:border-primary hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed transition duration-300"
+                    aria-label="Next Page"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
             )}
           </div>
