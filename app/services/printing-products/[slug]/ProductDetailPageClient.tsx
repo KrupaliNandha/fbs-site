@@ -277,7 +277,23 @@ export default function ProductDetailPageClient({
               <span className="mx-1">&gt;</span>
               <span className="font-semibold text-primary-dark">{product.name}</span>
             </p>
-            <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+            <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20 mt-5">
+              <div className="relative lg:hidden" data-aos="fade-left">
+                <div className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-primary-light/60 blur-3xl sm:-right-10 sm:-top-10 sm:h-40 sm:w-40" />
+                <div className="absolute -left-6 bottom-10 h-40 w-40 rounded-full bg-primary-light/60 blur-3xl sm:-left-10 sm:bottom-16 sm:h-56 sm:w-56" />
+
+                <div className="relative aspect-[16/11] w-full overflow-hidden rounded-2xl border border-primary-light bg-white shadow-2xl shadow-primary-light sm:aspect-[4/3] sm:rounded-[28px]">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+              </div>
+
               {/* Left Content */}
               <div
                 data-aos="fade-right"
@@ -320,7 +336,7 @@ export default function ProductDetailPageClient({
               </div>
 
               {/* Right Content */}
-              <div className="relative" data-aos="fade-left">
+              <div className="relative hidden lg:block" data-aos="fade-left">
                 <div className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-primary-light/60 blur-3xl sm:-right-10 sm:-top-10 sm:h-40 sm:w-40" />
                 <div className="absolute -left-6 bottom-10 h-40 w-40 rounded-full bg-primary-light/60 blur-3xl sm:-left-10 sm:bottom-16 sm:h-56 sm:w-56" />
 
