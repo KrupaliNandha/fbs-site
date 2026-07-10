@@ -24,9 +24,40 @@ const slugify = (text: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
+const extractLocation = (post: BlogPost) => {
+  const contentText = post.content
+    .map((section) => {
+      if ("content" in section) {
+        return section.content;
+      }
+
+      return section.items.join(" ");
+    })
+    .join(" ");
+  const sourceText = `${post.title} ${contentText}`;
+  const match = sourceText.match(/in ([A-Z][a-zA-Z\s.-]+,\s?[A-Z]{2})/);
+
+  return match?.[1] ?? "Illinois";
+};
+
+const getKeyTakeaways = (post: BlogPost) => {
+  const firstList = post.content.find((section) => section.type === "list");
+
+  if (firstList?.type === "list" && firstList.items.length > 0) {
+    return firstList.items.slice(0, 4);
+  }
+
+  return post.content
+    .filter((section) => section.type === "heading")
+    .slice(0, 3)
+    .map((section) => section.content);
+};
+
 export default function BlogDetailClient({ post }: BlogDetailClientProps) {
   const relatedPosts = getRelatedPosts(post);
   const headings = post.content.filter((section) => section.type === "heading");
+  const keyTakeaways = getKeyTakeaways(post);
+  const locationFocus = extractLocation(post);
   const backToBlogHref = "/blog";
   const relatedServiceHref =
     post.category.toLowerCase() === "seo"
@@ -77,7 +108,6 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl" />
               <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl" />
               <div className="relative rounded-2xl overflow-hidden aspect-video bg-primary-dark shadow-2xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 {post.image ? (
                   <img
                     src={post.image}
@@ -93,15 +123,15 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
       </section>
 
       <section className="container section-padding">
-        <Link
+        {/* <Link
           href={backToBlogHref}
           className="inline-flex items-center gap-2 text-primary-dark/80 hover:text-primary font-bold bg-white px-5 py-3 rounded-full shadow transition"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Blog
-        </Link>
+        </Link> */}
 
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_390px] xl:grid-cols-[minmax(0,1fr)_430px] gap-10 xl:gap-12 mt-10 overflow-visible">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_390px] xl:grid-cols-[minmax(0,1fr)_430px] gap-10 xl:gap-12 overflow-visible">
           <article className="bg-white rounded-2xl p-6 sm:p-10 shadow-lg min-w-0">
             <div className="flex flex-col sm:flex-row justify-between gap-5 pb-8 border-b border-primary-light">
               <div className="flex flex-col sm:flex-row items-center gap-4">
@@ -219,9 +249,9 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
           </article>
 
           <aside className="min-w-0">
-            <div className="lg:sticky lg:top-36 lg:max-h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-1 space-y-8">
+            <div className="lg:sticky lg:top-36 lg:max-h-[calc(100vh-15rem)] lg:overflow-y-auto lg:pr-1 space-y-8">
               {headings.length > 0 && (
-                <div className="hidden lg:block bg-white rounded-2xl p-6 shadow-lg border border-primary-light">
+                <div className="bg-white rounded-2xl p-6 shadow-lg border border-primary-light">
                   <h2 className="text-sm font-bold uppercase tracking-widest text-primary-dark border-b border-primary-light pb-3">
                     Table of Contents
                   </h2>
@@ -239,6 +269,110 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                   </nav>
                 </div>
               )}
+
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-primary-light">
+                <h2 className="text-sm font-bold uppercase tracking-widest text-primary-dark border-b border-primary-light pb-3">
+                  Quick Answer
+                </h2>
+                <p className="mt-4 text-sm leading-7 text-primary-dark/75">
+                  {post.excerpt}
+                </p>
+              </div>
+
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-primary-light">
+                <h2 className="text-sm font-bold uppercase tracking-widest text-primary-dark border-b border-primary-light pb-3">
+                  Article Snapshot
+                </h2>
+                <div className="mt-4 space-y-4 text-sm text-primary-dark/75">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary">
+                      Category
+                    </p>
+                    <p className="mt-1 font-semibold text-primary-dark">{post.category}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary">
+                      Location Focus
+                    </p>
+                    <p className="mt-1 font-semibold text-primary-dark">{locationFocus}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary">
+                      Best For
+                    </p>
+                    <p className="mt-1 font-semibold text-primary-dark">
+                      Businesses improving visibility, trust, and local lead generation
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 pt-2">
+                    <div className="rounded-2xl bg-primary-light/70 p-4">
+                      <p className="text-xs font-bold uppercase tracking-widest text-primary">
+                        Published
+                      </p>
+                      <p className="mt-2 text-sm font-semibold text-primary-dark">
+                        {formatBlogDate(post.date)}
+                      </p>
+                    </div>
+                    <div className="rounded-2xl bg-primary-light/70 p-4">
+                      <p className="text-xs font-bold uppercase tracking-widest text-primary">
+                        Read Time
+                      </p>
+                      <p className="mt-2 text-sm font-semibold text-primary-dark">
+                        {post.readTime}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {keyTakeaways.length > 0 && (
+                <div className="bg-white rounded-2xl p-6 shadow-lg border border-primary-light">
+                  <h2 className="text-sm font-bold uppercase tracking-widest text-primary-dark border-b border-primary-light pb-3">
+                    Key Takeaways
+                  </h2>
+                  <ul className="mt-4 space-y-3">
+                    {keyTakeaways.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-3 text-sm leading-6 text-primary-dark/80"
+                      >
+                        <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-light text-primary">
+                          <ChevronRight className="w-4 h-4" />
+                        </span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* <div className="rounded-2xl bg-primary p-6 text-white shadow-lg">
+                <p className="text-xs font-bold uppercase tracking-widest text-primary-light">
+                  SEO + GEO Value
+                </p>
+                <h2 className="mt-2 text-xl font-bold">
+                  Turn this topic into a lead source
+                </h2>
+                <p className="mt-3 text-sm leading-7 text-primary-light">
+                  Strengthen local search visibility and AI discoverability with service pages,
+                  city-specific content, internal links, and conversion-focused calls to action.
+                </p>
+                <div className="mt-5 flex flex-col gap-3">
+                  <Link
+                    href={relatedServiceHref}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 font-bold text-primary"
+                  >
+                    Explore Related Service
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-primary-light px-5 py-3 font-bold text-white"
+                  >
+                    Contact FBS Prints
+                  </Link>
+                </div>
+              </div> */}
             </div>
           </aside>
         </div>
