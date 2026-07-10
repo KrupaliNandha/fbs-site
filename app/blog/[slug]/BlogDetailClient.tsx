@@ -140,7 +140,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
               </div>
             </div>
 
-            <div className="sm:pt-8 space-y-6">
+            <div className="sm:pt-3 space-y-6">
               {post.content.map((section, index) => {
                 if (section.type === "paragraph") {
                   return (
@@ -240,7 +240,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
           </article>
 
           <aside className="min-w-0">
-            <div className="lg:sticky lg:top-36 lg:max-h-[calc(100vh-15rem)] lg:overflow-y-auto lg:pr-1 space-y-8">
+            <div className="lg:sticky lg:top-36 space-y-8">
               {headings.length > 0 && (
                 <div className="bg-white rounded-2xl p-6 shadow-lg border border-primary-light">
                   <h2 className="text-sm font-bold uppercase tracking-widest text-primary-dark border-b border-primary-light pb-3">
