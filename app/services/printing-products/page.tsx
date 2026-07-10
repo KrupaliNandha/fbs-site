@@ -114,7 +114,7 @@ export default function Page() {
                   Printing Services
                 </span>
               </p>
-              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 mt-10 lg:mt-0 items-center">
                 {/* LEFT CONTENT - FIXED */}
                 <div
                   data-aos="fade-right"

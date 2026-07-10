@@ -110,189 +110,236 @@ export default function Page() {
 
   return (
     <>
-      
-        <main>
-          {/* Section - 1 */}
-          <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
-            <div className="container">
-              <div className="mx-auto">
-                <p className="text-primary-dark/70 text-lg">
-                      <Link href="/" className="text-primary hover:underline">
-                        Home
-                      </Link>
-                      {/* <span className="mx-2">&gt;</span> */}
-                      {/* <Link href="/services" className="text-primary">
+
+      <main>
+        {/* Section - 1 */}
+        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
+          <div className="container">
+            <div className="mx-auto">
+              <p className="text-primary-dark/70 text-lg">
+                <Link href="/" className="text-primary hover:underline">
+                  Home
+                </Link>
+                {/* <span className="mx-2">&gt;</span> */}
+                {/* <Link href="/services" className="text-primary">
                         Services
                       </Link> */}
-                      <span className="mx-2">&gt;</span>
-                      <span className="text-primary-dark font-semibold">
-                        Web Designing
-                      </span>
-                    </p>
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                  {/* LEFT CONTENT - FIXED */}
-                  <div
-                    data-aos="fade-right"
-                    className="flex flex-col justify-center text-center lg:text-left space-y-5"
-                  >
-                    {/* Heading */}
-                    <h1
-                      className="font-semibold text-primary-dark leading-tight tracking-tight
-    text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
-                    >
-                      Web
-                      <span className="text-primary"> Designing</span>
-                    </h1>
-                    {/* Description */}
-                    <p className="text-primary-dark/70 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
-                      At FBS Prints, we create modern, user-friendly websites
-                      that not only look great but also work seamlessly across
-                      all devices. Our web design blends creativity with
-                      functionality - helping your brand stand out, engage
-                      visitors, and drive real results.
-                    </p>
-                  </div>
+                <span className="mx-2">&gt;</span>
+                <span className="text-primary-dark font-semibold">
+                  Web Designing
+                </span>
+              </p>
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mt-10 lg:mt-0">
+                {/* Right Content - Image Grid */}
+                <div className="relative lg:hidden">
+                  {/* Decorative circles */}
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
+                  <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
 
-                  {/* Right Content - Image Grid */}
-                  <div className="relative">
-                    {/* Decorative circles */}
-                    <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
-                    <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
-                    <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
-
-                    {/* Image grid */}
-                    <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
-                      {/* Column 1 */}
-                      <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
-                        <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
-                          <Image
-                            src="/images/services/web-design/business-growth-illustration.webp"
-                            alt="Business growth illustration"
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
+                  {/* Image grid */}
+                  <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
+                    {/* Column 1 */}
+                    <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
+                        <Image
+                          src="/images/services/web-design/business-growth-illustration.webp"
+                          alt="Business growth illustration"
+                          fill
+                          className="object-cover"
+                        />
                       </div>
+                    </div>
 
-                      {/* Column 2 (Center) */}
-                      <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-40">
-                        <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
-                          <Image
-                            src="/images/services/web-design/business-website-design.webp"
-                            alt="Business website design"
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
+                    {/* Column 2 (Center) */}
+                    <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-40">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
+                        <Image
+                          src="/images/services/web-design/business-website-design.webp"
+                          alt="Business website design"
+                          fill
+                          className="object-cover"
+                        />
                       </div>
+                    </div>
 
-                      {/* Column 3 - hidden on mobile */}
-                      <div className="col-span-1 space-y-6 sm:mt-16 ">
-                        <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
-                          <Image
-                            src="/images/services/web-design/creative-web-design.webp"
-                            alt="Creative web design showcase"
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
+                    {/* Column 3 - hidden on mobile */}
+                    <div className="col-span-1 space-y-6 sm:mt-16 ">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
+                        <Image
+                          src="/images/services/web-design/creative-web-design.webp"
+                          alt="Creative web design showcase"
+                          fill
+                          className="object-cover"
+                        />
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </section>
 
-          {/* Section - 2 */}
-          <section className="container section-padding">
-            <div className="bg-primary rounded-2xl px-6 py-12 text-white">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
-                {/* Left Content */}
-                <div data-aos="fade-right">
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-center lg:text-start">
-                    Our Web Design
-                    <br />
-                    <span className="text-black hover:text-primary-light">
-                      Is More Than Just An
-                    </span>
-                    <br />
-                    Online Brochure
-                  </h2>
-                </div>
-
-                {/* Right Content */}
-                <div data-aos="fade-left">
-                  <p className="text-base md:text-lg text-primary-light leading-relaxed text-center lg:text-start">
-                    FBS Prints crafts visually striking, responsive, and
-                    conversion-focused websites tailored to your brand. From
-                    clean layouts to smooth user experiences, we ensure your
-                    online presence makes a lasting impact and turns visitors
-                    into customers.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Section - 3 */}
-          <section className="container relative bg-white py-10 overflow-hidden">
-            {/* Single deliberate accent glow instead of two competing blobs */}
-            <div className="absolute -top-32 -left-32 w-96 h-96 bg-primary-light rounded-full blur-3xl opacity-30"></div>
-
-            <div className="relative z-10">
-              <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-20">
+                {/* LEFT CONTENT - FIXED */}
                 <div
                   data-aos="fade-right"
-                  className="relative flex justify-center"
+                  className="flex flex-col justify-center text-center lg:text-left space-y-5"
                 >
-                  {/* Floating card */}
-                  <div className="relative">
-                    {/* shadow glow */}
-                    <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-3xl"></div>
+                  {/* Heading */}
+                  <h1
+                    className="font-semibold text-primary-dark leading-tight tracking-tight
+    text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
+                  >
+                    Web
+                    <span className="text-primary"> Designing</span>
+                  </h1>
+                  {/* Description */}
+                  <p className="text-primary-dark/70 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                    At FBS Prints, we create modern, user-friendly websites
+                    that not only look great but also work seamlessly across
+                    all devices. Our web design blends creativity with
+                    functionality - helping your brand stand out, engage
+                    visitors, and drive real results.
+                  </p>
+                </div>
 
-                    <Image
-                      src="/images/services/web-design/Web-1.jpg"
-                      alt="Responsive web design and digital solutions showcase"
-                      width={600}
-                      height={600}
-                      priority
-                      className="relative rounded-3xl shadow-2xl border border-primary-light h-auto w-full max-w-full"
-                    />
+                {/* Right Content - Image Grid */}
+                <div className="relative hidden lg:block">
+                  {/* Decorative circles */}
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
+                  <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
 
-                    {/* Floating stats — real numbers instead of repeated labels */}
-                    <div
-                      data-aos="fade-up"
-                      className="absolute -bottom-10 -left-6 bg-white rounded-2xl shadow-xl px-6 py-4"
-                    >
-                      <p className="text-2xl font-extrabold text-primary-dark leading-none">
-                        40%
-                      </p>
-                      <p className="mt-1 text-xs font-medium text-primary-dark/60">
-                        More Leads Generated
-                      </p>
+                  {/* Image grid */}
+                  <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
+                    {/* Column 1 */}
+                    <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
+                        <Image
+                          src="/images/services/web-design/business-growth-illustration.webp"
+                          alt="Business growth illustration"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                     </div>
 
-                    <div
-                      data-aos="fade-down"
-                      className="absolute -top-4 -right-6 bg-white rounded-2xl shadow-xl px-6 py-4"
-                    >
-                      <p className="text-2xl font-extrabold text-primary-dark leading-none">
-                        2.4s
-                      </p>
-                      <p className="mt-1 text-xs font-medium text-primary-dark/60">
-                        Average Load Time
-                      </p>
+                    {/* Column 2 (Center) */}
+                    <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-40">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
+                        <Image
+                          src="/images/services/web-design/business-website-design.webp"
+                          alt="Business website design"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Column 3 - hidden on mobile */}
+                    <div className="col-span-1 space-y-6 sm:mt-16 ">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
+                        <Image
+                          src="/images/services/web-design/creative-web-design.webp"
+                          alt="Creative web design showcase"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                {/* right CONTENT */}
-                <div
-                  data-aos="fade-left"
-                  className="space-y-8 text-center lg:text-left"
-                >
-                  <h2 className="text-4xl lg:text-6xl font-extrabold leading-tight text-primary-dark">
+        {/* Section - 2 */}
+        <section className="container section-padding">
+          <div className="bg-primary rounded-2xl px-6 py-12 text-white">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
+              {/* Left Content */}
+              <div data-aos="fade-right">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-center lg:text-start">
+                  Our Web Design
+                  <br />
+                  <span className="text-black hover:text-primary-light">
+                    Is More Than Just An
+                  </span>
+                  <br />
+                  Online Brochure
+                </h2>
+              </div>
+
+              {/* Right Content */}
+              <div data-aos="fade-left">
+                <p className="text-base md:text-lg text-primary-light leading-relaxed text-center lg:text-start">
+                  FBS Prints crafts visually striking, responsive, and
+                  conversion-focused websites tailored to your brand. From
+                  clean layouts to smooth user experiences, we ensure your
+                  online presence makes a lasting impact and turns visitors
+                  into customers.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section - 3 */}
+        <section className="container relative bg-white py-10 overflow-hidden">
+          {/* Single deliberate accent glow instead of two competing blobs */}
+          <div className="absolute -top-32 -left-32 w-96 h-96 bg-primary-light rounded-full blur-3xl opacity-30"></div>
+
+          <div className="relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-20">
+              <div
+                data-aos="fade-right"
+                className="relative flex justify-center"
+              >
+                {/* Floating card */}
+                <div className="relative">
+                  {/* shadow glow */}
+                  <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-3xl"></div>
+
+                  <Image
+                    src="/images/services/web-design/Web-1.jpg"
+                    alt="Responsive web design and digital solutions showcase"
+                    width={600}
+                    height={600}
+                    priority
+                    className="relative rounded-3xl shadow-2xl border border-primary-light h-auto w-full max-w-full"
+                  />
+
+                  {/* Floating stats — real numbers instead of repeated labels */}
+                  <div
+                    data-aos="fade-up"
+                    className="absolute -bottom-10 -left-6 bg-white rounded-2xl shadow-xl px-6 py-4"
+                  >
+                    <p className="text-2xl font-extrabold text-primary-dark leading-none">
+                      40%
+                    </p>
+                    <p className="mt-1 text-xs font-medium text-primary-dark/60">
+                      More Leads Generated
+                    </p>
+                  </div>
+
+                  <div
+                    data-aos="fade-down"
+                    className="absolute -top-4 -right-6 bg-white rounded-2xl shadow-xl px-6 py-4"
+                  >
+                    <p className="text-2xl font-extrabold text-primary-dark leading-none">
+                      2.4s
+                    </p>
+                    <p className="mt-1 text-xs font-medium text-primary-dark/60">
+                      Average Load Time
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* right CONTENT */}
+              <div
+                data-aos="fade-left"
+                className="space-y-8 text-center lg:text-left"
+              >
+                <h2 className="text-4xl lg:text-6xl font-extrabold leading-tight text-primary-dark">
                   We help brands{" "}
                   <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                     you take your business
@@ -300,202 +347,202 @@ export default function Page() {
                   to the next level
                 </h2>
 
-                  <p className="text-xl text-primary-dark/70 max-w-3xl mx-auto lg:mx-0">
-                    We go beyond design - we build digital solutions that fuel
-                    growth. Whether you need a powerful website, stronger online
-                    visibility, or better customer engagement, our team helps
-                    you create an online presence that drives sales and builds
-                    trust. With the right blend of creativity, strategy, and
-                    technology, we'll take your business to the next level and
-                    keep you ahead of the competition.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Section - 4 */}
-          <section className="container section-padding relative bg-white overflow-hidden">
-            <div className=" mx-auto">
-              {/* HEADING */}
-              <div className="max-w-4xl mx-auto text-center mb-10">
-                <h2 className="text-4xl md:text-5xl font-extrabold text-primary leading-tight">
-                  Unique{" "}
-                  <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
-                    Bespoke Digital{" "}
-                  </span>
-                  Solutions
-                </h2>
-
-                <p className="mt-6 text-primary-dark/70 text-lg leading-relaxed">
-                  We craft responsive, SEO-optimized, and scalable digital
-                  experiences. Our services combine design, development, and
-                  marketing to build a strong online presence.
+                <p className="text-xl text-primary-dark/70 max-w-3xl mx-auto lg:mx-0">
+                  We go beyond design - we build digital solutions that fuel
+                  growth. Whether you need a powerful website, stronger online
+                  visibility, or better customer engagement, our team helps
+                  you create an online presence that drives sales and builds
+                  trust. With the right blend of creativity, strategy, and
+                  technology, we'll take your business to the next level and
+                  keep you ahead of the competition.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
 
-              {/* SERVICES GRID */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {services.map((item) => (
+        {/* Section - 4 */}
+        <section className="container section-padding relative bg-white overflow-hidden">
+          <div className=" mx-auto">
+            {/* HEADING */}
+            <div className="max-w-4xl mx-auto text-center mb-10">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-primary leading-tight">
+                Unique{" "}
+                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+                  Bespoke Digital{" "}
+                </span>
+                Solutions
+              </h2>
+
+              <p className="mt-6 text-primary-dark/70 text-lg leading-relaxed">
+                We craft responsive, SEO-optimized, and scalable digital
+                experiences. Our services combine design, development, and
+                marketing to build a strong online presence.
+              </p>
+            </div>
+
+            {/* SERVICES GRID */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/services/web-design/${item.slug}`}
+                  className="group relative rounded-2xl bg-white border border-primary-light p-8
+          shadow-sm hover:shadow-xl hover:shadow-primary-light hover:-translate-y-1
+          transition-all duration-300"
+                >
+                  {/* TOP ACCENT */}
+                  <span
+                    className="absolute top-0 left-0 h-1 w-0 bg-gradient-to-br from-primary to-primary
+            group-hover:w-full transition-all duration-300 rounded-t-2xl"
+                  />
+
+                  {/* ICON */}
+                  <div
+                    className="mb-6 w-20 h-20 p-3 rounded-xl bg-white shadow-lg shadow-primary-light
+            flex items-center justify-center"
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      width={50}
+                      height={26}
+                    />
+                  </div>
+
+                  {/* TITLE */}
+                  <h3 className="text-xl font-semibold text-primary-dark mb-3">
+                    {item.title}
+                  </h3>
+
+                  {/* DESCRIPTION */}
+                  <p className="text-primary-dark/70 text-sm leading-relaxed">
+                    {item.description}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Section - 5 */}
+        <section
+          data-aos="fade-up"
+          className="container section-padding bg-white"
+        >
+          <div className="pt-5 space-y-6 mb-12 max-w-7xl mx-auto">
+            <p className="text-center text-3xl lg:text-4xl xl:text-5xl font-bold mx-auto text-primary">
+              &quot;Designing{" "}
+              <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+                Digital Experiences That Captivate, Inspire, And Leave a
+                Lasting
+              </span>{" "}
+              Impression.&quot;
+            </p>
+            <p className="text-xl text-center font-semibold">
+              Our commitment is to deliver web design solutions that not only
+              meet but exceed our clients expectations, helping them achieve
+              their online goals and stand out in the digital landscape.
+            </p>
+          </div>
+
+          <div className="pt-7">
+            <div className="px-4">
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {Digitalexp.map((item) => (
                   <Link
                     key={item.slug}
                     href={`/services/web-design/${item.slug}`}
-                    className="group relative rounded-2xl bg-white border border-primary-light p-8
-          shadow-sm hover:shadow-xl hover:shadow-primary-light hover:-translate-y-1
-          transition-all duration-300"
+                    className="block bg-white rounded-2xl p-4 text-center shadow-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-300"
                   >
-                    {/* TOP ACCENT */}
-                    <span
-                      className="absolute top-0 left-0 h-1 w-0 bg-gradient-to-br from-primary to-primary
-            group-hover:w-full transition-all duration-300 rounded-t-2xl"
-                    />
-
-                    {/* ICON */}
-                    <div
-                      className="mb-6 w-20 h-20 p-3 rounded-xl bg-white shadow-lg shadow-primary-light
-            flex items-center justify-center"
-                    >
+                    <div className="relative w-full h-[250px] rounded-xl overflow-hidden">
                       <Image
-                        src={item.image}
+                        src={item.img}
                         alt={item.title}
-                        width={50}
-                        height={26}
+                        fill
+                        className="object-cover h-full w-full"
                       />
                     </div>
 
-                    {/* TITLE */}
-                    <h3 className="text-xl font-semibold text-primary-dark mb-3">
+                    <h3 className="mt-4 text-lg font-semibold text-primary-dark/80">
                       {item.title}
                     </h3>
-
-                    {/* DESCRIPTION */}
-                    <p className="text-primary-dark/70 text-sm leading-relaxed">
-                      {item.description}
-                    </p>
                   </Link>
                 ))}
               </div>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Section - 5 */}
-          <section
-            data-aos="fade-up"
-            className="container section-padding bg-white"
-          >
-            <div className="pt-5 space-y-6 mb-12 max-w-7xl mx-auto">
-              <p className="text-center text-3xl lg:text-4xl xl:text-5xl font-bold mx-auto text-primary">
-                &quot;Designing{" "}
-                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
-                  Digital Experiences That Captivate, Inspire, And Leave a
-                  Lasting
+        {/* Section - 6 */}
+        <section className="container section-padding relative bg-white">
+          <div className="mx-auto">
+            {/* HEADING */}
+            <div className="max-w-5xl mx-auto text-center mb-10">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-primary tracking-tight">
+                Our Clients&apos;{" "}
+                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent relative">
+                  Success
+                  <span className="absolute -bottom-2 left-0 w-full h-1 bg-primary-light rounded-full"></span>
                 </span>{" "}
-                Impression.&quot;
-              </p>
-              <p className="text-xl text-center font-semibold">
-                Our commitment is to deliver web design solutions that not only
-                meet but exceed our clients expectations, helping them achieve
-                their online goals and stand out in the digital landscape.
+                Is Our Success
+              </h2>
+
+              <p className="mt-6 text-primary-dark/70 text-lg md:text-xl leading-relaxed">
+                We build intuitive, high-performing digital experiences for
+                businesses of all sizes. From strategy and design to
+                development and optimization, everything we do is focused on
+                real growth and measurable results.
               </p>
             </div>
 
-            <div className="pt-7">
-              <div className="px-4">
-                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                  {Digitalexp.map((item) => (
-                    <Link
-                      key={item.slug}
-                      href={`/services/web-design/${item.slug}`}
-                      className="block bg-white rounded-2xl p-4 text-center shadow-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-300"
-                    >
-                      <div className="relative w-full h-[250px] rounded-xl overflow-hidden">
-                        <Image
-                          src={item.img}
-                          alt={item.title}
-                          fill
-                          className="object-cover h-full w-full"
-                        />
-                      </div>
-
-                      <h3 className="mt-4 text-lg font-semibold text-primary-dark/80">
-                        {item.title}
-                      </h3>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Section - 6 */}
-          <section className="container section-padding relative bg-white">
-            <div className="mx-auto">
-              {/* HEADING */}
-              <div className="max-w-5xl mx-auto text-center mb-10">
-                <h2 className="text-4xl md:text-5xl font-extrabold text-primary tracking-tight">
-                  Our Clients&apos;{" "}
-                  <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent relative">
-                    Success
-                    <span className="absolute -bottom-2 left-0 w-full h-1 bg-primary-light rounded-full"></span>
-                  </span>{" "}
-                  Is Our Success
-                </h2>
-
-                <p className="mt-6 text-primary-dark/70 text-lg md:text-xl leading-relaxed">
-                  We build intuitive, high-performing digital experiences for
-                  businesses of all sizes. From strategy and design to
-                  development and optimization, everything we do is focused on
-                  real growth and measurable results.
-                </p>
-              </div>
-
-              {/* TESTIMONIAL GRID */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 pt-5">
-                {clientsuccess.map((item, index) => (
-                  <div
-                    key={index}
-                    className="group relative bg-white rounded-3xl p-10
+            {/* TESTIMONIAL GRID */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 pt-5">
+              {clientsuccess.map((item, index) => (
+                <div
+                  key={index}
+                  className="group relative bg-white rounded-3xl p-10
       border border-primary-light shadow-sm
       hover:-translate-y-2 hover:shadow-2xl
       transition-all duration-300"
-                  >
-                    {/* SUCCESS ICON IMAGE (instead of quote) */}
-                    <div
-                      className="absolute -top-10 left-8 w-18 h-18 rounded-full
+                >
+                  {/* SUCCESS ICON IMAGE (instead of quote) */}
+                  <div
+                    className="absolute -top-10 left-8 w-18 h-18 rounded-full
         bg-white shadow-lg flex items-center justify-center"
-                    >
-                      <Image
-                        src="/icons/success.png"
-                        alt=""
-                        width={35}
-                        height={35}
-                        className="h-15 w-15"
-                      />
-                    </div>
-
-                    {/* TITLE */}
-                    <p className="mt-6 text-lg font-semibold text-primary-dark mb-4 leading-snug">
-                      {item.title}
-                    </p>
-
-                    {/* DESCRIPTION */}
-                    <p className="text-primary-dark/70 leading-relaxed mb-8">
-                      {item.description}
-                    </p>
-
-                    {/* AUTHOR */}
-                    <div className="pt-6 border-t border-primary-light">
-                      <p className="text-primary font-semibold text-xl">
-                        {item.name}
-                      </p>
-                      <p className="text-lg text-primary-dark/60">{item.role}</p>
-                    </div>
+                  >
+                    <Image
+                      src="/icons/success.png"
+                      alt=""
+                      width={35}
+                      height={35}
+                      className="h-15 w-15"
+                    />
                   </div>
-                ))}
-              </div>
+
+                  {/* TITLE */}
+                  <p className="mt-6 text-lg font-semibold text-primary-dark mb-4 leading-snug">
+                    {item.title}
+                  </p>
+
+                  {/* DESCRIPTION */}
+                  <p className="text-primary-dark/70 leading-relaxed mb-8">
+                    {item.description}
+                  </p>
+
+                  {/* AUTHOR */}
+                  <div className="pt-6 border-t border-primary-light">
+                    <p className="text-primary font-semibold text-xl">
+                      {item.name}
+                    </p>
+                    <p className="text-lg text-primary-dark/60">{item.role}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          </section>
-        </main>
+          </div>
+        </section>
+      </main>
     </>
   );
 }

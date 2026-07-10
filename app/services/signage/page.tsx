@@ -150,7 +150,7 @@ export default function Page() {
                 <span className="mx-2">&gt;</span>
                 <span className="text-primary-dark font-semibold">Signage</span>
               </p>
-              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 mt-10 lg:mt-0 items-center">
                 {/* LEFT CONTENT - FIXED */}
                 <div
                   data-aos="fade-right"

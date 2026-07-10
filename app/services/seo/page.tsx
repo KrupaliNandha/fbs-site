@@ -204,7 +204,49 @@ export default function Page() {
                 <span className="mx-2">&gt;</span>
                 <span className="text-primary-dark font-semibold">SEO</span>
               </p>
-              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mt-10 lg:mt-0">
+                {/* Right Content - Image Grid */}
+                <div className="relative lg:hidden">
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
+                  <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+
+                  <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
+                    <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
+                        <Image
+                          src="/images/SEO/seo-3.jpg"
+                          alt="Local marketing campaign planning materials"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-40">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
+                        <Image
+                          src="/images/SEO/seo-2.jpg"
+                          alt="Digital marketing and SEO support materials"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-span-1 space-y-6 sm:mt-16 ">
+                      <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
+                        <Image
+                          src="/images/SEO/seo-1.jpg"
+                          alt="Branded print assets supporting local campaigns"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 {/* LEFT CONTENT - FIXED */}
                 <div
                   data-aos="fade-right"
@@ -224,7 +266,7 @@ export default function Page() {
                 </div>
 
                 {/* Right Content - Image Grid */}
-                <div className="relative">
+                <div className="relative hidden lg:block">
                   <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
                   <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
                   <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
@@ -317,7 +359,7 @@ export default function Page() {
                 href={`/services/seo/${item.slug}`}
                 className="group rounded-2xl p-6 bg-white hover:shadow-xl transition duration-300 flex flex-col h-full cursor-pointer"
               >
-                <div className="flex items-center gap-4 mb-5">
+                <div className="flex flex-col sm:flex-row items-center gap-4 mb-5">
                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-primary to-primary flex items-center justify-center text-white shadow-md transition-transform duration-300 group-hover:scale-110">
                     <Image
                       src={item.image}
@@ -378,7 +420,7 @@ export default function Page() {
 
         {/* Section - 5 — STATS BAND */}
         <section className="container section-padding">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
             {seoStats.map((stat, i) => (
               <div
                 key={i}
@@ -408,7 +450,7 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="container grid gap-6 sm:grid-cols-2 lg:grid-cols-5 mx-auto">
+          <div className="sm:container grid gap-6 sm:grid-cols-1 md:grid-cols-2 space-y-3 lg:grid-cols-5 mx-auto">
             {seoProcess.map((step, i) => (
               <div
                 key={i}
@@ -497,7 +539,7 @@ export default function Page() {
             </h2>
           </div>
           <div className="max-w-4xl mx-auto px-4">
-            <p className="text-center text-xl md:text-2xl font-medium text-primary-dark/80 leading-relaxed pt-8">
+            <p className="text-center text-base md:text-2xl font-medium text-primary-dark/80 leading-relaxed pt-8">
               Whether you are starting from scratch or looking to outrank
               established competitors,{" "}
               <span className="font-semibold text-primary-dark">FBS Signs</span>{" "}

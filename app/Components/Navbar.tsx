@@ -176,8 +176,8 @@ export default function Navbar() {
             {[
               ["HOME", "/"],
               ["ABOUT US", "/about"],
-              ["BLOG", "/blog"],
-              ["CONTACT", "/contact"],
+              // ["BLOG", "/blog"],
+              // ["CONTACT", "/contact"],
             ].map(([label, href]) => (
               <li key={href}>
                 <Link
@@ -191,7 +191,7 @@ export default function Navbar() {
             ))}
 
             {/* SERVICES ACCORDION */}
-            <li className="border-b border-black/[0.06] pb-10">
+            <li className="">
               <button
                 onClick={() => setServiceOpen(!serviceOpen)}
                 className="w-full flex items-center justify-between py-2 text-black text-xl tracking-[0.10em]"
@@ -218,12 +218,32 @@ export default function Navbar() {
                     key={href}
                     href={href}
                     onClick={() => setMenuOpen(false)}
-                    className="block pl-4 py-2 text-black hover:text-white text-md uppercase"
+                    className="block pl-4 py-2 text-black hover:text-primary text-md uppercase"
                   >
                     - {label}
                   </Link>
                 ))}
               </div>
+            </li>
+
+            <li>
+              <Link
+                  href={"/contact"}
+                  onClick={() => setMenuOpen(false)}
+                  className="block py-2 text-black text-xl tracking-[0.10em]"
+                >
+                  Contact Us
+                </Link>
+            </li>
+
+            <li>
+              <Link
+                  href={"/blog"}
+                  onClick={() => setMenuOpen(false)}
+                  className="block py-2 text-black text-xl tracking-[0.10em]"
+                >
+                  Blog
+                </Link>
             </li>
           </ul>
           <div className="py-10 space-y-4 justify-end items-end">

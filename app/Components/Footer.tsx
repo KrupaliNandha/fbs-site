@@ -164,14 +164,14 @@ export default function Footer() {
                     target="_blank"
                     aria-label={name}
                     className="
-        flex items-center justify-center
-        w-10 h-10 sm:w-8 sm:h-8
-        rounded-full bg-white shadow
-        text-primary
-        hover:bg-primary hover:text-white
-        transition-all hover:-translate-y-1
-        active:scale-95
-      "
+                      flex items-center justify-center
+                      w-10 h-10 sm:w-8 sm:h-8
+                      rounded-full bg-white shadow
+                      text-primary
+                      hover:bg-primary hover:text-white
+                      transition-all hover:-translate-y-1
+                      active:scale-95
+                    "
                   >
                     <Icon className="text-base sm:text-xl" />
                   </Link>
