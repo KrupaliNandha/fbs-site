@@ -53,7 +53,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
             <span className="text-primary-dark font-semibold">Article</span>
           </p>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid mt-5 xl:mt-0 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="flex flex-col justify-center text-center lg:text-left space-y-5">
               <span className="inline-flex bg-primary-light text-primary font-bold text-xs px-4 py-2 rounded-full uppercase tracking-widest w-fit mx-auto lg:mx-0">
                 {post.category}
@@ -104,12 +104,12 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_390px] xl:grid-cols-[minmax(0,1fr)_430px] gap-10 xl:gap-12 mt-10 overflow-visible">
           <article className="bg-white rounded-2xl p-6 sm:p-10 shadow-lg min-w-0">
             <div className="flex flex-col sm:flex-row justify-between gap-5 pb-8 border-b border-primary-light">
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col sm:flex-row items-center gap-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={post.author.avatar}
                   alt={post.author.name}
-                  className="w-18 h-18 rounded-full object-contain bg-white border border-primary-light"
+                  className="w-18 h-18 object-contain bg-white border border-primary-light"
                 />
                 <div>
                   <p className="font-bold text-primary-dark">{post.author.name}</p>
@@ -119,7 +119,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
              
             </div>
 
-            <div className="pt-8 space-y-6">
+            <div className="sm:pt-8 space-y-6">
               {post.content.map((section, index) => {
                 if (section.type === "paragraph") {
                   return (
@@ -141,8 +141,8 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                       id={id}
                       className={`font-bold text-primary-dark scroll-mt-32 ${
                         section.level === 3
-                          ? "text-2xl mt-8"
-                          : "text-3xl mt-10 border-b border-primary-light pb-3"
+                          ? "text-2xl sm:mt-8"
+                          : "text-3xl sm:mt-10 border-b border-primary-light pb-3"
                       }`}
                     >
                       {section.content}
@@ -202,14 +202,14 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link
                   href={relatedServiceHref}
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 font-bold text-primary"
+                  className="inline-flex text-[12px] sm:text-[16px] items-center gap-2 rounded-full bg-white px-5 py-3 font-bold text-primary"
                 >
-                  Explore Related Service
+                  Explore More
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full border border-primary-light px-5 py-3 font-bold text-white"
+                  className="flex justify-center text-[12px] sm:text-[16px] items-center gap-2 rounded-full border border-primary-light px-5 py-3 font-bold text-white"
                 >
                   Contact FBS Prints
                 </Link>
@@ -259,9 +259,9 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
               <Link
                 key={related.id}
                 href={`/blog/${related.slug}`}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition grid sm:grid-cols-5"
+                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition grid sm:grid-cols-1"
               >
-                <div className="sm:col-span-2 h-52 sm:h-auto bg-primary-dark overflow-hidden">
+                <div className="h-52 sm:h-62 bg-primary-dark overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   {related.image ? (
                     <img
@@ -272,7 +272,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                     />
                   ) : null}
                 </div>
-                <div className="sm:col-span-3 p-6">
+                <div className="p-6">
                   <p className="text-xs font-bold uppercase tracking-widest text-primary">
                     {related.category}
                   </p>
