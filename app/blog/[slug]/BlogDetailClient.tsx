@@ -123,14 +123,6 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
       </section>
 
       <section className="container section-padding">
-        {/* <Link
-          href={backToBlogHref}
-          className="inline-flex items-center gap-2 text-primary-dark/80 hover:text-primary font-bold bg-white px-5 py-3 rounded-full shadow transition"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Blog
-        </Link> */}
-
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_390px] xl:grid-cols-[minmax(0,1fr)_430px] gap-10 xl:gap-12 overflow-visible">
           <article className="bg-white rounded-2xl p-6 sm:p-10 shadow-lg min-w-0">
             <div className="flex flex-col sm:flex-row justify-between gap-5 pb-8 border-b border-primary-light">
@@ -146,7 +138,6 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                   <p className="text-sm text-primary-dark/60">{post.author.role}</p>
                 </div>
               </div>
-             
             </div>
 
             <div className="sm:pt-8 space-y-6">
@@ -345,34 +336,6 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
                   </ul>
                 </div>
               )}
-
-              {/* <div className="rounded-2xl bg-primary p-6 text-white shadow-lg">
-                <p className="text-xs font-bold uppercase tracking-widest text-primary-light">
-                  SEO + GEO Value
-                </p>
-                <h2 className="mt-2 text-xl font-bold">
-                  Turn this topic into a lead source
-                </h2>
-                <p className="mt-3 text-sm leading-7 text-primary-light">
-                  Strengthen local search visibility and AI discoverability with service pages,
-                  city-specific content, internal links, and conversion-focused calls to action.
-                </p>
-                <div className="mt-5 flex flex-col gap-3">
-                  <Link
-                    href={relatedServiceHref}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 font-bold text-primary"
-                  >
-                    Explore Related Service
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-primary-light px-5 py-3 font-bold text-white"
-                  >
-                    Contact FBS Prints
-                  </Link>
-                </div>
-              </div> */}
             </div>
           </aside>
         </div>
