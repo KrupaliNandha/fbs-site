@@ -11,7 +11,7 @@ export interface ProductFaqEntry {
 
 export const productFaqs: ProductFaqEntry[] = [
   {
-    slug: "Advertising Flags",
+    slug: "advertising-flags",
     name: "Feather Angled Flag",
     faqs: [
       {
