@@ -38,7 +38,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isPageLoading, setIsPageLoading] = useState(false);
-  const pageLoadingTimer = useRef<ReturnType<typeof window.setTimeout> | null>(null);
+  const pageLoadingTimer = useRef<number | null>(null);
   const [currentPage, setCurrentPage] = useState(() => {
     if (typeof window === "undefined") {
       return 1;
