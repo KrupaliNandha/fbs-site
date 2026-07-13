@@ -172,6 +172,10 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
     shouldScrollOnUpdate.current = true;
     setIsPageLoading(true);
     setCurrentPage(page);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
 
     pageLoadingTimer.current = window.setTimeout(() => {
       setIsPageLoading(false);
