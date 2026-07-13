@@ -226,7 +226,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
             <span className="text-primary-dark font-semibold">Blog</span>
           </p>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 mt-10 xl:mt-0 items-center">
             <div className="flex flex-col justify-center text-center lg:text-left space-y-5">
               <h1 className="font-semibold text-primary-dark leading-tight tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
                 Marketing &amp; Design
@@ -239,8 +239,8 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
             </div>
 
             <div className="relative">
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl" />
-              <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl" />
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full hidden md:block opacity-50 blur-2xl" />
+              <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full hidden md:block opacity-50 blur-3xl" />
               <div className="relative grid grid-cols-3 gap-3 sm:gap-4">
                 {[
                   "/images/shared/Product-1.jpg",

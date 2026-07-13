@@ -105,8 +105,8 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
             </div>
 
             <div className="relative">
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl" />
-              <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl" />
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full hidden md:block opacity-50 blur-2xl" />
+              <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full hidden md:block opacity-50 blur-3xl" />
               <div className="relative rounded-2xl overflow-hidden aspect-video bg-primary-dark shadow-2xl">
                 {post.image ? (
                   <img
