@@ -205,48 +205,6 @@ export default function Page() {
                 <span className="text-primary-dark font-semibold">SEO</span>
               </p>
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mt-10 lg:mt-0">
-                {/* Right Content - Image Grid */}
-                <div className="relative lg:hidden">
-                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
-                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
-                  <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
-
-                  <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
-                    <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
-                      <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
-                        <Image
-                          src="/images/SEO/seo-3.jpg"
-                          alt="Local marketing campaign planning materials"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-40">
-                      <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
-                        <Image
-                          src="/images/SEO/seo-2.jpg"
-                          alt="Digital marketing and SEO support materials"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="col-span-1 space-y-6 sm:mt-16 ">
-                      <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
-                        <Image
-                          src="/images/SEO/seo-1.jpg"
-                          alt="Branded print assets supporting local campaigns"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
                 {/* LEFT CONTENT - FIXED */}
                 <div
                   data-aos="fade-right"
@@ -266,10 +224,10 @@ export default function Page() {
                 </div>
 
                 {/* Right Content - Image Grid */}
-                <div className="relative hidden lg:block">
-                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
-                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
-                  <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+                <div className="relative">
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full hidden md:block opacity-50 blur-2xl"></div>
+                  <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full hidden md:block opacity-50 blur-3xl"></div>
+                  <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 hidden md:block blur-2xl"></div>
 
                   <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
                     <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">

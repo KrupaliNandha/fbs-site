@@ -159,52 +159,6 @@ export default function DirectMailingPage() {
               <span className="font-semibold text-primary-dark">Direct Mailing</span>
             </p>
             <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-20 mt-10 lg:mt-0">
-              <div className="relative lg:hidden">
-                {/* Decorative circles */}
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
-                <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
-                <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
-
-                {/* Image grid */}
-                <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
-                  {/* Column 1 */}
-                  <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-16">
-                    <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
-                      <Image
-                        src="/images/services/direct-mail/direct-mail-marketing.webp"
-                        alt="Direct Mail Marketing Materials Showcase"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Column 2 (Center) */}
-                  <div className="col-span-1 space-y-4 sm:space-y-6 sm:mt-40">
-                    <div className="rounded-2xl aspect-square overflow-hidden relative float-2">
-                      <Image
-                        src="/images/services/direct-mail/mailing-documentation.webp"
-                        alt="Mailing Documentation and Sorting Preparation"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Column 3 - hidden on mobile */}
-                  <div className="col-span-1 space-y-6 sm:mt-16 ">
-                    <div className="rounded-2xl aspect-square overflow-hidden relative float-1">
-                      <Image
-                        src="/images/services/direct-mail/print-design-example.webp"
-                        alt="Printed Direct Mail Design and Catalogs Showcase"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               {/* Left Content */}
               <div
                 data-aos="fade-right"
@@ -248,11 +202,11 @@ export default function DirectMailingPage() {
               </div>
 
               {/* Right Content - Image Grid */}
-              <div className="relative hidden lg:block">
+              <div className="relative hidden md:block">
                 {/* Decorative circles */}
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
-                <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full opacity-50 blur-3xl"></div>
-                <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full opacity-50 blur-2xl"></div>
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-light rounded-full hidden md:block opacity-50 blur-2xl"></div>
+                <div className="absolute bottom-20 -left-10 w-60 h-60 bg-primary-light rounded-full hidden md:block opacity-50 blur-3xl"></div>
+                <div className="absolute top-32 right-10 w-32 h-32 bg-primary-light rounded-full hidden md:block opacity-50 blur-2xl"></div>
 
                 {/* Image grid */}
                 <div className="relative grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">

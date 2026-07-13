@@ -494,7 +494,8 @@ export default function ProductDetailPageClient({
 
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
                     {/* Material Selector */}
-                    <FieldSelect
+                    <div className="relative z-20">
+                      <FieldSelect
                       label="Choose Stock / Material"
                       value={selectedMaterial}
                       onChange={setSelectedMaterial}
@@ -503,6 +504,7 @@ export default function ProductDetailPageClient({
                         label: mat,
                       }))}
                     />
+                    </div>
 
                     {/* Finish Selector */}
                     <FieldSelect
@@ -950,7 +952,7 @@ function FieldSelect({
     <div className="space-y-2">
       <label className="block text-sm font-semibold text-primary-dark">{label}</label>
 
-      <div className="relative z-20" ref={dropdownRef}>
+      <div className="relative" ref={dropdownRef}>
         <button
           ref={buttonRef}
           type="button"

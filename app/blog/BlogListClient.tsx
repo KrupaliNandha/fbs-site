@@ -11,6 +11,7 @@ type BlogListClientProps = {
 };
 
 const BLOG_PAGE_STORAGE_KEY = "blog-list-current-page";
+const SCROLL_OFFSET = 120;
 
 const BlogCardSkeleton = () => (
   <div className="overflow-hidden rounded-2xl bg-white shadow-lg">
@@ -38,7 +39,10 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isPageLoading, setIsPageLoading] = useState(false);
-  const pageLoadingTimer = useRef<ReturnType<typeof window.setTimeout> | null>(null);
+  const pageLoadingTimer = useRef<number | null>(null);
+  const isFirstRender = useRef(true);
+  const shouldScrollOnUpdate = useRef(false);
+
   const [currentPage, setCurrentPage] = useState(() => {
     if (typeof window === "undefined") {
       return 1;
@@ -80,6 +84,25 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
     return standardPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
   }, [standardPosts, startIndex]);
 
+  // Helper: scroll the grid section into view, accounting for sticky header offset
+  const scrollToGrid = (behavior: ScrollBehavior) => {
+    const element = document.getElementById("blog-posts-grid");
+
+    if (!element) {
+      return;
+    }
+
+    const bodyRect = document.body.getBoundingClientRect().top;
+    const elementRect = element.getBoundingClientRect().top;
+    const elementPosition = elementRect - bodyRect;
+    const offsetPosition = elementPosition - SCROLL_OFFSET;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior,
+    });
+  };
+
   useEffect(() => {
     if (typeof window === "undefined") {
       return;
@@ -91,32 +114,43 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
     );
   }, [normalizedCurrentPage]);
 
+  // Restore scroll position on initial mount (if a saved page > 1 was restored)
   useEffect(() => {
     if (normalizedCurrentPage <= 1) {
       return;
     }
 
-    const element = document.getElementById("blog-posts-grid");
+    const raf = requestAnimationFrame(() => {
+      scrollToGrid("auto");
+    });
 
-    if (!element) {
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Scroll to the grid AFTER the page content has actually re-rendered.
+  // This runs on every currentPage/filter change that goes through handlePageChange,
+  // (guarded by shouldScrollOnUpdate) so the measured position reflects the new layout,
+  // not the stale one from before the click.
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
       return;
     }
 
-    const timer = window.setTimeout(() => {
-      const offset = 120;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+    if (!shouldScrollOnUpdate.current) {
+      return;
+    }
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "auto",
-      });
-    }, 0);
+    shouldScrollOnUpdate.current = false;
 
-    return () => window.clearTimeout(timer);
-  }, []);
+    // Wait a frame so the DOM has committed the new page's layout before measuring.
+    const raf = requestAnimationFrame(() => {
+      scrollToGrid("smooth");
+    });
+
+    return () => cancelAnimationFrame(raf);
+  }, [normalizedCurrentPage]);
 
   useEffect(() => {
     return () => {
@@ -135,21 +169,9 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
       window.clearTimeout(pageLoadingTimer.current);
     }
 
+    shouldScrollOnUpdate.current = true;
     setIsPageLoading(true);
     setCurrentPage(page);
-    const element = document.getElementById("blog-posts-grid");
-    if (element) {
-      const offset = 120;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
 
     pageLoadingTimer.current = window.setTimeout(() => {
       setIsPageLoading(false);
