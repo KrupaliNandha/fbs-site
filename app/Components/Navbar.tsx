@@ -142,7 +142,9 @@ export default function Navbar() {
             <li className="relative" ref={desktopDropdownRef}>
               <button
                 type="button"
-                className={`${parentLinkClass("/services")} flex items-center gap-1`}
+                className={`${parentLinkClass("/services")} flex items-center cursor-pointer gap-1`}
+                onMouseEnter={() => setDesktopServiceOpen(true)}
+                onMouseLeave={() => setDesktopServiceOpen(false)}
                 onClick={() => setDesktopServiceOpen((prev) => !prev)}
                 aria-haspopup="true"
                 aria-expanded={desktopServiceOpen}
