@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { IoIosMenu } from "react-icons/io";
@@ -14,6 +14,64 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [serviceOpen, setServiceOpen] = useState(false);
   const [desktopServiceOpen, setDesktopServiceOpen] = useState(false);
+
+  const desktopDropdownRef = useRef<HTMLLIElement>(null);
+  const scrollYRef = useRef(0);
+
+  // Robust cross-browser scroll lock while the mobile menu is open.
+  // Plain `overflow: hidden` on the body does NOT stop background scroll/rubber-banding
+  // on iOS Safari — locking with `position: fixed` + restoring scroll position does.
+  useEffect(() => {
+    if (menuOpen) {
+      scrollYRef.current = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollYRef.current}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.width = "100%";
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
+      document.body.style.overflow = "";
+      window.scrollTo(0, scrollYRef.current);
+    }
+
+    return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  // Close desktop dropdown on outside click (single source of truth — click only, no hover)
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        desktopDropdownRef.current &&
+        !desktopDropdownRef.current.contains(event.target as Node)
+      ) {
+        setDesktopServiceOpen(false);
+      }
+    }
+    if (desktopServiceOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [desktopServiceOpen]);
+
+  // Close desktop dropdown / mobile menu / service accordion whenever route changes
+  useEffect(() => {
+    setDesktopServiceOpen(false);
+    setMenuOpen(false);
+    setServiceOpen(false);
+  }, [pathname]);
 
   const linkClass = (path: string) =>
     `relative px-3 py-2 text-black transition
@@ -36,13 +94,26 @@ export default function Navbar() {
       ? "block px-4 py-2"
       : "block px-4 py-2 rounded-lg text-primary-dark/60 transition hover:text-primary-dark/80";
 
+  const servicesLinks = [
+    ["Printing Product", "/services/printing-products"],
+    ["Signage", "/services/signage"],
+    ["Direct Mailing", "/services/direct-mailing"],
+    ["Web Design", "/services/web-design"],
+    ["SEO", "/services/seo"],
+  ];
+
+  const mobileLinks: [string, string][] = [
+    ["HOME", "/"],
+    ["ABOUT US", "/about"],
+  ];
+
   return (
     <>
       {/* HEADER */}
       <header className="top-0 z-50 fixed w-full shadow-md bg-white">
         <nav className="flex items-center justify-between container section-padding-header">
           {/* LOGO */}
-          <Link href="/" aria-label="FBS Prints home">
+          <Link href="/" aria-label="FBS Prints home" className="shrink-0">
             <Image
               src="/images/brand/fbs-prints-logo.webp"
               alt="FBS Prints logo"
@@ -50,11 +121,12 @@ export default function Navbar() {
               height={60}
               priority
               style={{ height: "70px", width: "auto" }}
+              className="h-12 sm:h-14 md:h-[70px] w-auto"
             />
           </Link>
 
           {/* DESKTOP MENU */}
-          <ul className="hidden lg:flex items-center gap-2 text-xl font-medium">
+          <ul className="hidden xl:flex items-center gap-2 text-xl font-medium">
             <li>
               <Link href="/" className={linkClass("/")}>
                 Home
@@ -66,31 +138,39 @@ export default function Navbar() {
               </Link>
             </li>
 
-            {/* SERVICES DROPDOWN */}
-            <li
-              className="relative"
-              onMouseEnter={() => setDesktopServiceOpen(true)}
-              onMouseLeave={() => setDesktopServiceOpen(false)}
-            >
+            {/* SERVICES DROPDOWN — click only (no hover), closes on outside click */}
+            <li className="relative" ref={desktopDropdownRef}>
               <button
+                type="button"
                 className={`${parentLinkClass("/services")} flex items-center gap-1`}
-                onClick={() => setDesktopServiceOpen(!desktopServiceOpen)}
+                onClick={() => setDesktopServiceOpen((prev) => !prev)}
+                aria-haspopup="true"
+                aria-expanded={desktopServiceOpen}
               >
-                Services ▾
+                Services
+                <span
+                  className={`inline-block transition-transform duration-200 ${
+                    desktopServiceOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  ▾
+                </span>
               </button>
               <ul
                 className={`absolute top-12 left-0 w-52 bg-white shadow-xl rounded-xl py-3 transition-all duration-300 z-50
-                ${desktopServiceOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"}`}
+                ${
+                  desktopServiceOpen
+                    ? "opacity-100 visible translate-y-0"
+                    : "opacity-0 invisible translate-y-2"
+                }`}
               >
-                {[
-                  ["Printing Product", "/services/printing-products"],
-                  ["Signage", "/services/signage"],
-                  ["Direct Mailing", "/services/direct-mailing"],
-                  ["Web Design", "/services/web-design"],
-                  ["SEO", "/services/seo"],
-                ].map(([label, href]) => (
+                {servicesLinks.map(([label, href]) => (
                   <li key={href}>
-                    <Link href={href} className={dropdownLinkClass(href)}>
+                    <Link
+                      href={href}
+                      className={dropdownLinkClass(href)}
+                      onClick={() => setDesktopServiceOpen(false)}
+                    >
                       {label}
                     </Link>
                   </li>
@@ -111,114 +191,122 @@ export default function Navbar() {
           </ul>
 
           {/* DESKTOP RIGHT */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-3">
             <Image
               src="/images/brand/one-hundred-percent-badge.gif"
               alt="100 percent satisfaction badge"
               width={96}
               height={96}
               unoptimized
-              className="w-24 h-auto"
+              className="w-20 xl:w-24 h-auto"
             />
-            <button className="flex items-center gap-3 bg-primary px-3 py-2 rounded-full">
-              <span className="font-semibold">BOOK A SERVICE</span>
-              <Link href="/contact">
-                <span className="flex items-center justify-center w-10 h-10 bg-primary text-white rounded-full">
-                  <FiArrowUpRight />
-                </span>
-              </Link>
-            </button>
+            <Link
+              href="/contact"
+              className="flex items-center gap-3 bg-primary px-3 py-2 rounded-full"
+            >
+              <span className="font-semibold whitespace-nowrap">
+                BOOK A SERVICE
+              </span>
+              <span className="flex items-center justify-center w-10 h-10 bg-primary text-white rounded-full">
+                <FiArrowUpRight />
+              </span>
+            </Link>
           </div>
 
           {/* MOBILE MENU BUTTON */}
           <button
-            className={`lg:hidden z-[10] transition-opacity duration-300
+            type="button"
+            className={`xl:hidden z-[60] transition-opacity duration-300 p-1
             ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
           >
-            <IoIosMenu size={34} className="text-black" />
+            <IoIosMenu size={32} className="text-black" />
           </button>
         </nav>
       </header>
 
-      {/* OVERLAY */}
+      {/* MOBILE FULL-SCREEN MENU */}
       <div
-        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-500 lg:hidden
-        ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-        onClick={() => setMenuOpen(false)}
-      />
-
-      {/* MOBILE SLIDE MENU */}
-      <div
-        className={`fixed top-0 left-0 h-dvh w-[75%] max-w-[340px]
-        bg-white z-50 transform transition-transform duration-500
+        role="dialog"
+        aria-modal="true"
+        aria-hidden={!menuOpen}
+        className={`fixed top-0 left-0 h-dvh w-full max-w-full bg-white z-50
+        transform transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
         ${menuOpen ? "translate-x-0" : "-translate-x-full"}
-        lg:hidden flex flex-col`}
+        xl:hidden flex flex-col overflow-y-auto overscroll-contain
+        pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]`}
       >
-        {/* CLOSE BUTTON */}
-        <div className="flex items-center justify-between px-8 pt-8 pb-3">
-          <span className="text-black text-sm tracking-[0.1em] uppercase">
-            Menu
-          </span>
+        {/* TOP BAR */}
+        <div className="flex items-center justify-between px-6 sm:px-8 pt-6 sm:pt-8 pb-3 shrink-0">
+          <Link href={"/"}>
+            <Image
+            src="/images/brand/fbs-prints-logo.webp"
+            alt="FBS Prints logo"
+            width={130}
+            height={50}
+            className="h-18 w-auto"
+          />
+          </Link>
           <button
+            type="button"
             onClick={() => setMenuOpen(false)}
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-black/10 hover:bg-white/20 transition"
+            className="w-9 h-9 flex items-center justify-center rounded-full bg-black/10 active:bg-black/20 transition-colors"
             aria-label="Close menu"
           >
-            <IoClose size={25} className="text-black" />
+            <IoClose size={22} className="text-black" />
           </button>
         </div>
 
         {/* NAV LINKS */}
-        <nav className="flex-1 px-8 pt-4">
+        <nav className="flex-1 px-6 sm:px-8 pt-2 pb-6">
           <ul className="space-y-1">
-            {[
-              ["HOME", "/"],
-              ["ABOUT US", "/about"],
-              // ["BLOG", "/blog"],
-              // ["CONTACT", "/contact"],
-            ].map(([label, href]) => (
+            {mobileLinks.map(([label, href]) => (
               <li key={href}>
                 <Link
                   href={href}
                   onClick={() => setMenuOpen(false)}
-                  className="block py-2 text-black text-xl tracking-[0.10em]"
+                  className={`block py-2 text-lg sm:text-xl tracking-[0.10em] border-b border-black/[0.06] transition-colors duration-300
+                  ${pathname === href ? "text-primary font-semibold" : "text-black"}`}
                 >
                   {label}
                 </Link>
               </li>
             ))}
 
-            {/* SERVICES ACCORDION */}
-            <li className="">
+            {/* SERVICES ACCORDION — click only, single toggle */}
+            <li>
               <button
-                onClick={() => setServiceOpen(!serviceOpen)}
-                className="w-full flex items-center justify-between py-2 text-black text-xl tracking-[0.10em]"
+                type="button"
+                onClick={() => setServiceOpen((prev) => !prev)}
+                className={`w-full flex items-center justify-between py-2 text-lg sm:text-xl tracking-[0.10em]
+                ${pathname.startsWith("/services") ? "text-primary font-semibold" : "text-black"}`}
+                aria-expanded={serviceOpen}
+                aria-controls="mobile-services-panel"
               >
                 SERVICES
                 <span
-                  className={`transition-transform ${serviceOpen ? "rotate-180" : ""} text-2xl flex items-center justify-center`}
+                  className={`transition-transform duration-200 text-2xl flex items-center justify-center ${
+                    serviceOpen ? "rotate-180" : ""
+                  }`}
                 >
                   ▾
                 </span>
               </button>
 
               <div
-                className={`overflow-hidden transition-all ${serviceOpen ? "max-h-72 pb-3" : "max-h-0"}`}
+                id="mobile-services-panel"
+                className={`overflow-hidden border-b border-black/[0.06] transition-all duration-300 ${
+                  serviceOpen ? "max-h-72 pb-3" : "max-h-0"
+                }`}
               >
-                {[
-                  ["Printing Product", "/services/printing-products"],
-                  ["Signage", "/services/signage"],
-                  ["Direct Mailing", "/services/direct-mailing"],
-                  ["Web Design", "/services/web-design"],
-                  ["SEO", "/services/seo"],
-                ].map(([label, href]) => (
+                {servicesLinks.map(([label, href]) => (
                   <Link
                     key={href}
                     href={href}
                     onClick={() => setMenuOpen(false)}
-                    className="block pl-4 py-2 text-black hover:text-primary text-md uppercase"
+                    className={`block pl-4 py-2 text-sm sm:text-md uppercase transition-colors
+                    ${pathname === href ? "text-primary font-medium" : "text-black hover:text-primary"}`}
                   >
                     - {label}
                   </Link>
@@ -228,46 +316,49 @@ export default function Navbar() {
 
             <li>
               <Link
-                  href={"/contact"}
-                  onClick={() => setMenuOpen(false)}
-                  className="block py-2 text-black text-xl tracking-[0.10em]"
-                >
-                  Contact Us
-                </Link>
+                href="/contact"
+                onClick={() => setMenuOpen(false)}
+                className={`block py-2 text-lg sm:text-xl tracking-[0.10em] border-b border-black/[0.06] transition-colors duration-300
+                ${pathname === "/contact" ? "text-primary font-semibold" : "text-black"}`}
+              >
+                Contact Us
+              </Link>
             </li>
 
             <li>
               <Link
-                  href={"/blog"}
-                  onClick={() => setMenuOpen(false)}
-                  className="block py-2 text-black text-xl tracking-[0.10em]"
-                >
-                  Blog
-                </Link>
+                href="/blog"
+                onClick={() => setMenuOpen(false)}
+                className={`block py-2 text-lg sm:text-xl tracking-[0.10em] border-b border-black/[0.06] transition-colors duration-300
+                ${pathname === "/blog" ? "text-primary font-semibold" : "text-black"}`}
+              >
+                Blog
+              </Link>
             </li>
           </ul>
-          <div className="py-10 space-y-4 justify-end items-end">
-            <div className="flex items-center gap-2">
-              <p>
+
+          <div className="py-8 sm:py-10 space-y-4">
+            <a href="mailto:info@fbsprints.com" className="flex items-center gap-2 min-w-0">
+              <span className="shrink-0">
                 <FaEnvelope />
-              </p>
-              <p className="block text-black hover:text-white/70 text-md tracking-wide transition-colors duration-200">
+              </span>
+              <p className="text-black text-sm tracking-wide break-all">
                 info@fbsprints.com
               </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <p>
+            </a>
+            <a href="tel:+18552221133" className="flex items-center gap-2">
+              <span className="shrink-0">
                 <FaPhoneAlt />
-              </p>
-              <p className="block  text-black hover:text-white/70 text-md tracking-wide transition-colors duration-200">
+              </span>
+              <p className="text-black text-sm tracking-wide">
                 +1-855-222-1133
               </p>
-            </div>
+            </a>
             <div className="flex items-center gap-2">
-              <p>
+              <span className="shrink-0">
                 <FaMapMarkerAlt />
-              </p>
-              <p className="block  text-black hover:text-white/70 text-md tracking-wide transition-colors duration-200">
+              </span>
+              <p className="text-black text-sm tracking-wide">
                 Serving Naperville & Schaumburg, IL
               </p>
             </div>
