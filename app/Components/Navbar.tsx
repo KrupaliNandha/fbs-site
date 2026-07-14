@@ -111,7 +111,7 @@ export default function Navbar() {
     <>
       {/* HEADER */}
       <header className="top-0 z-50 fixed w-full shadow-md bg-white">
-        <nav className="flex items-center justify-between container section-padding-header">
+        <nav className="flex items-center justify-between max-w-[1880px] section-padding-header md:px-10 xl:container">
           {/* LOGO */}
           <Link href="/" aria-label="FBS Prints home" className="shrink-0">
             <Image
@@ -126,7 +126,7 @@ export default function Navbar() {
           </Link>
 
           {/* DESKTOP MENU */}
-          <ul className="hidden xl:flex items-center gap-2 text-xl font-medium">
+          <ul className="hidden lg:flex items-center gap-2 text-xl font-medium">
             <li>
               <Link href="/" className={linkClass("/")}>
                 Home
@@ -191,7 +191,7 @@ export default function Navbar() {
           </ul>
 
           {/* DESKTOP RIGHT */}
-          <div className="hidden xl:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <Image
               src="/images/brand/one-hundred-percent-badge.gif"
               alt="100 percent satisfaction badge"
@@ -204,7 +204,7 @@ export default function Navbar() {
               href="/contact"
               className="flex items-center gap-3 bg-primary px-3 py-2 rounded-full"
             >
-              <span className="font-semibold whitespace-nowrap">
+              <span className="font-semibold text-white whitespace-nowrap">
                 BOOK A SERVICE
               </span>
               <span className="flex items-center justify-center w-10 h-10 bg-primary text-white rounded-full">
@@ -216,7 +216,7 @@ export default function Navbar() {
           {/* MOBILE MENU BUTTON */}
           <button
             type="button"
-            className={`xl:hidden z-[60] transition-opacity duration-300 p-1
+            className={`lg:hidden z-[60] transition-opacity duration-300 p-1
             ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
