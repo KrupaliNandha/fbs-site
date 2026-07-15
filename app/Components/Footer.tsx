@@ -17,8 +17,8 @@ export default function Footer() {
   const socialIcons: { name: string; Icon: IconType; url: string }[] = [
     { name: "Twitter", Icon: FaTwitter, url: "https://twitter.com" },
     { name: "LinkedIn", Icon: FaLinkedin, url: "https://linkedin.com" },
-    { name: "Instagram", Icon: FaInstagram, url: "https://instagram.com" },
-    { name: "Facebook", Icon: FaFacebookF, url: "https://facebook.com" },
+    { name: "Instagram", Icon: FaInstagram, url: "https://www.instagram.com/fbssigns" },
+    { name: "Facebook", Icon: FaFacebookF, url: "https://www.facebook.com/fbssignsandprints/" },
     { name: "Dribbble", Icon: FaDribbble, url: "https://dribbble.com" },
     { name: "Behance", Icon: FaBehance, url: "https://behance.net" },
   ];
