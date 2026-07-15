@@ -374,7 +374,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           <h2 className="text-center text-2xl sm:text-3xl font-bold text-primary-dark mb-10">
             Explore Other Services
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {otherServices.map((s) => {
               const OtherIcon = iconMap[s.icon];
               return (
@@ -385,11 +385,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 >
                   <div className="flex items-center gap-3 mb-3">
                     {OtherIcon && (
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary flex items-center justify-center text-white">
+                      <div className="w-10 h-10 shrink-0 rounded-lg bg-gradient-to-br from-primary to-primary flex items-center justify-center text-white">
                         <OtherIcon className="w-5 h-5" />
                       </div>
                     )}
-                    <h3 className="text-base sm:text-lg font-semibold text-primary-dark group-hover:text-primary transition-colors">
+                    <h3 className="flex-1 text-base lg:text-lg font-semibold leading-snug text-primary-dark group-hover:text-primary transition-colors">
                       {s.title}
                     </h3>
                   </div>

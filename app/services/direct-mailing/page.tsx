@@ -343,7 +343,7 @@ export default function DirectMailingPage() {
                   <span className="block text-[11px] font-semibold uppercase tracking-widest text-primary">
                     Sources & Attribution
                   </span>
-                  <span className="mt-1 block text-xs text-primary-dark/45 leading-relaxed">
+                  <span className="mt-1 block text-xs text-primary-light/80 leading-relaxed">
                     USPS Delivers, Association of National Advertisers (ANA), and Lob State of Direct Mail Reports.
                   </span>
                 </div>
