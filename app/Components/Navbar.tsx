@@ -111,7 +111,7 @@ export default function Navbar() {
     <>
       {/* HEADER */}
       <header className="top-0 z-50 fixed w-full shadow-md bg-white">
-        <nav className="flex items-center justify-between max-w-[1880px] section-padding-header md:px-10 xl:container">
+        <nav className="flex items-center justify-between max-w-[1880px] section-padding-header md:px-10 px-5">
           {/* LOGO */}
           <Link href="/" aria-label="FBS Prints home" className="shrink-0">
             <Image
@@ -182,12 +182,12 @@ export default function Navbar() {
 
             <li>
               <Link href="/contact" className={linkClass("/contact")}>
-                Contact Us
+                CONTACT US
               </Link>
             </li>
             <li>
               <Link href="/blog" className={parentLinkClass("/blog")}>
-                Blog
+                BLOG
               </Link>
             </li>
           </ul>
@@ -323,7 +323,7 @@ export default function Navbar() {
                 className={`block py-2 text-lg sm:text-xl tracking-[0.10em] border-b border-black/[0.06] transition-colors duration-300
                 ${pathname === "/contact" ? "text-primary font-semibold" : "text-black"}`}
               >
-                Contact Us
+                CONTACT US
               </Link>
             </li>
 
@@ -334,7 +334,7 @@ export default function Navbar() {
                 className={`block py-2 text-lg sm:text-xl tracking-[0.10em] border-b border-black/[0.06] transition-colors duration-300
                 ${pathname === "/blog" ? "text-primary font-semibold" : "text-black"}`}
               >
-                Blog
+                BLOG
               </Link>
             </li>
           </ul>
