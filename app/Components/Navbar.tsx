@@ -13,9 +13,16 @@ export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [serviceOpen, setServiceOpen] = useState(false);
-  const [desktopServiceOpen, setDesktopServiceOpen] = useState(false);
 
+  // Desktop Services menu supports BOTH interactions without conflict:
+  // - hoverOpen: true while the mouse is over the menu (hover-to-preview)
+  // - clickLocked: true after a click — "pins" the menu open even if the mouse leaves,
+  //   until it's clicked again, a link is chosen, or the user clicks outside.
+  const [hoverOpen, setHoverOpen] = useState(false);
+  const [clickLocked, setClickLocked] = useState(false);
+  const desktopServiceOpen = hoverOpen || clickLocked;
   const desktopDropdownRef = useRef<HTMLLIElement>(null);
+
   const scrollYRef = useRef(0);
 
   // Robust cross-browser scroll lock while the mobile menu is open.
@@ -50,25 +57,28 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
-  // Close desktop dropdown on outside click (single source of truth — click only, no hover)
+  // Close the desktop dropdown on outside click — only matters once it's click-locked open,
+  // since hover already closes itself on mouse-leave.
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
         desktopDropdownRef.current &&
         !desktopDropdownRef.current.contains(event.target as Node)
       ) {
-        setDesktopServiceOpen(false);
+        setClickLocked(false);
+        setHoverOpen(false);
       }
     }
-    if (desktopServiceOpen) {
+    if (clickLocked) {
       document.addEventListener("mousedown", handleClickOutside);
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [desktopServiceOpen]);
+  }, [clickLocked]);
 
-  // Close desktop dropdown / mobile menu / service accordion whenever route changes
+  // Close everything whenever route changes
   useEffect(() => {
-    setDesktopServiceOpen(false);
+    setHoverOpen(false);
+    setClickLocked(false);
     setMenuOpen(false);
     setServiceOpen(false);
   }, [pathname]);
@@ -107,6 +117,11 @@ export default function Navbar() {
     ["ABOUT US", "/about"],
   ];
 
+  function closeDesktopServices() {
+    setHoverOpen(false);
+    setClickLocked(false);
+  }
+
   return (
     <>
       {/* HEADER */}
@@ -138,14 +153,17 @@ export default function Navbar() {
               </Link>
             </li>
 
-            {/* SERVICES DROPDOWN — click only (no hover), closes on outside click */}
-            <li className="relative" ref={desktopDropdownRef}>
+            {/* SERVICES MEGA MENU — desktop: hover AND click both work */}
+            <li
+              className="relative"
+              ref={desktopDropdownRef}
+              onMouseEnter={() => setHoverOpen(true)}
+              onMouseLeave={() => setHoverOpen(false)}
+            >
               <button
                 type="button"
                 className={`${parentLinkClass("/services")} flex items-center cursor-pointer gap-1`}
-                onMouseEnter={() => setDesktopServiceOpen(true)}
-                onMouseLeave={() => setDesktopServiceOpen(false)}
-                onClick={() => setDesktopServiceOpen((prev) => !prev)}
+                onClick={() => setClickLocked((prev) => !prev)}
                 aria-haspopup="true"
                 aria-expanded={desktopServiceOpen}
               >
@@ -171,7 +189,7 @@ export default function Navbar() {
                     <Link
                       href={href}
                       className={dropdownLinkClass(href)}
-                      onClick={() => setDesktopServiceOpen(false)}
+                      onClick={closeDesktopServices}
                     >
                       {label}
                     </Link>
@@ -182,12 +200,12 @@ export default function Navbar() {
 
             <li>
               <Link href="/contact" className={linkClass("/contact")}>
-                CONTACT US
+                Contact Us
               </Link>
             </li>
             <li>
               <Link href="/blog" className={parentLinkClass("/blog")}>
-                BLOG
+                Blog
               </Link>
             </li>
           </ul>
@@ -236,19 +254,19 @@ export default function Navbar() {
         className={`fixed top-0 left-0 h-dvh w-full max-w-full bg-white z-50
         transform transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
         ${menuOpen ? "translate-x-0" : "-translate-x-full"}
-        xl:hidden flex flex-col overflow-y-auto overscroll-contain
+        lg:hidden flex flex-col overflow-y-auto overscroll-contain
         pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]`}
       >
         {/* TOP BAR */}
         <div className="flex items-center justify-between px-6 sm:px-8 pt-6 sm:pt-8 pb-3 shrink-0">
           <Link href={"/"}>
             <Image
-            src="/images/brand/fbs-prints-logo.webp"
-            alt="FBS Prints logo"
-            width={130}
-            height={50}
-            className="h-18 w-auto"
-          />
+              src="/images/brand/fbs-prints-logo.webp"
+              alt="FBS Prints logo"
+              width={130}
+              height={50}
+              className="h-10 w-auto"
+            />
           </Link>
           <button
             type="button"
@@ -276,7 +294,7 @@ export default function Navbar() {
               </li>
             ))}
 
-            {/* SERVICES ACCORDION — click only, single toggle */}
+            {/* SERVICES ACCORDION — mobile: click only, single toggle */}
             <li>
               <button
                 type="button"
