@@ -149,7 +149,7 @@ export default function Navbar() {
             </li>
             <li>
               <Link href="/about" className={linkClass("/about")}>
-                About Us
+                About
               </Link>
             </li>
 
@@ -199,15 +199,23 @@ export default function Navbar() {
             </li>
 
             <li>
-              <Link href="/contact" className={linkClass("/contact")}>
-                Contact Us
-              </Link>
-            </li>
-            <li>
               <Link href="/blog" className={parentLinkClass("/blog")}>
                 Blog
               </Link>
             </li>
+
+            <li>
+              <Link href="/our-work" className={parentLinkClass("/our-work")}>
+                Our Work
+              </Link>
+            </li>
+            
+            <li>
+              <Link href="/contact" className={linkClass("/contact")}>
+                Contact Us
+              </Link>
+            </li>
+
           </ul>
 
           {/* DESKTOP RIGHT */}
@@ -336,23 +344,34 @@ export default function Navbar() {
 
             <li>
               <Link
-                href="/contact"
-                onClick={() => setMenuOpen(false)}
-                className={`block py-2 text-lg sm:text-xl tracking-[0.10em] border-b border-black/[0.06] transition-colors duration-300
-                ${pathname === "/contact" ? "text-primary font-semibold" : "text-black"}`}
-              >
-                CONTACT US
-              </Link>
-            </li>
-
-            <li>
-              <Link
                 href="/blog"
                 onClick={() => setMenuOpen(false)}
                 className={`block py-2 text-lg sm:text-xl tracking-[0.10em] border-b border-black/[0.06] transition-colors duration-300
                 ${pathname === "/blog" ? "text-primary font-semibold" : "text-black"}`}
               >
                 BLOG
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="/our-work"
+                onClick={() => setMenuOpen(false)}
+                className={`block py-2 text-lg sm:text-xl tracking-[0.10em] border-b border-black/[0.06] transition-colors duration-300
+                ${pathname === "/our-work" ? "text-primary font-semibold" : "text-black"}`}
+              >
+                OUR WORK
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="/contact"
+                onClick={() => setMenuOpen(false)}
+                className={`block py-2 text-lg sm:text-xl tracking-[0.10em] border-b border-black/[0.06] transition-colors duration-300
+                ${pathname === "/contact" ? "text-primary font-semibold" : "text-black"}`}
+              >
+                CONTACT US
               </Link>
             </li>
           </ul>

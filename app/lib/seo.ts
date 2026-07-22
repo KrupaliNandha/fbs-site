@@ -8,6 +8,7 @@ export type PublicPagePath =
   | "/faq"
   | "/know-you"
   | "/privacy"
+  | "/our-work"
   | "/services/printing-products"
   | "/services/direct-mailing"
   | "/services/signage"
@@ -288,6 +289,22 @@ const pageSeo: Record<PublicPagePath, PageSeoConfig> = {
     breadcrumbs: [
       { name: "Home", path: "/" },
       { name: "SEO", path: "/services/seo" },
+    ],
+  },
+  "/our-work": {
+    title: "Our Work | FBS Signs Portfolio",
+    description: "Explore the FBS Signs portfolio of custom signs, printing, and branding solutions.",
+    keywords: [
+      "portfolio",
+      "our work",
+      "custom signs portfolio",
+      "printing projects",
+    ],
+    image: "/images/home/printing-branding-hero.webp",
+    schemaType: "CollectionPage",
+    breadcrumbs: [
+      { name: "Home", path: "/" },
+      { name: "Our Work", path: "/our-work" },
     ],
   },
 };
