@@ -147,7 +147,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
   return (
     <main className="bg-white mt-16">
       {/* ============================================================ */}
-      {/* SECTION 1 — HERO                                              */}
+      {/* SECTION 1  HERO                                              */}
       {/* ============================================================ */}
       <section className="mt-24 xl:mt-20 relative overflow-hidden">
         <div className="container">
@@ -250,7 +250,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 2 — SEO long-form content block                       */}
+      {/* SECTION 2  SEO long-form content block                       */}
       {/* ============================================================ */}
       {service.longContent && (
         <section className="container py-16">
@@ -274,7 +274,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       )}
 
       {/* ============================================================ */}
-      {/* SECTION 3 — BENEFITS                                          */}
+      {/* SECTION 3  BENEFITS                                          */}
       {/* ============================================================ */}
       {service.benefits && service.benefits.length > 0 && (
         <section className="container pb-16">
@@ -313,7 +313,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       )}
 
       {/* ============================================================ */}
-      {/* SECTION 4 — PROCESS                                           */}
+      {/* SECTION 4  PROCESS                                           */}
       {/* ============================================================ */}
       {service.process && service.process.length > 0 && (
         <section className="container py-16 sm:py-20">
@@ -363,7 +363,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       )}
 
       {/* ============================================================ */}
-      {/* SECTION 5 — USE CASES                                         */}
+      {/* SECTION 5  USE CASES                                         */}
       {/* ============================================================ */}
       {service.useCases && service.useCases.length > 0 && (
         <section className="container py-16 sm:py-20">
@@ -398,7 +398,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       )}
 
       {/* ============================================================ */}
-      {/* SECTION 6 — FAQ                                               */}
+      {/* SECTION 6  FAQ                                               */}
       {/* ============================================================ */}
       {service.faqs && service.faqs.length > 0 && (
         <section className="container pb-16">
@@ -416,7 +416,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       )}
 
       {/* ============================================================ */}
-      {/* SECTION 7 — CTA                                               */}
+      {/* SECTION 7  CTA                                               */}
       {/* ============================================================ */}
       <section className="container pb-16">
         <div className="rounded-3xl bg-primary-dark px-8 py-12 text-center text-white sm:px-12 sm:py-14">
@@ -438,7 +438,7 @@ export default function WebDesignDetails({ service }: { service: Service }) {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 8 — Explore More Services                             */}
+      {/* SECTION 8  Explore More Services                             */}
       {/* ============================================================ */}
       {relatedServices.length > 0 && (
         <section className="container py-16">

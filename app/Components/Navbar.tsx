@@ -16,7 +16,7 @@ export default function Navbar() {
 
   // Desktop Services menu supports BOTH interactions without conflict:
   // - hoverOpen: true while the mouse is over the menu (hover-to-preview)
-  // - clickLocked: true after a click — "pins" the menu open even if the mouse leaves,
+  // - clickLocked: true after a click  "pins" the menu open even if the mouse leaves,
   //   until it's clicked again, a link is chosen, or the user clicks outside.
   const [hoverOpen, setHoverOpen] = useState(false);
   const [clickLocked, setClickLocked] = useState(false);
@@ -27,7 +27,7 @@ export default function Navbar() {
 
   // Robust cross-browser scroll lock while the mobile menu is open.
   // Plain `overflow: hidden` on the body does NOT stop background scroll/rubber-banding
-  // on iOS Safari — locking with `position: fixed` + restoring scroll position does.
+  // on iOS Safari  locking with `position: fixed` + restoring scroll position does.
   useEffect(() => {
     if (menuOpen) {
       scrollYRef.current = window.scrollY;
@@ -57,7 +57,7 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
-  // Close the desktop dropdown on outside click — only matters once it's click-locked open,
+  // Close the desktop dropdown on outside click  only matters once it's click-locked open,
   // since hover already closes itself on mouse-leave.
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -153,7 +153,7 @@ export default function Navbar() {
               </Link>
             </li>
 
-            {/* SERVICES MEGA MENU — desktop: hover AND click both work */}
+            {/* SERVICES MEGA MENU  desktop: hover AND click both work */}
             <li
               className="relative"
               ref={desktopDropdownRef}
@@ -302,7 +302,7 @@ export default function Navbar() {
               </li>
             ))}
 
-            {/* SERVICES ACCORDION — mobile: click only, single toggle */}
+            {/* SERVICES ACCORDION  mobile: click only, single toggle */}
             <li>
               <button
                 type="button"

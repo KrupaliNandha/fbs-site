@@ -237,7 +237,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               </span>
 
               <h1 className="font-extrabold leading-tight tracking-tight text-4xl sm:text-5xl md:text-6xl mb-6">
-                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                   {service.title}
                 </span>
               </h1>
@@ -385,7 +385,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 >
                   <div className="flex items-center gap-3 mb-3">
                     {OtherIcon && (
-                      <div className="w-10 h-10 shrink-0 rounded-lg bg-gradient-to-br from-primary to-primary flex items-center justify-center text-white">
+                      <div className="w-10 h-10 shrink-0 rounded-lg bg-linear-to-br from-primary to-primary flex items-center justify-center text-white">
                         <OtherIcon className="w-5 h-5" />
                       </div>
                     )}
@@ -414,7 +414,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           <p className="text-center text-xl md:text-2xl font-medium text-primary-dark/80 leading-relaxed pt-8">
             Whether you are starting from scratch or looking to outrank established competitors,{" "}
             <span className="font-semibold text-primary-dark">FBS Signs</span>{" "}
-            builds an SEO strategy around your business goals — not a generic template. Contact us for a free audit and let us show you exactly where you stand.
+            builds an SEO strategy around your business goals  not a generic template. Contact us for a free audit and let us show you exactly where you stand.
           </p>
           <div className="flex justify-center mt-8">
             <Link

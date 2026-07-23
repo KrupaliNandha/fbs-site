@@ -268,10 +268,10 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <main className="bg-gradient-to-br from-white via-white to-primary-light/10 min-h-screen">
+      <main className="bg-linear-to-br from-white via-white to-primary-light/10 min-h-screen">
 
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary-dark to-primary-dark text-white xl:pt-28 pt-20 pb-20 relative overflow-hidden">
+        <section className="bg-linear-to-br from-primary-dark to-primary-dark text-white xl:pt-28 pt-20 pb-20 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-dark/20 rounded-full blur-3xl" />
 
@@ -289,7 +289,7 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
               <div>
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight mb-6">
                   Signage, Printing &amp; SEO in <br />
-                  <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+                  <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                     {area.name}, IL
                   </span>
                 </h1>
@@ -352,7 +352,7 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
 
         {/* AI & Search Engine Optimization Answer Box (AEO/GEO Section) */}
         <section className="container py-12 px-4 max-w-5xl mx-auto">
-          <div className="bg-gradient-to-br from-primary-light/60 via-white to-primary-light/40 rounded-3xl p-8 md:p-10 border border-primary-light/80 shadow-md">
+          <div className="bg-linear-to-br from-primary-light/60 via-white to-primary-light/40 rounded-3xl p-8 md:p-10 border border-primary-light/80 shadow-md">
             <div className="flex items-center gap-3 mb-6">
               <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary-light text-primary font-bold text-sm">
                 ✨
@@ -576,7 +576,7 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
 
         {/* CTA Section */}
         <section className="container py-12 px-4 mb-16">
-          <div className="bg-gradient-to-r from-primary to-primary-dark rounded-3xl px-6 py-12 text-white text-center max-w-5xl mx-auto shadow-xl">
+          <div className="bg-linear-to-r from-primary to-primary-dark rounded-3xl px-6 py-12 text-white text-center max-w-5xl mx-auto shadow-xl">
             <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">
               Ready to Grow Your Presence in {area.name}?
             </h2>

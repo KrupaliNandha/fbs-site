@@ -69,7 +69,7 @@ export default function Page() {
     <>
       <main>
         {/* Section - 1 */}
-        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
+        <section className="bg-linear-to-br mt-24 xl:mt-20 from-white to-primary-light">
           <div className="container">
             <div className="mx-auto">
               <p className="text-primary-dark/70">
@@ -265,7 +265,7 @@ export default function Page() {
               className="text-primary text-center text-4xl md:text-5xl font-bold mb-12"
             >
               How{" "}
-              <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                 {" "}
                 Does This
               </span>{" "}
@@ -313,7 +313,7 @@ export default function Page() {
             <div className="text-center mb-10">
               <h2 className="text-5xl font-bold text-primary">
                 FBS{" "}
-                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                   PRINTS
                 </span>
               </h2>

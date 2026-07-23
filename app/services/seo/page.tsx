@@ -194,7 +194,7 @@ export default function Page() {
     <>
       <main>
         {/* Section - 1 */}
-        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
+        <section className="bg-linear-to-br mt-24 xl:mt-20 from-white to-primary-light">
           <div className="container">
             <div className="mx-auto">
               <p className="text-primary-dark/70 text-lg">
@@ -318,7 +318,7 @@ export default function Page() {
                 className="group rounded-2xl p-6 bg-white hover:shadow-xl transition duration-300 flex flex-col h-full cursor-pointer"
               >
                 <div className="flex flex-col sm:flex-row items-center gap-4 mb-5">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-primary to-primary flex items-center justify-center text-white shadow-md transition-transform duration-300 group-hover:scale-110">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-linear-to-br from-primary to-primary flex items-center justify-center text-white shadow-md transition-transform duration-300 group-hover:scale-110">
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -376,7 +376,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Section - 5 — STATS BAND */}
+        {/* Section - 5  STATS BAND */}
         <section className="container section-padding">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
             {seoStats.map((stat, i) => (
@@ -397,7 +397,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Section - 6 — OUR PROCESS */}
+        {/* Section - 6  OUR PROCESS */}
         <section className="container section-padding">
           <div className="text-center mx-auto mb-14">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary-dark">
@@ -430,7 +430,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Section - 7 — BENEFITS */}
+        {/* Section - 7  BENEFITS */}
         <section className="bg-primary-light/40 py-16 sm:py-20">
           <div className="container">
             <div className="text-center max-w-3xl mx-auto mb-12">
@@ -472,7 +472,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Section - 8 — FAQ */}
+        {/* Section - 8  FAQ */}
         <section className="container section-padding">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
@@ -501,7 +501,7 @@ export default function Page() {
               Whether you are starting from scratch or looking to outrank
               established competitors,{" "}
               <span className="font-semibold text-primary-dark">FBS Signs</span>{" "}
-              builds an SEO strategy around your business goals — not a generic
+              builds an SEO strategy around your business goals  not a generic
               template. Contact us for a free audit and let us show you exactly
               where you stand.
             </p>

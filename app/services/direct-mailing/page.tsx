@@ -149,7 +149,7 @@ export default function DirectMailingPage() {
     <>
       <main>
         {/* Section 1: Hero Section */}
-        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-rose-50 via-white to-primary-light">
+        <section className="bg-linear-to-br mt-24 xl:mt-20 from-rose-50 via-white to-primary-light">
           <div className="container py-10 sm:py-16 md:py-20 lg:py-24">
             <p className="text-sm text-primary-dark/70 sm:text-lg">
               <Link href="/" className="text-primary">
@@ -322,7 +322,7 @@ export default function DirectMailingPage() {
 
         {/* Section 2.5: Direct Mail Performance Statistics & Industry Data */}
         <section className="px-4 sm:px-6 my-8 sm:my-12" data-aos="fade-up">
-          <div className="mx-auto max-w-7xl rounded-[24px] sm:rounded-[32px] bg-gradient-to-br from-primary-dark via-primary-dark to-primary-dark text-white p-6 sm:p-10 md:p-16 shadow-2xl relative overflow-hidden">
+          <div className="mx-auto max-w-7xl rounded-[24px] sm:rounded-[32px] bg-linear-to-br from-primary-dark via-primary-dark to-primary-dark text-white p-6 sm:p-10 md:p-16 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
             <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
 
@@ -387,7 +387,7 @@ export default function DirectMailingPage() {
           </div>
         </section>
 
-        {/* Section 3: Direct Mail Format Examples — now sourced from JSON + linked to /[slug] */}
+        {/* Section 3: Direct Mail Format Examples  now sourced from JSON + linked to /[slug] */}
         <section className="bg-primary-light/40 py-10 sm:py-16 md:py-24">
           <div className="container">
             <div className="mx-auto mb-10 sm:mb-16 max-w-3xl text-center" data-aos="fade-up">
@@ -499,7 +499,7 @@ export default function DirectMailingPage() {
         </section>
 
         {/* Section 5: Industries we serve */}
-        <section className="bg-gradient-to-br from-primary-light via-white to-primary-light py-10 sm:py-16 md:py-24">
+        <section className="bg-linear-to-br from-primary-light via-white to-primary-light py-10 sm:py-16 md:py-24">
           <div className="container">
             <div className="mx-auto mb-10 sm:mb-16 max-w-3xl text-center" data-aos="fade-up">
               <span className="mb-2 block text-xs sm:text-sm font-semibold uppercase tracking-widest text-primary">
@@ -686,7 +686,7 @@ export default function DirectMailingPage() {
                   </div>
 
                   {/* Price Projection Output */}
-                  <div className="rounded-2xl border border-primary-light bg-gradient-to-br from-white to-primary-light/40 p-5">
+                  <div className="rounded-2xl border border-primary-light bg-linear-to-br from-white to-primary-light/40 p-5">
                     <div className="flex items-center justify-between gap-4">
                       <span className="text-sm font-medium text-primary-dark/70">
                         Est. Unit Cost (Print + Mail)

@@ -257,7 +257,7 @@ export default function Page() {
                   className="object-cover rounded-t-[32px] lg:rounded-r-[32px] lg:rounded-t-none"
                 />
 
-                <div className="absolute inset-0 rounded-t-[32px] lg:rounded-r-[32px] lg:rounded-t-none bg-gradient-to-l from-black/50 to-transparent"></div>
+                <div className="absolute inset-0 rounded-t-[32px] lg:rounded-r-[32px] lg:rounded-t-none bg-linear-to-l from-black/50 to-transparent"></div>
               </div>
             </div>
           </div>

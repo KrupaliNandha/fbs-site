@@ -71,7 +71,7 @@ export default function Footer() {
       </section>
 
       {/* ===== FOOTER MAIN ===== */}
-      <section className="relative bg-gradient-to-br from-primary-light to-primary-light">
+      <section className="relative bg-linear-to-br from-primary-light to-primary-light">
         <div className="p-5 section-padding">
           {/* Glass Card */}
           <div className="backdrop-blur-xl bg-white/70 rounded-3xl shadow-2xl p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">

@@ -173,7 +173,7 @@ function buildHeroCaption(format: MailFormat): string {
 function buildWhyItMattersCopy(format: MailFormat): string {
   const stock = format.paperStock[0]?.toLowerCase() ?? "premium stock";
   const mailClass = format.mailClass[0];
-  return `${format.title} built on ${stock} hold up in the mailbox and in the hand, which matters more than most people expect — a flimsy piece reads as a flimsy brand. We produce every run on ${mailClass} timelines your campaign can actually plan around, with a ${format.turnaround.toLowerCase()} turnaround so a seasonal push doesn't stall in production. Because everything is printed and finished in-house, changes to quantity, stock, or finishing don't mean starting the quote over.`;
+  return `${format.title} built on ${stock} hold up in the mailbox and in the hand, which matters more than most people expect  a flimsy piece reads as a flimsy brand. We produce every run on ${mailClass} timelines your campaign can actually plan around, with a ${format.turnaround.toLowerCase()} turnaround so a seasonal push doesn't stall in production. Because everything is printed and finished in-house, changes to quantity, stock, or finishing don't mean starting the quote over.`;
 }
 
 // Short, single-line "What's included" statements.
@@ -298,7 +298,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
         />
       ) : null}
       {/* ============================================================ */}
-      {/* SECTION 1 — HERO                                              */}
+      {/* SECTION 1  HERO                                              */}
       {/* ============================================================ */}
       <section className="mt-24 xl:mt-20">
         <div className="container">
@@ -362,7 +362,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
               </span>
 
               <h1 className="font-extrabold leading-tight tracking-tight text-4xl sm:text-5xl md:text-6xl mb-6">
-                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                   {format.title}
                 </span>
               </h1>
@@ -398,7 +398,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 2 — Quick facts strip                                 */}
+      {/* SECTION 2  Quick facts strip                                 */}
       {/* ============================================================ */}
       <section className="container pb-16 pt-16">
         <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-primary-light bg-primary-light sm:grid-cols-4">
@@ -428,10 +428,10 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 3 — Why This Format Matters                           */}
+      {/* SECTION 3  Why This Format Matters                           */}
       {/* ============================================================ */}
       <section className="container pb-16">
-        <div className="relative rounded-3xl border border-primary-light bg-gradient-to-br from-primary-light via-white to-primary-light px-6 py-10 sm:px-10 sm:py-12 overflow-hidden shadow-sm">
+        <div className="relative rounded-3xl border border-primary-light bg-linear-to-br from-primary-light via-white to-primary-light px-6 py-10 sm:px-10 sm:py-12 overflow-hidden shadow-sm">
           <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-primary-light rounded-full blur-3xl opacity-40 z-0" />
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary-light rounded-full blur-3xl opacity-40 z-0" />
 
@@ -454,7 +454,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
               {/* Card 1: Paper Stock */}
               <div className="rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-xl shadow-primary-light p-6 sm:p-8 hover:-translate-y-1 transition-transform duration-300">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-light to-primary-light flex items-center justify-center shadow-sm">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-primary-light to-primary-light flex items-center justify-center shadow-sm">
                     <Layers className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold text-primary-dark">
@@ -477,7 +477,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
               {/* Card 2: Mail Class */}
               <div className="rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-xl shadow-primary-light p-6 sm:p-8 hover:-translate-y-1 transition-transform duration-300">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-light to-primary-light flex items-center justify-center shadow-sm">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-primary-light to-primary-light flex items-center justify-center shadow-sm">
                     <Sparkles className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold text-primary-dark">
@@ -501,7 +501,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
               {format.specs.length > 0 && (
                 <div className="rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-xl shadow-primary-light p-6 sm:p-8 sm:col-span-2 lg:col-span-1 hover:-translate-y-1 transition-transform duration-300">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-light to-primary-light flex items-center justify-center shadow-sm">
+                    <div className="w-12 h-12 rounded-xl bg-linear-to-br from-primary-light to-primary-light flex items-center justify-center shadow-sm">
                       <Tag className="h-6 w-6 text-primary" />
                     </div>
                     <h3 className="text-lg font-bold text-primary-dark">
@@ -531,7 +531,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 4 — FAQ + CTA banner                                  */}
+      {/* SECTION 4  FAQ + CTA banner                                  */}
       {/* ============================================================ */}
       {format.faqs?.length > 0 && (
         <section className="container pb-16">
@@ -589,7 +589,7 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
       </section>
 
       {/* ============================================================ */}
-      {/* SECTION 5 — Explore More Formats                              */}
+      {/* SECTION 5  Explore More Formats                              */}
       {/* ============================================================ */}
       {related.length > 0 && (
         <section className="container py-16">

@@ -30,7 +30,7 @@ export default function HomeContactSection() {
       <FloatingToast submissionState={toastState} visible={showToast} />
       <section className="container section-padding">
         <div className="grid grid-cols-1 lg:grid-cols-3 rounded-3xl shadow-xl overflow-hidden">
-          <div className="relative text-white flex flex-col justify-center gap-6 p-8 sm:p-10 z-0 bg-gradient-to-br from-primary-dark via-primary-dark to-primary-dark">
+          <div className="relative text-white flex flex-col justify-center gap-6 p-8 sm:p-10 z-0 bg-linear-to-br from-primary-dark via-primary-dark to-primary-dark">
             {/* full-strength photo, darkened by the overlay below rather than faded via opacity */}
             <Image
               src="/images/home/contact-section-background.webp"
@@ -101,7 +101,7 @@ export default function HomeContactSection() {
                 Contact Us If You Need A Custom
                 <span className="block text-primary">
                   Design{" "}
-                  <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+                  <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                     Without
                   </span>{" "}
                   Delay!

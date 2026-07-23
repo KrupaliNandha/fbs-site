@@ -101,9 +101,9 @@ export default async function ServiceAreasListingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webpageSchema) }}
       />
 
-      <main className="bg-gradient-to-br from-white via-white to-primary-light/20 min-h-screen">
+      <main className="bg-linear-to-br from-white via-white to-primary-light/20 min-h-screen">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary-dark to-primary-dark text-white xl:pt-28 pt-20 pb-20 relative overflow-hidden">
+        <section className="bg-linear-to-br from-primary-dark to-primary-dark text-white xl:pt-28 pt-20 pb-20 relative overflow-hidden">
           {/* Visual Accents */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
           <div className="absolute -bottom-10 -left-10 w-96 h-96 bg-primary-dark/20 rounded-full blur-3xl" />
@@ -117,7 +117,7 @@ export default async function ServiceAreasListingPage() {
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-6">
               Service Areas We Serve <br />
-              <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                 In Illinois
               </span>
             </h1>
@@ -166,7 +166,7 @@ export default async function ServiceAreasListingPage() {
 
         {/* CTA Section */}
         <section className="container py-12 px-4 mb-12">
-          <div className="bg-gradient-to-r from-primary to-primary-dark rounded-3xl px-6 py-12 text-white text-center max-w-5xl mx-auto shadow-xl">
+          <div className="bg-linear-to-r from-primary to-primary-dark rounded-3xl px-6 py-12 text-white text-center max-w-5xl mx-auto shadow-xl">
             <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">
               Operating Outside of These Cities?
             </h2>

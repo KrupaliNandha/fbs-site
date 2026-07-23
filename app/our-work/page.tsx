@@ -64,7 +64,7 @@ export default function OurWorkPage() {
   return (
     <main>
       {/* Section - 1 (Hero, matches About page structure) */}
-      <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
+      <section className="bg-linear-to-br mt-24 xl:mt-20 from-white to-primary-light">
         <div className="container">
           <div className="mx-auto">
             <p className="text-primary-dark/70">
@@ -167,7 +167,7 @@ export default function OurWorkPage() {
               data-aos-delay={(index % 3) * 100}
               className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col"
             >
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-4/3 overflow-hidden">
                 <Image
                   src={item.coverImage}
                   alt={item.title}
@@ -179,11 +179,11 @@ export default function OurWorkPage() {
                 <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-colors duration-300" />
               </div>
 
-              <div className="p-6 flex-grow flex flex-col">
+              <div className="p-6 grow flex flex-col">
                 <h3 className="text-xl font-bold text-primary-dark group-hover:text-primary transition-colors duration-300 mb-3">
                   {item.title}
                 </h3>
-                <p className="text-primary-dark/70 text-sm line-clamp-3 mb-6 flex-grow">
+                <p className="text-primary-dark/70 text-sm line-clamp-3 mb-6 grow">
                   {item.description}
                 </p>
                 <div className="inline-flex items-center gap-2 text-primary font-bold text-sm transition-colors mt-auto">

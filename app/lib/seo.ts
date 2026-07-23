@@ -55,7 +55,7 @@ export const siteConfig = {
     { city: "Naperville", stateCode: "IL" },
     { city: "Schaumburg", stateCode: "IL" },
   ],
-  // Add actual social profile URLs here when available — placeholder root domains hurt entity resolution
+  // Add actual social profile URLs here when available  placeholder root domains hurt entity resolution
   sameAs: [] as string[],
 } as const;
 

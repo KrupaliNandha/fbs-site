@@ -24,14 +24,14 @@ export default function PreloaderWrapper({
   const routeKey = `${pathname}?${searchParams.toString()}`;
 
   useEffect(() => {
-    // Skip re-triggering on the very first mount —
+    // Skip re-triggering on the very first mount 
     // isLoading is already true by default for the initial load.
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
 
-    // Route changed (client-side navigation) — force a fresh Preloader
+    // Route changed (client-side navigation)  force a fresh Preloader
     // instance every time, even if isLoading was already true.
     setIsLoading(true);
     setNavKey((prev) => prev + 1);

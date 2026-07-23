@@ -70,7 +70,7 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
 
   return (
     <main className="bg-primary-light/40 min-h-screen">
-      <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
+      <section className="bg-linear-to-br mt-24 xl:mt-20 from-white to-primary-light">
         <div className="container">
           <p className="text-primary-dark/70 text-lg flex flex-wrap items-center">
             <Link href="/" className="text-primary">

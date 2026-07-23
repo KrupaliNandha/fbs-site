@@ -88,7 +88,7 @@
       "Built with Acrylic / Aluminum / PVC for lasting durability",
       "Backed by our 3 year workmanship"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 10-15 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 10-15 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom 2D & 3D Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -130,6 +130,24 @@
         "author": "Sarah K.",
         "role": "Corporate Office Director",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Strengthens brand visibility and recognition",
+      "Built for durability in real-world conditions",
+      "Backed by an in-house team from design through installation",
+      "Customizable to fit your exact branding and space"
+    ],
+    "glossary": [
+      {
+        "term": "Sign Code",
+        "definition": "Local municipal regulations governing sign size, placement, and illumination that a project must comply with before installation."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Permitting timelines vary by municipality",
+        "detail": "Local permitting can add meaningfully to your project timeline  worth confirming early with your sign provider."
       }
     ]
   },
@@ -222,7 +240,7 @@
       "Built with Aluminum returns with acrylic face for lasting durability",
       "Backed by our 2 year LED & workmanship"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-18 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-18 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Back Lit Reverse Channel Letters? Get a free design consultation today.",
     "specTable": [
       {
@@ -265,6 +283,36 @@
         "role": "Franchisee",
         "rating": 5
       }
+    ],
+    "keyBenefits": [
+      "Maximizes 24/7 brand visibility with even, code-compliant illumination",
+      "Builds instant brand recognition through custom fonts, colors, and shapes",
+      "Engineered for outdoor durability across seasons and weather extremes",
+      "Helps drive walk-in traffic by making your storefront easy to spot from the road"
+    ],
+    "glossary": [
+      {
+        "term": "Trim Cap",
+        "definition": "The plastic edge strip that caps the seam between a channel letter's face and its metal return, framing the illuminated face."
+      },
+      {
+        "term": "Return Depth",
+        "definition": "The depth of the metal sides of a channel letter, which affects how far the sign projects off the wall and how light disperses."
+      },
+      {
+        "term": "Raceway",
+        "definition": "A metal enclosure mounted to the wall that houses wiring and electrical components for a set of channel letters, simplifying installation."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Font and color consistency matters",
+        "detail": "Matching your letters exactly to your brand guidelines helps customers recognize your storefront at a glance, even from a distance."
+      },
+      {
+        "insight": "Illumination type affects mood",
+        "detail": "Front-lit, halo-lit, and combination-lit letters all create a different visual impression  worth testing against your brand personality before finalizing."
+      }
     ]
   },
   {
@@ -281,7 +329,7 @@
       "/images/OurWork_Products/Behind_the_Scenes/Behind_the_Scenes_5.webp"
     ],
     "link": "/our-work/behind-the-scenes",
-    "description": "A look inside our shop floor — fabrication, welding, painting and installation crews at work building the signs in this gallery from raw material to finished install.",
+    "description": "A look inside our shop floor  fabrication, welding, painting and installation crews at work building the signs in this gallery from raw material to finished install.",
     "features": [
       "Fabrication process",
       "In-house paint & finishing",
@@ -352,7 +400,7 @@
       "Licensed, insured installation crews",
       "Quality-checked before every install"
     ],
-    "pricingNote": "Every project is quoted individually based on scope — reach out for a walkthrough of our process and a free estimate.",
+    "pricingNote": "Every project is quoted individually based on scope  reach out for a walkthrough of our process and a free estimate.",
     "cta": "Curious how your sign gets built? Schedule a shop tour or request a free consultation today.",
     "specTable": [],
     "testimonials": [
@@ -374,6 +422,24 @@
         "role": "Business Owner",
         "rating": 5
       }
+    ],
+    "keyBenefits": [
+      "Demonstrates the craftsmanship and quality control behind every project",
+      "Builds client confidence through transparency in our process",
+      "Shows the in-house capabilities that keep projects on schedule",
+      "Highlights the licensed, insured teams behind every installation"
+    ],
+    "glossary": [
+      {
+        "term": "CNC Routing",
+        "definition": "A computer-controlled cutting process used to precisely shape letters, panels, and sign components from sheet material."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "In-house fabrication reduces risk",
+        "detail": "Projects that stay in one shop from design to install typically face fewer delays than those juggling multiple subcontractors."
+      }
     ]
   },
   {
@@ -389,7 +455,7 @@
       "/images/OurWork_Products/Blade_Signs/Blade_Signs_4.webp"
     ],
     "link": "/our-work/blade-signs",
-    "description": "Double-sided projecting signs mounted perpendicular to a building so pedestrians and passing traffic can read them from either direction — a staple for walkable retail strips.",
+    "description": "Double-sided projecting signs mounted perpendicular to a building so pedestrians and passing traffic can read them from either direction  a staple for walkable retail strips.",
     "features": [
       "Double-sided visibility",
       "Perpendicular wall mount",
@@ -425,7 +491,7 @@
       },
       {
         "q": "Do I need a permit for a blade sign?",
-        "a": "Most municipalities require a permit for projecting signs — we handle permitting as part of the install."
+        "a": "Most municipalities require a permit for projecting signs  we handle permitting as part of the install."
       },
       {
         "q": "How far do blade signs project from the building?",
@@ -465,7 +531,7 @@
       "Built with Aluminum / Acrylic for lasting durability",
       "Backed by our 2 year workmanship"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 8-12 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 8-12 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Blade Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -491,7 +557,7 @@
     ],
     "testimonials": [
       {
-        "quote": "Foot traffic noticeably picked up after we installed the blade sign — people can finally spot us from the sidewalk.",
+        "quote": "Foot traffic noticeably picked up after we installed the blade sign  people can finally spot us from the sidewalk.",
         "author": "Marcus T.",
         "role": "Clinic Owner",
         "rating": 5
@@ -507,6 +573,24 @@
         "author": "Alex T.",
         "role": "Marketing Director",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Strengthens brand visibility and recognition",
+      "Built for durability in real-world conditions",
+      "Backed by an in-house team from design through installation",
+      "Customizable to fit your exact branding and space"
+    ],
+    "glossary": [
+      {
+        "term": "Sign Code",
+        "definition": "Local municipal regulations governing sign size, placement, and illumination that a project must comply with before installation."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Permitting timelines vary by municipality",
+        "detail": "Local permitting can add meaningfully to your project timeline  worth confirming early with your sign provider."
       }
     ]
   },
@@ -599,7 +683,7 @@
       "Built with Aluminum cabinet with acrylic face for lasting durability",
       "Backed by our 3 year workmanship, 2 year LED"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-20 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-20 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Box Sign / Sign Cabinet? Get a free design consultation today.",
     "specTable": [
       {
@@ -641,6 +725,36 @@
         "author": "Jordan M.",
         "role": "Store Manager",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Delivers maximum street-level visibility for drive-by and highway traffic",
+      "Supports large-format branding that stays readable from a distance",
+      "Built to withstand wind, sun, and weather for years of reliable use",
+      "Reinforces a professional, established brand presence at your property entrance"
+    ],
+    "glossary": [
+      {
+        "term": "Sign Cabinet",
+        "definition": "An enclosed, internally illuminated box structure with a printed or routed face, commonly used for large-format storefront branding."
+      },
+      {
+        "term": "Monument Base",
+        "definition": "The solid ground-level structure a freestanding sign sits on, often built from masonry, metal, or foam to match the building facade."
+      },
+      {
+        "term": "Multi-Tenant Panel",
+        "definition": "An individual, swappable sign panel on a shared structure that lists one business among several at a shared property."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Visibility distance drives sizing",
+        "detail": "The right sign size depends on posted speed limits and viewing distance, not just how large your building allows."
+      },
+      {
+        "insight": "Multi-tenant signs need a plan for change",
+        "detail": "If tenants may change over time, a swappable panel system saves significant cost versus rebuilding the whole structure later."
       }
     ]
   },
@@ -734,7 +848,7 @@
       "Built with Vinyl fabric / Aluminum frame for lasting durability",
       "Backed by our 5 year fabric, 2 year frame"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 14-21 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 14-21 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Canopies & Awnings? Get a free design consultation today.",
     "specTable": [
       {
@@ -776,6 +890,24 @@
         "author": "Taylor R.",
         "role": "Facilities Director",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Adds architectural character and brand presence to your building",
+      "Improves comfort and visibility at entrances and walkways",
+      "Built to hold up against wind, rain, and UV exposure",
+      "Reinforces brand consistency across your building exterior"
+    ],
+    "glossary": [
+      {
+        "term": "Halo Lighting",
+        "definition": "A lighting technique where light projects onto the wall behind a sign rather than through its face, creating a soft glow around the edges."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Material choice affects long-term upkeep",
+        "detail": "Fabric components generally need reprinting sooner than metal or acrylic, which is worth factoring into your long-term budget."
       }
     ]
   },
@@ -868,7 +1000,7 @@
       "Built with Aluminum with acrylic face for lasting durability",
       "Backed by our 2 year LED & workmanship"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-18 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-18 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Combination-Lit Channel Letters? Get a free design consultation today.",
     "specTable": [
       {
@@ -894,7 +1026,7 @@
     ],
     "testimonials": [
       {
-        "quote": "The two-tone glow effect is exactly what we pictured — it stands out day and night without looking over the top.",
+        "quote": "The two-tone glow effect is exactly what we pictured  it stands out day and night without looking over the top.",
         "author": "Leah S.",
         "role": "Retail Director",
         "rating": 5
@@ -910,6 +1042,36 @@
         "author": "Casey L.",
         "role": "Franchisee",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Maximizes 24/7 brand visibility with even, code-compliant illumination",
+      "Builds instant brand recognition through custom fonts, colors, and shapes",
+      "Engineered for outdoor durability across seasons and weather extremes",
+      "Helps drive walk-in traffic by making your storefront easy to spot from the road"
+    ],
+    "glossary": [
+      {
+        "term": "Trim Cap",
+        "definition": "The plastic edge strip that caps the seam between a channel letter's face and its metal return, framing the illuminated face."
+      },
+      {
+        "term": "Return Depth",
+        "definition": "The depth of the metal sides of a channel letter, which affects how far the sign projects off the wall and how light disperses."
+      },
+      {
+        "term": "Raceway",
+        "definition": "A metal enclosure mounted to the wall that houses wiring and electrical components for a set of channel letters, simplifying installation."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Font and color consistency matters",
+        "detail": "Matching your letters exactly to your brand guidelines helps customers recognize your storefront at a glance, even from a distance."
+      },
+      {
+        "insight": "Illumination type affects mood",
+        "detail": "Front-lit, halo-lit, and combination-lit letters all create a different visual impression  worth testing against your brand personality before finalizing."
       }
     ]
   },
@@ -1002,7 +1164,7 @@
       "Built with Aluminum / Acrylic for lasting durability",
       "Backed by our 3 year workmanship, 2 year LED"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-18 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-18 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Custom Channel Letters? Get a free design consultation today.",
     "specTable": [
       {
@@ -1044,6 +1206,36 @@
         "author": "Morgan S.",
         "role": "Business Owner",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Maximizes 24/7 brand visibility with even, code-compliant illumination",
+      "Builds instant brand recognition through custom fonts, colors, and shapes",
+      "Engineered for outdoor durability across seasons and weather extremes",
+      "Helps drive walk-in traffic by making your storefront easy to spot from the road"
+    ],
+    "glossary": [
+      {
+        "term": "Trim Cap",
+        "definition": "The plastic edge strip that caps the seam between a channel letter's face and its metal return, framing the illuminated face."
+      },
+      {
+        "term": "Return Depth",
+        "definition": "The depth of the metal sides of a channel letter, which affects how far the sign projects off the wall and how light disperses."
+      },
+      {
+        "term": "Raceway",
+        "definition": "A metal enclosure mounted to the wall that houses wiring and electrical components for a set of channel letters, simplifying installation."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Font and color consistency matters",
+        "detail": "Matching your letters exactly to your brand guidelines helps customers recognize your storefront at a glance, even from a distance."
+      },
+      {
+        "insight": "Illumination type affects mood",
+        "detail": "Front-lit, halo-lit, and combination-lit letters all create a different visual impression  worth testing against your brand personality before finalizing."
       }
     ]
   },
@@ -1136,7 +1328,7 @@
       "Built with Acrylic / Metal for lasting durability",
       "Backed by our 2 year LED & workmanship"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 10-15 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 10-15 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Custom Illuminated Interior Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -1179,6 +1371,32 @@
         "role": "Marketing Director",
         "rating": 5
       }
+    ],
+    "keyBenefits": [
+      "Creates a strong first impression the moment visitors walk in",
+      "Reinforces brand consistency throughout your space",
+      "Supports wayfinding and a more professional guest experience",
+      "Adds a premium, finished look without major construction"
+    ],
+    "glossary": [
+      {
+        "term": "Standoff Mount",
+        "definition": "A hardware system that holds a sign a short distance off the wall, creating a shadow gap for a dimensional, raised look."
+      },
+      {
+        "term": "Edge-Lit Panel",
+        "definition": "An acrylic panel illuminated from its edges rather than from behind, producing an evenly glowing sign face."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Lighting changes perceived quality",
+        "detail": "The same logo looks noticeably more premium when it's dimensional or backlit versus flat-printed."
+      },
+      {
+        "insight": "Consistency across rooms builds trust",
+        "detail": "A coordinated interior signage system (not just a lobby logo) reinforces professionalism throughout a visitor's whole experience."
+      }
     ]
   },
   {
@@ -1194,7 +1412,7 @@
       "/images/OurWork_Products/Custom_Interior_Signs/Custom_Interior_Signs_4.webp"
     ],
     "link": "/our-work/custom-interior-signs",
-    "description": "Non-illuminated dimensional and printed interior signage — lobby logos, directional plaques, and wall displays built to match your interior design.",
+    "description": "Non-illuminated dimensional and printed interior signage  lobby logos, directional plaques, and wall displays built to match your interior design.",
     "features": [
       "Dimensional or flat-cut lettering",
       "Matches interior finishes",
@@ -1270,7 +1488,7 @@
       "Built with Acrylic / PVC / Metal for lasting durability",
       "Backed by our 2 year workmanship"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 7-12 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 7-12 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Custom Interior Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -1313,6 +1531,32 @@
         "role": "Store Manager",
         "rating": 5
       }
+    ],
+    "keyBenefits": [
+      "Creates a strong first impression the moment visitors walk in",
+      "Reinforces brand consistency throughout your space",
+      "Supports wayfinding and a more professional guest experience",
+      "Adds a premium, finished look without major construction"
+    ],
+    "glossary": [
+      {
+        "term": "Standoff Mount",
+        "definition": "A hardware system that holds a sign a short distance off the wall, creating a shadow gap for a dimensional, raised look."
+      },
+      {
+        "term": "Edge-Lit Panel",
+        "definition": "An acrylic panel illuminated from its edges rather than from behind, producing an evenly glowing sign face."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Lighting changes perceived quality",
+        "detail": "The same logo looks noticeably more premium when it's dimensional or backlit versus flat-printed."
+      },
+      {
+        "insight": "Consistency across rooms builds trust",
+        "detail": "A coordinated interior signage system (not just a lobby logo) reinforces professionalism throughout a visitor's whole experience."
+      }
     ]
   },
   {
@@ -1328,7 +1572,7 @@
       "/images/OurWork_Products/Dimensional_Letters_Interior_Signs/Dimensional_Letters_Interior_Signs_4.webp"
     ],
     "link": "/our-work/dimensional-letters-interior-signs",
-    "description": "Raised, dimensional letters mounted with standoffs to create shadow and depth on an interior wall — the classic lobby logo treatment.",
+    "description": "Raised, dimensional letters mounted with standoffs to create shadow and depth on an interior wall  the classic lobby logo treatment.",
     "features": [
       "Standoff or flush mount",
       "Brushed metal, acrylic or foam",
@@ -1404,7 +1648,7 @@
       "Built with Brushed metal / Acrylic for lasting durability",
       "Backed by our 2 year workmanship"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 10-15 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 10-15 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Dimensional Letters Interior Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -1447,6 +1691,32 @@
         "role": "Facilities Director",
         "rating": 5
       }
+    ],
+    "keyBenefits": [
+      "Creates a strong first impression the moment visitors walk in",
+      "Reinforces brand consistency throughout your space",
+      "Supports wayfinding and a more professional guest experience",
+      "Adds a premium, finished look without major construction"
+    ],
+    "glossary": [
+      {
+        "term": "Standoff Mount",
+        "definition": "A hardware system that holds a sign a short distance off the wall, creating a shadow gap for a dimensional, raised look."
+      },
+      {
+        "term": "Edge-Lit Panel",
+        "definition": "An acrylic panel illuminated from its edges rather than from behind, producing an evenly glowing sign face."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Lighting changes perceived quality",
+        "detail": "The same logo looks noticeably more premium when it's dimensional or backlit versus flat-printed."
+      },
+      {
+        "insight": "Consistency across rooms builds trust",
+        "detail": "A coordinated interior signage system (not just a lobby logo) reinforces professionalism throughout a visitor's whole experience."
+      }
     ]
   },
   {
@@ -1465,7 +1735,7 @@
       "/images/OurWork_Products/Front_Lit_Channel_Letters/Front_Lit_Channel_Letters_7.webp"
     ],
     "link": "/our-work/front-lit-channel-letters",
-    "description": "The classic illuminated channel letter — internally lit acrylic faces that glow evenly, one of the most recognized forms of building-mounted signage.",
+    "description": "The classic illuminated channel letter  internally lit acrylic faces that glow evenly, one of the most recognized forms of building-mounted signage.",
     "features": [
       "Even face illumination",
       "Custom colors & fonts",
@@ -1541,7 +1811,7 @@
       "Built with Aluminum with acrylic face for lasting durability",
       "Backed by our 3 year workmanship, 2 year LED"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-18 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-18 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Front-Lit Channel Letters? Get a free design consultation today.",
     "specTable": [
       {
@@ -1567,7 +1837,7 @@
     ],
     "testimonials": [
       {
-        "quote": "Classic, bright, and reliable — our storefront finally looks like the rest of our franchise locations.",
+        "quote": "Classic, bright, and reliable  our storefront finally looks like the rest of our franchise locations.",
         "author": "Tom B.",
         "role": "Franchise Owner",
         "rating": 5
@@ -1583,6 +1853,36 @@
         "author": "Casey L.",
         "role": "Franchisee",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Maximizes 24/7 brand visibility with even, code-compliant illumination",
+      "Builds instant brand recognition through custom fonts, colors, and shapes",
+      "Engineered for outdoor durability across seasons and weather extremes",
+      "Helps drive walk-in traffic by making your storefront easy to spot from the road"
+    ],
+    "glossary": [
+      {
+        "term": "Trim Cap",
+        "definition": "The plastic edge strip that caps the seam between a channel letter's face and its metal return, framing the illuminated face."
+      },
+      {
+        "term": "Return Depth",
+        "definition": "The depth of the metal sides of a channel letter, which affects how far the sign projects off the wall and how light disperses."
+      },
+      {
+        "term": "Raceway",
+        "definition": "A metal enclosure mounted to the wall that houses wiring and electrical components for a set of channel letters, simplifying installation."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Font and color consistency matters",
+        "detail": "Matching your letters exactly to your brand guidelines helps customers recognize your storefront at a glance, even from a distance."
+      },
+      {
+        "insight": "Illumination type affects mood",
+        "detail": "Front-lit, halo-lit, and combination-lit letters all create a different visual impression  worth testing against your brand personality before finalizing."
       }
     ]
   },
@@ -1675,7 +1975,7 @@
       "Built with Aluminum panel with acrylic letters for lasting durability",
       "Backed by our 3 year workmanship, 2 year LED"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-18 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-18 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Front-Lit Channel Letters on Panel? Get a free design consultation today.",
     "specTable": [
       {
@@ -1717,6 +2017,36 @@
         "author": "Morgan S.",
         "role": "Business Owner",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Maximizes 24/7 brand visibility with even, code-compliant illumination",
+      "Builds instant brand recognition through custom fonts, colors, and shapes",
+      "Engineered for outdoor durability across seasons and weather extremes",
+      "Helps drive walk-in traffic by making your storefront easy to spot from the road"
+    ],
+    "glossary": [
+      {
+        "term": "Trim Cap",
+        "definition": "The plastic edge strip that caps the seam between a channel letter's face and its metal return, framing the illuminated face."
+      },
+      {
+        "term": "Return Depth",
+        "definition": "The depth of the metal sides of a channel letter, which affects how far the sign projects off the wall and how light disperses."
+      },
+      {
+        "term": "Raceway",
+        "definition": "A metal enclosure mounted to the wall that houses wiring and electrical components for a set of channel letters, simplifying installation."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Font and color consistency matters",
+        "detail": "Matching your letters exactly to your brand guidelines helps customers recognize your storefront at a glance, even from a distance."
+      },
+      {
+        "insight": "Illumination type affects mood",
+        "detail": "Front-lit, halo-lit, and combination-lit letters all create a different visual impression  worth testing against your brand personality before finalizing."
       }
     ]
   },
@@ -1809,7 +2139,7 @@
       "Built with Mixed (Acrylic / Vinyl / Metal) for lasting durability",
       "Backed by our 2 year workmanship"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 7-14 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 7-14 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Interior Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -1835,7 +2165,7 @@
     ],
     "testimonials": [
       {
-        "quote": "They handled our whole office signage package in one project — consistent look throughout the building.",
+        "quote": "They handled our whole office signage package in one project  consistent look throughout the building.",
         "author": "Chris W.",
         "role": "Operations Lead",
         "rating": 5
@@ -1851,6 +2181,32 @@
         "author": "Alex T.",
         "role": "Marketing Director",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Creates a strong first impression the moment visitors walk in",
+      "Reinforces brand consistency throughout your space",
+      "Supports wayfinding and a more professional guest experience",
+      "Adds a premium, finished look without major construction"
+    ],
+    "glossary": [
+      {
+        "term": "Standoff Mount",
+        "definition": "A hardware system that holds a sign a short distance off the wall, creating a shadow gap for a dimensional, raised look."
+      },
+      {
+        "term": "Edge-Lit Panel",
+        "definition": "An acrylic panel illuminated from its edges rather than from behind, producing an evenly glowing sign face."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Lighting changes perceived quality",
+        "detail": "The same logo looks noticeably more premium when it's dimensional or backlit versus flat-printed."
+      },
+      {
+        "insight": "Consistency across rooms builds trust",
+        "detail": "A coordinated interior signage system (not just a lobby logo) reinforces professionalism throughout a visitor's whole experience."
       }
     ]
   },
@@ -1943,7 +2299,7 @@
       "Built with LED strip / conduit for lasting durability",
       "Backed by our 2 year LED"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 14-21 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 14-21 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom LED Building Border? Get a free design consultation today.",
     "specTable": [
       {
@@ -1985,6 +2341,24 @@
         "author": "Jordan M.",
         "role": "Store Manager",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Adds architectural character and brand presence to your building",
+      "Improves comfort and visibility at entrances and walkways",
+      "Built to hold up against wind, rain, and UV exposure",
+      "Reinforces brand consistency across your building exterior"
+    ],
+    "glossary": [
+      {
+        "term": "Halo Lighting",
+        "definition": "A lighting technique where light projects onto the wall behind a sign rather than through its face, creating a soft glow around the edges."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Material choice affects long-term upkeep",
+        "detail": "Fabric components generally need reprinting sooner than metal or acrylic, which is worth factoring into your long-term budget."
       }
     ]
   },
@@ -2077,7 +2451,7 @@
       "Built with LED display module for lasting durability",
       "Backed by our 5 year LED module"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 20-30 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 20-30 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom LED Digital Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -2119,6 +2493,32 @@
         "author": "Taylor R.",
         "role": "Facilities Director",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Enables real-time messaging updates without new signage",
+      "Maximizes attention with dynamic, high-visibility lighting",
+      "Reduces long-term costs versus repeatedly reprinting static signs",
+      "Extends visibility and legibility into evening and nighttime hours"
+    ],
+    "glossary": [
+      {
+        "term": "Pixel Pitch",
+        "definition": "The distance between individual LEDs on a digital display, which determines image clarity at different viewing distances."
+      },
+      {
+        "term": "Dayparting",
+        "definition": "Scheduling different digital sign content to automatically display at different times of day."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Pixel pitch should match viewing distance",
+        "detail": "A display meant to be read from a highway needs a coarser pixel pitch than one viewed from a parking lot."
+      },
+      {
+        "insight": "Content strategy matters as much as hardware",
+        "detail": "A digital sign's ROI depends heavily on how often messaging is refreshed and scheduled, not just the display itself."
       }
     ]
   },
@@ -2213,7 +2613,7 @@
       "Built with Flexible LED neon for lasting durability",
       "Backed by our 2 year LED"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 10-15 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 10-15 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom LED / Neon Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -2239,7 +2639,7 @@
     ],
     "testimonials": [
       {
-        "quote": "The custom neon sign is a huge hit with customers — it's become a photo spot inside our restaurant.",
+        "quote": "The custom neon sign is a huge hit with customers  it's become a photo spot inside our restaurant.",
         "author": "Ben C.",
         "role": "Bar Owner",
         "rating": 5
@@ -2255,6 +2655,24 @@
         "author": "Casey L.",
         "role": "Franchisee",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Strengthens brand visibility and recognition",
+      "Built for durability in real-world conditions",
+      "Backed by an in-house team from design through installation",
+      "Customizable to fit your exact branding and space"
+    ],
+    "glossary": [
+      {
+        "term": "Sign Code",
+        "definition": "Local municipal regulations governing sign size, placement, and illumination that a project must comply with before installation."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Permitting timelines vary by municipality",
+        "detail": "Local permitting can add meaningfully to your project timeline  worth confirming early with your sign provider."
       }
     ]
   },
@@ -2272,7 +2690,7 @@
       "/images/OurWork_Products/Monuments_Signs/Monuments_Signs_5.webp"
     ],
     "link": "/our-work/monument-signs",
-    "description": "Freestanding ground-level signs built into a base structure at a property entrance — a durable, high-impact way to display a business or center's name from the street.",
+    "description": "Freestanding ground-level signs built into a base structure at a property entrance  a durable, high-impact way to display a business or center's name from the street.",
     "features": [
       "Freestanding ground sign",
       "Illuminated or non-illuminated",
@@ -2348,7 +2766,7 @@
       "Built with Aluminum / Masonry / EPS foam for lasting durability",
       "Backed by our 5 year structure, 2 year LED"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 20-30 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 20-30 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Monument Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -2390,6 +2808,36 @@
         "author": "Morgan S.",
         "role": "Business Owner",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Delivers maximum street-level visibility for drive-by and highway traffic",
+      "Supports large-format branding that stays readable from a distance",
+      "Built to withstand wind, sun, and weather for years of reliable use",
+      "Reinforces a professional, established brand presence at your property entrance"
+    ],
+    "glossary": [
+      {
+        "term": "Sign Cabinet",
+        "definition": "An enclosed, internally illuminated box structure with a printed or routed face, commonly used for large-format storefront branding."
+      },
+      {
+        "term": "Monument Base",
+        "definition": "The solid ground-level structure a freestanding sign sits on, often built from masonry, metal, or foam to match the building facade."
+      },
+      {
+        "term": "Multi-Tenant Panel",
+        "definition": "An individual, swappable sign panel on a shared structure that lists one business among several at a shared property."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Visibility distance drives sizing",
+        "detail": "The right sign size depends on posted speed limits and viewing distance, not just how large your building allows."
+      },
+      {
+        "insight": "Multi-tenant signs need a plan for change",
+        "detail": "If tenants may change over time, a swappable panel system saves significant cost versus rebuilding the whole structure later."
       }
     ]
   },
@@ -2482,7 +2930,7 @@
       "Built with Aluminum returns, no face for lasting durability",
       "Backed by our 2 year workmanship"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-18 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 12-18 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Open-Face Channel Letters? Get a free design consultation today.",
     "specTable": [
       {
@@ -2525,6 +2973,36 @@
         "role": "Marketing Director",
         "rating": 5
       }
+    ],
+    "keyBenefits": [
+      "Maximizes 24/7 brand visibility with even, code-compliant illumination",
+      "Builds instant brand recognition through custom fonts, colors, and shapes",
+      "Engineered for outdoor durability across seasons and weather extremes",
+      "Helps drive walk-in traffic by making your storefront easy to spot from the road"
+    ],
+    "glossary": [
+      {
+        "term": "Trim Cap",
+        "definition": "The plastic edge strip that caps the seam between a channel letter's face and its metal return, framing the illuminated face."
+      },
+      {
+        "term": "Return Depth",
+        "definition": "The depth of the metal sides of a channel letter, which affects how far the sign projects off the wall and how light disperses."
+      },
+      {
+        "term": "Raceway",
+        "definition": "A metal enclosure mounted to the wall that houses wiring and electrical components for a set of channel letters, simplifying installation."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Font and color consistency matters",
+        "detail": "Matching your letters exactly to your brand guidelines helps customers recognize your storefront at a glance, even from a distance."
+      },
+      {
+        "insight": "Illumination type affects mood",
+        "detail": "Front-lit, halo-lit, and combination-lit letters all create a different visual impression  worth testing against your brand personality before finalizing."
+      }
     ]
   },
   {
@@ -2540,7 +3018,7 @@
       "/images/OurWork_Products/Posts_and_Panel_Signs/Posts_and_Panel_Signs_4.webp"
     ],
     "link": "/our-work/posts-and-panel-signs",
-    "description": "A sign panel mounted between two posts — a simple, cost-effective freestanding option for directories, real estate, or entrance signage.",
+    "description": "A sign panel mounted between two posts  a simple, cost-effective freestanding option for directories, real estate, or entrance signage.",
     "features": [
       "Two-post freestanding mount",
       "Interchangeable panel option",
@@ -2616,7 +3094,7 @@
       "Built with Aluminum posts & panel for lasting durability",
       "Backed by our 3 year workmanship"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 10-15 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 10-15 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Posts and Panel Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -2658,6 +3136,36 @@
         "author": "Jordan M.",
         "role": "Store Manager",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Delivers maximum street-level visibility for drive-by and highway traffic",
+      "Supports large-format branding that stays readable from a distance",
+      "Built to withstand wind, sun, and weather for years of reliable use",
+      "Reinforces a professional, established brand presence at your property entrance"
+    ],
+    "glossary": [
+      {
+        "term": "Sign Cabinet",
+        "definition": "An enclosed, internally illuminated box structure with a printed or routed face, commonly used for large-format storefront branding."
+      },
+      {
+        "term": "Monument Base",
+        "definition": "The solid ground-level structure a freestanding sign sits on, often built from masonry, metal, or foam to match the building facade."
+      },
+      {
+        "term": "Multi-Tenant Panel",
+        "definition": "An individual, swappable sign panel on a shared structure that lists one business among several at a shared property."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Visibility distance drives sizing",
+        "detail": "The right sign size depends on posted speed limits and viewing distance, not just how large your building allows."
+      },
+      {
+        "insight": "Multi-tenant signs need a plan for change",
+        "detail": "If tenants may change over time, a swappable panel system saves significant cost versus rebuilding the whole structure later."
       }
     ]
   },
@@ -2750,7 +3258,7 @@
       "Built with Steel pole with aluminum cabinet for lasting durability",
       "Backed by our 5 year structure, 2 year LED"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 25-35 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 25-35 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Pylon / Pole Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -2776,7 +3284,7 @@
     ],
     "testimonials": [
       {
-        "quote": "Visible from the highway exit now — this sign alone has brought in noticeably more drive-by traffic.",
+        "quote": "Visible from the highway exit now  this sign alone has brought in noticeably more drive-by traffic.",
         "author": "Sam O.",
         "role": "Gas Station Owner",
         "rating": 5
@@ -2792,6 +3300,36 @@
         "author": "Taylor R.",
         "role": "Facilities Director",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Delivers maximum street-level visibility for drive-by and highway traffic",
+      "Supports large-format branding that stays readable from a distance",
+      "Built to withstand wind, sun, and weather for years of reliable use",
+      "Reinforces a professional, established brand presence at your property entrance"
+    ],
+    "glossary": [
+      {
+        "term": "Sign Cabinet",
+        "definition": "An enclosed, internally illuminated box structure with a printed or routed face, commonly used for large-format storefront branding."
+      },
+      {
+        "term": "Monument Base",
+        "definition": "The solid ground-level structure a freestanding sign sits on, often built from masonry, metal, or foam to match the building facade."
+      },
+      {
+        "term": "Multi-Tenant Panel",
+        "definition": "An individual, swappable sign panel on a shared structure that lists one business among several at a shared property."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Visibility distance drives sizing",
+        "detail": "The right sign size depends on posted speed limits and viewing distance, not just how large your building allows."
+      },
+      {
+        "insight": "Multi-tenant signs need a plan for change",
+        "detail": "If tenants may change over time, a swappable panel system saves significant cost versus rebuilding the whole structure later."
       }
     ]
   },
@@ -2884,7 +3422,7 @@
       "Built with Cast vinyl wrap film for lasting durability",
       "Backed by our 3 year vinyl"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 5-10 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 5-10 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Vehicle Graphics? Get a free design consultation today.",
     "specTable": [
       {
@@ -2926,6 +3464,32 @@
         "author": "Casey L.",
         "role": "Franchisee",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Turns everyday surfaces into low-cost, high-impact advertising",
+      "Fast to produce and install with minimal business downtime",
+      "Easy to update seasonally or as your branding evolves",
+      "A cost-effective alternative to permanent structural signage"
+    ],
+    "glossary": [
+      {
+        "term": "Perforated Window Film",
+        "definition": "A vinyl film with tiny perforations that displays a full-color graphic from outside while remaining see-through from inside."
+      },
+      {
+        "term": "Cast Vinyl",
+        "definition": "A premium, conformable vinyl film used for vehicle wraps and curved surfaces because it stretches without shrinking back."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Removability should be decided upfront",
+        "detail": "If you expect to rebrand or run seasonal promotions, removable vinyl avoids costly rework later."
+      },
+      {
+        "insight": "Surface texture affects application",
+        "detail": "Smooth surfaces hold vinyl far better than heavily textured walls, which may need a substrate panel instead."
       }
     ]
   },
@@ -3018,7 +3582,7 @@
       "Built with Vinyl film for lasting durability",
       "Backed by our 1-2 year vinyl"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 5-10 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 5-10 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Vinyl Interior Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -3044,7 +3608,7 @@
     ],
     "testimonials": [
       {
-        "quote": "Quick turnaround and the print quality was excellent — perfect for our seasonal promotions on the glass.",
+        "quote": "Quick turnaround and the print quality was excellent  perfect for our seasonal promotions on the glass.",
         "author": "Ravi S.",
         "role": "Retail Owner",
         "rating": 5
@@ -3061,6 +3625,32 @@
         "role": "Business Owner",
         "rating": 5
       }
+    ],
+    "keyBenefits": [
+      "Turns everyday surfaces into low-cost, high-impact advertising",
+      "Fast to produce and install with minimal business downtime",
+      "Easy to update seasonally or as your branding evolves",
+      "A cost-effective alternative to permanent structural signage"
+    ],
+    "glossary": [
+      {
+        "term": "Perforated Window Film",
+        "definition": "A vinyl film with tiny perforations that displays a full-color graphic from outside while remaining see-through from inside."
+      },
+      {
+        "term": "Cast Vinyl",
+        "definition": "A premium, conformable vinyl film used for vehicle wraps and curved surfaces because it stretches without shrinking back."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Removability should be decided upfront",
+        "detail": "If you expect to rebrand or run seasonal promotions, removable vinyl avoids costly rework later."
+      },
+      {
+        "insight": "Surface texture affects application",
+        "detail": "Smooth surfaces hold vinyl far better than heavily textured walls, which may need a substrate panel instead."
+      }
     ]
   },
   {
@@ -3076,7 +3666,7 @@
       "/images/OurWork_Products/Wayfinding_Directional_Signs/Wayfinding_Directional_Signs_4.webp"
     ],
     "link": "/our-work/wayfinding-directional-signs",
-    "description": "Directional and informational signage that guides visitors through a campus, facility, or parking area — clear, consistent, and built to match a wayfinding system.",
+    "description": "Directional and informational signage that guides visitors through a campus, facility, or parking area  clear, consistent, and built to match a wayfinding system.",
     "features": [
       "Consistent system design",
       "Interior & exterior formats",
@@ -3152,7 +3742,7 @@
       "Built with Aluminum / Acrylic for lasting durability",
       "Backed by our 3 year workmanship"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 14-21 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 14-21 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Wayfinding & Directional Signs? Get a free design consultation today.",
     "specTable": [
       {
@@ -3194,6 +3784,32 @@
         "author": "Alex T.",
         "role": "Marketing Director",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Creates a strong first impression the moment visitors walk in",
+      "Reinforces brand consistency throughout your space",
+      "Supports wayfinding and a more professional guest experience",
+      "Adds a premium, finished look without major construction"
+    ],
+    "glossary": [
+      {
+        "term": "Standoff Mount",
+        "definition": "A hardware system that holds a sign a short distance off the wall, creating a shadow gap for a dimensional, raised look."
+      },
+      {
+        "term": "Edge-Lit Panel",
+        "definition": "An acrylic panel illuminated from its edges rather than from behind, producing an evenly glowing sign face."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Lighting changes perceived quality",
+        "detail": "The same logo looks noticeably more premium when it's dimensional or backlit versus flat-printed."
+      },
+      {
+        "insight": "Consistency across rooms builds trust",
+        "detail": "A coordinated interior signage system (not just a lobby logo) reinforces professionalism throughout a visitor's whole experience."
       }
     ]
   },
@@ -3287,7 +3903,7 @@
       "Built with Perforated vinyl / Wall vinyl for lasting durability",
       "Backed by our 1-2 year vinyl"
     ],
-    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 5-10 business days once your design is approved — request a free quote for an exact estimate.",
+    "pricingNote": "Pricing depends on size, illumination, and installation complexity. Typical turnaround is 5-10 business days once your design is approved  request a free quote for an exact estimate.",
     "cta": "Ready to upgrade your space with a custom Window / Wall Graphics? Get a free design consultation today.",
     "specTable": [
       {
@@ -3329,6 +3945,32 @@
         "author": "Jordan M.",
         "role": "Store Manager",
         "rating": 5
+      }
+    ],
+    "keyBenefits": [
+      "Turns everyday surfaces into low-cost, high-impact advertising",
+      "Fast to produce and install with minimal business downtime",
+      "Easy to update seasonally or as your branding evolves",
+      "A cost-effective alternative to permanent structural signage"
+    ],
+    "glossary": [
+      {
+        "term": "Perforated Window Film",
+        "definition": "A vinyl film with tiny perforations that displays a full-color graphic from outside while remaining see-through from inside."
+      },
+      {
+        "term": "Cast Vinyl",
+        "definition": "A premium, conformable vinyl film used for vehicle wraps and curved surfaces because it stretches without shrinking back."
+      }
+    ],
+    "keyInsights": [
+      {
+        "insight": "Removability should be decided upfront",
+        "detail": "If you expect to rebrand or run seasonal promotions, removable vinyl avoids costly rework later."
+      },
+      {
+        "insight": "Surface texture affects application",
+        "detail": "Smooth surfaces hold vinyl far better than heavily textured walls, which may need a substrate panel instead."
       }
     ]
   }

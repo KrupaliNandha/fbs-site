@@ -261,7 +261,7 @@ export default function ProductDetailPageClient({
     <>
       <main>
         {/* Section 1: Hero */}
-        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-rose-50 via-white to-primary-light">
+        <section className="bg-linear-to-br mt-24 xl:mt-20 from-rose-50 via-white to-primary-light">
           <div className="container px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:py-24">
             <p className="flex flex-wrap items-center justify-center gap-x-1 text-sm text-primary-dark/70 sm:text-base lg:justify-start lg:text-lg">
               <Link href="/" className="text-primary">
@@ -519,7 +519,7 @@ export default function ProductDetailPageClient({
                   </div>
 
                   {/* Price & Turnaround */}
-                  <div className="rounded-2xl border border-primary-light bg-gradient-to-br from-white to-primary-light/40 p-4 sm:p-5">
+                  <div className="rounded-2xl border border-primary-light bg-linear-to-br from-white to-primary-light/40 p-4 sm:p-5">
                     <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4">
                       <span className="text-sm font-medium text-primary-dark/70">
                         Estimated Pricing
@@ -577,7 +577,7 @@ export default function ProductDetailPageClient({
           </div>
         </section>
 
-        {/* Section 4: Ordering Process — light card layout with hover-only left-to-right border sweep */}
+        {/* Section 4: Ordering Process  light card layout with hover-only left-to-right border sweep */}
         <section className="bg-primary-light/40 py-12 sm:py-16 md:py-24">
           <div className="container mx-auto px-4 md:px-6">
             <div className="mx-auto mb-12 max-w-2xl text-center sm:mb-20" data-aos="fade-up">
@@ -733,7 +733,7 @@ function ProductQuoteForm({
 
     fd.append("access_key", WEB3FORMS_ACCESS_KEY);
     fd.append("subject", `Quote Request: ${productName}`);
-    fd.append("from_name", "FBS Prints — Product Quote");
+    fd.append("from_name", "FBS Prints  Product Quote");
     fd.append("replyto", (fd.get("email") as string)?.trim() ?? "");
 
     // Inject selected product specs so they appear in the email

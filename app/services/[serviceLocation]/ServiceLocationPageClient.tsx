@@ -39,7 +39,7 @@ export default function ServiceLocationPageClient({
   return (
     <>
       <main>
-        <section className="bg-gradient-to-br from-white to-primary-light">
+        <section className="bg-linear-to-br from-white to-primary-light">
           <div className="container">
             <div className="mx-auto">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -148,7 +148,7 @@ export default function ServiceLocationPageClient({
         </section>
 
         <section className="container section-padding">
-          <div className="bg-gradient-to-r from-primary to-primary-dark rounded-2xl px-6 py-12 text-white">
+          <div className="bg-linear-to-r from-primary to-primary-dark rounded-2xl px-6 py-12 text-white">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
               <div data-aos="fade-right">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-center lg:text-start">
@@ -343,7 +343,7 @@ export default function ServiceLocationPageClient({
         </section>
 
         <section className="container section-padding">
-          <div className="bg-gradient-to-r from-primary to-primary-dark rounded-2xl px-6 py-12 text-white text-center">
+          <div className="bg-linear-to-r from-primary to-primary-dark rounded-2xl px-6 py-12 text-white text-center">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
               {page.ctaTitle}
             </h2>

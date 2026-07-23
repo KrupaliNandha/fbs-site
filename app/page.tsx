@@ -255,7 +255,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Animated stats (client component) — shows static values on first render for crawlers */}
+            {/* Animated stats (client component)  shows static values on first render for crawlers */}
             <HomeStats />
           </div>
         </section>

@@ -85,7 +85,7 @@ export default function Page() {
       <FloatingToast submissionState={toastState} visible={showToast} />
       <main className="overflow-x-hidden">
         {/* Section - 1 */}
-        <section className="bg-gradient-to-br mt-20 sm:mt-24 xl:mt-20 from-white to-primary-light">
+        <section className="bg-linear-to-br mt-20 sm:mt-24 xl:mt-20 from-white to-primary-light">
           <div className="container px-4 sm:px-6">
             <div className="mx-auto">
               <p className="text-primary-dark/70 mb-4 lg:mb-0">

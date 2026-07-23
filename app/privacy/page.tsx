@@ -31,7 +31,7 @@ export default function PrivacyPage() {
   return (
     <>
       <main>
-        <section className="bg-gradient-to-br from-white to-primary-light">
+        <section className="bg-linear-to-br from-white to-primary-light">
           <div className="container">
             <div className="mx-auto py-16 sm:py-20 lg:py-24">
               <div className="max-w-4xl mx-auto text-center space-y-5">
@@ -69,7 +69,7 @@ export default function PrivacyPage() {
               </article>
             ))}
 
-            <article className="rounded-3xl bg-gradient-to-r from-primary to-primary-dark p-8 text-white shadow-lg">
+            <article className="rounded-3xl bg-linear-to-r from-primary to-primary-dark p-8 text-white shadow-lg">
               <h2 className="text-2xl md:text-3xl font-bold">
                 Contact regarding privacy questions
               </h2>

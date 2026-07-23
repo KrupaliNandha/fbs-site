@@ -148,7 +148,7 @@ export default function FaqPage() {
             </span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-primary-dark leading-tight">
-            FAQs — Business Signage,{" "}
+            FAQs  Business Signage,{" "}
             <span className="text-primary">Printing &amp; More</span>
           </h1>
           <p className="mt-4 text-primary-dark/70 text-lg">

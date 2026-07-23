@@ -71,7 +71,7 @@ interface ProductData {
 
 function labelizeKey(key: string): string {
   if (key.includes(" ")) {
-    // Already spaced (e.g. "LED Light") — just make sure each word starts
+    // Already spaced (e.g. "LED Light")  just make sure each word starts
     // with a capital, without touching existing acronyms like "LED".
     return key.replace(/\b\w/g, (c) => c.toUpperCase());
   }
@@ -323,7 +323,7 @@ export default function ProductDetailPage() {
   }, [params?.slug]);
 
   // Whenever the active package changes, re-seed `selections` so every
-  // group key matches what THIS package actually offers — any leftover
+  // group key matches what THIS package actually offers  any leftover
   // key/value from a previous package that no longer applies is dropped,
   // and any option value that no longer exists in the new package's list
   // is reset to that group's first option.
@@ -371,7 +371,7 @@ export default function ProductDetailPage() {
           <Breadcrumbs productName={product.name} />
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 mt-5">
             {/* -------------------------------------------------- */}
-            {/* LEFT — Gallery                                       */}
+            {/* LEFT  Gallery                                       */}
             {/* -------------------------------------------------- */}
             <div className="lg:col-span-7">
               <div className="relative aspect-[4/5] sm:aspect-[16/11] lg:aspect-[16/12] w-full bg-primary-light/40 border border-primary-light rounded-sm flex items-center justify-center overflow-hidden">
@@ -426,7 +426,7 @@ export default function ProductDetailPage() {
             </div>
 
             {/* -------------------------------------------------- */}
-            {/* RIGHT — Buy box                                      */}
+            {/* RIGHT  Buy box                                      */}
             {/* -------------------------------------------------- */}
             <div className="lg:col-span-5">
               <p className="text-xs font-semibold uppercase tracking-wide text-primary">
@@ -440,7 +440,7 @@ export default function ProductDetailPage() {
               </p>
 
               <div className="mt-6 border-2 rounded-2xl p-3 shadow-xl border-primary-light pt-6 space-y-6">
-                {/* What's included — only shown if there's more than one package */}
+                {/* What's included  only shown if there's more than one package */}
                 {product.packages.length > 1 && (
                   <div>
                     <p className="text-sm font-semibold text-primary-dark mb-2.5">
@@ -467,7 +467,7 @@ export default function ProductDetailPage() {
                   </div>
                 )}
 
-                {/* Size — rendered as a prominent button grid if this
+                {/* Size  rendered as a prominent button grid if this
                   package defines a "size" group; otherwise skipped
                   entirely (e.g. Vehicle Wraps uses "vehicleType" instead,
                   which just shows up below as a normal dropdown) */}
@@ -513,7 +513,7 @@ export default function ProductDetailPage() {
                 )}
 
                 {/* Every other option group this package defines, each as
-                  its own dropdown — Graphic, Base, Carry Bag, Finish,
+                  its own dropdown  Graphic, Base, Carry Bag, Finish,
                   Coverage, LED Light, Illumination, whatever applies */}
                 {otherGroups.map((group) => {
                   const Icon = pickGroupIcon(group.key);
@@ -593,7 +593,7 @@ export default function ProductDetailPage() {
         </main>
 
         {/* -------------------------------------------------- */}
-        {/* FAQs — its own full-width section, visually separated   */}
+        {/* FAQs  its own full-width section, visually separated   */}
         {/* from the tabs above via background + spacing            */}
         {/* -------------------------------------------------- */}
         <section className="border-t border-primary-light bg-primary-light/60 py-12 sm:py-16">
@@ -771,7 +771,7 @@ function FeatureGrid({ bullets }: { bullets: string[] }) {
 }
 
 /* ================================================================== */
-/*  Description tab — generic: paragraphs + optional applications +     */
+/*  Description tab  generic: paragraphs + optional applications +     */
 /*  optional extra notes (e.g. Advertising Flags' per-graphic details)  */
 /* ================================================================== */
 
@@ -826,7 +826,7 @@ function DescriptionTab({
 }
 
 /* ================================================================== */
-/*  Spec tab — fully generic renderer over whatever raw.spec contains   */
+/*  Spec tab  fully generic renderer over whatever raw.spec contains   */
 /* ================================================================== */
 
 function isPlainObject(v: any) {
@@ -835,7 +835,7 @@ function isPlainObject(v: any) {
 
 /* ---------------------------------------------------------------- */
 /*  Special-case renderer for spec.sizeSpecification                  */
-/*  (used by Advertising Flags — a curved flag-height diagram + a      */
+/*  (used by Advertising Flags  a curved flag-height diagram + a      */
 /*  proper comparison table, instead of the generic card grid every   */
 /*  other spec section gets)                                          */
 /* ---------------------------------------------------------------- */
@@ -1212,7 +1212,7 @@ function FileSetupTab({
 }
 
 /* ================================================================== */
-/*  FAQs Tab — accordion for product-specific FAQs                      */
+/*  FAQs Tab  accordion for product-specific FAQs                      */
 /* ================================================================== */
 
 function FaqsTab({

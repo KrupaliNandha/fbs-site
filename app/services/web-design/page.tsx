@@ -113,7 +113,7 @@ export default function Page() {
 
       <main>
         {/* Section - 1 */}
-        <section className="bg-gradient-to-br mt-24 xl:mt-20 from-white to-primary-light">
+        <section className="bg-linear-to-br mt-24 xl:mt-20 from-white to-primary-light">
           <div className="container">
             <div className="mx-auto">
               <p className="text-primary-dark/70 text-lg">
@@ -260,7 +260,7 @@ export default function Page() {
                     className="relative rounded-3xl shadow-2xl border border-primary-light h-auto w-full max-w-full"
                   />
 
-                  {/* Floating stats — real numbers instead of repeated labels */}
+                  {/* Floating stats  real numbers instead of repeated labels */}
                   <div
                     data-aos="fade-up"
                     className="absolute -bottom-10 -left-6 bg-white rounded-2xl shadow-xl px-6 py-4"
@@ -294,7 +294,7 @@ export default function Page() {
               >
                 <h2 className="text-4xl lg:text-6xl font-extrabold leading-tight text-primary-dark">
                   We help brands{" "}
-                  <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+                  <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                     you take your business
                   </span>{" "}
                   to the next level
@@ -321,7 +321,7 @@ export default function Page() {
             <div className="max-w-4xl mx-auto text-center mb-10">
               <h2 className="text-4xl md:text-5xl font-extrabold text-primary leading-tight">
                 Unique{" "}
-                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                   Bespoke Digital{" "}
                 </span>
                 Solutions
@@ -346,7 +346,7 @@ export default function Page() {
                 >
                   {/* TOP ACCENT */}
                   <span
-                    className="absolute top-0 left-0 h-1 w-0 bg-gradient-to-br from-primary to-primary
+                    className="absolute top-0 left-0 h-1 w-0 bg-linear-to-br from-primary to-primary
             group-hover:w-full transition-all duration-300 rounded-t-2xl"
                   />
 
@@ -386,7 +386,7 @@ export default function Page() {
           <div className="pt-5 space-y-6 mb-12 max-w-7xl mx-auto">
             <p className="text-center text-3xl lg:text-4xl xl:text-5xl font-bold mx-auto text-primary">
               &quot;Designing{" "}
-              <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                 Digital Experiences That Captivate, Inspire, And Leave a
                 Lasting
               </span>{" "}
@@ -434,7 +434,7 @@ export default function Page() {
             <div className="max-w-5xl mx-auto text-center mb-10">
               <h2 className="text-4xl md:text-5xl font-extrabold text-primary tracking-tight">
                 Our Clients&apos;{" "}
-                <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent relative">
+                <span className="bg-linear-to-r from-primary to-primary-dark bg-clip-text text-transparent relative">
                   Success
                   <span className="absolute -bottom-2 left-0 w-full h-1 bg-primary-light rounded-full"></span>
                 </span>{" "}
