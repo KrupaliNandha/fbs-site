@@ -234,6 +234,28 @@ function CheckIcon() {
   );
 }
 
+function FeaturesPanel({ features }: { features: string[] }) {
+  if (!features.length) {
+    return null;
+  }
+
+  return (
+    <section className="mt-2 rounded-xl border border-primary-light/50 bg-white p-4 text-left shadow-sm sm:rounded-2xl sm:p-5 lg:p-6">
+      <h2 className="mb-4 text-lg font-bold text-primary-dark">Features</h2>
+      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+        {features.map((feature) => (
+          <li key={feature} className="flex min-w-0 items-start gap-3">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            <span className="break-words text-sm leading-relaxed text-primary-dark/80">
+              {feature}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function getQuickAnswer(item: PortfolioItem) {
   const details = [
     item.material && `built using ${item.material.toLowerCase()}`,
@@ -370,6 +392,8 @@ export default function OurWorkDetailClient({ item }: { item: PortfolioItem }) {
                   ))}
                 </div>
               )}
+
+              <FeaturesPanel features={item.features} />
             </div>
 
             <div className="flex min-w-0 flex-col justify-center space-y-4 text-center sm:space-y-5 lg:text-left xl:sticky xl:top-28">
@@ -394,20 +418,6 @@ export default function OurWorkDetailClient({ item }: { item: PortfolioItem }) {
                   {getQuickAnswer(item)}
                 </p>
               </div>
-
-              {!!item.features.length && (
-                <div className="mx-auto w-full max-w-2xl pb-2 pt-2 text-left lg:mx-0">
-                  <h2 className="mb-4 text-lg font-bold text-primary-dark">Features</h2>
-                  <ul className="space-y-2">
-                    {item.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                        <span className="text-sm text-primary-dark/80">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
 
               <nav
                 aria-label="On this page"
@@ -553,7 +563,7 @@ export default function OurWorkDetailClient({ item }: { item: PortfolioItem }) {
       {!!item.keyInsights?.length && (
         <section className="container pt-10 sm:pt-12 md:pt-16">
           <SectionTitle first="What to Know Before You Buy" small />
-          <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-2 md:gap-6">
+          <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-3 md:gap-6">
             {item.keyInsights.map((insight) => (
               <div
                 key={insight.insight}
