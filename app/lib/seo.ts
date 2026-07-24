@@ -197,13 +197,16 @@ const pageSeo: Record<PublicPagePath, PageSeoConfig> = {
   "/services/printing-products": {
     title: "Printing Products | Custom Business Printing by FBS Prints",
     description:
-      "Discover FBS Prints printing products including business cards, brochures, banners, calendars, menus, and more custom print solutions.",
+      "Get bulk signage and business printing from FBS Prints  business cards, brochures, banners, calendars, menus, and large-format print runs, with transparent bulk pricing for shops in Joliet, Naperville, and across Chicagoland.",
     keywords: [
       "printing products",
       "business cards printing",
       "brochure printing",
       "banner printing",
       "custom print products",
+      "bulk signage printing joliet cost",
+      "bulk printing cost illinois",
+      "large format printing chicagoland",
     ],
     image: "/images/services/printing/hotel-menu-printing.webp",
     schemaType: "WebPage",
@@ -216,13 +219,16 @@ const pageSeo: Record<PublicPagePath, PageSeoConfig> = {
   "/services/direct-mailing": {
     title: "Direct Mailing Services | Design, Print & Mail with FBS Prints",
     description:
-      "Use FBS Prints direct mailing services for campaign design, print production, bundling, and delivery support that helps your message reach customers on time.",
+      "FBS Prints runs full direct mail programs for Chicago businesses  campaign design, print mailing service, EDDM bundling, and route-targeted delivery so your message reaches the right mailbox on time.",
     keywords: [
       "direct mailing services",
       "EDDM marketing",
       "mail campaign printing",
       "postcard mailing",
       "direct mail company",
+      "print mailing service chicago",
+      "direct mail programs chicago",
+      "chicago direct mail company",
     ],
     image: "/images/services/direct-mail/direct-mail-marketing.webp",
     schemaType: "WebPage",
@@ -235,7 +241,7 @@ const pageSeo: Record<PublicPagePath, PageSeoConfig> = {
   "/services/signage": {
     title: "Signage Services | Business Signs, Wraps & Displays by FBS Prints",
     description:
-      "View FBS Prints signage services for banners, LED signs, monument signs, pylon signs, vehicle graphics, window lettering, and more custom displays.",
+      "FBS Prints builds banners, LED signs, monument signs, pylon signs, vehicle graphics, window lettering, printed awnings, tradeshow signs, and billboards for businesses across Chicago, Elgin, Naperville, and Illinois.",
     keywords: [
       "signage services",
       "business signs",
@@ -243,6 +249,12 @@ const pageSeo: Record<PublicPagePath, PageSeoConfig> = {
       "LED signs",
       "window lettering",
       "monument signs",
+      "tradeshow signs chicago",
+      "chicago tradeshow signs",
+      "trade show sign chicago",
+      "printed awnings",
+      "elgin billboards",
+      "billboard advertising illinois",
     ],
     image: "/images/services/signage/signage-services-hero.webp",
     schemaType: "WebPage",
@@ -274,7 +286,7 @@ const pageSeo: Record<PublicPagePath, PageSeoConfig> = {
   "/services/seo": {
     title: "SEO Services | Technical, Local & On-Page SEO by FBS Prints",
     description:
-      "Grow search visibility with FBS Prints SEO services including audits, technical SEO, local SEO, content optimization, link building, and reporting.",
+      "FBS Prints delivers local SEO for Naperville and Chicagoland businesses alongside audits, technical SEO, on-page optimization, link building, and monthly reporting to grow search visibility.",
     keywords: [
       "SEO services",
       "technical SEO",
@@ -282,6 +294,9 @@ const pageSeo: Record<PublicPagePath, PageSeoConfig> = {
       "on-page SEO",
       "SEO audit",
       "link building",
+      "local seo naperville",
+      "naperville il local seo",
+      "chicagoland seo services",
     ],
     image: "/images/services/seo/seo-services-hero.webp",
     schemaType: "WebPage",
@@ -614,6 +629,14 @@ export function getRouteSchemas(path: PublicPagePath, baseUrl = siteConfig.url) 
           acceptedAnswer: {
             "@type": "Answer",
             text: "Yes. We offer full vehicle wraps and partial vehicle graphics for single vehicles and commercial fleets. Vehicle graphics turn company vehicles into mobile advertising and brand visibility assets.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does FBS Signs make tradeshow signs and printed awnings?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. We produce tradeshow display signage for Chicago-area events, along with printed awnings and canopy signage for storefronts. We also design and install billboards, including projects for businesses in Elgin and the wider Chicagoland market.",
           },
         },
         {
