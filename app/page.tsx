@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import Slider from "./Components/Slider";
 import { RouteStructuredData } from "@/app/Components/RouteStructuredData";
 import HomeAosInit from "./Components/HomeAosInit";
 import HomeStats from "./Components/HomeStats";
 import HomeVideoHover from "./Components/HomeVideoHover";
 import HomeContactSection from "./Components/HomeContactSection";
+import NewHeroSection from "./Components/NewHeroSection";
 
 const ourServices = [
   {
@@ -45,6 +45,7 @@ export default function Home() {
     <>
       <RouteStructuredData path="/" />
       <HomeAosInit />
+      <NewHeroSection />
       <main>
         {/* Hero Section */}
         <section className="bg-linear-to-br mt-20 xl:mt-20 from-white to-primary-light">
@@ -164,7 +165,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <Slider />
         {/* Services Section */}
         <section className="container section-padding mx-auto">
           <div className="px-4">
