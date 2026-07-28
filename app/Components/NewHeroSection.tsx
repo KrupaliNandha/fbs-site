@@ -11,8 +11,6 @@ import {
   Smile,
   Copy,
   Award,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 
 /**
@@ -106,24 +104,6 @@ export default function NewHeroSection() {
           />
         </div>
 
-        {/* Carousel arrows */}
-        <button
-          type="button"
-          onClick={goPrev}
-          aria-label="Previous slide"
-          className="absolute left-3 top-1/2 z-50 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition hover:bg-slate-50 sm:left-4 sm:h-11 sm:w-11 lg:left-6"
-        >
-          <ChevronLeft size={18} className="text-slate-700" />
-        </button>
-        <button
-          type="button"
-          onClick={goNext}
-          aria-label="Next slide"
-          className="absolute right-3 top-1/2 z-50 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition hover:bg-slate-50 sm:right-4 sm:h-11 sm:w-11 lg:right-6"
-        >
-          <ChevronRight size={18} className="text-slate-700" />
-        </button>
-
         <div className="relative grid w-full grid-cols-1 gap-8 px-4 pb-8 sm:px-10 md:px-14 lg:grid-cols-[40%_60%] lg:gap-0 lg:px-[7.15vw] lg:pb-[72px] lg:pt-[62px] xl:pt-[72px]">
           {/* ---- Left: copy ---- */}
           <div className="relative z-10 flex flex-col items-center justify-center text-center lg:min-h-[492px] lg:items-start lg:text-left xl:min-h-[508px]">
@@ -177,7 +157,12 @@ export default function NewHeroSection() {
               {stats.map(({ icon: Icon, value, label, color }, idx) => (
                 <React.Fragment key={label}>
                   <div className="flex md:flex-row flex-col items-center gap-3">
-                    <Icon className="items-center" size={34} strokeWidth={1.5} style={{ color }} />
+                    <Icon
+                      className="items-center"
+                      size={34}
+                      strokeWidth={1.5}
+                      style={{ color }}
+                    />
                     <div className=" leading-tight">
                       <p
                         className="text-base font-extrabold sm:text-xl"
@@ -185,7 +170,9 @@ export default function NewHeroSection() {
                       >
                         {value}
                       </p>
-                      <p className="text-xs text-slate-500 items-center">{label}</p>
+                      <p className="text-xs text-slate-500 items-center">
+                        {label}
+                      </p>
                     </div>
                   </div>
                   {idx !== stats.length - 1 && (
@@ -224,23 +211,6 @@ export default function NewHeroSection() {
               />
             </div>
           </div>
-        </div>
-
-        {/* Carousel dots */}
-        <div className="relative z-40 mt-0 flex items-center justify-center gap-3 pb-5 lg:absolute lg:bottom-[40px] lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:pb-0">
-          {Array.from({ length: SLIDE_COUNT }).map((_, idx) => (
-            <button
-              key={idx}
-              type="button"
-              aria-label={`Go to slide ${idx + 1}`}
-              onClick={() => setActiveSlide(idx)}
-              className="h-2 rounded-full transition-all"
-              style={{
-                width: "10px",
-                backgroundColor: idx === activeSlide ? "#E91580" : "#FFFFFF",
-              }}
-            />
-          ))}
         </div>
       </div>
 

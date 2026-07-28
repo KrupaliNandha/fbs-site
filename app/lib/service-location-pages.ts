@@ -218,6 +218,14 @@ const serviceTemplates: ServiceTemplate[] = [
       "window graphics",
       "vehicle wraps",
       "monument signs",
+      "tradeshow signs",
+      "trade show signage",
+      "booth signage",
+      "sign cabinet",
+      "illuminated cabinet signs",
+      "dimensional lobby signs",
+      "interior dimensional signs",
+      "bulk signage printing",
     ],
     highlights: [
       {
@@ -268,7 +276,7 @@ const serviceTemplates: ServiceTemplate[] = [
       },
     ],
     metaDescription: (location) =>
-      `FBS Prints provides signage services in ${location.city}, ${location.stateCode} including storefront signs, window graphics, vehicle graphics, banners, and branded display materials built for stronger local visibility.`,
+      `FBS Prints provides signage services in ${location.city}, ${location.stateCode} including tradeshow signs, booth signage, illuminated cabinet signs, dimensional lobby signs, storefront signs, window graphics, vehicle graphics, and branded display materials built for stronger local visibility.`,
     heroDescription: (location) =>
       `FBS Prints helps ${location.city} businesses improve visibility with custom signage for storefronts, promotions, events, vehicles, and branded in-person customer experiences.`,
     supportTitle: (location) => `Signage support for ${location.city} visibility`,
@@ -322,6 +330,8 @@ const serviceTemplates: ServiceTemplate[] = [
       "postcard mailing",
       "route targeting",
       "EDDM marketing",
+      "print mailing service",
+      "print and mail service",
     ],
     highlights: [
       {
@@ -372,7 +382,7 @@ const serviceTemplates: ServiceTemplate[] = [
       },
     ],
     metaDescription: (location) =>
-      `FBS Prints provides direct mail services in ${location.city}, ${location.stateCode} including design, print production, bundling, route support, and mailer preparation for local outreach campaigns.`,
+      `FBS Prints provides direct mail and print mailing services in ${location.city}, ${location.stateCode} including design, print production, bundling, route support, and mailer preparation for local outreach campaigns.`,
     heroDescription: (location) =>
       `FBS Prints helps ${location.city} businesses run direct mail campaigns with design support, print production, route planning, and mail-ready preparation for consistent local outreach.`,
     supportTitle: (location) =>
@@ -533,6 +543,9 @@ const serviceTemplates: ServiceTemplate[] = [
       "technical seo",
       "on-page seo",
       "seo audit",
+      "local seo company",
+      "online advertising",
+      "digital marketing services",
     ],
     highlights: [
       {
@@ -583,7 +596,7 @@ const serviceTemplates: ServiceTemplate[] = [
       },
     ],
     metaDescription: (location) =>
-      `FBS Prints provides SEO services in ${location.city}, ${location.stateCode} with technical SEO, on-page optimization, local SEO support, and reporting built for stronger search visibility.`,
+      `FBS Prints provides SEO services and online advertising support in ${location.city}, ${location.stateCode} including local SEO, technical SEO, on-page optimization, and reporting built for stronger search visibility.`,
     heroDescription: (location) =>
       `FBS Prints helps ${location.city} businesses improve search visibility with technical SEO, on-page updates, local SEO support, and clearer site structure built for steady organic growth.`,
     supportTitle: (location) =>
