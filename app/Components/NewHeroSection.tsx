@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import Image from "next/image";
+import React, { useState } from "react";
 import {
   Play,
   Printer,
@@ -10,6 +11,8 @@ import {
   Smile,
   Copy,
   Award,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 /**
@@ -23,13 +26,17 @@ import {
  *
  * Required image assets (place in /public/images/home/):
  *   Home-1-v2.png -> notebook + business cards + brochure cutout
- *   Home-2-v2.png -> succulent planter cutout
+ *   Home-port.png -> succulent planter cutout
+ *
+ * Fully responsive: stacks to a single column on mobile/tablet, scales
+ * type and imagery down through the breakpoints, and keeps the carousel
+ * controls + feature strip usable on small screens.
  */
 
 const stats = [
-  { icon: Smile, value: "500+", label: "Happy Clients" },
-  { icon: Copy, value: "10K+", label: "Projects Done" },
-  { icon: Award, value: "5+", label: "Years Experience" },
+  { icon: Smile, value: "500+", label: "Happy Clients", color: "#E91580" },
+  { icon: Copy, value: "10K+", label: "Projects Done", color: "#16A8E2" },
+  { icon: Award, value: "5+", label: "Years Experience", color: "#F6A315" },
 ];
 
 const features = [
@@ -59,69 +66,76 @@ const features = [
   },
 ];
 
+const SLIDE_COUNT = 5;
+
 export default function NewHeroSection() {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const goPrev = () =>
+    setActiveSlide((prev) => (prev - 1 + SLIDE_COUNT) % SLIDE_COUNT);
+  const goNext = () => setActiveSlide((prev) => (prev + 1) % SLIDE_COUNT);
+
   return (
     <section className="w-full bg-white mt-16 md:mt-20">
       {/* ---------------- Hero ---------------- */}
       <div
-        className="relative pt-2 md:pt-6 lg:pt-8"
+        className="relative pt-12 lg:min-h-[690px] lg:pt-3 xl:min-h-[705px]"
         style={{ backgroundColor: "#FDEEF4" }}
       >
         {/* Background decors, clipped so they never bleed above this section */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          {/* Background decors, clipped so they never bleed above this section */}
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            {/* {/ Bold diagonal pink shape - right side (matches reference design) /} */}
-            <svg
-              className="absolute right-0 top-0 hidden h-full w-[70%] md:block"
-              viewBox="0 0 900 700"
-              fill="none"
-              preserveAspectRatio="xMaxYMin slice"
-            >
-              <defs>
-                <linearGradient
-                  id="fbsPinkGradient"
-                  x1="120"
-                  y1="650"
-                  x2="850"
-                  y2="80"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop offset="0%" stopColor="#FF8FC0" />
-                  <stop offset="50%" stopColor="#F0439A" />
-                  <stop offset="100%" stopColor="#E91580" />
-                </linearGradient>
-              </defs>
-              <path
-                d="M900 0H520L190 360C95 455 105 610 220 700H900V0Z"
-                fill="url(#fbsPinkGradient)"
-              />
-            </svg>
+        <div className="pointer-events-none absolute inset-0 ">
+          <Image
+            src="/images/home/Pink_hero_bg.png"
+            alt=""
+            aria-hidden="true"
+            width={1448}
+            height={1086}
+            priority
+            className="absolute right-0 top-0 hidden h-full w-[56%] 
+            object-cover object-left md:block xl:w-[54%]"
+          />
 
-            {/* Dot pattern, upper-left */}
-            <div
-              className="absolute left-10 top-8 hidden h-40 w-64 opacity-50 md:block"
-              style={{
-                backgroundImage:
-                  "radial-gradient(#EE9BC0 1.6px, transparent 1.6px)",
-                backgroundSize: "16px 16px",
-              }}
-            />
-          </div>
+          {/* Dot pattern, upper-left */}
+          <div
+            className="absolute left-[39%] top-6 hidden h-56 w-72 opacity-45 lg:block"
+            style={{
+              backgroundImage:
+                "radial-gradient(#EE9BC0 1.6px, transparent 1.6px)",
+              backgroundSize: "16px 16px",
+            }}
+          />
         </div>
 
-        <div className="container relative mx-auto grid grid-cols-2 gap-10">
+        {/* Carousel arrows */}
+        <button
+          type="button"
+          onClick={goPrev}
+          aria-label="Previous slide"
+          className="absolute left-3 top-1/2 z-50 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition hover:bg-slate-50 sm:left-4 sm:h-11 sm:w-11 lg:left-6"
+        >
+          <ChevronLeft size={18} className="text-slate-700" />
+        </button>
+        <button
+          type="button"
+          onClick={goNext}
+          aria-label="Next slide"
+          className="absolute right-3 top-1/2 z-50 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition hover:bg-slate-50 sm:right-4 sm:h-11 sm:w-11 lg:right-6"
+        >
+          <ChevronRight size={18} className="text-slate-700" />
+        </button>
+
+        <div className="relative grid w-full grid-cols-1 gap-8 px-4 pb-8 sm:px-10 md:px-14 lg:grid-cols-[40%_60%] lg:gap-0 lg:px-[7.15vw] lg:pb-[72px] lg:pt-[62px] xl:pt-[72px]">
           {/* ---- Left: copy ---- */}
-          <div className="relative z-10 flex flex-col justify-center">
+          <div className="relative z-10 flex flex-col items-center justify-center text-center lg:min-h-[492px] lg:items-start lg:text-left xl:min-h-[508px]">
             <span
-              className="mb-4 text-sm font-bold tracking-[0.2em]"
+              className="mb-4 text-xs font-bold tracking-normal sm:text-sm lg:text-[18px]"
               style={{ color: "#E91580" }}
             >
               PRINT. PROMOTE. GROW.
             </span>
 
             <p
-              className="text-7xl font-bold leading-tight"
+              className="text-[42px] font-bold leading-[1.1] sm:text-5xl md:text-6xl lg:text-[58px] xl:text-[64px]"
               style={{ color: "#161629" }}
             >
               Powerful Prints.
@@ -131,15 +145,15 @@ export default function NewHeroSection() {
               <span style={{ color: "#E91580" }}>Real Results.</span>
             </p>
 
-            <p className="mt-5 max-w-md pb-8 text-base leading-relaxed text-slate-600">
+            <p className="mt-5 max-w-[520px] pb-7 text-base leading-[1.75] text-slate-700 sm:text-lg lg:text-[20px]">
               High-quality printing solutions and creative marketing that help
               your business stand out and grow.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex w-full flex-wrap items-center justify-center gap-4 sm:w-auto lg:justify-start">
               <button
                 type="button"
-                className="flex items-center gap-2 rounded-md px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:brightness-110"
+                className="flex h-[58px] items-center gap-3 rounded-md px-6 text-sm font-semibold text-white shadow-md transition hover:brightness-110 sm:px-7 sm:text-base"
                 style={{ backgroundColor: "#E91580" }}
               >
                 <Printer size={18} />
@@ -147,7 +161,7 @@ export default function NewHeroSection() {
               </button>
               <button
                 type="button"
-                className="flex items-center gap-2 rounded-md border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
+                className="flex h-[58px] items-center gap-3 rounded-md border border-slate-500/70 bg-white/70 px-6 text-sm font-semibold text-slate-800 transition hover:bg-white sm:px-7 sm:text-base"
               >
                 <span
                   className="flex h-6 w-6 items-center justify-center rounded-full"
@@ -159,34 +173,23 @@ export default function NewHeroSection() {
               </button>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center gap-4 sm:gap-6">
-              {stats.map(({ icon: Icon, value, label }, idx) => (
+            <div className="mt-10 flex items-center gap-2 sm:gap-6 xl:gap-8 overflow-visible">
+              {stats.map(({ icon: Icon, value, label, color }, idx) => (
                 <React.Fragment key={label}>
-                  <div className="flex items-center gap-3">
-                    <Icon
-                      size={28}
-                      strokeWidth={1.5}
-                      style={{
-                        color:
-                          label === "Happy Clients"
-                            ? "#E91580"
-                            : label === "Projects Done"
-                              ? "#16A8E2"
-                              : "#F6A315",
-                      }}
-                    />
-                    <div className="leading-tight">
+                  <div className="flex md:flex-row flex-col items-center gap-3">
+                    <Icon className="items-center" size={34} strokeWidth={1.5} style={{ color }} />
+                    <div className=" leading-tight">
                       <p
-                        className="text-lg font-extrabold"
+                        className="text-base font-extrabold sm:text-xl"
                         style={{ color: "#161629" }}
                       >
                         {value}
                       </p>
-                      <p className="text-xs text-slate-500">{label}</p>
+                      <p className="text-xs text-slate-500 items-center">{label}</p>
                     </div>
                   </div>
                   {idx !== stats.length - 1 && (
-                    <div className="hidden h-10 w-[1px] bg-slate-300 sm:block" />
+                    <div className=" h-10 w-[1px] bg-slate-300" />
                   )}
                 </React.Fragment>
               ))}
@@ -194,65 +197,79 @@ export default function NewHeroSection() {
           </div>
 
           {/* ---- Right: Hero Images ---- */}
-          <div className="relative flex items-center w-full justify-center">
-            {/*
-                            Fixed-height stage that both images are absolutely
-                            positioned inside of. This is the key change: every
-                            class here is a real Tailwind utility, so nothing gets
-                            silently dropped like `top-50` / `z-100` did before.
-                        */}
-            <div className="relative h-[380px] w-full sm:h-[460px] lg:h-[560px]">
-              {/* Main mockup — notebook, business cards, brochure */}
-              <div>
-                <img
-                  src="/images/home/Home-1-v2.png"
-                  alt="FBS Signs branded notebook, business cards, and brochure mockup"
-                  className="absolute inset-0 -top-4 z-20 h-full w-full drop-shadow-2xl scale-[1.2]"
-                />
-              </div>
+          <div className="relative z-10 flex w-full items-center justify-center lg:justify-start">
+            <div className="hidden md:block relative h-[330px] w-full max-w-[420px] sm:h-[430px] sm:max-w-[540px] md:h-[520px] md:max-w-[660px] lg:h-[565px] lg:max-w-[800px] xl:h-[590px] xl:max-w-[860px]">
+              {/* Main mockup — notebook, business cards, brochure (kept in front) */}
+              <Image
+                src="/images/home/Home-1-v2.png"
+                alt="FBS Signs branded notebook, business cards, and brochure mockup"
+                width={1024}
+                height={1024}
+                priority
+                className="hidden md:block absolute left-1/2 top-[54%] z-20 h-[120%] w-[120%] max-w-none 
+                -translate-x-1/2 xl:-translate-x-1/3 -translate-y-1/2 object-contain drop-shadow-2xl sm:h-[122%] 
+                sm:w-[122%] lg:left-[47%] lg:top-[33%] xl:top-[53%] lg:h-[100%] lg:w-[100%] xl:h-[116%] xl:w-[116%]"
+              />
 
-              <div>
-                {/* Plant — anchored to the right edge, roughly mid-height, in front */}
-                <img
-                  src="/images/home/Home-2-v2.png"
-                  alt="Succulent plant in a geometric pot"
-                  className="absolute inset-0 z-30 left-1/2 -top-16 blur-sm h-full w-full object-contain drop-shadow-2xl scale-[0.8]"
-                />
-              </div>
+              {/* Plant — small accent tucked behind the mockup, upper-right */}
+              <Image
+                src="/images/home/Home-port.png"
+                alt=""
+                aria-hidden="true"
+                width={1024}
+                height={1024}
+                className="hidden md:block absolute right-[-4%] top-[22%] z-10 h-[62%] w-[48%] 
+                object-contain drop-shadow-xl sm:top-[21%] md:h-[64%] md:right-[-18%] md:top-[3%]
+                lg:right-[-10%] lg:top-[13%] lg:h-[68%] lg:w-[46%] xl:right-[-35%] xl:top-[-20%] blur-xs"
+              />
             </div>
           </div>
+        </div>
+
+        {/* Carousel dots */}
+        <div className="relative z-40 mt-0 flex items-center justify-center gap-3 pb-5 lg:absolute lg:bottom-[40px] lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:pb-0">
+          {Array.from({ length: SLIDE_COUNT }).map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              aria-label={`Go to slide ${idx + 1}`}
+              onClick={() => setActiveSlide(idx)}
+              className="h-2 rounded-full transition-all"
+              style={{
+                width: "10px",
+                backgroundColor: idx === activeSlide ? "#E91580" : "#FFFFFF",
+              }}
+            />
+          ))}
         </div>
       </div>
 
       {/* ---------------- Feature strip (floating card) ---------------- */}
-      <div className="container relative z-40 -top-28 mx-auto px-6 pb-16 pt-16 md:px-10">
-        <div className="flex flex-col items-center justify-between gap-6 rounded-[1.5rem] bg-white px-6 py-8 shadow-[0_4px_20px_rgb(0,0,0,0.05)] lg:flex-row lg:gap-0 lg:px-8">
+      <div className="relative z-40 w-full px-6 pb-12 pt-8 sm:px-10 md:px-14 lg:-mt-12 lg:px-[5vw] lg:pb-14 lg:pt-0">
+        <div className="grid grid-cols-1 gap-8 rounded-2xl bg-white px-6 py-8 shadow-[0_18px_45px_rgb(15,23,42,0.08)] sm:grid-cols-2 sm:gap-x-6 sm:gap-y-8 lg:flex lg:flex-row lg:gap-0 lg:px-9 lg:py-7 xl:px-10">
           {features.map(({ icon: Icon, color, title, desc }, index) => (
             <React.Fragment key={title}>
-              <div className="flex w-full items-center gap-5 lg:w-auto lg:flex-1 lg:justify-center">
+              <div className="flex w-full items-center gap-5 lg:w-auto lg:flex-1 lg:justify-center xl:gap-6">
                 <span
-                  className="flex h-[60px] w-[60px] flex-none items-center justify-center rounded-full border-[1.5px]"
+                  className="flex h-[52px] w-[52px] flex-none items-center justify-center rounded-full border-[1.5px] sm:h-[64px] sm:w-[64px]"
                   style={{ borderColor: color, color }}
                 >
-                  <Icon size={26} strokeWidth={2} />
+                  <Icon size={27} strokeWidth={2} />
                 </span>
-                <div className="flex max-w-[210px] flex-col justify-center">
+                <div className="flex max-w-[225px] flex-col justify-center">
                   <h3
-                    className="text-[16px] font-bold tracking-tight"
+                    className="text-[15px] font-bold tracking-tight sm:text-[18px]"
                     style={{ color: "#14142B" }}
                   >
                     {title}
                   </h3>
-                  <p className="mt-0.5 text-[13px] leading-relaxed text-slate-500">
+                  <p className="mt-1 text-[13px] leading-relaxed text-slate-600 sm:text-[15px]">
                     {desc}
                   </p>
                 </div>
               </div>
               {index !== features.length - 1 && (
-                <>
-                  <div className="hidden h-12 w-[1px] flex-none bg-slate-200 lg:block lg:mx-4 xl:mx-8" />
-                  <div className="h-[1px] w-[80%] bg-slate-100 lg:hidden" />
-                </>
+                <div className="hidden h-12 w-[1px] flex-none bg-slate-200 lg:block lg:mx-4 xl:mx-8" />
               )}
             </React.Fragment>
           ))}
