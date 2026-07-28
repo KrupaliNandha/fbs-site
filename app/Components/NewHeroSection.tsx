@@ -73,7 +73,7 @@ export default function NewHeroSection() {
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             {/* {/ Bold diagonal pink shape - right side (matches reference design) /} */}
             <svg
-              className="absolute right-0 top-0 hidden h-[50%] w-[70%] md:block"
+              className="absolute right-0 top-0 hidden h-full w-[70%] md:block"
               viewBox="0 0 900 700"
               fill="none"
               preserveAspectRatio="xMaxYMin slice"
@@ -121,7 +121,7 @@ export default function NewHeroSection() {
             </span>
 
             <p
-              className="text-7xl font-bold leading-tight sm:text-5xl"
+              className="text-7xl font-bold leading-tight"
               style={{ color: "#161629" }}
             >
               Powerful Prints.
