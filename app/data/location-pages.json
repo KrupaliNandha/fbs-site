@@ -5,7 +5,7 @@
     "state": "Illinois",
     "stateCode": "IL",
     "heroBadge": "Naperville Service Area",
-    "marketSummary": "We support Naperville businesses that need consistent branding across print, signage, direct mail, websites, and local search campaigns.",
+    "marketSummary": "We support Naperville businesses that need consistent branding across print, signage, direct mail, websites, and local SEO for Naperville-area search visibility.",
     "nearbyAreas": [
       "Downtown Naperville",
       "Route 59 corridor",
@@ -18,11 +18,17 @@
       "Retail promotions and storefront visibility",
       "Restaurant menus, takeout inserts, and branded print pieces",
       "Lead-generation mailers for neighborhood outreach",
-      "Website updates that improve conversion and local discovery",
+      "Local SEO for Naperville to improve rankings for Naperville-specific searches",
       "Consistent branding across print, signage, and digital channels"
     ],
+    "targetKeywords": [
+      "local seo naperville",
+      "naperville il local seo",
+      "naperville business signage",
+      "naperville direct mail"
+    ],
     "ctaNote": "Tell us what you need to launch, promote, or refresh in Naperville and we will recommend the right mix of service, format, and next steps.",
-    "updatedAt": "2026-04-08"
+    "updatedAt": "2026-07-28"
   },
   {
     "slug": "schaumburg-il",
@@ -46,6 +52,11 @@
       "Lead-focused websites for local commercial traffic",
       "SEO improvements that strengthen search visibility in Schaumburg"
     ],
+    "targetKeywords": [
+      "schaumburg business signage",
+      "schaumburg local seo",
+      "schaumburg direct mail"
+    ],
     "ctaNote": "Share the project details, timeline, and service mix you need in Schaumburg and we will help you plan the most effective rollout.",
     "updatedAt": "2026-04-08"
   },
@@ -55,7 +66,7 @@
     "state": "Illinois",
     "stateCode": "IL",
     "heroBadge": "Chicago Service Area",
-    "marketSummary": "We serve Chicago businesses across the Loop, North Side, South Side, and suburban corridors with signage, printing, direct mail, web design, and SEO built for one of the country's most competitive commercial markets.",
+    "marketSummary": "We serve Chicago businesses across the Loop, North Side, South Side, and suburban corridors with signage, printing, direct mail, web design, and SEO built for one of the country's most competitive commercial markets, including tradeshow signs, booth signage, and print mailing service support for Chicago events and campaigns.",
     "nearbyAreas": [
       "The Loop",
       "River North",
@@ -66,13 +77,21 @@
     ],
     "businessNeeds": [
       "High-visibility storefront signage for competitive Chicago retail districts",
-      "Restaurant and hospitality print collateral at scale",
+      "Tradeshow signs and booth signage for Chicago convention and expo events",
+      "Print mailing service coordination for Chicago outreach campaigns",
       "EDDM campaigns targeting Chicago neighborhood zip codes",
-      "Conversion-focused websites for Chicago-area service businesses",
       "Local SEO to rank in Chicago neighborhood and city-wide searches"
     ],
+    "targetKeywords": [
+      "tradeshow signs chicago",
+      "chicago tradeshow signs",
+      "booth signage chicago",
+      "trade show graphics guide chicago",
+      "tradeshow sign chicago",
+      "print mailing service chicago"
+    ],
     "ctaNote": "Tell us what your Chicago business needs to stand out  from storefront signage to a full multi-channel campaign  and we will build the right plan.",
-    "updatedAt": "2026-06-03"
+    "updatedAt": "2026-07-28"
   },
   {
     "slug": "aurora-il",
@@ -96,6 +115,11 @@
       "Local search optimization for Aurora neighborhood queries",
       "Business websites for Aurora-based contractors and service providers"
     ],
+    "targetKeywords": [
+      "aurora il signage",
+      "aurora business printing",
+      "aurora local seo"
+    ],
     "ctaNote": "Let us know what you need to grow your Aurora business and we will put together the right combination of print, signage, and digital services.",
     "updatedAt": "2026-06-03"
   },
@@ -105,7 +129,7 @@
     "state": "Illinois",
     "stateCode": "IL",
     "heroBadge": "Joliet Service Area",
-    "marketSummary": "We support Joliet businesses across Will County with practical, dependable branding services including commercial signage, printing, direct mail, and digital marketing that match the scale of the local market.",
+    "marketSummary": "We support Joliet businesses across Will County with practical, dependable branding services including bulk signage printing, commercial signage, direct mail, and digital marketing that match the scale of the local market.",
     "nearbyAreas": [
       "Downtown Joliet",
       "Plainfield Road corridor",
@@ -115,14 +139,19 @@
       "Will County business parks"
     ],
     "businessNeeds": [
-      "Commercial signage for Joliet's retail and manufacturing businesses",
+      "Bulk signage printing for Joliet retail and manufacturing businesses",
       "Print collateral for Joliet service businesses and contractors",
       "EDDM direct mail covering Will County residential routes",
       "SEO for Joliet and Will County service-area searches",
       "Website design for Joliet-area businesses launching online"
     ],
+    "targetKeywords": [
+      "bulk signage printing joliet cost",
+      "joliet commercial signage",
+      "joliet direct mail"
+    ],
     "ctaNote": "Share your project needs in Joliet and we will recommend the most cost-effective mix of print, signage, and digital services for your business.",
-    "updatedAt": "2026-06-03"
+    "updatedAt": "2026-07-28"
   },
   {
     "slug": "elgin-il",
@@ -145,6 +174,11 @@
       "Direct mail campaigns targeting Elgin and Kane County zip codes",
       "Local SEO to rank for Elgin and northwest suburban searches",
       "Website development for Elgin-based small businesses"
+    ],
+    "targetKeywords": [
+      "elgin il signage",
+      "elgin business printing",
+      "elgin local seo"
     ],
     "ctaNote": "Tell us what your Elgin business needs and we will build a plan around signage, print, or digital that fits your budget and market.",
     "updatedAt": "2026-06-03"
@@ -171,6 +205,11 @@
       "Website design for Bolingbrook-based businesses growing online",
       "SEO for Bolingbrook and southwest suburban search queries"
     ],
+    "targetKeywords": [
+      "bolingbrook signage",
+      "bolingbrook direct mail",
+      "bolingbrook local seo"
+    ],
     "ctaNote": "Let us know what you need to strengthen your Bolingbrook business presence and we will recommend the right services and next steps.",
     "updatedAt": "2026-06-03"
   },
@@ -180,7 +219,7 @@
     "state": "Illinois",
     "stateCode": "IL",
     "heroBadge": "Downers Grove Service Area",
-    "marketSummary": "We serve Downers Grove businesses in DuPage County with professional signage, commercial printing, direct mail, and digital marketing that match the expectations of one of Chicago's most established western suburban markets.",
+    "marketSummary": "We serve Downers Grove businesses in DuPage County with professional signage, commercial printing, direct mail, online advertising, and SEO company-level support that match the expectations of one of Chicago's most established western suburban markets.",
     "nearbyAreas": [
       "Downtown Downers Grove",
       "Ogden Avenue corridor",
@@ -193,10 +232,16 @@
       "Professional signage for Downers Grove retail and office spaces",
       "Business print materials for DuPage County service businesses",
       "Direct mail campaigns targeting Downers Grove residential zip codes",
-      "Local SEO to rank in Downers Grove and DuPage County searches",
-      "Website design for Downers Grove professional service firms"
+      "SEO company support to rank in Downers Grove and DuPage County searches",
+      "Online advertising for Downers Grove businesses seeking new leads"
+    ],
+    "targetKeywords": [
+      "seo company downers grove",
+      "online advertising downers grove",
+      "downers grove signage",
+      "downers grove direct mail"
     ],
     "ctaNote": "Share your Downers Grove project details and we will put together a plan for signage, print, or digital that fits your business goals.",
-    "updatedAt": "2026-06-03"
+    "updatedAt": "2026-07-28"
   }
 ]
