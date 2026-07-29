@@ -21,8 +21,7 @@ const SUBMIT_PATH = "/submit";
 const WEB3FORMS_ENDPOINT = `https://${API_DOMAIN}${SUBMIT_PATH}`;
 
 const WEB3FORMS_ACCESS_KEY =
-  process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ??
-  "YOUR_WEB3FORMS_ACCESS_KEY";
+  process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "YOUR_WEB3FORMS_ACCESS_KEY";
 
 type Web3FormsResponse = {
   success?: boolean;
@@ -58,7 +57,9 @@ export default function ContactFormSubmit({
     const form = event.currentTarget;
 
     // Check botcheck
-    const botcheckInput = form.elements.namedItem("botcheck") as HTMLInputElement | null;
+    const botcheckInput = form.elements.namedItem(
+      "botcheck",
+    ) as HTMLInputElement | null;
     if (botcheckInput && botcheckInput.checked) {
       // Honeypot triggered
       return;
@@ -77,7 +78,10 @@ export default function ContactFormSubmit({
     const rawPhone = typeof phoneValue === "string" ? phoneValue.trim() : "";
 
     if (rawPhone) {
-      formData.set("phone", rawPhone.startsWith("+1") ? rawPhone : `+1 ${rawPhone}`);
+      formData.set(
+        "phone",
+        rawPhone.startsWith("+1") ? rawPhone : `+1 ${rawPhone}`,
+      );
     }
 
     const inquirySubject = formData.get("inquiry_subject");
@@ -91,11 +95,11 @@ export default function ContactFormSubmit({
         ? `New inquiry: ${customSubject}`
         : isHomeVariant
           ? "New contact form submission"
-          : "New contact page submission"
+          : "New contact page submission",
     );
     formData.append(
       "from_name",
-      isHomeVariant ? "FBS Prints Website" : "FBS Prints Contact Page"
+      isHomeVariant ? "FBS Prints Website" : "FBS Prints Contact Page",
     );
     formData.append("replyto", String(formData.get("email") ?? "").trim());
 
@@ -151,7 +155,7 @@ export default function ContactFormSubmit({
     return (
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        className="grid grid-cols-1 md:grid-cols-2 gap-3"
       >
         {/* Honeypot field - name="botcheck" */}
         <input
@@ -177,7 +181,7 @@ export default function ContactFormSubmit({
             placeholder="Enter your first name"
             autoComplete="given-name"
             required
-            className="mt-2 w-full rounded-xl border px-4 py-3 border-primary-light outline-none focus:ring-0"
+            className="mt-1.5 w-full rounded-lg bg-white px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary-light focus:outline-none transition border border-primary-light"
           />
         </div>
 
@@ -195,7 +199,7 @@ export default function ContactFormSubmit({
             placeholder="Enter your last name"
             autoComplete="family-name"
             required
-            className="mt-2 w-full rounded-xl border px-4 py-3 border-primary-light outline-none focus:ring-0"
+            className="mt-1.5 w-full rounded-lg bg-white px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary-light focus:outline-none transition border border-primary-light"
           />
         </div>
 
@@ -213,7 +217,7 @@ export default function ContactFormSubmit({
             placeholder="Enter your email id"
             autoComplete="email"
             required
-            className="mt-2 w-full rounded-xl border px-4 py-3 border-primary-light outline-none focus:ring-0"
+            className="mt-1.5 w-full rounded-lg bg-white px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary-light focus:outline-none transition border border-primary-light"
           />
         </div>
 
@@ -224,8 +228,10 @@ export default function ContactFormSubmit({
           >
             Phone Number
           </label>
-          <div className="mt-2 flex items-center border border-primary-light rounded-xl focus-within:border-primary bg-white">
-            <span className="pl-4 text-primary-dark/60 font-medium select-none">+1</span>
+          <div className="mt-1.5 flex items-center rounded-lg bg-white focus-within:ring-2 focus-within:ring-primary-light focus:outline-none transition border border-primary-light">
+            <span className="pl-4 text-sm text-primary-dark/60 font-medium select-none">
+              +1
+            </span>
             <input
               id={`${formId}-phone`}
               name="phone"
@@ -233,7 +239,7 @@ export default function ContactFormSubmit({
               placeholder="Enter your phone number"
               autoComplete="tel"
               required
-              className="w-full px-4 py-3 pl-2 rounded-r-xl outline-none focus:ring-0 border-none bg-transparent"
+              className="w-full px-4 py-2.5 pl-2 text-sm rounded-r-lg outline-none border-none bg-transparent"
             />
           </div>
         </div>
@@ -251,7 +257,7 @@ export default function ContactFormSubmit({
             type="text"
             placeholder="Enter your company name"
             autoComplete="organization"
-            className="mt-2 w-full rounded-xl border px-4 py-3 border-primary-light outline-none focus:ring-0"
+            className="mt-1.5 w-full rounded-lg bg-white px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary-light focus:outline-none transition border border-primary-light"
           />
         </div>
 
@@ -265,19 +271,16 @@ export default function ContactFormSubmit({
           <textarea
             id={`${formId}-message`}
             name="message"
-            rows={5}
+            rows={3}
             placeholder="Enter your message here..."
             required
-            className="mt-2 w-full rounded-xl border px-4 py-3 border-primary-light outline-none focus:ring-0"
+            className="mt-1.5 w-full rounded-lg bg-white px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary-light focus:outline-none transition border border-primary-light"
           ></textarea>
         </div>
 
-        <div className="md:col-span-2 text-sm text-primary-dark/60">
+        <div className="md:col-span-2 text-xs text-primary-dark/60">
           By filling this form, you agree to our
-          <span className="text-primary font-medium">
-            {" "}
-            Terms & Conditions{" "}
-          </span>
+          <span className="text-primary font-medium"> Terms & Conditions </span>
           and
           <span className="text-primary font-medium"> Privacy Policy</span>
         </div>
@@ -289,11 +292,11 @@ export default function ContactFormSubmit({
           {submissionState.message}
         </div>
 
-        <div className="md:col-span-2 flex justify-center lg:justify-end">
+        <div className="md:col-span-2 flex justify-center lg:justify-start">
           <button
             type="submit"
             disabled={isSubmitting}
-            className="rounded-full cursor-pointer px-8 py-3 text-white font-semibold bg-primary hover:scale-105 transition disabled:cursor-not-allowed disabled:opacity-70"
+            className="rounded-full cursor-pointer px-8 py-3 text-sm text-white font-semibold bg-primary hover:scale-105 transition disabled:cursor-not-allowed disabled:opacity-70"
           >
             {isSubmitting ? "Sending..." : "Send Message"}
           </button>
@@ -345,7 +348,9 @@ export default function ContactFormSubmit({
         className="border border-primary-light p-4 rounded-lg w-full focus:ring-2 focus:ring-primary focus:outline-none transition"
       />
       <div className="flex items-center border border-primary-light rounded-lg focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition bg-white w-full">
-        <span className="pl-4 text-primary-dark/60 font-medium select-none">+1</span>
+        <span className="pl-4 text-primary-dark/60 font-medium select-none">
+          +1
+        </span>
         <input
           id={`${formId}-phone`}
           name="phone"
