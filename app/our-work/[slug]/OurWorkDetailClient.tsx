@@ -22,6 +22,7 @@ export interface PortfolioItem {
   slug: string;
   category: string;
   title: string;
+  seoTitle?: string;
   coverImage: string;
   images: string[];
   link: string;

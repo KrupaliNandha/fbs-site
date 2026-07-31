@@ -22,10 +22,10 @@ export async function generateMetadata({
   }
 
   return {
-    title: item.seoTitle,
+    title: item.seoTitle ?? item.title,
     description: item.description,
     openGraph: {
-      title: item.seoTitle,
+      title: item.seoTitle ?? item.title,
       description: item.description,
       images: [item.coverImage],
     },
