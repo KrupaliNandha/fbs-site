@@ -28,9 +28,19 @@ class ApiClientError extends Error {
   }
 }
 
+/**
+ * Browser calls stay on same origin (`/api/...`) and Next.js rewrites them
+ * to the backend. This keeps the session cookie on the frontend domain.
+ */
+function apiUrl(path: string) {
+  const base = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "";
+  return `${base}${path}`;
+}
+
 async function request<T>(url: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(url, {
+  const response = await fetch(apiUrl(url), {
     ...init,
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       ...init?.headers,
