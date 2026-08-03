@@ -102,7 +102,10 @@ function ClientDashboardContent({ clientUser }: { clientUser: any }) {
             {projects.map((p) => (
               <div
                 key={p.id}
-                className="border border-slate-200 rounded-2xl p-5 bg-white hover:shadow-md transition space-y-4 flex flex-col justify-between"
+                onClick={() => {
+                  if (p.shareToken) window.location.href = `/review/${p.shareToken}`;
+                }}
+                className="border border-slate-200 rounded-2xl p-5 bg-white hover:shadow-md hover:border-indigo-300 transition space-y-4 flex flex-col justify-between cursor-pointer"
               >
                 <div className="space-y-2">
                   <div className="flex items-start justify-between">
@@ -121,6 +124,7 @@ function ClientDashboardContent({ clientUser }: { clientUser: any }) {
                   {p.shareToken && (
                     <a
                       href={`/review/${p.shareToken}`}
+                      onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition shadow-sm"
                     >
                       <Eye size={14} /> Open Design Proof

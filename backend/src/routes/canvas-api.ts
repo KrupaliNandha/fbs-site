@@ -32,7 +32,9 @@ import {
 } from "../lib/canvas/canvases.js";
 import {
   listDiagramTemplates,
+  getDiagramTemplateById,
   createDiagramTemplate,
+  updateDiagramTemplate,
   deleteDiagramTemplate,
 } from "../lib/canvas/diagrams.js";
 import { processCanvasImage } from "../lib/canvas/watermark.js";
@@ -241,11 +243,6 @@ canvasRouter.post(
       const user = (req as any).user as AuthUser;
       const files = (req.files as Express.Multer.File[]) || [];
 
-      if (files.length === 0) {
-        res.status(400).json({ message: "No image files were uploaded." });
-        return;
-      }
-
       const {
         projectId,
         name,
@@ -263,6 +260,40 @@ canvasRouter.post(
       const isWatermarkOn = String(watermarkEnabled) === "true" || watermarkEnabled === true;
       const parsedProjectId = Number(projectId);
       const parsedDiagramId = diagramTemplateId ? Number(diagramTemplateId) : undefined;
+
+      if (files.length === 0) {
+        if (canvasType === "diagram" && parsedDiagramId) {
+          const diagramTmpl = await getDiagramTemplateById(parsedDiagramId);
+          const tmplUrl = diagramTmpl?.previewUrl || "/placeholder.png";
+
+          const canvas = await createCanvasWithInitialVersion({
+            projectId: parsedProjectId,
+            name,
+            canvasType: "diagram",
+            diagramTemplateId: parsedDiagramId,
+            watermarkEnabled: isWatermarkOn,
+            watermarkText,
+            createdBy: user.id,
+            originalImageUrl: tmplUrl,
+            watermarkedImageUrl: tmplUrl,
+            thumbnailUrl: tmplUrl,
+            diagramImages: [
+              {
+                originalUrl: tmplUrl,
+                watermarkedUrl: tmplUrl,
+                thumbnailUrl: tmplUrl,
+                caption: diagramTmpl?.name || name,
+              },
+            ],
+          });
+
+          res.status(201).json([canvas]);
+          return;
+        }
+
+        res.status(400).json({ message: "No image files or diagram blueprint selected." });
+        return;
+      }
 
       const createdCanvases = [];
 
@@ -604,6 +635,32 @@ canvasRouter.post("/diagram-templates", requireAuth(), upload.single("image"), a
     res.status(201).json(created);
   } catch (err) {
     res.status(500).json({ message: err instanceof Error ? err.message : "Error creating diagram blueprint." });
+  }
+});
+
+canvasRouter.put("/diagram-templates/:id", requireAuth(), upload.single("image"), async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    const { name, description } = req.body;
+    let previewUrl = req.body.previewUrl;
+
+    if (req.file) {
+      const processed = await processCanvasImage(
+        req.file.buffer,
+        `diagram_tmpl_${Date.now()}`,
+        false,
+      );
+      previewUrl = processed.watermarkedUrl;
+    }
+
+    const updated = await updateDiagramTemplate(id, {
+      name,
+      description,
+      previewUrl,
+    });
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ message: err instanceof Error ? err.message : "Error updating diagram blueprint." });
   }
 });
 

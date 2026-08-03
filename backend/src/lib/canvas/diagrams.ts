@@ -107,6 +107,72 @@ export async function createDiagramTemplate(data: {
   };
 }
 
+export async function updateDiagramTemplate(
+  id: number,
+  data: {
+    name?: string;
+    description?: string | null;
+    previewUrl?: string | null;
+  },
+): Promise<DiagramTemplateRecord> {
+  const updates: string[] = [];
+  const params: any[] = [];
+
+  if (data.name !== undefined) {
+    updates.push("name = ?");
+    params.push(data.name.trim());
+  }
+  if (data.description !== undefined) {
+    updates.push("description = ?");
+    params.push(data.description ? data.description.trim() : null);
+  }
+  if (data.previewUrl !== undefined) {
+    updates.push("preview_url = ?");
+    params.push(data.previewUrl ? data.previewUrl.trim() : null);
+  }
+
+  if (updates.length > 0) {
+    params.push(id);
+    await execute(`UPDATE diagram_templates SET ${updates.join(", ")}, updated_at = CURRENT_TIMESTAMP WHERE id = ?`, params);
+  }
+
+  const [rows] = await query<RowDataPacket[]>(
+    `SELECT id, name, description, preview_url, template_structure, created_at, updated_at FROM diagram_templates WHERE id = ?`,
+    [id],
+  );
+
+  if (rows.length === 0) throw new Error("Diagram template not found.");
+
+  const row = rows[0];
+  return {
+    id: Number(row.id),
+    name: String(row.name),
+    description: row.description ? String(row.description) : null,
+    previewUrl: row.preview_url ? String(row.preview_url) : null,
+    templateStructure: row.template_structure ? JSON.parse(String(row.template_structure)) : null,
+    createdAt: new Date(row.created_at).toISOString(),
+    updatedAt: new Date(row.updated_at).toISOString(),
+  };
+}
+
 export async function deleteDiagramTemplate(id: number): Promise<void> {
   await execute(`DELETE FROM diagram_templates WHERE id = ?`, [id]);
+}
+
+export async function getDiagramTemplateById(id: number): Promise<DiagramTemplateRecord | null> {
+  const [rows] = await query<RowDataPacket[]>(
+    `SELECT id, name, description, preview_url, template_structure, created_at, updated_at FROM diagram_templates WHERE id = ?`,
+    [id],
+  );
+  if (rows.length === 0) return null;
+  const row = rows[0];
+  return {
+    id: Number(row.id),
+    name: String(row.name),
+    description: row.description ? String(row.description) : null,
+    previewUrl: row.preview_url ? String(row.preview_url) : null,
+    templateStructure: row.template_structure ? JSON.parse(String(row.template_structure)) : null,
+    createdAt: new Date(row.created_at).toISOString(),
+    updatedAt: new Date(row.updated_at).toISOString(),
+  };
 }

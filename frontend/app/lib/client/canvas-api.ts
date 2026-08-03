@@ -285,6 +285,13 @@ export const canvasApi = {
     });
   },
 
+  async updateDiagramTemplate(id: number, data: FormData | { name?: string; description?: string; previewUrl?: string }): Promise<DiagramTemplateModel> {
+    return req<DiagramTemplateModel>(`/api/diagram-templates/${id}`, {
+      method: "PUT",
+      body: data instanceof FormData ? data : JSON.stringify(data),
+    });
+  },
+
   async deleteDiagramTemplate(id: number): Promise<void> {
     return req<void>(`/api/diagram-templates/${id}`, { method: "DELETE" });
   },

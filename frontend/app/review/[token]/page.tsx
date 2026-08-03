@@ -436,23 +436,16 @@ export default function SecureCanvasReviewPage() {
                   ) : (
                     /* SINGLE STANDALONE CANVAS PHOTO */
                     <div
-                      className={`border rounded-2xl p-5 bg-white shadow-sm space-y-4 ${
+                      className={`border-2 border-slate-900 rounded-2xl bg-white shadow-md overflow-hidden flex flex-col justify-between ${
                         selectedCanvas.status === "approved"
-                          ? "border-emerald-300 ring-2 ring-emerald-400/20"
+                          ? "ring-4 ring-emerald-400/20"
                           : selectedCanvas.status === "changes_requested"
-                          ? "border-amber-300 ring-2 ring-amber-400/20"
-                          : "border-slate-200"
+                          ? "ring-4 ring-amber-400/20"
+                          : ""
                       }`}
                     >
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-sm text-slate-800">
-                          Photo: {selectedCanvas.name}
-                        </span>
-                        {getStatusBadge(selectedCanvas.status)}
-                      </div>
-
                       {/* Photo Image Frame */}
-                      <div className="relative flex items-center justify-center bg-slate-950/5 rounded-xl overflow-hidden group min-h-[380px] border border-slate-100">
+                      <div className="relative flex items-center justify-center bg-slate-900/5 p-4 group min-h-[380px]">
                         <img
                           src={activeMainImage}
                           alt={selectedCanvas.name}
@@ -460,7 +453,7 @@ export default function SecureCanvasReviewPage() {
                         />
 
                         {selectedCanvas.watermarkEnabled && (
-                          <div className="absolute bottom-3 left-3 bg-slate-900/70 text-white text-[11px] px-2.5 py-1 rounded backdrop-blur-sm">
+                          <div className="absolute bottom-3 left-3 bg-indigo-900/90 text-white text-[10px] font-bold px-2.5 py-1 rounded backdrop-blur-sm shadow">
                             Protected Review Proof • Watermark Active
                           </div>
                         )}
@@ -471,6 +464,59 @@ export default function SecureCanvasReviewPage() {
                         >
                           <ZoomIn size={20} /> View Fullscreen
                         </button>
+                      </div>
+
+                      {/* Architectural Title Block Footer Table */}
+                      <div className="border-t-2 border-slate-900 bg-white">
+                        <div className="grid grid-cols-12 border-b border-slate-800 text-[10px] divide-x-2 divide-slate-800 font-sans">
+                          {/* Company Logo & Address */}
+                          <div className="col-span-3 p-2.5 bg-slate-50 flex flex-col justify-between">
+                            <div>
+                              <div className="flex items-center gap-1.5 font-black text-slate-900 tracking-tight text-xs">
+                                <span className="bg-amber-400 text-slate-950 px-1 rounded text-[10px]">FBS</span>
+                                SIGNS & PRINTING
+                              </div>
+                              <p className="text-[9px] font-bold text-slate-600 mt-1 leading-tight uppercase">
+                                750 WARRENVILLE RD<br />LISLE, IL 60532
+                              </p>
+                            </div>
+                            <p className="text-[9px] font-mono text-indigo-700 font-bold mt-1">WWW.FBSSIGNS.COM</p>
+                          </div>
+
+                          {/* Project & Canvas Title */}
+                          <div className="col-span-3 p-2.5 flex flex-col justify-between">
+                            <div>
+                              <span className="font-extrabold text-slate-500 uppercase text-[8px] tracking-wider block">PROJECT NAME:</span>
+                              <span className="font-black text-slate-900 text-xs block truncate" title={project?.name}>{project?.name || "ROSATI'S PIZZA"}</span>
+                            </div>
+                            <div className="mt-1">
+                              <span className="font-extrabold text-slate-500 uppercase text-[8px] tracking-wider block">CANVAS NAME:</span>
+                              <span className="font-bold text-indigo-900 text-[11px] block truncate" title={selectedCanvas.name}>{selectedCanvas.name}</span>
+                            </div>
+                          </div>
+
+                          {/* Status & Approval */}
+                          <div className="col-span-3 p-2.5 flex flex-col justify-between">
+                            <div>
+                              <span className="font-extrabold text-slate-500 uppercase text-[8px] tracking-wider block">CLIENT APPROVAL:</span>
+                              <div className="mt-0.5">{getStatusBadge(selectedCanvas.status)}</div>
+                            </div>
+                            <div className="mt-1 border-t border-slate-200 pt-1">
+                              <span className="font-bold text-slate-500 text-[9px] block uppercase">TYPE: {selectedCanvas.canvasType}</span>
+                            </div>
+                          </div>
+
+                          {/* Legal Disclaimer */}
+                          <div className="col-span-3 p-2.5 bg-slate-50 flex flex-col justify-between text-[8px] leading-tight text-slate-600">
+                            <p className="italic text-[8px] leading-tight text-slate-500">
+                              This design is the original and unpublished work of FBS SIGNS and may not be reproduced, copied or exhibited without express written permission.
+                            </p>
+                            <div className="pt-1 border-t border-slate-300 font-mono text-[8px] font-bold text-slate-800 flex justify-between">
+                              <span>SCALE: N.T.S.</span>
+                              <span>{new Date(selectedCanvas.updatedAt).toLocaleDateString()}</span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Remarks History for this Single Photo */}

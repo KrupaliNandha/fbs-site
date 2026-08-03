@@ -6,11 +6,9 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const UPLOADS_DIR = path.resolve(__dirname, "../../../uploads");
 
-// Ensure upload directories exist
+// Ensure upload directory exists
 export async function ensureUploadDirs() {
-  await fs.mkdir(path.join(UPLOADS_DIR, "originals"), { recursive: true });
-  await fs.mkdir(path.join(UPLOADS_DIR, "watermarked"), { recursive: true });
-  await fs.mkdir(path.join(UPLOADS_DIR, "thumbnails"), { recursive: true });
+  await fs.mkdir(UPLOADS_DIR, { recursive: true });
 }
 
 function escapeXml(unsafe: string): string {
@@ -70,24 +68,13 @@ export async function processCanvasImage(
   await ensureUploadDirs();
 
   const timestamp = Date.now();
-  const baseFilename = `${filenamePrefix}_${timestamp}`;
+  const filename = `${filenamePrefix}_${timestamp}.webp`;
+  const filePath = path.join(UPLOADS_DIR, filename);
 
-  const originalFilename = `${baseFilename}_orig.webp`;
-  const watermarkedFilename = `${baseFilename}_wm.webp`;
-  const thumbnailFilename = `${baseFilename}_thumb.webp`;
-
-  const originalPath = path.join(UPLOADS_DIR, "originals", originalFilename);
-  const watermarkedPath = path.join(UPLOADS_DIR, "watermarked", watermarkedFilename);
-  const thumbnailPath = path.join(UPLOADS_DIR, "thumbnails", thumbnailFilename);
-
-  // 1. Save pristine original image as WebP
   const metadata = await sharp(imageBuffer).metadata();
   const width = metadata.width || 1200;
   const height = metadata.height || 800;
 
-  await sharp(imageBuffer).webp({ quality: 90 }).toFile(originalPath);
-
-  // 2. Generate Watermarked Image
   if (watermarkEnabled) {
     const watermarkSvg = buildWatermarkSvgPattern(
       width,
@@ -96,28 +83,26 @@ export async function processCanvasImage(
     );
     await sharp(imageBuffer)
       .composite([{ input: watermarkSvg, blend: "over" }])
-      .webp({ quality: 88 })
-      .toFile(watermarkedPath);
+      .webp({ quality: 90 })
+      .toFile(filePath);
   } else {
-    await sharp(imageBuffer).webp({ quality: 88 }).toFile(watermarkedPath);
+    await sharp(imageBuffer)
+      .webp({ quality: 90 })
+      .toFile(filePath);
   }
 
-  // 3. Generate Thumbnail Image
-  await sharp(imageBuffer)
-    .resize(400, 300, { fit: "inside" })
-    .webp({ quality: 80 })
-    .toFile(thumbnailPath);
+  const singleUrl = `/uploads/${filename}`;
 
   return {
-    originalUrl: `/uploads/originals/${originalFilename}`,
-    watermarkedUrl: `/uploads/watermarked/${watermarkedFilename}`,
-    thumbnailUrl: `/uploads/thumbnails/${thumbnailFilename}`,
+    originalUrl: singleUrl,
+    watermarkedUrl: singleUrl,
+    thumbnailUrl: singleUrl,
   };
 }
 
 export async function deleteUploadFilesByUrls(urls: (string | null | undefined)[]): Promise<void> {
-  for (const url of urls) {
-    if (!url || !url.startsWith("/uploads/")) continue;
+  const uniqueUrls = Array.from(new Set(urls.filter((u): u is string => Boolean(u && u.startsWith("/uploads/")))));
+  for (const url of uniqueUrls) {
     try {
       const relPath = url.replace(/^\/uploads\//, "");
       const fullPath = path.join(UPLOADS_DIR, relPath);
