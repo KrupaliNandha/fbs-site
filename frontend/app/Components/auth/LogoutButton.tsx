@@ -8,18 +8,21 @@ export function LogoutButton() {
   const router = useRouter();
 
   async function handleLogout() {
-    await authApi.logout();
-    router.push("/");
-    router.refresh();
+    try {
+      await authApi.logout();
+    } finally {
+      router.push("/");
+      router.refresh();
+    }
   }
 
   return (
     <button
       type="button"
       onClick={handleLogout}
-      className="inline-flex min-h-10 items-center gap-2 rounded-md border border-black/15 px-3 text-sm font-semibold text-primary-dark transition hover:bg-black/5"
+      className="w-full flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-rose-500/15 hover:bg-rose-600 text-rose-400 hover:text-white border border-rose-500/30 font-bold text-xs transition-all shadow-sm cursor-pointer hover:shadow-rose-600/30"
     >
-      <LogOut size={17} />
+      <LogOut size={16} />
       Sign out
     </button>
   );

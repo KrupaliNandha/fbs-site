@@ -1,10 +1,15 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, Mail } from "lucide-react";
 import { authApi } from "@/app/lib/client/auth-api";
 import type { AuthRole } from "@/app/lib/auth/types";
+import {
+  getDashboardPathFromRole,
+  getRoleFromToken,
+  getStoredToken,
+} from "@/app/lib/auth/token";
 
 type LoginFormProps = {
   role: AuthRole;
@@ -18,6 +23,18 @@ export function LoginForm({ role, title }: LoginFormProps) {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    // If token already exists in localStorage, decode role and redirect
+    const token = getStoredToken();
+    if (token) {
+      const userRole = getRoleFromToken(token);
+      if (userRole) {
+        const targetPath = getDashboardPathFromRole(userRole);
+        router.push(targetPath);
+      }
+    }
+  }, [router]);
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
@@ -25,7 +42,14 @@ export function LoginForm({ role, title }: LoginFormProps) {
 
     try {
       const response = await authApi.login(role, email, password);
-      router.push(response.redirectTo);
+      // Detect role from JWT token stored in localStorage or from returned user
+      const userRole =
+        getRoleFromToken(response.token) ||
+        (response.user?.roles?.[0] as AuthRole) ||
+        role;
+
+      const targetPath = getDashboardPathFromRole(userRole);
+      router.push(targetPath);
       router.refresh();
     } catch (loginError) {
       setError(
@@ -88,11 +112,20 @@ export function LoginForm({ role, title }: LoginFormProps) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="min-h-11 w-full rounded-md bg-primary px-4 font-semibold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
+            className="min-h-11 w-full rounded-md bg-primary px-4 font-semibold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
           >
             {isSubmitting ? "Signing in..." : "Sign in"}
           </button>
         </form>
+
+        {role === "user" && (
+          <div className="mt-6 text-center text-xs text-slate-500">
+            Don&apos;t have an account or password yet?{" "}
+            <a href="/user/register" className="font-bold text-indigo-600 hover:underline">
+              Create Account / Set Password
+            </a>
+          </div>
+        )}
       </section>
     </main>
   );

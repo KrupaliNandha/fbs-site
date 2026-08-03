@@ -1,7 +1,7 @@
 import { createHmac, timingSafeEqual } from "crypto";
 
-type SessionTokenPayload = {
-  sid: string;
+export type AuthTokenPayload = {
+  tid: string;
   sub: number;
   roles: string[];
   exp: number;
@@ -9,18 +9,18 @@ type SessionTokenPayload = {
 
 const encoder = new TextEncoder();
 
-function getSessionSecret(): string {
-  const secret = process.env.AUTH_SESSION_SECRET;
+function getAuthSecret(): string {
+  const secret = process.env.AUTH_SECRET ?? process.env.AUTH_SESSION_SECRET;
 
   if (secret) {
     return secret;
   }
 
   if (process.env.NODE_ENV === "production") {
-    throw new Error("AUTH_SESSION_SECRET is required in production.");
+    throw new Error("AUTH_SECRET is required in production.");
   }
 
-  return "development-only-change-auth-session-secret";
+  return "development-only-change-auth-secret";
 }
 
 function base64UrlEncode(value: string | Buffer): string {
@@ -29,10 +29,10 @@ function base64UrlEncode(value: string | Buffer): string {
 }
 
 function sign(input: string): string {
-  return createHmac("sha256", getSessionSecret()).update(input).digest("base64url");
+  return createHmac("sha256", getAuthSecret()).update(input).digest("base64url");
 }
 
-export function createSessionToken(payload: SessionTokenPayload): string {
+export function createAuthToken(payload: AuthTokenPayload): string {
   const header = base64UrlEncode(JSON.stringify({ alg: "HS256", typ: "JWT" }));
   const body = base64UrlEncode(JSON.stringify(payload));
   const unsignedToken = `${header}.${body}`;
@@ -40,7 +40,7 @@ export function createSessionToken(payload: SessionTokenPayload): string {
   return `${unsignedToken}.${sign(unsignedToken)}`;
 }
 
-export function verifySessionToken(token: string): SessionTokenPayload | null {
+export function verifyAuthToken(token: string): AuthTokenPayload | null {
   const parts = token.split(".");
 
   if (parts.length !== 3) {
@@ -59,9 +59,10 @@ export function verifySessionToken(token: string): SessionTokenPayload | null {
 
   try {
     const payload = JSON.parse(Buffer.from(body, "base64url").toString("utf8"));
+    const id = payload.tid ?? payload.sid;
 
     if (
-      typeof payload.sid !== "string" ||
+      typeof id !== "string" ||
       typeof payload.sub !== "number" ||
       !Array.isArray(payload.roles) ||
       typeof payload.exp !== "number" ||
@@ -70,8 +71,12 @@ export function verifySessionToken(token: string): SessionTokenPayload | null {
       return null;
     }
 
-    return payload as SessionTokenPayload;
+    return { ...payload, tid: id } as AuthTokenPayload;
   } catch {
     return null;
   }
 }
+
+// Backward compatibility exports for watcher cache
+export const createSessionToken = createAuthToken;
+export const verifySessionToken = verifyAuthToken;

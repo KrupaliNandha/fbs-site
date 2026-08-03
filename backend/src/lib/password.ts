@@ -2,22 +2,30 @@ import { randomBytes, scrypt as scryptCallback, timingSafeEqual } from "crypto";
 
 const KEY_LENGTH = 64;
 const SCRYPT_PARAMS = { N: 32768, r: 8, p: 1 };
+const SCRYPT_MAX_MEMORY = 64 * 1024 * 1024;
+type ScryptParams = typeof SCRYPT_PARAMS;
 
 function deriveKey(
   password: string,
   salt: string,
   keyLength: number,
-  params: typeof SCRYPT_PARAMS,
+  params: ScryptParams,
 ): Promise<Buffer> {
   return new Promise((resolve, reject) => {
-    scryptCallback(password, salt, keyLength, params, (error, derivedKey) => {
-      if (error) {
-        reject(error);
-        return;
-      }
+    scryptCallback(
+      password,
+      salt,
+      keyLength,
+      { ...params, maxmem: SCRYPT_MAX_MEMORY },
+      (error, derivedKey) => {
+        if (error) {
+          reject(error);
+          return;
+        }
 
-      resolve(derivedKey);
-    });
+        resolve(derivedKey);
+      },
+    );
   });
 }
 
@@ -64,12 +72,8 @@ export async function verifyPassword(
 }
 
 export function validatePasswordStrength(password: string): string | null {
-  if (password.length < 10) {
-    return "Password must be at least 10 characters.";
-  }
-
-  if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password)) {
-    return "Password must include uppercase, lowercase, and numeric characters.";
+  if (password.length < 5) {
+    return "Password must be at least 5 characters.";
   }
 
   return null;

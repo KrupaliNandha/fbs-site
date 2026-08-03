@@ -37,6 +37,14 @@ export default function PreloaderWrapper({
     setNavKey((prev) => prev + 1);
   }, [routeKey]);
 
+  const isAuthOrDashboardRoute =
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/superadmin") ||
+    pathname.startsWith("/super-admin") ||
+    pathname.startsWith("/designer") ||
+    pathname.startsWith("/user") ||
+    pathname.startsWith("/review");
+
   return (
     <>
       {isLoading && (
@@ -44,11 +52,11 @@ export default function PreloaderWrapper({
       )}
 
       <SmoothScroll>
-        {!isLoading && <Navbar />}
+        {!isLoading && !isAuthOrDashboardRoute && <Navbar />}
 
         <main>{children}</main>
 
-        {!isLoading && (
+        {!isLoading && !isAuthOrDashboardRoute && (
           <>
             <Footer />
             <BackToTop />

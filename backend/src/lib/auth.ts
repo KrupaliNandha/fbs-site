@@ -1,31 +1,19 @@
 import { randomUUID } from "crypto";
-import type { CookieOptions, Request, Response } from "express";
+import type { Request } from "express";
 import { AuthError } from "./errors.js";
-import { createSessionToken, verifySessionToken } from "./jwt.js";
-import { ROLE_DASHBOARD_PATHS } from "./roles.js";
+import { createAuthToken, verifyAuthToken } from "./jwt.js";
 import { initializeAuthDatabase } from "./db.js";
 import { verifyPassword } from "./password.js";
 import { getUserByEmailWithPassword, getUserById } from "./users.js";
 import type { AuthRole, AuthUser, Permission } from "./types.js";
 
-export const SESSION_COOKIE_NAME = "fbs_session";
-const SESSION_TTL_SECONDS = 60 * 60 * 8;
-
-function getCookieOptions(expires: Date): CookieOptions {
-  return {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    expires,
-  };
-}
+const TOKEN_TTL_SECONDS = 60 * 60 * 8;
 
 export async function loginWithRole(
   email: string,
   password: string,
-  requestedRole: AuthRole,
-): Promise<{ user: AuthUser; token: string; expiresAt: Date; redirectTo: string }> {
+  requestedRole?: AuthRole,
+): Promise<{ user: AuthUser; token: string; expiresAt: Date }> {
   const user = await getUserByEmailWithPassword(email);
 
   if (!user || !(await verifyPassword(password, user.passwordHash))) {
@@ -36,14 +24,19 @@ export async function loginWithRole(
     throw new AuthError("This account is inactive.", 403);
   }
 
-  if (!user.roles.includes(requestedRole)) {
-    throw new AuthError("This login page is not enabled for your role.", 403);
+  const activeRole =
+    requestedRole && user.roles.includes(requestedRole)
+      ? requestedRole
+      : user.roles[0];
+
+  if (!activeRole) {
+    throw new AuthError("This account does not have a role assigned.", 403);
   }
 
-  const sessionId = randomUUID();
-  const expiresAt = new Date(Date.now() + SESSION_TTL_SECONDS * 1000);
-  const token = createSessionToken({
-    sid: sessionId,
+  const tokenId = randomUUID();
+  const expiresAt = new Date(Date.now() + TOKEN_TTL_SECONDS * 1000);
+  const token = createAuthToken({
+    tid: tokenId,
     sub: user.id,
     roles: user.roles,
     exp: Math.floor(expiresAt.getTime() / 1000),
@@ -53,26 +46,11 @@ export async function loginWithRole(
     user,
     token,
     expiresAt,
-    redirectTo: ROLE_DASHBOARD_PATHS[requestedRole],
   };
 }
 
-export function setSessionCookie(res: Response, token: string, expiresAt: Date) {
-  res.cookie(SESSION_COOKIE_NAME, token, getCookieOptions(expiresAt));
-}
-
-export function clearSessionCookie(res: Response) {
-  res.cookie(SESSION_COOKIE_NAME, "", {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 0,
-  });
-}
-
-export async function getUserFromSessionToken(token: string): Promise<AuthUser | null> {
-  const payload = verifySessionToken(token);
+export async function getUserFromToken(token: string): Promise<AuthUser | null> {
+  const payload = verifyAuthToken(token);
 
   if (!payload) {
     return null;
@@ -88,16 +66,20 @@ export async function getUserFromSessionToken(token: string): Promise<AuthUser |
 }
 
 export async function getCurrentUser(req: Request): Promise<AuthUser | null> {
-  const token = req.cookies?.[SESSION_COOKIE_NAME];
+  let token: string | undefined;
+
+  if (req.headers.authorization?.startsWith("Bearer ")) {
+    token = req.headers.authorization.substring(7).trim();
+  }
 
   if (!token || typeof token !== "string") {
     return null;
   }
 
-  return getUserFromSessionToken(token);
+  return getUserFromToken(token);
 }
 
-export async function logoutCurrentSession() {
+export async function logoutUser() {
   await initializeAuthDatabase();
 }
 
@@ -122,4 +104,16 @@ export async function requirePermission(
   }
 
   return user;
+}
+
+export function requireAuth() {
+  return async (req: Request, res: any, next: any) => {
+    const user = await getCurrentUser(req);
+    if (!user) {
+      res.status(401).json({ message: "Authentication required." });
+      return;
+    }
+    (req as any).user = user;
+    next();
+  };
 }

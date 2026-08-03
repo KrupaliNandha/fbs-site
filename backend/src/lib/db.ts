@@ -30,7 +30,6 @@ export function getAuthDatabase(): Pool {
       password: requireEnv("AUTH_DB_PASSWORD"),
       database: requireEnv("AUTH_DB_NAME"),
       waitForConnections: true,
-      connectionLimit: Number(process.env.AUTH_DB_CONNECTION_LIMIT ?? "10"),
       queueLimit: 0,
       namedPlaceholders: false,
       multipleStatements: false,
@@ -88,43 +87,33 @@ export async function withTransaction<T>(
   }
 }
 
-export async function verifyAuthDatabaseSchema() {
-  const requiredTables = [
-    "roles",
-    "permissions",
-    "role_permissions",
-    "users",
-    "user_roles",
-    "audit_events",
-  ];
+let migrationAttempted = false;
 
-  const [rows] = await query<RowDataPacket[]>(
-    `
-      SELECT table_name
-      FROM information_schema.tables
-      WHERE table_schema = ?
-    `,
-    [requireEnv("AUTH_DB_NAME")],
-  );
+export async function ensureCanvasCollageSchema(): Promise<void> {
+  if (migrationAttempted) return;
+  migrationAttempted = true;
 
-  const existingTables = new Set(rows.map((row) => String(row.TABLE_NAME ?? row.table_name)));
-  const missingTables = requiredTables.filter((table) => !existingTables.has(table));
-
-  if (missingTables.length > 0) {
-    throw new Error(
-      `Auth database schema is missing. Apply backend/database/auth-schema.sql before starting the API. Missing tables: ${missingTables.join(", ")}`,
-    );
+  try {
+    const db = getAuthDatabase();
+    try {
+      await db.query(
+        `ALTER TABLE diagram_images ADD COLUMN status ENUM('pending_review', 'approved', 'changes_requested') NOT NULL DEFAULT 'pending_review'`,
+      );
+    } catch {
+      // Column exists
+    }
+    try {
+      await db.query(
+        `ALTER TABLE canvas_remarks ADD COLUMN image_id BIGINT UNSIGNED NULL AFTER version_id`,
+      );
+    } catch {
+      // Column exists
+    }
+  } catch (err) {
+    console.error("[db] Collage schema check error:", err);
   }
 }
 
-let databaseInitialized: Promise<void> | null = null;
-
-export async function initializeAuthDatabase() {
-  if (!databaseInitialized) {
-    databaseInitialized = (async () => {
-      await verifyAuthDatabaseSchema();
-    })();
-  }
-
-  await databaseInitialized;
+export async function initializeAuthDatabase(): Promise<void> {
+  await ensureCanvasCollageSchema();
 }

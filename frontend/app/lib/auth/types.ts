@@ -29,7 +29,8 @@ export type PublicUser = Omit<AuthUser, "permissions"> & {
 
 export type LoginResponse = {
   user: AuthUser;
-  redirectTo: string;
+  token: string;
+  redirectTo?: string;
 };
 
 export type UserPayload = {

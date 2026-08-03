@@ -1,9 +1,11 @@
-import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
+import path from "path";
 import { authRouter } from "./routes/auth.js";
 import { rolesRouter } from "./routes/roles.js";
 import { usersRouter } from "./routes/users.js";
+import { canvasRouter } from "./routes/canvas-api.js";
+import { UPLOADS_DIR, ensureUploadDirs } from "./lib/canvas/watermark.js";
 
 function getAllowedOrigins(): string[] {
   const raw = process.env.CORS_ORIGINS ?? "http://localhost:3000";
@@ -16,6 +18,8 @@ function getAllowedOrigins(): string[] {
 export function createApp() {
   const app = express();
   const allowedOrigins = getAllowedOrigins();
+
+  void ensureUploadDirs();
 
   app.use(
     cors({
@@ -31,8 +35,11 @@ export function createApp() {
       credentials: true,
     }),
   );
-  app.use(express.json({ limit: "1mb" }));
-  app.use(cookieParser());
+  app.use(express.json({ limit: "50mb" }));
+  app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+
+  // Static uploads serving
+  app.use("/uploads", express.static(UPLOADS_DIR));
 
   app.get("/health", (_req, res) => {
     res.json({ ok: true, service: "fbs-backend" });
@@ -41,6 +48,7 @@ export function createApp() {
   app.use("/api/auth", authRouter);
   app.use("/api/users", usersRouter);
   app.use("/api/roles", rolesRouter);
+  app.use("/api", canvasRouter);
 
   app.use((_req, res) => {
     res.status(404).json({ message: "Not found." });

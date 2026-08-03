@@ -23,7 +23,15 @@ const emptyForm: UserFormState = {
   isActive: true,
 };
 
-export function UserManagement({ currentUserId }: { currentUserId: number }) {
+type UserManagementProps = {
+  currentUserId: number;
+  currentUserRoles: AuthRole[];
+};
+
+export function UserManagement({
+  currentUserId,
+  currentUserRoles,
+}: UserManagementProps) {
   const [users, setUsers] = useState<AuthUser[]>([]);
   const [form, setForm] = useState<UserFormState>(emptyForm);
   const [error, setError] = useState("");
@@ -35,6 +43,7 @@ export function UserManagement({ currentUserId }: { currentUserId: number }) {
     () => users.find((user) => user.id === form.id),
     [form.id, users],
   );
+  const canManageSuperAdmins = currentUserRoles.includes("super_admin");
 
   async function loadUsers() {
     setIsLoading(true);
@@ -57,6 +66,11 @@ export function UserManagement({ currentUserId }: { currentUserId: number }) {
   }, []);
 
   function startEdit(user: AuthUser) {
+    if (user.roles.includes("super_admin") && !canManageSuperAdmins) {
+      setError("Only a Super Admin can edit Super Admin accounts.");
+      return;
+    }
+
     setNotice("");
     setError("");
     setForm({
@@ -132,6 +146,11 @@ export function UserManagement({ currentUserId }: { currentUserId: number }) {
       return;
     }
 
+    if (user.roles.includes("super_admin") && !canManageSuperAdmins) {
+      setError("Only a Super Admin can delete Super Admin accounts.");
+      return;
+    }
+
     const confirmed = window.confirm(`Delete ${user.email}?`);
 
     if (!confirmed) {
@@ -195,7 +214,9 @@ export function UserManagement({ currentUserId }: { currentUserId: number }) {
             >
               <option value="designer">{ROLE_LABELS.designer}</option>
               <option value="user">{ROLE_LABELS.user}</option>
-              <option value="super_admin">{ROLE_LABELS.super_admin}</option>
+              {canManageSuperAdmins ? (
+                <option value="super_admin">{ROLE_LABELS.super_admin}</option>
+              ) : null}
             </select>
           </label>
 
@@ -337,15 +358,43 @@ export function UserManagement({ currentUserId }: { currentUserId: number }) {
                         <button
                           type="button"
                           onClick={() => startEdit(user)}
-                          className="inline-flex min-h-9 items-center gap-2 rounded-md border border-black/15 px-2 text-xs font-semibold text-primary-dark transition hover:bg-black/5"
+                          disabled={
+                            user.roles.includes("super_admin") &&
+                            !canManageSuperAdmins
+                          }
+                          className="inline-flex min-h-9 items-center gap-2 rounded-md border border-black/15 px-2 text-xs font-semibold text-primary-dark transition hover:bg-black/5 cursor-pointer"
                         >
                           <Edit size={15} />
                           Edit
                         </button>
                         <button
                           type="button"
+                          onClick={async () => {
+                            const newPass = window.prompt(`Set new password for ${user.email}:`);
+                            if (!newPass) return;
+                            try {
+                              await authApi.updateUser(user.id, { password: newPass });
+                              alert(`Password for ${user.email} updated successfully!`);
+                            } catch (e) {
+                              alert(e instanceof Error ? e.message : "Failed to reset password.");
+                            }
+                          }}
+                          disabled={
+                            user.roles.includes("super_admin") &&
+                            !canManageSuperAdmins
+                          }
+                          className="inline-flex min-h-9 items-center gap-1 rounded-md border border-indigo-200 bg-indigo-50 px-2 text-xs font-semibold text-indigo-700 transition hover:bg-indigo-100 cursor-pointer disabled:opacity-50"
+                        >
+                          Reset Pass
+                        </button>
+                        <button
+                          type="button"
                           onClick={() => void toggleActive(user)}
-                          disabled={user.id === currentUserId && user.isActive}
+                          disabled={
+                            (user.id === currentUserId && user.isActive) ||
+                            (user.roles.includes("super_admin") &&
+                              !canManageSuperAdmins)
+                          }
                           className="min-h-9 rounded-md border border-black/15 px-2 text-xs font-semibold text-primary-dark transition hover:bg-black/5 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           {user.isActive ? "Deactivate" : "Activate"}
@@ -353,7 +402,11 @@ export function UserManagement({ currentUserId }: { currentUserId: number }) {
                         <button
                           type="button"
                           onClick={() => void removeUser(user)}
-                          disabled={user.id === currentUserId}
+                          disabled={
+                            user.id === currentUserId ||
+                            (user.roles.includes("super_admin") &&
+                              !canManageSuperAdmins)
+                          }
                           className="inline-flex min-h-9 items-center gap-2 rounded-md border border-red-200 px-2 text-xs font-semibold text-red-700 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           <Trash2 size={15} />

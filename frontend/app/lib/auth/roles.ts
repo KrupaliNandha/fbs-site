@@ -7,13 +7,13 @@ export const ROLE_LABELS: Record<AuthRole, string> = {
 };
 
 export const ROLE_LOGIN_PATHS: Record<AuthRole, string> = {
-  super_admin: "/super-admin/login",
+  super_admin: "/superadmin/login",
   designer: "/designer/login",
   user: "/user/login",
 };
 
 export const ROLE_DASHBOARD_PATHS: Record<AuthRole, string> = {
-  super_admin: "/super-admin/dashboard",
+  super_admin: "/superadmin/dashboard",
   designer: "/designer/dashboard",
   user: "/user/dashboard",
 };

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { getErrorResponse } from "../lib/errors.js";
 import { isAuthRole } from "../lib/roles.js";
-import { requirePermission } from "../lib/session.js";
+import { requirePermission } from "../lib/auth.js";
 import type { Permission } from "../lib/types.js";
 import { listPermissions, listRoles, updateRolePermissions } from "../lib/users.js";
 

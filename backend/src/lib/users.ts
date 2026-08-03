@@ -31,23 +31,6 @@ type Queryable = {
   ): Promise<[T, unknown]>;
 };
 
-const USER_SELECT = `
-  SELECT
-    users.id,
-    users.email,
-    users.name,
-    users.is_active,
-    users.created_at,
-    users.updated_at,
-    GROUP_CONCAT(DISTINCT roles.slug ORDER BY roles.slug SEPARATOR ',') AS roles,
-    GROUP_CONCAT(DISTINCT permissions.slug ORDER BY permissions.slug SEPARATOR ',') AS permissions
-  FROM users
-  LEFT JOIN user_roles ON user_roles.user_id = users.id
-  LEFT JOIN roles ON roles.id = user_roles.role_id
-  LEFT JOIN role_permissions ON role_permissions.role_id = roles.id
-  LEFT JOIN permissions ON permissions.id = role_permissions.permission_id
-`;
-
 function mapUser(row: UserRow): AuthUser {
   return {
     id: row.id,
@@ -123,11 +106,23 @@ function isDuplicateEntryError(error: unknown): boolean {
 export async function getUserByEmailWithPassword(
   email: string,
 ): Promise<(AuthUser & { passwordHash: string }) | null> {
-  await initializeAuthDatabase();
-
   const [rows] = await query<UserRow[]>(
     `
-      ${USER_SELECT}, users.password_hash
+      SELECT
+        users.id,
+        users.email,
+        users.name,
+        users.password_hash,
+        users.is_active,
+        users.created_at,
+        users.updated_at,
+        GROUP_CONCAT(DISTINCT roles.slug ORDER BY roles.slug SEPARATOR ',') AS roles,
+        GROUP_CONCAT(DISTINCT permissions.slug ORDER BY permissions.slug SEPARATOR ',') AS permissions
+      FROM users
+      LEFT JOIN user_roles ON user_roles.user_id = users.id
+      LEFT JOIN roles ON roles.id = user_roles.role_id
+      LEFT JOIN role_permissions ON role_permissions.role_id = roles.id
+      LEFT JOIN permissions ON permissions.id = role_permissions.permission_id
       WHERE users.email = ?
       GROUP BY users.id
     `,
@@ -144,11 +139,22 @@ export async function getUserByEmailWithPassword(
 }
 
 export async function getUserById(id: number): Promise<AuthUser | null> {
-  await initializeAuthDatabase();
-
   const [rows] = await query<UserRow[]>(
     `
-      ${USER_SELECT}
+      SELECT
+        users.id,
+        users.email,
+        users.name,
+        users.is_active,
+        users.created_at,
+        users.updated_at,
+        GROUP_CONCAT(DISTINCT roles.slug ORDER BY roles.slug SEPARATOR ',') AS roles,
+        GROUP_CONCAT(DISTINCT permissions.slug ORDER BY permissions.slug SEPARATOR ',') AS permissions
+      FROM users
+      LEFT JOIN user_roles ON user_roles.user_id = users.id
+      LEFT JOIN roles ON roles.id = user_roles.role_id
+      LEFT JOIN role_permissions ON role_permissions.role_id = roles.id
+      LEFT JOIN permissions ON permissions.id = role_permissions.permission_id
       WHERE users.id = ?
       GROUP BY users.id
     `,
@@ -159,11 +165,22 @@ export async function getUserById(id: number): Promise<AuthUser | null> {
 }
 
 export async function listUsers(): Promise<AuthUser[]> {
-  await initializeAuthDatabase();
-
   const [rows] = await query<UserRow[]>(
     `
-      ${USER_SELECT}
+      SELECT
+        users.id,
+        users.email,
+        users.name,
+        users.is_active,
+        users.created_at,
+        users.updated_at,
+        GROUP_CONCAT(DISTINCT roles.slug ORDER BY roles.slug SEPARATOR ',') AS roles,
+        GROUP_CONCAT(DISTINCT permissions.slug ORDER BY permissions.slug SEPARATOR ',') AS permissions
+      FROM users
+      LEFT JOIN user_roles ON user_roles.user_id = users.id
+      LEFT JOIN roles ON roles.id = user_roles.role_id
+      LEFT JOIN role_permissions ON role_permissions.role_id = roles.id
+      LEFT JOIN permissions ON permissions.id = role_permissions.permission_id
       GROUP BY users.id
       ORDER BY users.created_at DESC, users.id DESC
     `,

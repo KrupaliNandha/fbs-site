@@ -20,6 +20,19 @@ npm run dev
 
 API defaults to `http://localhost:4000`.
 
+On first auth/database initialization, the backend seeds roles, permissions, and
+one super-admin account if it does not already exist:
+
+```text
+Email: superadmin@fbsprints.com
+Password: SuperAdmin@2026
+Login: /superadmin/login
+```
+
+Override `DEFAULT_SUPERADMIN_EMAIL`, `DEFAULT_SUPERADMIN_NAME`, and
+`DEFAULT_SUPERADMIN_PASSWORD` before starting the backend if you want different
+initial credentials.
+
 ## Endpoints
 
 | Method | Path | Description |

@@ -7,6 +7,12 @@ import type {
   Permission,
   UserPayload,
 } from "@/app/lib/auth/types";
+import {
+  getStoredToken,
+  removeStoredToken,
+  setStoredToken,
+  setStoredUser,
+} from "@/app/lib/auth/token";
 
 type RoleResponse = {
   roles: {
@@ -28,23 +34,26 @@ class ApiClientError extends Error {
   }
 }
 
-/**
- * Browser calls stay on same origin (`/api/...`) and Next.js rewrites them
- * to the backend. This keeps the session cookie on the frontend domain.
- */
 function apiUrl(path: string) {
   const base = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "";
   return `${base}${path}`;
 }
 
 async function request<T>(url: string, init?: RequestInit): Promise<T> {
+  const token = getStoredToken();
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    ...(init?.headers as Record<string, string>),
+  };
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
   const response = await fetch(apiUrl(url), {
     ...init,
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      ...init?.headers,
-    },
+    headers,
   });
 
   const data = await response.json().catch(() => ({}));
@@ -60,14 +69,40 @@ async function request<T>(url: string, init?: RequestInit): Promise<T> {
 }
 
 export const authApi = {
-  login(role: AuthRole, email: string, password: string) {
-    return request<LoginResponse>("/api/auth/login", {
+  async login(role: AuthRole, email: string, password: string) {
+    const res = await request<LoginResponse>("/api/auth/login", {
       method: "POST",
       body: JSON.stringify({ role, email, password }),
     });
+
+    if (res.token) {
+      setStoredToken(res.token);
+    }
+    if (res.user) {
+      setStoredUser(res.user);
+    }
+
+    return res;
   },
 
-  logout() {
+  async register(name: string, email: string, password: string) {
+    const res = await request<LoginResponse>("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    if (res.token) {
+      setStoredToken(res.token);
+    }
+    if (res.user) {
+      setStoredUser(res.user);
+    }
+
+    return res;
+  },
+
+  async logout() {
+    removeStoredToken();
     return request<{ ok: boolean }>("/api/auth/logout", { method: "POST" });
   },
 
