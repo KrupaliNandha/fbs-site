@@ -30,7 +30,12 @@ export function getAuthDatabase(): Pool {
       password: requireEnv("AUTH_DB_PASSWORD"),
       database: requireEnv("AUTH_DB_NAME"),
       waitForConnections: true,
+      connectionLimit: 20,
+      maxIdle: 10,
+      idleTimeout: 60000,
       queueLimit: 0,
+      enableKeepAlive: true,
+      keepAliveInitialDelay: 0,
       namedPlaceholders: false,
       multipleStatements: false,
     });
@@ -108,6 +113,23 @@ export async function ensureCanvasCollageSchema(): Promise<void> {
       );
     } catch {
       // Column exists
+    }
+
+    // Add indexes for hosted MySQL queries acceleration
+    const indexQueries = [
+      `CREATE INDEX idx_canvases_project ON canvases(project_id)`,
+      `CREATE INDEX idx_versions_canvas ON canvas_versions(canvas_id)`,
+      `CREATE INDEX idx_remarks_canvas ON canvas_remarks(canvas_id)`,
+      `CREATE INDEX idx_diagram_images_cv ON diagram_images(canvas_id, version_id)`,
+      `CREATE INDEX idx_history_canvas ON canvas_status_history(canvas_id)`,
+    ];
+
+    for (const idxSql of indexQueries) {
+      try {
+        await db.query(idxSql);
+      } catch {
+        // Index already exists
+      }
     }
   } catch (err) {
     console.error("[db] Collage schema check error:", err);

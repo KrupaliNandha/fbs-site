@@ -14,6 +14,7 @@ import {
   AlertCircle,
   Eye,
   FileImage,
+  RefreshCw,
 } from "lucide-react";
 
 export default function ClientDashboardPage() {
@@ -27,23 +28,26 @@ export default function ClientDashboardPage() {
 function ClientDashboardContent({ clientUser }: { clientUser: any }) {
   const [projects, setProjects] = useState<ProjectModel[]>([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState("projects");
 
   const navItems: SidebarNavItem[] = [
     { id: "projects", label: "My Design Proofs", icon: FolderKanban, badge: projects.length },
   ];
 
-  useEffect(() => {
-    async function loadClientProjects() {
-      try {
-        const data = await canvasApi.listProjects();
-        setProjects(data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
+  async function loadClientProjects() {
+    try {
+      const data = await canvasApi.listProjects();
+      setProjects(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
     }
+  }
+
+  useEffect(() => {
     loadClientProjects();
   }, []);
 
@@ -87,6 +91,18 @@ function ClientDashboardContent({ clientUser }: { clientUser: any }) {
             <h2 className="text-lg font-extrabold text-slate-900">Your Active Design Projects</h2>
             <p className="text-xs text-slate-500 mt-0.5">Assigned account: {clientUser.email}</p>
           </div>
+          <button
+            disabled={refreshing || loading}
+            onClick={() => {
+              setRefreshing(true);
+              loadClientProjects();
+            }}
+            className="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-2xs transition cursor-pointer disabled:opacity-50"
+            title="Refresh Projects"
+          >
+            <RefreshCw size={14} className={refreshing ? "animate-spin text-indigo-600" : ""} />
+            {refreshing ? "Refreshing..." : "Refresh"}
+          </button>
         </div>
 
         {loading ? (

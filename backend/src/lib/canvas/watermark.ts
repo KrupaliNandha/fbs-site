@@ -69,11 +69,23 @@ export async function processCanvasImage(
 
   const timestamp = Date.now();
   const filename = `${filenamePrefix}_${timestamp}.webp`;
+  const thumbFilename = `${filenamePrefix}_${timestamp}_thumb.webp`;
   const filePath = path.join(UPLOADS_DIR, filename);
+  const thumbPath = path.join(UPLOADS_DIR, thumbFilename);
 
   const metadata = await sharp(imageBuffer).metadata();
-  const width = metadata.width || 1200;
-  const height = metadata.height || 800;
+  const rawWidth = metadata.width || 1200;
+  const rawHeight = metadata.height || 800;
+
+  // Max dimensions bound to accelerate Sharp processing & save network bandwidth
+  const maxW = 2400;
+  let pipeline = sharp(imageBuffer);
+  if (rawWidth > maxW) {
+    pipeline = pipeline.resize(maxW, undefined, { fit: "inside", withoutEnlargement: true });
+  }
+
+  const width = Math.min(rawWidth, maxW);
+  const height = Math.round((rawHeight / rawWidth) * width);
 
   if (watermarkEnabled) {
     const watermarkSvg = buildWatermarkSvgPattern(
@@ -81,22 +93,26 @@ export async function processCanvasImage(
       height,
       watermarkText || "DRAFT REVIEW",
     );
-    await sharp(imageBuffer)
+    await pipeline
       .composite([{ input: watermarkSvg, blend: "over" }])
-      .webp({ quality: 90 })
+      .webp({ quality: 80, effort: 3 })
       .toFile(filePath);
   } else {
-    await sharp(imageBuffer)
-      .webp({ quality: 90 })
+    await pipeline
+      .webp({ quality: 80, effort: 3 })
       .toFile(filePath);
   }
 
-  const singleUrl = `/uploads/${filename}`;
+  // Create lightweight 400px thumbnail for instant dashboard load
+  await sharp(imageBuffer)
+    .resize(400, undefined, { fit: "inside", withoutEnlargement: true })
+    .webp({ quality: 75, effort: 3 })
+    .toFile(thumbPath);
 
   return {
-    originalUrl: singleUrl,
-    watermarkedUrl: singleUrl,
-    thumbnailUrl: singleUrl,
+    originalUrl: `/uploads/${filename}`,
+    watermarkedUrl: `/uploads/${filename}`,
+    thumbnailUrl: `/uploads/${thumbFilename}`,
   };
 }
 

@@ -654,6 +654,37 @@ export async function addCanvasSubImage(
   },
 ): Promise<number> {
   return withTransaction(async (connection) => {
+    // 1. Check existing count of sub-images
+    const [existingRows] = await connection.execute<RowDataPacket[]>(
+      `SELECT COUNT(*) as count FROM diagram_images WHERE canvas_id = ? AND version_id = ?`,
+      [canvasId, versionId],
+    );
+    const existingCount = Number(existingRows[0]?.count || 0);
+
+    // If 0 existing sub-images, preserve the main version's initial image as Tile #1
+    if (existingCount === 0) {
+      const [verRows] = await connection.execute<RowDataPacket[]>(
+        `SELECT original_image_url, watermarked_image_url, thumbnail_url FROM canvas_versions WHERE id = ?`,
+        [versionId],
+      );
+      if (verRows.length > 0 && verRows[0].original_image_url) {
+        await connection.execute(
+          `
+            INSERT INTO diagram_images (
+              canvas_id, version_id, original_image_url, watermarked_image_url, thumbnail_url, caption, status, sort_order
+            ) VALUES (?, ?, ?, ?, ?, 'Photo 1', 'pending_review', 0)
+          `,
+          [
+            canvasId,
+            versionId,
+            verRows[0].original_image_url,
+            verRows[0].watermarked_image_url || verRows[0].original_image_url,
+            verRows[0].thumbnail_url || verRows[0].original_image_url,
+          ],
+        );
+      }
+    }
+
     const [sortRows] = await connection.execute<RowDataPacket[]>(
       `SELECT COALESCE(MAX(sort_order), 0) as max_sort FROM diagram_images WHERE canvas_id = ? AND version_id = ?`,
       [canvasId, versionId],
@@ -677,7 +708,11 @@ export async function addCanvasSubImage(
       ],
     );
 
-    await connection.execute(`UPDATE canvases SET status = 'pending_review' WHERE id = ?`, [canvasId]);
+    await connection.execute(
+      `UPDATE canvases SET status = 'pending_review', canvas_type = 'collage' WHERE id = ?`,
+      [canvasId],
+    );
+
     return res.insertId;
   });
 }

@@ -1,5 +1,8 @@
 import { Router, type Request, type Response, type NextFunction } from "express";
 import multer from "multer";
+import path from "path";
+import fs from "fs/promises";
+import sharp from "sharp";
 import { getCurrentUser, requireAuth } from "../lib/auth.js";
 import type { AuthUser } from "../lib/types.js";
 import {
@@ -37,8 +40,113 @@ import {
   updateDiagramTemplate,
   deleteDiagramTemplate,
 } from "../lib/canvas/diagrams.js";
-import { processCanvasImage } from "../lib/canvas/watermark.js";
+import { processCanvasImage, UPLOADS_DIR } from "../lib/canvas/watermark.js";
 import { createAutoCollageBuffer } from "../lib/canvas/collage.js";
+import { query } from "../lib/db.js";
+
+async function getDiagramTemplateImageBuffer(previewUrl?: string | null, tmplName?: string): Promise<Buffer> {
+  if (previewUrl && previewUrl.startsWith("/uploads/")) {
+    try {
+      const relPath = previewUrl.replace(/^\/uploads\//, "");
+      const fullPath = path.join(UPLOADS_DIR, relPath);
+      const buf = await fs.readFile(fullPath);
+      if (buf && buf.length > 0) return buf;
+    } catch {
+      // Fall through to dynamic SVG rendering if file read fails
+    }
+  }
+
+  const safeTitle = (tmplName || "Diagram Layout Blueprint").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const svg = `
+    <svg width="1600" height="1200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="#0f172a" />
+      <g stroke="#38bdf8" stroke-width="2" stroke-dasharray="12,12" fill="none" opacity="0.4">
+        <line x1="100" y1="0" x2="100" y2="1200" />
+        <line x1="400" y1="0" x2="400" y2="1200" />
+        <line x1="800" y1="0" x2="800" y2="1200" />
+        <line x1="1200" y1="0" x2="1200" y2="1200" />
+        <line x1="1500" y1="0" x2="1500" y2="1200" />
+        <line x1="0" y1="100" x2="1600" y2="100" />
+        <line x1="0" y1="300" x2="1600" y2="300" />
+        <line x1="0" y1="600" x2="1600" y2="600" />
+        <line x1="0" y1="900" x2="1600" y2="900" />
+        <line x1="0" y1="1100" x2="1600" y2="1100" />
+      </g>
+      <rect x="60" y="60" width="1480" height="1080" fill="none" stroke="#38bdf8" stroke-width="6" />
+      <text x="800" y="550" font-family="Arial, sans-serif" font-size="54" font-weight="bold" fill="#ffffff" text-anchor="middle">
+        ${safeTitle}
+      </text>
+      <text x="800" y="630" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#38bdf8" text-anchor="middle">
+        TECHNICAL ARCHITECTURAL BLUEPRINT
+      </text>
+    </svg>
+  `;
+  return sharp(Buffer.from(svg)).png().toBuffer();
+}
+
+async function rebuildCanvasCollageComposite(canvasId: number, versionId: number): Promise<void> {
+  try {
+    const [cRows] = await query<any[]>(
+      `SELECT watermark_enabled, watermark_text, diagram_template_id FROM canvases WHERE id = ?`,
+      [canvasId]
+    );
+    if (!cRows || cRows.length === 0) return;
+    const canvas = cRows[0];
+    const isWatermarkOn = Boolean(canvas.watermark_enabled);
+    const watermarkText = canvas.watermark_text ? String(canvas.watermark_text) : undefined;
+
+    const [subRows] = await query<any[]>(
+      `SELECT original_image_url, watermarked_image_url FROM diagram_images WHERE canvas_id = ? AND version_id = ? ORDER BY sort_order ASC, id ASC`,
+      [canvasId, versionId]
+    );
+
+    const imageBuffers: Buffer[] = [];
+
+    if (canvas.diagram_template_id) {
+      const [tmplRows] = await query<any[]>(
+        `SELECT name, preview_url FROM diagram_templates WHERE id = ?`,
+        [canvas.diagram_template_id]
+      );
+      if (tmplRows && tmplRows.length > 0) {
+        const tmplBuf = await getDiagramTemplateImageBuffer(tmplRows[0].preview_url, tmplRows[0].name);
+        if (tmplBuf) imageBuffers.push(tmplBuf);
+      }
+    }
+
+    for (const row of subRows) {
+      const imgUrl = String(row.original_image_url || row.watermarked_image_url || "");
+      if (imgUrl.startsWith("/uploads/")) {
+        try {
+          const relPath = imgUrl.replace(/^\/uploads\//, "");
+          const fullPath = path.join(UPLOADS_DIR, relPath);
+          const buf = await fs.readFile(fullPath);
+          if (buf && buf.length > 0) {
+            imageBuffers.push(buf);
+          }
+        } catch (err) {
+          console.error("Error reading sub-image file for collage rebuild:", err);
+        }
+      }
+    }
+
+    if (imageBuffers.length === 0) return;
+
+    const collageBuf = await createAutoCollageBuffer(imageBuffers);
+    const processed = await processCanvasImage(
+      collageBuf,
+      `collage_rev_${versionId}`,
+      isWatermarkOn,
+      watermarkText
+    );
+
+    await query(
+      `UPDATE canvas_versions SET original_image_url = ?, watermarked_image_url = ?, thumbnail_url = ? WHERE id = ?`,
+      [processed.originalUrl, processed.watermarkedUrl, processed.thumbnailUrl, versionId]
+    );
+  } catch (err) {
+    console.error("Failed to rebuild canvas collage composite:", err);
+  }
+}
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -339,7 +447,31 @@ canvasRouter.post(
         });
         createdCanvases.push(canvas);
       } else if (canvasType === "diagram") {
+        const imageBuffers: Buffer[] = [];
         const processedDiagramImages = [];
+
+        // 1. If blueprint layout template is selected, load and composite diagram template blueprint tile
+        if (parsedDiagramId) {
+          const diagramTmpl = await getDiagramTemplateById(parsedDiagramId);
+          if (diagramTmpl) {
+            const diagramBuf = await getDiagramTemplateImageBuffer(diagramTmpl.previewUrl, diagramTmpl.name);
+            const proc = await processCanvasImage(
+              diagramBuf,
+              `diagram_tmpl_${parsedProjectId}`,
+              isWatermarkOn,
+              watermarkText,
+            );
+            processedDiagramImages.push({
+              originalUrl: proc.originalUrl,
+              watermarkedUrl: proc.watermarkedUrl,
+              thumbnailUrl: proc.thumbnailUrl,
+              caption: diagramTmpl.name || "Diagram Blueprint Layout",
+            });
+            imageBuffers.push(diagramBuf);
+          }
+        }
+
+        // 2. Process all uploaded file tiles
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
           const proc = await processCanvasImage(
@@ -352,11 +484,26 @@ canvasRouter.post(
             originalUrl: proc.originalUrl,
             watermarkedUrl: proc.watermarkedUrl,
             thumbnailUrl: proc.thumbnailUrl,
-            caption: file.originalname,
+            caption: file.originalname || `Photo Tile ${i + 1}`,
           });
+          imageBuffers.push(file.buffer);
         }
 
-        const mainImage = processedDiagramImages[0];
+        if (imageBuffers.length === 0) {
+          res.status(400).json({ message: "No image files or diagram blueprint selected." });
+          return;
+        }
+
+        // 3. Composite all tiles (blueprint layout + photos) into auto collage buffer
+        const collageBuffer = await createAutoCollageBuffer(imageBuffers);
+        const processedCollage = await processCanvasImage(
+          collageBuffer,
+          `diagram_collage_${parsedProjectId}`,
+          isWatermarkOn,
+          watermarkText,
+        );
+
+        // 4. Create diagram canvas with composite main proof image & attached sub-images
         const canvas = await createCanvasWithInitialVersion({
           projectId: parsedProjectId,
           name,
@@ -365,9 +512,9 @@ canvasRouter.post(
           watermarkEnabled: isWatermarkOn,
           watermarkText,
           createdBy: user.id,
-          originalImageUrl: mainImage.originalUrl,
-          watermarkedImageUrl: mainImage.watermarkedUrl,
-          thumbnailUrl: mainImage.thumbnailUrl,
+          originalImageUrl: processedCollage.originalUrl,
+          watermarkedImageUrl: processedCollage.watermarkedUrl,
+          thumbnailUrl: processedCollage.thumbnailUrl,
           diagramImages: processedDiagramImages,
         });
         createdCanvases.push(canvas);
@@ -531,6 +678,14 @@ canvasRouter.put(
         caption: caption !== undefined ? String(caption) : undefined,
       });
 
+      const [imgRows] = await query<any[]>(
+        `SELECT canvas_id, version_id FROM diagram_images WHERE id = ?`,
+        [imageId]
+      );
+      if (imgRows && imgRows.length > 0) {
+        await rebuildCanvasCollageComposite(Number(imgRows[0].canvas_id), Number(imgRows[0].version_id));
+      }
+
       res.json({ success: true });
     } catch (err) {
       res.status(500).json({ message: err instanceof Error ? err.message : "Error updating sub-image tile." });
@@ -568,6 +723,9 @@ canvasRouter.post(
         caption: caption || file.originalname,
       });
 
+      // Automatically rebuild composite collage with the new image tile included!
+      await rebuildCanvasCollageComposite(canvasId, Number(versionId));
+
       res.json({ id: newId, success: true });
     } catch (err) {
       res.status(500).json({ message: err instanceof Error ? err.message : "Error adding sub-image to canvas." });
@@ -579,7 +737,17 @@ canvasRouter.post(
 canvasRouter.delete("/canvases/sub-images/:imageId", requireAuth(), async (req, res) => {
   try {
     const imageId = Number(req.params.imageId);
+    const [imgRows] = await query<any[]>(
+      `SELECT canvas_id, version_id FROM diagram_images WHERE id = ?`,
+      [imageId]
+    );
+
     await deleteCanvasSubImage(imageId);
+
+    if (imgRows && imgRows.length > 0) {
+      await rebuildCanvasCollageComposite(Number(imgRows[0].canvas_id), Number(imgRows[0].version_id));
+    }
+
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ message: err instanceof Error ? err.message : "Error deleting sub-image tile." });

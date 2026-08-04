@@ -70,6 +70,7 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
   const [projectForm, setProjectForm] = useState({ clientId: "", name: "", description: "" });
   const [selectedProject, setSelectedProject] = useState<ProjectModel | null>(null);
   const [savingProject, setSavingProject] = useState(false);
+  const [refreshingProjects, setRefreshingProjects] = useState(false);
 
   // Upload Canvas Modal State
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -501,28 +502,28 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
   }
 
   // UPLOAD REVISION HANDLER
-  async function handleUploadRevision(e: React.FormEvent) {
-    e.preventDefault();
-    if (!targetCanvas || !revisionFile || !selectedProject) return;
+  // async function handleUploadRevision(e: React.FormEvent) {
+  //   e.preventDefault();
+  //   if (!targetCanvas || !revisionFile || !selectedProject) return;
 
-    setUploadingRevision(true);
-    try {
-      const formData = new FormData();
-      formData.append("file", revisionFile);
-      formData.append("watermarkEnabled", String(targetCanvas.watermarkEnabled));
-      formData.append("watermarkText", targetCanvas.watermarkText || "");
+  //   setUploadingRevision(true);
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("file", revisionFile);
+  //     formData.append("watermarkEnabled", String(targetCanvas.watermarkEnabled));
+  //     formData.append("watermarkText", targetCanvas.watermarkText || "");
 
-      await canvasApi.uploadRevision(targetCanvas.id, formData);
-      setShowEditCanvasModal(false);
-      setTargetCanvas(null);
-      setRevisionFile(null);
-      loadProjectDetails(selectedProject.id);
-    } catch (err) {
-      alert(err instanceof Error ? err.message : "Revision upload failed");
-    } finally {
-      setUploadingRevision(false);
-    }
-  }
+  //     await canvasApi.uploadRevision(targetCanvas.id, formData);
+  //     setShowEditCanvasModal(false);
+  //     setTargetCanvas(null);
+  //     setRevisionFile(null);
+  //     loadProjectDetails(selectedProject.id);
+  //   } catch (err) {
+  //     alert(err instanceof Error ? err.message : "Revision upload failed");
+  //   } finally {
+  //     setUploadingRevision(false);
+  //   }
+  // }
 
   async function handleSaveCanvasInfo(e: React.FormEvent) {
     e.preventDefault();
@@ -645,34 +646,34 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
     }
   }
 
-  const [unbundling, setUnbundling] = useState(false);
+  // const [unbundling, setUnbundling] = useState(false);
 
-  function promptUnbundleCollage() {
-    if (!targetCanvas || !selectedProject) return;
-    setDeleteModal({
-      isOpen: true,
-      title: "Unbundle Collage Photos",
-      description: "Unbundle this collage into individual standalone canvases? Each photo in this collage will become its own separate editable canvas entry.",
-      id: targetCanvas.id,
-      deleting: false,
-      onConfirm: async () => {
-        setUnbundling(true);
-        setDeleteModal((prev) => ({ ...prev, deleting: true }));
-        try {
-          await canvasApi.unbundleCollage(targetCanvas.id);
-          setShowEditCanvasModal(false);
-          setTargetCanvas(null);
-          setDeleteModal({ isOpen: false, title: "", description: "", id: null, deleting: false, onConfirm: async () => {} });
-          await loadProjectDetails(selectedProject.id);
-        } catch (err) {
-          alert(err instanceof Error ? err.message : "Failed to unbundle collage.");
-        } finally {
-          setUnbundling(false);
-          setDeleteModal((prev) => ({ ...prev, deleting: false }));
-        }
-      },
-    });
-  }
+  // function promptUnbundleCollage() {
+  //   if (!targetCanvas || !selectedProject) return;
+  //   setDeleteModal({
+  //     isOpen: true,
+  //     title: "Unbundle Collage Photos",
+  //     description: "Unbundle this collage into individual standalone canvases? Each photo in this collage will become its own separate editable canvas entry.",
+  //     id: targetCanvas.id,
+  //     deleting: false,
+  //     onConfirm: async () => {
+  //       setUnbundling(true);
+  //       setDeleteModal((prev) => ({ ...prev, deleting: true }));
+  //       try {
+  //         await canvasApi.unbundleCollage(targetCanvas.id);
+  //         setShowEditCanvasModal(false);
+  //         setTargetCanvas(null);
+  //         setDeleteModal({ isOpen: false, title: "", description: "", id: null, deleting: false, onConfirm: async () => {} });
+  //         await loadProjectDetails(selectedProject.id);
+  //       } catch (err) {
+  //         alert(err instanceof Error ? err.message : "Failed to unbundle collage.");
+  //       } finally {
+  //         setUnbundling(false);
+  //         setDeleteModal((prev) => ({ ...prev, deleting: false }));
+  //       }
+  //     },
+  //   });
+  // }
 
   // SHARE MODAL
   async function handleOpenShare(proj: ProjectModel) {
@@ -762,6 +763,23 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
                   <List size={14} />
                 </button>
               </div>
+
+              <button
+                disabled={refreshingProjects}
+                onClick={async () => {
+                  setRefreshingProjects(true);
+                  await loadProjects();
+                  if (selectedProject) {
+                    await loadProjectDetails(selectedProject.id);
+                  }
+                  setRefreshingProjects(false);
+                }}
+                className="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1.5 shadow-2xs transition cursor-pointer disabled:opacity-50"
+                title="Refresh Projects & Proofs"
+              >
+                <RefreshCw size={14} className={refreshingProjects ? "animate-spin text-indigo-600" : ""} />
+                {refreshingProjects ? "Refreshing..." : "Refresh"}
+              </button>
 
               <button
                 onClick={handleOpenAddProject}
@@ -966,28 +984,41 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
                       return (
                         <div
                           key={c.id}
-                          className={`border rounded-2xl p-3.5 bg-white space-y-3 shadow-sm hover:shadow-md transition ${
-                            isChangesReq ? "border-amber-300 ring-2 ring-amber-400/20 bg-amber-50/20" : "border-slate-200"
+                          onClick={() => {
+                            setTargetCanvas(c);
+                            setEditingCanvasName(c.name);
+                            setShowEditCanvasModal(true);
+                          }}
+                          className={`border-2 rounded-2xl p-3.5 bg-white space-y-3 shadow-sm hover:shadow-md transition cursor-pointer ${
+                            isChangesReq ? "border-amber-400 ring-2 ring-amber-400/20 bg-amber-50/20" : "border-slate-300 hover:border-slate-400"
                           }`}
                         >
-                          {/* Card Image Box with Hover Overlay */}
-                          <div
-                            onClick={() =>
-                              setFullscreenCanvas({
-                                url: thumb,
-                                name: c.name,
-                                version: c.latestVersion?.versionNumber || 1,
-                                projectName: selectedProject?.name,
-                                status: c.status,
-                                canvasType: c.canvasType,
-                                date: new Date(c.updatedAt).toLocaleDateString(),
-                              })
-                            }
-                            className="aspect-[4/3] bg-slate-900/5 rounded-xl overflow-hidden relative cursor-pointer group border border-slate-100"
-                          >
+                          {/* Card Image Box */}
+                          <div className="aspect-[4/3] bg-slate-900/5 rounded-xl overflow-hidden relative cursor-pointer group border border-slate-100">
                             <img src={thumb} alt={c.name} className="w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-slate-950/45 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-xs font-bold gap-1.5 backdrop-blur-[1px]">
-                              <Maximize2 size={16} /> Fullscreen Proof Sheet
+                            <div className="absolute inset-0 bg-slate-950/45 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-xs font-bold gap-2 backdrop-blur-[1px]">
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setFullscreenCanvas({
+                                    url: thumb,
+                                    name: c.name,
+                                    version: c.latestVersion?.versionNumber || 1,
+                                    projectName: selectedProject?.name,
+                                    status: c.status,
+                                    canvasType: c.canvasType,
+                                    date: new Date(c.updatedAt).toLocaleDateString(),
+                                  });
+                                }}
+                                className="p-2 bg-white/90 text-slate-900 rounded-xl hover:bg-white hover:text-indigo-600 transition shadow font-bold text-xs flex items-center gap-1.5 cursor-pointer"
+                                title="View Fullscreen Proof Sheet"
+                              >
+                                <Maximize2 size={15} /> Fullscreen
+                              </button>
+                              <span className="p-2 bg-indigo-600 text-white rounded-xl font-bold text-xs flex items-center gap-1.5 shadow">
+                                <Edit size={15} /> Edit Canvas
+                              </span>
                             </div>
                             <span className="absolute top-2 right-2 bg-slate-900/80 text-white text-[10px] font-mono font-bold px-2 py-0.5 rounded-md backdrop-blur-sm shadow">
                               v{c.latestVersion?.versionNumber || 1}
@@ -1007,31 +1038,61 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
                             </div>
                             <p className="text-[11px] text-slate-500 mt-0.5 font-medium capitalize">Type: {c.canvasType}</p>
 
-                            {/* Prominent Client Feedback Notice if Changes Requested */}
-                            {isChangesReq && latestRemark && (
-                              <div className="mt-2.5 p-2.5 rounded-xl bg-amber-100/80 border border-amber-300 text-amber-900 text-xs space-y-1">
-                                <span className="font-bold flex items-center gap-1 text-[11px] uppercase tracking-wide">
-                                  <MessageSquare size={12} className="text-amber-700" /> Client Requested Changes:
-                                </span>
-                                <p className="italic text-[11px] text-amber-950 line-clamp-2">"{latestRemark.remark}"</p>
-                              </div>
-                            )}
+                            {/* Prominent Client Feedback Notice with Specific Photo Tiles Highlighted */}
+                            {(() => {
+                              const flaggedTiles = c.diagramImages?.filter(
+                                (img) => img.status === "changes_requested" || (img.remarks && img.remarks.length > 0)
+                              ) || [];
+
+                              if (flaggedTiles.length > 0) {
+                                return (
+                                  <div className="mt-2.5 p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs space-y-1.5 shadow-sm">
+                                    <div className="flex items-center justify-between">
+                                      <span className="font-extrabold flex items-center gap-1 text-[11px] uppercase tracking-wide text-yellow-700">
+                                        <AlertCircle size={13} className="text-yellow-600" />
+                                        {flaggedTiles.length} Photo Tile(s) Flagged:
+                                      </span>
+                                      <span className="text-[10px] bg-yellow-200 text-rose-900 font-bold px-1.5 py-0.5 rounded">
+                                        Feedback
+                                      </span>
+                                    </div>
+                                    <div className="space-y-1 max-h-24 overflow-y-auto pr-0.5">
+                                      {flaggedTiles.map((tile, idx) => {
+                                        const lastRemark = tile.remarks && tile.remarks.length > 0 ? tile.remarks[tile.remarks.length - 1] : null;
+                                        return (
+                                          <div key={tile.id} className="text-[11px] bg-white/90 p-1.5 rounded-lg border border-rose-200 text-slate-800">
+                                            <strong className="text-rose-700">Photo #{idx + 1} ({tile.caption || `Tile ${idx + 1}`}):</strong>{" "}
+                                            {lastRemark ? `"${lastRemark.remark}"` : "Changes requested"}
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
+                                );
+                              } else if (isChangesReq && latestRemark) {
+                                return (
+                                  <div className="mt-2.5 p-2.5 rounded-xl bg-amber-100/80 border border-amber-300 text-amber-900 text-xs space-y-1">
+                                    <span className="font-bold flex items-center gap-1 text-[11px] uppercase tracking-wide">
+                                      <MessageSquare size={12} className="text-amber-700" /> Client Requested Changes:
+                                    </span>
+                                    <p className="italic text-[11px] text-amber-950 line-clamp-2">"{latestRemark.remark}"</p>
+                                  </div>
+                                );
+                              }
+                              return null;
+                            })()}
                           </div>
 
                           {/* Action Toolbar */}
                           <div className="flex items-center justify-between border-t border-slate-100 pt-2.5 text-xs">
-                            <button
-                              onClick={() => {
-                                setTargetCanvas(c);
-                                setEditingCanvasName(c.name);
-                                setShowEditCanvasModal(true);
-                              }}
-                              className="text-indigo-600 font-bold hover:underline flex items-center gap-1 cursor-pointer"
-                            >
+                            <span className="text-indigo-600 font-bold flex items-center gap-1">
                               <Edit size={13} /> {isChangesReq ? "View Changes & Upload Revision" : "Edit Canvas / Revisions"}
-                            </button>
+                            </span>
                             <button
-                              onClick={() => promptDeleteCanvas(c.id, c.name)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                promptDeleteCanvas(c.id, c.name);
+                              }}
                               className="text-rose-600 hover:text-rose-800 transition cursor-pointer flex items-center gap-1 font-bold"
                             >
                               <Trash2 size={14} /> Delete
@@ -1359,7 +1420,7 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
               </div>
 
               {/* Mode Guidance Card */}
-              {canvasForm.canvasType === "collage" ? (
+              {/* {canvasForm.canvasType === "collage" ? (
                 <div className="p-3 bg-indigo-50 border border-indigo-200 rounded-xl text-xs space-y-1">
                   <span className="font-extrabold text-indigo-900 flex items-center gap-1">
                     <LayoutGrid size={14} className="text-indigo-600" /> Auto Collage Grid Mode
@@ -1377,7 +1438,7 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
                     Creates a separate standalone canvas for every uploaded image.
                   </p>
                 </div>
-              ) : null}
+              ) : null} */}
 
               <div className="p-3 bg-slate-50 border rounded-xl space-y-2">
                 <div className="flex items-center justify-between cursor-pointer">
@@ -1485,10 +1546,10 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
 
       {/* MODAL 4: EDIT CANVAS / VIEW CLIENT REQUESTED CHANGES & UPLOAD REVISION */}
       {showEditCanvasModal && targetCanvas && (
-        <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl animate-in fade-in zoom-in duration-200 my-auto max-h-[92vh] flex flex-col">
+        <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6">
+          <div className="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl animate-in fade-in zoom-in duration-200 min-h-[550px] max-h-[85vh] flex flex-col overflow-hidden">
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b pb-3 flex-shrink-0">
+            <div className="flex items-center justify-between border-b pb-3.5 flex-shrink-0">
               <div>
                 <h3 className="font-extrabold text-lg text-slate-900">
                   Edit Canvas: {targetCanvas.name}
@@ -1497,12 +1558,15 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
                   Type: <span className="capitalize font-bold text-slate-700">{targetCanvas.canvasType}</span> • Status: {getStatusBadge(targetCanvas.status)}
                 </p>
               </div>
-              <button onClick={() => setShowEditCanvasModal(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
-                <X size={18} />
+              <button onClick={() => setShowEditCanvasModal(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer p-1 rounded-lg hover:bg-slate-100 transition">
+                <X size={20} />
               </button>
             </div>
 
-            <div className="overflow-y-auto flex-1 py-4 space-y-6 pr-1">
+            <div
+              onWheel={(e) => e.stopPropagation()}
+              className="overflow-y-auto flex-1 min-h-0 py-4 space-y-6 pr-2 scroll-smooth overscroll-contain"
+            >
               {/* SECTION 1: EDIT CANVAS NAME */}
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
                 <span className="text-xs font-extrabold uppercase text-slate-700 tracking-wider">
@@ -1539,7 +1603,7 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
                   </div>
 
                   {/* REVERSE ENGINEER COLLAGE TO INDIVIDUAL CANVASES */}
-                  <div className="flex items-center justify-between bg-amber-50 border border-amber-200 p-3 rounded-xl gap-2">
+                  {/* <div className="flex items-center justify-between bg-amber-50 border border-amber-200 p-3 rounded-xl gap-2">
                     <div>
                       <span className="font-extrabold text-amber-950 text-xs flex items-center gap-1">
                         <Split size={14} className="text-amber-700" /> Split Collage to Individual Canvases
@@ -1556,9 +1620,9 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
                       {unbundling ? <Loader2 size={13} className="animate-spin" /> : <Split size={13} />}
                       Split to Individual
                     </button>
-                  </div>
+                  </div> */}
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-96 overflow-y-auto pr-1">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {targetCanvas.diagramImages.map((img, idx) => {
                       const tileUrl = `${backendHost}${img.watermarkedImageUrl}`;
                       const isUpdating = updatingSubImageId === img.id;
@@ -1566,22 +1630,22 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
                       return (
                         <div
                           key={img.id}
-                          className={`p-3 rounded-2xl bg-white border text-xs flex flex-col justify-between shadow-sm transition hover:shadow-md ${
+                          className={`p-2.5 rounded-xl bg-white border-2 text-xs flex flex-col justify-between shadow-sm transition hover:shadow-md ${
                             img.status === "changes_requested"
-                              ? "border-amber-300 ring-2 ring-amber-400/20"
+                              ? "border-amber-400 ring-2 ring-amber-400/20 bg-amber-50/10"
                               : img.status === "approved"
-                              ? "border-emerald-300"
-                              : "border-slate-200"
+                              ? "border-emerald-400 bg-emerald-50/10"
+                              : "border-slate-300 hover:border-slate-400"
                           }`}
                         >
                           {/* Square Image Container */}
-                          <div className="relative aspect-square w-full bg-slate-100 rounded-xl overflow-hidden group border border-slate-200">
+                          <div className="relative aspect-square w-full bg-slate-100 rounded-lg overflow-hidden group border border-slate-200">
                             <img src={tileUrl} alt={img.caption || "Tile"} className="w-full h-full object-cover" />
 
                             {/* Status Badge */}
-                            <div className="absolute top-2 left-2 z-10">
+                            <div className="absolute top-1.5 left-1.5 z-10">
                               <span
-                                className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold shadow-sm ${
+                                className={`px-1.5 py-0.5 rounded-md text-[9px] font-extrabold shadow-sm ${
                                   img.status === "approved"
                                     ? "bg-emerald-600 text-white"
                                     : img.status === "changes_requested"
@@ -1594,42 +1658,42 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
                             </div>
 
                             {/* Hover Overlay Actions */}
-                            <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2 backdrop-blur-[1px]">
+                            <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-1.5 backdrop-blur-[1px]">
                               <button
                                 type="button"
                                 onClick={() => setFullscreenCanvas({ url: tileUrl, name: img.caption || `Photo #${idx + 1}`, version: 1 })}
-                                className="p-2 bg-white text-slate-800 rounded-xl hover:bg-indigo-50 hover:text-indigo-600 transition shadow cursor-pointer"
+                                className="p-1.5 bg-white text-slate-800 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition shadow cursor-pointer"
                                 title="View Fullscreen Photo"
                               >
-                                <Eye size={16} />
+                                <Eye size={14} />
                               </button>
                               <button
                                 type="button"
                                 disabled={isUpdating}
                                 onClick={() => promptDeleteSubImageTile(img.id)}
-                                className="p-2 bg-rose-600 text-white rounded-xl hover:bg-rose-700 transition shadow cursor-pointer disabled:opacity-50"
+                                className="p-1.5 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition shadow cursor-pointer disabled:opacity-50"
                                 title="Remove Photo Tile"
                               >
-                                <Trash2 size={16} />
+                                <Trash2 size={14} />
                               </button>
                             </div>
                           </div>
 
                           {/* Info & Replace Action */}
-                          <div className="mt-2.5 space-y-2 flex-1 flex flex-col justify-between">
+                          <div className="mt-2 space-y-1.5 flex-1 flex flex-col justify-between">
                             <div>
-                              <span className="font-extrabold text-slate-900 text-xs block truncate" title={img.caption || `Photo #${idx + 1}`}>
+                              <span className="font-extrabold text-slate-900 text-[11px] block truncate" title={img.caption || `Photo #${idx + 1}`}>
                                 Photo #{idx + 1}: {img.caption || `Image ${idx + 1}`}
                               </span>
 
                               {/* Client Remarks */}
                               {img.remarks && img.remarks.length > 0 && (
-                                <div className="mt-1.5 text-[11px] text-amber-950 bg-amber-50 p-2 rounded-lg border border-amber-200 space-y-1">
-                                  <span className="font-bold text-[10px] uppercase text-amber-700 flex items-center gap-1">
-                                    <MessageSquare size={11} /> Client Remarks:
+                                <div className="mt-1 text-[10px] text-amber-950 bg-amber-50 p-1.5 rounded-md border border-amber-200 space-y-0.5">
+                                  <span className="font-bold text-[9px] uppercase text-amber-700 flex items-center gap-0.5">
+                                    <MessageSquare size={10} /> Client Remarks:
                                   </span>
                                   {img.remarks.map((r) => (
-                                    <div key={r.id}>
+                                    <div key={r.id} className="truncate">
                                       <strong className="text-slate-800">{r.userName || "Client"}:</strong> "{r.remark}"
                                     </div>
                                   ))}
@@ -1637,14 +1701,14 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
                               )}
                             </div>
 
-                            {/* Full Width Replace Button */}
+                            {/* Compact Replace Button */}
                             <label
-                              className={`w-full py-2 px-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition shadow-sm ${
+                              className={`w-full py-1.5 px-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-[11px] font-bold flex items-center justify-center gap-1 cursor-pointer transition shadow-sm ${
                                 isUpdating ? "opacity-50 pointer-events-none" : ""
                               }`}
                               title="Replace this photo file"
                             >
-                              {isUpdating ? <Loader2 size={13} className="animate-spin" /> : <RefreshCw size={13} />}
+                              {isUpdating ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
                               {isUpdating ? "Updating..." : "Replace Photo"}
                               <input
                                 type="file"
@@ -1665,35 +1729,100 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
                   </div>
 
                   {/* ADD NEW PHOTO TILE TO COLLAGE */}
-                  <div className="pt-2 border-t border-indigo-100 flex items-center gap-2">
-                    <label className="flex-1 py-2 px-3 bg-white border border-indigo-200 rounded-xl text-xs text-slate-600 flex items-center justify-between cursor-pointer hover:border-indigo-400 transition">
-                      <span className="truncate">
-                        {newSubImageFile ? newSubImageFile.name : "+ Add New Photo to Collage..."}
+                  <div className="pt-3 border-t border-indigo-100 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-extrabold text-indigo-950 flex items-center gap-1.5">
+                        <Plus size={14} className="text-indigo-600" /> Add New Photo to Collage
                       </span>
-                      <Upload size={14} className="text-indigo-600 flex-shrink-0" />
-                      <input
-                        type="file"
-                        accept="image/png, image/jpeg, image/webp"
-                        className="hidden"
-                        onChange={(e) => setNewSubImageFile(e.target.files?.[0] || null)}
-                      />
-                    </label>
+                      <span className="text-[10px] text-indigo-700 font-medium">Select file to append tile</span>
+                    </div>
 
-                    {newSubImageFile && (
-                      <button
-                        disabled={addingSubImage}
-                        onClick={() => {
-                          if (newSubImageFile) {
-                            handleAddSubImageTile(newSubImageFile, newSubImageCaption);
-                            setNewSubImageFile(null);
-                            setNewSubImageCaption("");
-                          }
-                        }}
-                        className="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer disabled:opacity-50"
-                      >
-                        {addingSubImage ? <Loader2 size={13} className="animate-spin" /> : <Plus size={13} />}
-                        Upload Tile
-                      </button>
+                    {!newSubImageFile ? (
+                      <label className="w-full py-2.5 px-3 bg-white border-2 border-dashed border-indigo-300 hover:border-indigo-500 rounded-xl text-xs text-indigo-700 flex items-center justify-center gap-2 cursor-pointer transition bg-indigo-50/30">
+                        <Upload size={15} className="text-indigo-600" />
+                        <span className="font-bold">+ Choose Photo File to Add...</span>
+                        <input
+                          type="file"
+                          accept="image/png, image/jpeg, image/webp"
+                          className="hidden"
+                          onChange={(e) => setNewSubImageFile(e.target.files?.[0] || null)}
+                        />
+                      </label>
+                    ) : (
+                      <div className="p-3 bg-white border-2 border-slate-300 rounded-xl space-y-3 shadow-sm animate-in fade-in duration-200">
+                        <div className="flex items-center justify-between border-b pb-2">
+                          <span className="text-xs font-extrabold text-slate-800 flex items-center gap-1.5">
+                            <Eye size={14} className="text-indigo-600" /> New Photo Preview
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setNewSubImageFile(null);
+                              setNewSubImageCaption("");
+                            }}
+                            className="text-slate-400 hover:text-rose-600 p-0.5 cursor-pointer"
+                            title="Cancel preview"
+                          >
+                            <X size={15} />
+                          </button>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="w-16 h-16 rounded-xl bg-slate-100 overflow-hidden border-2 border-slate-300 flex-shrink-0 relative group">
+                            <img
+                              src={URL.createObjectURL(newSubImageFile)}
+                              alt="New upload preview"
+                              className="w-full h-full object-cover"
+                            />
+                            <div
+                              onClick={() => setFullscreenCanvas({ url: URL.createObjectURL(newSubImageFile), name: newSubImageFile.name, version: 1 })}
+                              className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white cursor-pointer"
+                              title="Fullscreen Preview"
+                            >
+                              <Maximize2 size={14} />
+                            </div>
+                          </div>
+                          <div className="min-w-0 flex-1 space-y-1.5">
+                            <p className="text-xs font-bold text-slate-900 truncate" title={newSubImageFile.name}>
+                              {newSubImageFile.name}
+                            </p>
+                            <p className="text-[10px] text-slate-400 font-mono">
+                              {(newSubImageFile.size / 1024).toFixed(0)} KB
+                            </p>
+                            <input
+                              type="text"
+                              value={newSubImageCaption}
+                              onChange={(e) => setNewSubImageCaption(e.target.value)}
+                              placeholder="Photo tile caption (optional)..."
+                              className="w-full border border-slate-200 rounded-lg p-1.5 text-xs bg-slate-50 focus:bg-white outline-none focus:ring-1 focus:ring-indigo-500"
+                            />
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            disabled={addingSubImage}
+                            onClick={() => {
+                              if (newSubImageFile) {
+                                handleAddSubImageTile(newSubImageFile, newSubImageCaption);
+                                setNewSubImageFile(null);
+                                setNewSubImageCaption("");
+                              }
+                            }}
+                            className="flex-1 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50 shadow-sm"
+                          >
+                            {addingSubImage ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
+                            Upload Tile & Rebuild Collage
+                          </button>
+                          <label className="py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold cursor-pointer transition">
+                            Change File
+                            <input
+                              type="file"
+                              accept="image/png, image/jpeg, image/webp"
+                              className="hidden"
+                              onChange={(e) => setNewSubImageFile(e.target.files?.[0] || null)}
+                            />
+                          </label>
+                        </div>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -1969,6 +2098,164 @@ function DesignerStudioContent({ designerUser }: { designerUser: any }) {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* SHARE PROJECT / REVIEW LINK MODAL */}
+      {shareModalToken && shareProject && (
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShareModalToken(null);
+              setShareProject(null);
+              setCopiedLink(false);
+            }
+          }}
+          className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4"
+        >
+          <div
+            onWheel={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl animate-in fade-in zoom-in duration-200 space-y-5 border border-slate-100"
+          >
+            {/* Modal Header */}
+            <div className="flex items-start justify-between border-b border-slate-100 pb-3.5">
+              <div>
+                <h3 className="font-extrabold text-lg text-slate-900 flex items-center gap-2">
+                  <Share2 size={20} className="text-indigo-600" /> Share Review Link
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Project: <strong className="text-slate-800">{shareProject.name}</strong> • Client: <strong className="text-slate-800">{shareProject.clientName}</strong>
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  setShareModalToken(null);
+                  setShareProject(null);
+                  setCopiedLink(false);
+                }}
+                className="text-slate-400 hover:text-slate-700 cursor-pointer p-1 rounded-xl hover:bg-slate-100 transition"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Direct Copy Link Input */}
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-slate-700 block">Direct Review URL</label>
+              <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 p-2 rounded-2xl">
+                <input
+                  type="text"
+                  readOnly
+                  value={typeof window !== "undefined" ? `${window.location.origin}/review/${shareModalToken}` : `/review/${shareModalToken}`}
+                  className="flex-1 bg-transparent text-xs text-slate-700 font-mono outline-none px-1 truncate"
+                />
+                <button
+                  onClick={() => {
+                    const fullUrl = `${window.location.origin}/review/${shareModalToken}`;
+                    navigator.clipboard.writeText(fullUrl);
+                    setCopiedLink(true);
+                    setTimeout(() => setCopiedLink(false), 3000);
+                  }}
+                  className={`px-3.5 py-2 text-xs font-bold rounded-xl transition flex items-center gap-1.5 cursor-pointer flex-shrink-0 ${
+                    copiedLink
+                      ? "bg-emerald-600 text-white shadow-sm"
+                      : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm"
+                  }`}
+                >
+                  {copiedLink ? <Check size={14} /> : <Copy size={14} />}
+                  {copiedLink ? "Copied!" : "Copy Link"}
+                </button>
+              </div>
+            </div>
+
+            {/* Quick Share Action Grid */}
+            <div className="space-y-2.5 pt-1">
+              <span className="text-xs font-extrabold uppercase text-slate-500 tracking-wider block">
+                Quick Share Options
+              </span>
+
+              <div className="grid grid-cols-2 gap-2.5">
+                {/* WhatsApp Share Button */}
+                <button
+                  onClick={() => {
+                    const fullUrl = `${window.location.origin}/review/${shareModalToken}`;
+                    const text = `Hi ${shareProject.clientName}, please review your design proof sheet for "${shareProject.name}":\n${fullUrl}`;
+                    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, "_blank");
+                  }}
+                  className="p-3 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-2xl text-emerald-900 flex items-center gap-2 text-xs font-bold transition cursor-pointer shadow-sm"
+                >
+                  <MessageCircle size={18} className="text-emerald-600 flex-shrink-0" />
+                  <span>WhatsApp Share</span>
+                </button>
+
+                {/* iPhone iMessage / SMS Share Button */}
+                <button
+                  onClick={() => {
+                    const fullUrl = `${window.location.origin}/review/${shareModalToken}`;
+                    const text = `Hi ${shareProject.clientName}, here is your design proof sheet link for review: ${fullUrl}`;
+                    window.location.href = `sms:?&body=${encodeURIComponent(text)}`;
+                  }}
+                  className="p-3 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-2xl text-blue-900 flex items-center gap-2 text-xs font-bold transition cursor-pointer shadow-sm"
+                >
+                  <Smartphone size={18} className="text-blue-600 flex-shrink-0" />
+                  <span>iMessage / SMS</span>
+                </button>
+
+                {/* Native Device Share (iPhone / Mobile) */}
+                <button
+                  onClick={() => {
+                    const fullUrl = `${window.location.origin}/review/${shareModalToken}`;
+                    if (typeof navigator !== "undefined" && navigator.share) {
+                      navigator.share({
+                        title: `Design Review: ${shareProject.name}`,
+                        text: `Hi ${shareProject.clientName}, please review your design proof sheet:`,
+                        url: fullUrl,
+                      }).catch(() => {});
+                    } else {
+                      navigator.clipboard.writeText(fullUrl);
+                      setCopiedLink(true);
+                      setTimeout(() => setCopiedLink(false), 3000);
+                    }
+                  }}
+                  className="p-3 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-2xl text-indigo-900 flex items-center gap-2 text-xs font-bold transition cursor-pointer shadow-sm"
+                >
+                  <Share2 size={18} className="text-indigo-600 flex-shrink-0" />
+                  <span>Device Share</span>
+                </button>
+
+                {/* Email Share Button */}
+                <a
+                  href={`mailto:${shareProject.clientEmail || ""}?subject=${encodeURIComponent(`Design Proof Review: ${shareProject.name}`)}&body=${encodeURIComponent(`Hi ${shareProject.clientName},\n\nPlease review your design canvas proof sheet here:\n${typeof window !== "undefined" ? `${window.location.origin}/review/${shareModalToken}` : `/review/${shareModalToken}`}\n\nThank you!`)}`}
+                  className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl text-slate-800 flex items-center gap-2 text-xs font-bold transition cursor-pointer shadow-sm"
+                >
+                  <Mail size={18} className="text-slate-600 flex-shrink-0" />
+                  <span>Email Link</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Direct Open Link Footer */}
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+              <a
+                href={`/review/${shareModalToken}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 hover:underline cursor-pointer"
+              >
+                <Eye size={14} /> Open Review Portal
+              </a>
+              <button
+                onClick={() => {
+                  setShareModalToken(null);
+                  setShareProject(null);
+                  setCopiedLink(false);
+                }}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition cursor-pointer"
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
