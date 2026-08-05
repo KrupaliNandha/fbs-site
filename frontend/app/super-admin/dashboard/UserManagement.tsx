@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { Edit, Plus, RefreshCw, ShieldCheck, Trash2 } from "lucide-react";
+import { Edit, Plus, RefreshCw, ShieldCheck, Trash2, X } from "lucide-react";
 import { ROLE_LABELS } from "@/app/lib/auth/roles";
 import type { AuthRole, AuthUser, UserPayload } from "@/app/lib/auth/types";
 import { authApi } from "@/app/lib/client/auth-api";
@@ -39,6 +39,8 @@ export function UserManagement({
   const [notice, setNotice] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<AuthUser | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const editingUser = useMemo(
     () => users.find((user) => user.id === form.id),
@@ -141,7 +143,7 @@ export function UserManagement({
     }
   }
 
-  async function removeUser(user: AuthUser) {
+  function requestRemoveUser(user: AuthUser) {
     if (user.id === currentUserId) {
       setError("You cannot delete your own account while signed in.");
       return;
@@ -152,23 +154,28 @@ export function UserManagement({
       return;
     }
 
-    const confirmed = window.confirm(`Delete ${user.email}?`);
-
-    if (!confirmed) {
-      return;
-    }
-
     setError("");
     setNotice("");
+    setDeleteTarget(user);
+  }
+
+  async function confirmRemoveUser() {
+    if (!deleteTarget) return;
+    setError("");
+    setNotice("");
+    setIsDeleting(true);
 
     try {
-      await authApi.deleteUser(user.id);
+      await authApi.deleteUser(deleteTarget.id);
       setNotice("User deleted.");
+      setDeleteTarget(null);
       await loadUsers();
     } catch (deleteError) {
       setError(
         deleteError instanceof Error ? deleteError.message : "Unable to delete user.",
       );
+    } finally {
+      setIsDeleting(false);
     }
   }
 
@@ -395,7 +402,7 @@ export function UserManagement({
                           variant="destructive"
                           size="sm"
                           className="border border-red-200"
-                          onClick={() => void removeUser(user)}
+                          onClick={() => requestRemoveUser(user)}
                           disabled={
                             user.id === currentUserId ||
                             (user.roles.includes("super_admin") &&
@@ -414,6 +421,74 @@ export function UserManagement({
           </table>
         </div>
       </Card>
+      {deleteTarget ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Confirm user delete"
+          onClick={(event) => {
+            if (event.target === event.currentTarget && !isDeleting) {
+              setDeleteTarget(null);
+            }
+          }}
+        >
+          <div className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-5 text-slate-900 shadow-2xl">
+            <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-3">
+              <div className="flex items-start gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-red-200 bg-red-50 text-red-600">
+                  <Trash2 size={20} />
+                </div>
+                <div>
+                  <h3 className="text-base font-extrabold text-slate-900">
+                    Delete user?
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-500">
+                    This action needs your confirmation.
+                  </p>
+                </div>
+              </div>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-sm"
+                disabled={isDeleting}
+                onClick={() => setDeleteTarget(null)}
+                className="text-slate-400 hover:text-slate-700"
+                aria-label="Close delete confirmation"
+              >
+                <X size={18} />
+              </Button>
+            </div>
+
+            <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
+              Are you sure you want to delete{" "}
+              <strong className="text-slate-900">{deleteTarget.email}</strong>?
+              This cannot be undone.
+            </div>
+
+            <div className="mt-5 flex items-center justify-end gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                disabled={isDeleting}
+                onClick={() => setDeleteTarget(null)}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                disabled={isDeleting}
+                onClick={() => void confirmRemoveUser()}
+                className="bg-red-600 text-white hover:bg-red-700"
+              >
+                <Trash2 size={16} />
+                {isDeleting ? "Deleting..." : "Yes, delete"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

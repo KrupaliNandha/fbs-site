@@ -79,7 +79,7 @@ export function SidebarLayout({
       {/* Brand Header — real logo */}
       <div>
         <div
-          className={`relative border-b border-slate-800/80 px-3 ${
+          className={`relative border-b border-white/10 px-3 ${
             collapsed
               ? "py-3 flex flex-col items-center justify-center gap-2"
               : "h-16 flex items-center justify-center"
@@ -112,7 +112,7 @@ export function SidebarLayout({
             variant="ghost"
             size="icon-sm"
             onClick={() => setCollapsed((v) => !v)}
-            className={`hidden lg:inline-flex bg-slate-800/60 hover:bg-slate-800 text-slate-400 hover:text-white ${
+            className={`hidden lg:inline-flex bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 ${
               collapsed
                 ? "static"
                 : "absolute right-2 top-1/2 -translate-y-1/2"
@@ -128,7 +128,7 @@ export function SidebarLayout({
             variant="ghost"
             size="icon-sm"
             onClick={() => setMobileOpen(false)}
-            className="lg:hidden absolute right-2 top-1/2 -translate-y-1/2 bg-slate-800/60 hover:bg-slate-800 text-slate-400 hover:text-white"
+            className="lg:hidden absolute right-2 top-1/2 -translate-y-1/2 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10"
             title="Close menu"
           >
             <X size={18} />
@@ -138,7 +138,7 @@ export function SidebarLayout({
         {/* Navigation Items */}
         <nav className="p-3 space-y-1.5">
           {!collapsed && (
-            <p className="px-3 pt-2 pb-1 text-xs font-bold uppercase tracking-wider text-slate-500 lg:block">
+            <p className="px-3 pt-2 pb-1 text-xs font-bold uppercase tracking-wider text-slate-200/75 lg:block">
               Navigation
             </p>
           )}
@@ -152,21 +152,25 @@ export function SidebarLayout({
                 type="button"
                 variant="ghost"
                 onClick={() => handleTabChange(item.id)}
-                className={`w-full justify-start gap-3 px-3 py-2.5 h-auto rounded-xl font-semibold text-sm relative ${
+                className={`w-full justify-start gap-3 px-3 py-2.5 h-auto rounded-lg font-semibold text-sm relative ${
                   isActive
-                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 hover:bg-indigo-600 hover:text-white"
-                    : "text-slate-400 hover:text-white hover:bg-slate-800/60"
+                    ? "bg-slate-100 text-slate-900 shadow-sm hover:bg-white hover:text-slate-950"
+                    : "text-slate-100/85 hover:text-white hover:bg-white/10"
                 } ${collapsed ? "justify-center lg:justify-center" : ""}`}
                 title={collapsed ? item.label : undefined}
               >
-                <Icon size={20} className={isActive ? "text-white" : "text-slate-400"} />
+                <Icon size={20} className={isActive ? "text-slate-800" : "text-slate-100/75"} />
                 {/* On mobile drawer always show labels; on desktop respect collapse */}
                 <span className={`truncate ${collapsed ? "lg:hidden" : ""}`}>
                   {item.label}
                 </span>
                 {item.badge !== undefined && (
                   <span
-                    className={`ml-auto bg-slate-800 text-slate-300 text-xs font-bold px-2 py-0.5 rounded-full border border-slate-700 ${
+                    className={`ml-auto text-xs font-bold px-2 py-0.5 rounded-full border ${
+                      isActive
+                        ? "bg-slate-900/10 text-slate-900 border-slate-900/10"
+                        : "bg-white/10 text-white border-white/15"
+                    } ${
                       collapsed ? "lg:hidden" : ""
                     }`}
                   >
@@ -174,7 +178,7 @@ export function SidebarLayout({
                   </span>
                 )}
                 {isActive && (
-                  <div className="absolute right-0 top-2 bottom-2 w-1 bg-white rounded-l-full hidden lg:block" />
+                  <div className="absolute right-0 top-2 bottom-2 w-1 bg-slate-900/55 rounded-l-full hidden lg:block" />
                 )}
               </Button>
             );
@@ -183,16 +187,16 @@ export function SidebarLayout({
       </div>
 
       {/* User Footer Profile & Logout */}
-      <div className="p-3 border-t border-slate-800/80 bg-slate-950/40 space-y-3">
+      <div className="p-3 border-t border-white/10 bg-white/10 space-y-3">
         <div className={`flex items-center gap-3 overflow-hidden ${collapsed ? "lg:justify-center" : ""}`}>
-          <div className="w-9 h-9 rounded-full bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-300 font-bold text-xs flex-shrink-0">
+          <div className="w-9 h-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
             {userName?.charAt(0).toUpperCase() || "U"}
           </div>
           <div className={`truncate text-left min-w-0 ${collapsed ? "lg:hidden" : ""}`}>
             <p className="text-sm font-bold text-white truncate">
               {userName || "Authenticated User"}
             </p>
-            <p className="text-xs text-slate-400 truncate">{userEmail || roleName}</p>
+            <p className="text-xs text-slate-100/70 truncate">{userEmail || roleName}</p>
           </div>
         </div>
 
@@ -204,11 +208,11 @@ export function SidebarLayout({
   );
 
   return (
-    <div className="portal-dashboard min-h-screen bg-[#f8fafc] text-slate-900 flex font-sans antialiased">
+    <div className="portal-dashboard min-h-screen bg-white text-black flex font-sans antialiased">
       {/* Desktop sidebar */}
       <aside
-        className={`hidden lg:flex sticky top-0 h-screen bg-[#0f172a] text-slate-300 border-r border-slate-800 flex-col justify-between transition-all duration-300 z-40 shadow-xl ${
-          collapsed ? "w-20" : "w-64"
+        className={`hidden lg:flex sticky top-0 h-screen bg-gray-600 text-slate-100 border-r border-white/10 flex-col justify-between transition-all duration-300 z-40 shadow-sm ${
+          collapsed ? "w-20" : "w-72"
         }`}
       >
         {sidebarContent}
@@ -223,10 +227,10 @@ export function SidebarLayout({
           aria-label="Navigation menu"
         >
           <div
-            className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-950/55 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
           />
-          <aside className="absolute left-0 top-0 bottom-0 w-[min(18rem,85vw)] bg-[#0f172a] text-slate-300 border-r border-slate-800 flex flex-col justify-between shadow-2xl animate-in slide-in-from-left duration-200">
+          <aside className="absolute left-0 top-0 bottom-0 w-[min(18rem,85vw)] bg-gray-600 text-slate-100 border-r border-white/10 flex flex-col justify-between shadow-2xl animate-in slide-in-from-left duration-200">
             {sidebarContent}
           </aside>
         </div>
@@ -241,7 +245,7 @@ export function SidebarLayout({
             variant="secondary"
             size="icon"
             onClick={() => setMobileOpen(true)}
-            className="rounded-xl"
+            className="rounded-lg"
             aria-label="Open navigation menu"
           >
             <Menu size={20} />
@@ -262,28 +266,28 @@ export function SidebarLayout({
             />
           </Link>
 
-          <div className="w-9 h-9 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-xs flex-shrink-0">
+          <div className="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-900 font-bold text-xs flex-shrink-0">
             {userName?.charAt(0).toUpperCase() || "U"}
           </div>
         </div>
 
         {/* Desktop top header bar */}
-        <header className="hidden lg:flex sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200/80 px-6 xl:px-8 py-4 items-center justify-between gap-4">
+        <header className="hidden lg:flex sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 px-6 xl:px-8 py-4 items-center justify-between gap-4">
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-100">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
                 {roleName} Portal
               </span>
             </div>
-            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight mt-1 truncate">
+            <h1 className="text-2xl font-extrabold text-slate-950 tracking-tight mt-1 truncate">
               {title}
             </h1>
             <p className="text-sm text-slate-500 mt-0.5 truncate">{subtitle}</p>
           </div>
 
           <div className="flex items-center gap-3 flex-shrink-0">
-            <div className="hidden sm:flex items-center gap-2 bg-slate-100/80 px-3 py-1.5 rounded-xl border border-slate-200 text-sm font-medium text-slate-600">
-              <UserCheck size={16} className="text-emerald-500" />
+            <div className="hidden sm:flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-medium text-slate-600">
+              <UserCheck size={16} className="text-slate-600" />
               <span className="max-w-[220px] truncate">{userEmail}</span>
             </div>
           </div>
@@ -291,10 +295,10 @@ export function SidebarLayout({
 
         {/* Mobile page title strip */}
         <div className="lg:hidden px-4 sm:px-5 pt-3 pb-1">
-          <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">
             {roleName} Portal
           </span>
-          <h1 className="text-xl font-extrabold text-slate-900 tracking-tight mt-1.5">
+          <h1 className="text-xl font-extrabold text-slate-950 tracking-tight mt-1.5">
             {title}
           </h1>
           <p className="text-sm text-slate-500 mt-0.5">{subtitle}</p>
