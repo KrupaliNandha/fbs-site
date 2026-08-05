@@ -19,6 +19,9 @@ export function createApp() {
   const app = express();
   const allowedOrigins = getAllowedOrigins();
 
+  // JSON APIs: skip ETag (Express still runs the full handler to build body; ETag adds no real win here)
+  app.set("etag", false);
+
   void ensureUploadDirs();
 
   app.use(

@@ -168,7 +168,8 @@ canvasRouter.get("/review/:token", async (req, res) => {
       return;
     }
 
-    const canvases = await listProjectCanvases(project.id);
+    // includeHistory: client review Activity panel needs status timeline
+    const canvases = await listProjectCanvases(project.id, { includeHistory: true });
     res.json({ project, canvases });
   } catch (err) {
     res.status(500).json({ message: err instanceof Error ? err.message : "Error fetching review." });
@@ -296,12 +297,16 @@ canvasRouter.post("/projects", requireAuth(), async (req, res) => {
 canvasRouter.get("/projects/:id", requireAuth(), async (req, res) => {
   try {
     const projectId = Number(req.params.id);
-    const project = await getProjectById(projectId);
+    // Parallel: project meta + canvases (saves one remote MySQL RTT vs sequential)
+    // includeHistory: activity timeline for client/designer project detail views
+    const [project, canvases] = await Promise.all([
+      getProjectById(projectId),
+      listProjectCanvases(projectId, { includeHistory: true }),
+    ]);
     if (!project) {
       res.status(404).json({ message: "Project not found." });
       return;
     }
-    const canvases = await listProjectCanvases(projectId);
     res.json({ ...project, canvases });
   } catch (err) {
     res.status(500).json({ message: err instanceof Error ? err.message : "Error fetching project." });
@@ -652,6 +657,7 @@ canvasRouter.put(
   upload.single("file"),
   async (req, res) => {
     try {
+      const user = (req as any).user as AuthUser;
       const imageId = Number(req.params.imageId);
       const file = req.file;
       const { caption, watermarkEnabled, watermarkText } = req.body;
@@ -673,20 +679,18 @@ canvasRouter.put(
         };
       }
 
-      await updateCanvasSubImage(imageId, {
+      const updated = await updateCanvasSubImage(imageId, {
         ...fileData,
         caption: caption !== undefined ? String(caption) : undefined,
+        uploadedBy: user.id,
       });
 
-      const [imgRows] = await query<any[]>(
-        `SELECT canvas_id, version_id FROM diagram_images WHERE id = ?`,
-        [imageId]
-      );
-      if (imgRows && imgRows.length > 0) {
-        await rebuildCanvasCollageComposite(Number(imgRows[0].canvas_id), Number(imgRows[0].version_id));
+      // Rebuild composite on the (possibly new) version after tile replace
+      if (file) {
+        await rebuildCanvasCollageComposite(updated.canvasId, updated.versionId);
       }
 
-      res.json({ success: true });
+      res.json({ success: true, versionId: updated.versionId, canvasId: updated.canvasId });
     } catch (err) {
       res.status(500).json({ message: err instanceof Error ? err.message : "Error updating sub-image tile." });
     }
@@ -700,6 +704,7 @@ canvasRouter.post(
   upload.single("file"),
   async (req, res) => {
     try {
+      const user = (req as any).user as AuthUser;
       const canvasId = Number(req.params.id);
       const file = req.file;
       if (!file) {
@@ -716,17 +721,18 @@ canvasRouter.post(
         watermarkText,
       );
 
-      const newId = await addCanvasSubImage(canvasId, Number(versionId), {
+      const added = await addCanvasSubImage(canvasId, Number(versionId), {
         originalImageUrl: processed.originalUrl,
         watermarkedImageUrl: processed.watermarkedUrl,
         thumbnailUrl: processed.thumbnailUrl,
         caption: caption || file.originalname,
+        uploadedBy: user.id,
       });
 
-      // Automatically rebuild composite collage with the new image tile included!
-      await rebuildCanvasCollageComposite(canvasId, Number(versionId));
+      // Rebuild composite on the new version with the added tile
+      await rebuildCanvasCollageComposite(canvasId, added.versionId);
 
-      res.json({ id: newId, success: true });
+      res.json({ id: added.id, versionId: added.versionId, success: true });
     } catch (err) {
       res.status(500).json({ message: err instanceof Error ? err.message : "Error adding sub-image to canvas." });
     }
@@ -736,19 +742,16 @@ canvasRouter.post(
 // Delete an individual sub-image from a collage
 canvasRouter.delete("/canvases/sub-images/:imageId", requireAuth(), async (req, res) => {
   try {
+    const user = (req as any).user as AuthUser;
     const imageId = Number(req.params.imageId);
-    const [imgRows] = await query<any[]>(
-      `SELECT canvas_id, version_id FROM diagram_images WHERE id = ?`,
-      [imageId]
-    );
 
-    await deleteCanvasSubImage(imageId);
+    const deleted = await deleteCanvasSubImage(imageId, user.id);
 
-    if (imgRows && imgRows.length > 0) {
-      await rebuildCanvasCollageComposite(Number(imgRows[0].canvas_id), Number(imgRows[0].version_id));
+    if (deleted) {
+      await rebuildCanvasCollageComposite(deleted.canvasId, deleted.versionId);
     }
 
-    res.json({ success: true });
+    res.json({ success: true, versionId: deleted?.versionId });
   } catch (err) {
     res.status(500).json({ message: err instanceof Error ? err.message : "Error deleting sub-image tile." });
   }

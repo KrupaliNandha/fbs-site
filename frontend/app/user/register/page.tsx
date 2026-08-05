@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Mail, Lock, User as UserIcon, Loader2 } from "lucide-react";
 import { authApi } from "@/app/lib/client/auth-api";
+import { Button, Card, Input, Label } from "@/app/Components/ui";
 
 export default function UserRegisterPage() {
   const router = useRouter();
@@ -38,7 +39,7 @@ export default function UserRegisterPage() {
 
   return (
     <main className="min-h-dvh bg-[#f7f8fb] px-5 py-10 flex items-center justify-center">
-      <section className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <Card className="w-full max-w-md p-6 shadow-sm">
         <div className="mb-6">
           <p className="text-xs font-bold uppercase tracking-wider text-indigo-600">
             FBS Prints Portal
@@ -50,68 +51,84 @@ export default function UserRegisterPage() {
         </div>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
-          <label className="block">
-            <span className="text-xs font-bold text-slate-700">Full Name</span>
-            <span className="mt-1 flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 focus-within:ring-2 focus-within:ring-indigo-500/20">
-              <UserIcon size={18} className="text-slate-400" />
-              <input
+          <div className="space-y-1.5">
+            <Label htmlFor="reg-name">Full Name</Label>
+            <div className="relative">
+              <UserIcon
+                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              />
+              <Input
+                id="reg-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="John Doe"
-                className="min-h-11 w-full outline-none text-xs text-slate-900"
+                className="h-11 pl-9"
                 required
               />
-            </span>
-          </label>
+            </div>
+          </div>
 
-          <label className="block">
-            <span className="text-xs font-bold text-slate-700">Email Address</span>
-            <span className="mt-1 flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 focus-within:ring-2 focus-within:ring-indigo-500/20">
-              <Mail size={18} className="text-slate-400" />
-              <input
+          <div className="space-y-1.5">
+            <Label htmlFor="reg-email">Email Address</Label>
+            <div className="relative">
+              <Mail
+                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              />
+              <Input
+                id="reg-email"
                 type="email"
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="user@example.com"
-                className="min-h-11 w-full outline-none text-xs text-slate-900"
+                className="h-11 pl-9"
                 required
               />
-            </span>
-          </label>
+            </div>
+          </div>
 
-          <label className="block">
-            <span className="text-xs font-bold text-slate-700">Create Password</span>
-            <span className="mt-1 flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 focus-within:ring-2 focus-within:ring-indigo-500/20">
-              <Lock size={18} className="text-slate-400" />
-              <input
+          <div className="space-y-1.5">
+            <Label htmlFor="reg-password">Create Password</Label>
+            <div className="relative">
+              <Lock
+                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              />
+              <Input
+                id="reg-password"
                 type="password"
                 autoComplete="new-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="min-h-11 w-full outline-none text-xs text-slate-900"
+                className="h-11 pl-9"
                 required
               />
-            </span>
-          </label>
+            </div>
+          </div>
 
-          <label className="block">
-            <span className="text-xs font-bold text-slate-700">Confirm Password</span>
-            <span className="mt-1 flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 focus-within:ring-2 focus-within:ring-indigo-500/20">
-              <Lock size={18} className="text-slate-400" />
-              <input
+          <div className="space-y-1.5">
+            <Label htmlFor="reg-confirm">Confirm Password</Label>
+            <div className="relative">
+              <Lock
+                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              />
+              <Input
+                id="reg-confirm"
                 type="password"
                 autoComplete="new-password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className="min-h-11 w-full outline-none text-xs text-slate-900"
+                className="h-11 pl-9"
                 required
               />
-            </span>
-          </label>
+            </div>
+          </div>
 
           {error ? (
             <p className="rounded-xl bg-rose-50 border border-rose-200 px-3 py-2 text-xs font-medium text-rose-700">
@@ -119,14 +136,10 @@ export default function UserRegisterPage() {
             </p>
           ) : null}
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="min-h-11 w-full rounded-xl bg-indigo-600 font-bold text-xs text-white transition hover:bg-indigo-700 disabled:opacity-60 cursor-pointer flex items-center justify-center gap-2 shadow-sm"
-          >
+          <Button type="submit" disabled={isSubmitting} className="w-full h-11">
             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : null}
             {isSubmitting ? "Creating Account..." : "Create Account & Sign In"}
-          </button>
+          </Button>
         </form>
 
         <div className="mt-6 text-center text-xs text-slate-500">
@@ -135,7 +148,7 @@ export default function UserRegisterPage() {
             Sign In
           </Link>
         </div>
-      </section>
+      </Card>
     </main>
   );
 }

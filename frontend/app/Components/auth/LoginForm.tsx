@@ -10,6 +10,7 @@ import {
   getRoleFromToken,
   getStoredToken,
 } from "@/app/lib/auth/token";
+import { Button, Card, Input, Label } from "@/app/Components/ui";
 
 type LoginFormProps = {
   role: AuthRole;
@@ -24,13 +25,11 @@ export function LoginForm({ role, title }: LoginFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    // If token already exists in localStorage, decode role and redirect
     const token = getStoredToken();
     if (token) {
       const userRole = getRoleFromToken(token);
       if (userRole) {
-        const targetPath = getDashboardPathFromRole(userRole);
-        router.push(targetPath);
+        router.push(getDashboardPathFromRole(userRole));
       }
     }
   }, [router]);
@@ -42,14 +41,12 @@ export function LoginForm({ role, title }: LoginFormProps) {
 
     try {
       const response = await authApi.login(role, email, password);
-      // Detect role from JWT token stored in localStorage or from returned user
       const userRole =
         getRoleFromToken(response.token) ||
         (response.user?.roles?.[0] as AuthRole) ||
         role;
 
-      const targetPath = getDashboardPathFromRole(userRole);
-      router.push(targetPath);
+      router.push(getDashboardPathFromRole(userRole));
       router.refresh();
     } catch (loginError) {
       setError(
@@ -64,7 +61,7 @@ export function LoginForm({ role, title }: LoginFormProps) {
 
   return (
     <main className="min-h-dvh bg-[#f7f8fb] px-5 py-10 flex items-center justify-center">
-      <section className="w-full max-w-md rounded-lg border border-black/10 bg-white p-6 shadow-sm">
+      <Card className="w-full max-w-md p-6 shadow-sm">
         <div className="mb-6">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             FBS Prints
@@ -73,60 +70,71 @@ export function LoginForm({ role, title }: LoginFormProps) {
         </div>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
-          <label className="block">
-            <span className="text-sm font-medium text-primary-dark">Email</span>
-            <span className="mt-1 flex items-center gap-2 rounded-md border border-black/15 bg-white px-3">
-              <Mail size={18} className="text-primary-dark/50" />
-              <input
+          <div className="space-y-1.5">
+            <Label htmlFor="login-email">Email</Label>
+            <div className="relative">
+              <Mail
+                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              />
+              <Input
+                id="login-email"
                 type="email"
                 autoComplete="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                className="min-h-11 w-full outline-none"
+                className="h-11 pl-9 text-sm"
                 required
               />
-            </span>
-          </label>
+            </div>
+          </div>
 
-          <label className="block">
-            <span className="text-sm font-medium text-primary-dark">Password</span>
-            <span className="mt-1 flex items-center gap-2 rounded-md border border-black/15 bg-white px-3">
-              <Lock size={18} className="text-primary-dark/50" />
-              <input
+          <div className="space-y-1.5">
+            <Label htmlFor="login-password">Password</Label>
+            <div className="relative">
+              <Lock
+                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              />
+              <Input
+                id="login-password"
                 type="password"
                 autoComplete="current-password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                className="min-h-11 w-full outline-none"
+                className="h-11 pl-9 text-sm"
                 required
               />
-            </span>
-          </label>
+            </div>
+          </div>
 
           {error ? (
-            <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
+            <p className="rounded-xl bg-red-50 border border-red-100 px-3 py-2 text-sm text-red-700">
               {error}
             </p>
           ) : null}
 
-          <button
+          <Button
             type="submit"
             disabled={isSubmitting}
-            className="min-h-11 w-full rounded-md bg-primary px-4 font-semibold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
+            className="w-full h-11 text-sm bg-primary hover:bg-primary/90"
           >
             {isSubmitting ? "Signing in..." : "Sign in"}
-          </button>
+          </Button>
         </form>
 
         {role === "user" && (
           <div className="mt-6 text-center text-xs text-slate-500">
             Don&apos;t have an account or password yet?{" "}
-            <a href="/user/register" className="font-bold text-indigo-600 hover:underline">
+            <a
+              href="/user/register"
+              className="font-bold text-indigo-600 hover:underline"
+            >
               Create Account / Set Password
             </a>
           </div>
         )}
-      </section>
+      </Card>
     </main>
   );
 }

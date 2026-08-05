@@ -25,27 +25,48 @@ export function buildWatermarkSvgPattern(
   height: number,
   text: string,
 ): Buffer {
-  const safeText = escapeXml(text || "CONFIDENTIAL REVIEW");
-  const fontSize = Math.max(24, Math.floor(width / 20));
-  const patternSize = Math.max(250, Math.floor(width / 4));
+  const rawText = (text || "CONFIDENTIAL REVIEW").trim() || "CONFIDENTIAL REVIEW";
+  const safeText = escapeXml(rawText);
+
+  // Font size scales with image, but stays moderate so text stays readable without crowding
+  const fontSize = Math.max(18, Math.min(42, Math.floor(Math.min(width, height) / 32)));
+
+  // Approximate rendered width of bold Arial (~0.62em per character)
+  const estimatedTextWidth = Math.ceil(fontSize * 0.62 * rawText.length);
+
+  // Pattern cell must be larger than the text so tiles don't stack on each other
+  // Horizontal gap ≈ 1.4× text width; vertical gap ≈ 3.5× font size (diagonal spacing)
+  const patternW = Math.max(
+    estimatedTextWidth + fontSize * 4,
+    Math.floor(width / 2.5),
+    320,
+  );
+  const patternH = Math.max(fontSize * 3.5, Math.floor(height / 5), 140);
 
   const svg = `
     <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <pattern id="wmPattern" width="${patternSize}" height="${patternSize}" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
-          <text 
-            x="${patternSize / 2}" 
-            y="${patternSize / 2}" 
-            font-family="Arial, Helvetica, sans-serif" 
-            font-size="${fontSize}" 
-            font-weight="bold" 
-            fill="rgba(255, 255, 255, 0.28)" 
-            stroke="rgba(0, 0, 0, 0.15)"
-            stroke-width="1"
-            text-anchor="middle" 
-            dominant-baseline="central">
-            ${safeText}
-          </text>
+        <pattern
+          id="wmPattern"
+          width="${patternW}"
+          height="${patternH}"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(-28 ${width / 2} ${height / 2})"
+        >
+          <!-- Single centered label per cell — large cell = clear spacing between repeats -->
+          <text
+            x="${patternW / 2}"
+            y="${patternH / 2}"
+            font-family="Arial, Helvetica, sans-serif"
+            font-size="${fontSize}"
+            font-weight="700"
+            fill="rgba(255, 255, 255, 0.22)"
+            stroke="rgba(0, 0, 0, 0.12)"
+            stroke-width="0.8"
+            text-anchor="middle"
+            dominant-baseline="middle"
+            letter-spacing="1.5"
+          >${safeText}</text>
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#wmPattern)" />

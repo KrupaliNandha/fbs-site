@@ -4,17 +4,23 @@ import { useEffect, useState } from "react";
 import { AuthGuard } from "@/app/Components/auth/AuthGuard";
 import { SidebarLayout, type SidebarNavItem } from "@/app/Components/auth/SidebarLayout";
 import {
+  Button,
+  Card,
+  Input,
+  StatusBadge,
+} from "@/app/Components/ui";
+import {
   canvasApi,
   type ProjectModel,
 } from "@/app/lib/client/canvas-api";
 import {
   FolderKanban,
-  CheckCircle2,
-  Clock,
-  AlertCircle,
   Eye,
   FileImage,
   RefreshCw,
+  Search,
+  List,
+  LayoutGrid,
 } from "lucide-react";
 
 export default function ClientDashboardPage() {
@@ -30,6 +36,10 @@ function ClientDashboardContent({ clientUser }: { clientUser: any }) {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState("projects");
+  const [projectSearch, setProjectSearch] = useState("");
+  const [projectListViewMode, setProjectListViewMode] = useState<"card" | "list">("card");
+
+  const backendHost = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
   const navItems: SidebarNavItem[] = [
     { id: "projects", label: "My Design Proofs", icon: FolderKanban, badge: projects.length },
@@ -37,7 +47,7 @@ function ClientDashboardContent({ clientUser }: { clientUser: any }) {
 
   async function loadClientProjects() {
     try {
-      const data = await canvasApi.listProjects();
+      const data = await canvasApi.listProjects(projectSearch || undefined);
       setProjects(data);
     } catch (err) {
       console.error(err);
@@ -49,28 +59,12 @@ function ClientDashboardContent({ clientUser }: { clientUser: any }) {
 
   useEffect(() => {
     loadClientProjects();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectSearch]);
 
-  function getStatusBadge(status: string) {
-    switch (status) {
-      case "approved":
-        return (
-          <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-            <CheckCircle2 size={13} /> Approved
-          </span>
-        );
-      case "changes_requested":
-        return (
-          <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full bg-amber-50 text-amber-700 border border-amber-200">
-            <AlertCircle size={13} /> Changes Requested
-          </span>
-        );
-      default:
-        return (
-          <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-            <Clock size={13} /> In Review
-          </span>
-        );
+  function openReview(p: ProjectModel) {
+    if (p.shareToken) {
+      window.location.href = `/review/${p.shareToken}`;
     }
   }
 
@@ -85,73 +79,178 @@ function ClientDashboardContent({ clientUser }: { clientUser: any }) {
       activeTab={activeTab}
       onTabChange={setActiveTab}
     >
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-          <div>
-            <h2 className="text-lg font-extrabold text-slate-900">Your Active Design Projects</h2>
-            <p className="text-xs text-slate-500 mt-0.5">Assigned account: {clientUser.email}</p>
-          </div>
-          <button
-            disabled={refreshing || loading}
-            onClick={() => {
-              setRefreshing(true);
-              loadClientProjects();
-            }}
-            className="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-2xs transition cursor-pointer disabled:opacity-50"
-            title="Refresh Projects"
-          >
-            <RefreshCw size={14} className={refreshing ? "animate-spin text-indigo-600" : ""} />
-            {refreshing ? "Refreshing..." : "Refresh"}
-          </button>
-        </div>
+      {activeTab === "projects" && (
+        <div className="space-y-5 max-w-3xl">
+          {/* Toolbar */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="relative flex-1 min-w-0">
+              <Search
+                size={15}
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              />
+              <Input
+                type="text"
+                placeholder="Search project..."
+                value={projectSearch}
+                onChange={(e) => setProjectSearch(e.target.value)}
+                className="pl-9 h-10 bg-white shadow-sm"
+              />
+            </div>
 
-        {loading ? (
-          <div className="py-12 text-center text-xs text-slate-500">Loading your project proofs...</div>
-        ) : projects.length === 0 ? (
-          <div className="py-16 text-center text-slate-400 space-y-2">
-            <FileImage size={40} className="mx-auto text-slate-300" />
-            <p className="font-semibold text-slate-700 text-sm">No active design projects found.</p>
-            <p className="text-xs text-slate-500">When your designer creates a proof, it will appear here.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {projects.map((p) => (
-              <div
-                key={p.id}
-                onClick={() => {
-                  if (p.shareToken) window.location.href = `/review/${p.shareToken}`;
-                }}
-                className="border border-slate-200 rounded-2xl p-5 bg-white hover:shadow-md hover:border-indigo-300 transition space-y-4 flex flex-col justify-between cursor-pointer"
-              >
-                <div className="space-y-2">
-                  <div className="flex items-start justify-between">
-                    <h3 className="font-extrabold text-slate-900 text-base">{p.name}</h3>
-                    {getStatusBadge(p.status)}
-                  </div>
-                  <p className="text-xs text-slate-500">
-                    Designer: <strong className="text-slate-700">{p.designerName || "Designer"}</strong>
-                  </p>
-                  {p.description && <p className="text-xs text-slate-600 line-clamp-2">{p.description}</p>}
-                </div>
-
-                <div className="border-t border-slate-100 pt-3 flex items-center justify-between">
-                  <span className="text-[11px] text-slate-400">Updated {new Date(p.updatedAt).toLocaleDateString()}</span>
-
-                  {p.shareToken && (
-                    <a
-                      href={`/review/${p.shareToken}`}
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition shadow-sm"
-                    >
-                      <Eye size={14} /> Open Design Proof
-                    </a>
-                  )}
-                </div>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex items-center gap-0.5 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+                <Button
+                  variant={projectListViewMode === "card" ? "default" : "ghost"}
+                  size="icon-sm"
+                  onClick={() => setProjectListViewMode("card")}
+                  title="Card View"
+                  className={projectListViewMode === "card" ? "shadow-sm" : ""}
+                >
+                  <LayoutGrid size={14} />
+                </Button>
+                <Button
+                  variant={projectListViewMode === "list" ? "default" : "ghost"}
+                  size="icon-sm"
+                  onClick={() => setProjectListViewMode("list")}
+                  title="List View"
+                  className={projectListViewMode === "list" ? "shadow-sm" : ""}
+                >
+                  <List size={14} />
+                </Button>
               </div>
-            ))}
+
+              <Button
+                variant="outline"
+                disabled={refreshing || loading}
+                onClick={() => {
+                  setRefreshing(true);
+                  loadClientProjects();
+                }}
+                title="Refresh Projects"
+              >
+                <RefreshCw
+                  size={14}
+                  className={refreshing ? "animate-spin text-indigo-600" : ""}
+                />
+                {refreshing ? "Refreshing..." : "Refresh"}
+              </Button>
+            </div>
           </div>
-        )}
-      </div>
+
+          {/* Proofs list only — click opens review */}
+          {loading ? (
+            <Card className="p-10 text-center text-xs text-slate-500">
+              Loading your project proofs...
+            </Card>
+          ) : projects.length === 0 ? (
+            <Card className="p-12 text-center text-slate-400 space-y-2">
+              <FileImage size={40} className="mx-auto text-slate-300" />
+              <p className="text-sm font-semibold text-slate-700">
+                No active design projects found.
+              </p>
+              <p className="text-xs">
+                When your designer creates a proof, it will appear here.
+              </p>
+            </Card>
+          ) : projectListViewMode === "list" ? (
+            <div className="space-y-2">
+              {projects.map((p) => (
+                <Card
+                  key={p.id}
+                  onClick={() => openReview(p)}
+                  className={`p-3.5 transition hover:border-indigo-300 hover:shadow-md ${
+                    p.shareToken ? "cursor-pointer" : "opacity-70 cursor-not-allowed"
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-bold text-slate-900 text-sm truncate">{p.name}</h3>
+                        <StatusBadge status={p.status} />
+                      </div>
+                      <p className="text-[11px] text-slate-500 truncate mt-0.5">
+                        Designer:{" "}
+                        <strong className="text-slate-700">{p.designerName || "Designer"}</strong>
+                        {" · "}
+                        Updated {new Date(p.updatedAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                    {p.shareToken && (
+                      <span className="text-indigo-600 font-bold text-xs flex items-center gap-1 flex-shrink-0">
+                        <Eye size={13} /> Open Proof
+                      </span>
+                    )}
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {projects.map((p) => {
+                const thumb = p.previewThumbnailUrl
+                  ? `${backendHost}${p.previewThumbnailUrl}`
+                  : null;
+
+                return (
+                  <Card
+                    key={p.id}
+                    onClick={() => openReview(p)}
+                    className={`overflow-hidden transition hover:border-indigo-300 hover:shadow-md p-0 ${
+                      p.shareToken ? "cursor-pointer" : "opacity-70 cursor-not-allowed"
+                    }`}
+                  >
+                    {/* Small proof preview */}
+                    <div className="relative aspect-[16/10] bg-slate-50 border-b border-slate-100">
+                      {thumb ? (
+                        <img
+                          src={thumb}
+                          alt={`${p.name} preview`}
+                          className="w-full h-full object-contain bg-white"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex flex-col items-center justify-center text-slate-300 gap-1">
+                          <FileImage size={28} />
+                          <span className="text-[10px] font-medium text-slate-400">No preview yet</span>
+                        </div>
+                      )}
+                      <div className="absolute top-2 right-2">
+                        <StatusBadge status={p.status} compact />
+                      </div>
+                    </div>
+
+                    <div className="p-3.5 space-y-2">
+                      <div className="min-w-0">
+                        <h3
+                          className="font-extrabold text-slate-900 text-sm truncate"
+                          title={p.name}
+                        >
+                          {p.name}
+                        </h3>
+                        <p className="text-xs text-slate-500 mt-0.5 truncate">
+                          Designer:{" "}
+                          <strong className="text-slate-700">
+                            {p.designerName || "Designer"}
+                          </strong>
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between text-xs border-t border-slate-100 pt-2.5">
+                        <span className="text-slate-400 text-[11px]">
+                          Updated {new Date(p.updatedAt).toLocaleDateString()}
+                        </span>
+                        {p.shareToken && (
+                          <span className="text-indigo-600 font-bold flex items-center gap-1">
+                            <Eye size={13} /> Open Proof
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
     </SidebarLayout>
   );
 }

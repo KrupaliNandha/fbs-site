@@ -3,6 +3,16 @@
 import { useEffect, useState } from "react";
 import { AuthGuard } from "@/app/Components/auth/AuthGuard";
 import { SidebarLayout, type SidebarNavItem } from "@/app/Components/auth/SidebarLayout";
+import {
+  Button,
+  Badge,
+  Card,
+  CardHeader,
+  Input,
+  Textarea,
+  Select,
+  StatusBadge,
+} from "@/app/Components/ui";
 import { UserManagement } from "@/app/super-admin/dashboard/UserManagement";
 import { RolePermissionManagement } from "@/app/super-admin/dashboard/RolePermissionManagement";
 import {
@@ -21,8 +31,6 @@ import {
   Share2,
   Search,
   X,
-  CheckCircle2,
-  Clock,
   AlertCircle,
   Upload,
   Eye,
@@ -31,6 +39,9 @@ import {
   Maximize2,
   MessageSquare,
   Edit,
+  List,
+  LayoutGrid,
+  FileImage,
 } from "lucide-react";
 
 export default function SuperAdminDashboardPage() {
@@ -47,6 +58,8 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
   const [diagrams, setDiagrams] = useState<DiagramTemplateModel[]>([]);
   const [search, setSearch] = useState("");
   const [selectedProject, setSelectedProject] = useState<ProjectModel | null>(null);
+  const [projectListViewMode, setProjectListViewMode] = useState<"card" | "list">("card");
+  const [refreshingProjects, setRefreshingProjects] = useState(false);
 
   // Diagram Template Modal State
   const [showDiagramModal, setShowDiagramModal] = useState(false);
@@ -126,23 +139,42 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
     { id: "diagrams", label: "Diagram Templates", icon: Layers, badge: diagrams.length },
   ];
 
-  async function loadData() {
+  async function loadData(opts?: { refreshDetails?: boolean }) {
     try {
-      const pData = await canvasApi.listProjects(search);
-      const dData = await canvasApi.listDiagramTemplates();
+      // Parallel list loads (remote MySQL — avoid serial wait)
+      const [pData, dData] = await Promise.all([
+        canvasApi.listProjects(search),
+        canvasApi.listDiagramTemplates(),
+      ]);
       setProjects(pData);
       setDiagrams(dData);
       if (selectedProject) {
         const updated = pData.find((p) => p.id === selectedProject.id);
         if (updated) {
-          loadProjectDetails(updated.id);
+          setSelectedProject((prev) =>
+            prev && prev.id === updated.id
+              ? {
+                  ...prev,
+                  name: updated.name,
+                  status: updated.status,
+                  clientName: updated.clientName,
+                  clientEmail: updated.clientEmail,
+                  designerName: updated.designerName,
+                  shareToken: updated.shareToken,
+                  updatedAt: updated.updatedAt,
+                }
+              : prev,
+          );
+          if (opts?.refreshDetails) {
+            await loadProjectDetails(updated.id);
+          }
         } else if (pData.length > 0) {
-          loadProjectDetails(pData[0].id);
+          await loadProjectDetails(pData[0].id);
         } else {
           setSelectedProject(null);
         }
       } else if (pData.length > 0) {
-        loadProjectDetails(pData[0].id);
+        await loadProjectDetails(pData[0].id);
       }
     } catch (err) {
       console.error(err);
@@ -150,6 +182,12 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
   }
 
   async function loadProjectDetails(projectId: number) {
+    setSelectedProject((prev) => {
+      if (prev?.id === projectId) return prev;
+      const fromList = projects.find((p) => p.id === projectId);
+      return fromList ?? prev;
+    });
+
     try {
       const data = await canvasApi.getProject(projectId);
       setSelectedProject(data);
@@ -237,6 +275,7 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
 
   function promptDeleteCanvas(canvasId: number, canvasName: string) {
     if (!selectedProject) return;
+    const projectId = selectedProject.id;
     setDeleteModal({
       isOpen: true,
       title: "Delete Canvas Entry",
@@ -244,24 +283,29 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
       id: canvasId,
       deleting: false,
       onConfirm: async () => {
-        setDeleteModal((prev) => ({ ...prev, deleting: true }));
+        // Instant UI removal + close modal on confirm (don't wait for API)
+        setDeleteModal({ isOpen: false, title: "", description: "", id: null, deleting: false, onConfirm: async () => {} });
+        setSelectedProject((prev) =>
+          prev ? { ...prev, canvases: prev.canvases?.filter((c) => c.id !== canvasId) } : prev
+        );
+        setProjects((prev) =>
+          prev.map((p) =>
+            p.id === projectId
+              ? { ...p, canvases: p.canvases?.filter((c) => c.id !== canvasId) }
+              : p
+          )
+        );
+        if (targetCanvas?.id === canvasId) {
+          setTargetCanvas(null);
+          setShowEditCanvasModal(false);
+        }
+
         try {
           await canvasApi.deleteCanvas(canvasId);
-          setSelectedProject((prev) =>
-            prev ? { ...prev, canvases: prev.canvases?.filter((c) => c.id !== canvasId) } : prev
-          );
-          setProjects((prev) =>
-            prev.map((p) =>
-              p.id === selectedProject.id
-                ? { ...p, canvases: p.canvases?.filter((c) => c.id !== canvasId) }
-                : p
-            )
-          );
-          setDeleteModal({ isOpen: false, title: "", description: "", id: null, deleting: false, onConfirm: async () => {} });
+          await loadProjectDetails(projectId);
         } catch (err) {
           alert(err instanceof Error ? err.message : "Error deleting canvas");
-        } finally {
-          setDeleteModal((prev) => ({ ...prev, deleting: false }));
+          await loadProjectDetails(projectId);
         }
       },
     });
@@ -328,29 +372,6 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
     }
   }
 
-  function getStatusBadge(status: string) {
-    switch (status) {
-      case "approved":
-        return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-            <CheckCircle2 size={12} /> Approved
-          </span>
-        );
-      case "changes_requested":
-        return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-semibold rounded-full bg-amber-50 text-amber-700 border border-amber-200">
-            <AlertCircle size={12} /> Changes Requested
-          </span>
-        );
-      default:
-        return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-            <Clock size={12} /> In Review
-          </span>
-        );
-    }
-  }
-
   return (
     <SidebarLayout
       title="Super Admin Command Center"
@@ -362,178 +383,359 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
       activeTab={activeTab}
       onTabChange={setActiveTab}
     >
-      {/* TAB 1: CLIENT PROJECTS DIRECTORY */}
+      {/* TAB 1: CLIENT PROJECTS — same workspace UI as designer */}
       {activeTab === "projects" && (
-        <div className="space-y-6">
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-5">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <h2 className="text-lg font-extrabold text-slate-900">Global Projects Directory</h2>
-                <p className="text-xs text-slate-500">All design projects across designers and clients</p>
-              </div>
-
-              <div className="relative">
-                <Search size={15} className="absolute left-3 top-3 text-slate-400" />
-                <input
-                  type="text"
-                  placeholder="Search projects..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="pl-9 pr-4 py-2 rounded-xl border border-slate-200 text-xs w-64 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
-                />
-              </div>
+        <div className="space-y-5">
+          {/* Full-width top toolbar */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="relative flex-1 min-w-0">
+              <Search
+                size={15}
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              />
+              <Input
+                type="text"
+                placeholder="Search project or client..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-9 h-10 bg-white shadow-sm"
+              />
             </div>
 
-            <div className="overflow-x-auto border border-slate-100 rounded-xl">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase">
-                    <th className="py-3 px-4">Project Name</th>
-                    <th className="py-3 px-4">Client</th>
-                    <th className="py-3 px-4">Designer</th>
-                    <th className="py-3 px-4">Status</th>
-                    <th className="py-3 px-4 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {projects.map((p) => (
-                    <tr
-                      key={p.id}
-                      onClick={() => loadProjectDetails(p.id)}
-                      className={`hover:bg-slate-50/60 transition cursor-pointer ${
-                        selectedProject?.id === p.id ? "bg-indigo-50/40" : ""
-                      }`}
-                    >
-                      <td className="py-3 px-4 font-bold text-slate-900">{p.name}</td>
-                      <td className="py-3 px-4 text-slate-600">{p.clientName}</td>
-                      <td className="py-3 px-4 text-slate-600">{p.designerName || "Designer"}</td>
-                      <td className="py-3 px-4">{getStatusBadge(p.status)}</td>
-                      <td className="py-3 px-4 text-right">
-                        {p.shareToken && (
-                          <a
-                            href={`/review/${p.shareToken}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-1 font-bold text-indigo-600 hover:underline cursor-pointer"
-                          >
-                            <Share2 size={13} /> Open Review
-                          </a>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex items-center gap-0.5 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+                <Button
+                  variant={projectListViewMode === "card" ? "default" : "ghost"}
+                  size="icon-sm"
+                  onClick={() => setProjectListViewMode("card")}
+                  title="Card Grid View"
+                  className={projectListViewMode === "card" ? "shadow-sm" : ""}
+                >
+                  <LayoutGrid size={14} />
+                </Button>
+                <Button
+                  variant={projectListViewMode === "list" ? "default" : "ghost"}
+                  size="icon-sm"
+                  onClick={() => setProjectListViewMode("list")}
+                  title="Compact List View"
+                  className={projectListViewMode === "list" ? "shadow-sm" : ""}
+                >
+                  <List size={14} />
+                </Button>
+              </div>
+
+              <Button
+                variant="outline"
+                disabled={refreshingProjects}
+                onClick={async () => {
+                  setRefreshingProjects(true);
+                  await loadData({ refreshDetails: true });
+                  setRefreshingProjects(false);
+                }}
+                title="Refresh Projects & Proofs"
+              >
+                <RefreshCw
+                  size={14}
+                  className={refreshingProjects ? "animate-spin text-indigo-600" : ""}
+                />
+                {refreshingProjects ? "Refreshing..." : "Refresh"}
+              </Button>
             </div>
           </div>
 
-          {/* Super Admin Canvas Upload & Workspace */}
-          {selectedProject && (
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                <div>
-                  <h3 className="text-base font-extrabold text-slate-900">
-                    Project Workspace: {selectedProject.name}
-                  </h3>
-                  <p className="text-xs text-slate-500">
-                    Client: {selectedProject.clientName} ({selectedProject.clientEmail})
-                  </p>
-                </div>
-                <button
-                  onClick={() => setShowUploadModal(true)}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-sm transition cursor-pointer"
-                >
-                  <Upload size={14} /> Upload Canvas Proof
-                </button>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {selectedProject.canvases?.map((c) => {
-                  const thumb = c.latestVersion?.thumbnailUrl
-                    ? `${backendHost}${c.latestVersion.thumbnailUrl}`
-                    : "/placeholder.png";
-                  const isChangesReq = c.status === "changes_requested";
-                  const latestRemark = c.remarks && c.remarks.length > 0 ? c.remarks[0] : null;
-
+          {/* Two-column workspace */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+            {/* Left: project list */}
+            <div className="lg:col-span-4 space-y-3 max-h-[calc(100vh-220px)] overflow-y-auto pr-1">
+              {projects.length === 0 ? (
+                <Card className="p-8 text-center text-slate-400 space-y-2">
+                  <FolderKanban size={32} className="mx-auto text-slate-300" />
+                  <p className="text-xs font-semibold">No client projects found.</p>
+                </Card>
+              ) : projectListViewMode === "list" ? (
+                projects.map((p) => {
+                  const isSelected = selectedProject?.id === p.id;
                   return (
-                    <div
-                      key={c.id}
-                      className={`border rounded-2xl p-3.5 bg-white space-y-3 shadow-sm hover:shadow-md transition ${
-                        isChangesReq ? "border-amber-300 ring-2 ring-amber-400/20 bg-amber-50/20" : "border-slate-200"
+                    <Card
+                      key={p.id}
+                      onClick={() => loadProjectDetails(p.id)}
+                      className={`p-3 cursor-pointer transition ${
+                        isSelected
+                          ? "border-indigo-500 ring-2 ring-indigo-500/15 shadow-md bg-indigo-50/30"
+                          : "hover:border-slate-300 hover:shadow-md"
                       }`}
                     >
-                      {/* Card Image Box with Hover Overlay */}
-                      <div
-                        onClick={() =>
-                          setFullscreenCanvas({
-                            url: thumb,
-                            name: c.name,
-                            version: c.latestVersion?.versionNumber || 1,
-                            projectName: selectedProject?.name,
-                            status: c.status,
-                            canvasType: c.canvasType,
-                            date: new Date(c.updatedAt).toLocaleDateString(),
-                          })
-                        }
-                        className="aspect-[4/3] bg-slate-900/5 rounded-xl overflow-hidden relative cursor-pointer group border border-slate-100"
-                      >
-                        <img src={thumb} alt={c.name} className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-slate-950/45 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-xs font-bold gap-1.5 backdrop-blur-[1px]">
-                          <Maximize2 size={16} /> Fullscreen Proof Sheet
-                        </div>
-                        <span className="absolute top-2 right-2 bg-slate-900/80 text-white text-[10px] font-mono font-bold px-2 py-0.5 rounded-md backdrop-blur-sm shadow">
-                          v{c.latestVersion?.versionNumber || 1}
-                        </span>
-                        {c.watermarkEnabled && (
-                          <span className="absolute bottom-2 left-2 bg-indigo-900/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded backdrop-blur-sm">
-                            Watermarked
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Info Area */}
-                      <div>
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-extrabold text-sm text-slate-900 truncate" title={c.name}>{c.name}</h4>
-                          {getStatusBadge(c.status)}
-                        </div>
-                        <p className="text-[11px] text-slate-500 mt-0.5 font-medium capitalize">Type: {c.canvasType}</p>
-
-                        {/* Prominent Client Feedback Notice if Changes Requested */}
-                        {isChangesReq && latestRemark && (
-                          <div className="mt-2.5 p-2.5 rounded-xl bg-amber-100/80 border border-amber-300 text-amber-900 text-xs space-y-1">
-                            <span className="font-bold flex items-center gap-1 text-[11px] uppercase tracking-wide">
-                              <MessageSquare size={12} className="text-amber-700" /> Client Requested Changes:
-                            </span>
-                            <p className="italic text-[11px] text-amber-950 line-clamp-2">"{latestRemark.remark}"</p>
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-bold text-slate-900 text-xs truncate">{p.name}</h3>
+                            <StatusBadge status={p.status} />
                           </div>
+                          <p className="text-[11px] text-slate-500 truncate mt-0.5">
+                            Client: <strong className="text-slate-700">{p.clientName}</strong>
+                            {" · "}
+                            {p.designerName || "Designer"}
+                            {" · "}
+                            Updated {new Date(p.updatedAt).toLocaleDateString()}
+                          </p>
+                        </div>
+                        {p.shareToken && (
+                          <Button
+                            variant="link"
+                            size="sm"
+                            className="px-1 flex-shrink-0"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(`/review/${p.shareToken}`, "_blank");
+                            }}
+                          >
+                            <Share2 size={12} /> Share
+                          </Button>
                         )}
                       </div>
-
-                      {/* Action Toolbar */}
-                      <div className="flex items-center justify-between border-t border-slate-100 pt-2.5 text-xs">
-                        <button
-                          onClick={() => {
-                            setTargetCanvas(c);
-                            setShowEditCanvasModal(true);
-                          }}
-                          className="text-indigo-600 font-bold hover:underline flex items-center gap-1 cursor-pointer"
-                        >
-                          <Edit size={13} /> {isChangesReq ? "View Changes & Upload Revision" : "Edit Canvas"}
-                        </button>
-                        <button
-                          onClick={() => promptDeleteCanvas(c.id, c.name)}
-                          className="text-rose-600 hover:text-rose-800 transition cursor-pointer font-bold flex items-center gap-1"
-                        >
-                          <Trash2 size={14} /> Delete
-                        </button>
-                      </div>
-                    </div>
+                    </Card>
                   );
-                })}
-              </div>
+                })
+              ) : (
+                projects.map((p) => {
+                  const isSelected = selectedProject?.id === p.id;
+                  return (
+                    <Card
+                      key={p.id}
+                      onClick={() => loadProjectDetails(p.id)}
+                      className={`p-4 cursor-pointer transition ${
+                        isSelected
+                          ? "border-indigo-500 ring-2 ring-indigo-500/15 shadow-md bg-indigo-50/30"
+                          : "hover:border-slate-300 hover:shadow-md"
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0">
+                          <h3 className="font-extrabold text-slate-900 text-sm truncate">{p.name}</h3>
+                          <p className="text-xs text-slate-500 mt-0.5">
+                            Client: <strong className="text-slate-700">{p.clientName}</strong>
+                          </p>
+                          <p className="text-[11px] text-slate-400 mt-0.5">
+                            Designer: {p.designerName || "Designer"}
+                          </p>
+                        </div>
+                        <StatusBadge status={p.status} />
+                      </div>
+                      <div className="mt-3 flex items-center justify-between text-xs border-t border-slate-100 pt-2.5">
+                        <span className="text-slate-400 text-[11px]">
+                          Updated {new Date(p.updatedAt).toLocaleDateString()}
+                        </span>
+                        {p.shareToken && (
+                          <Button
+                            variant="link"
+                            size="sm"
+                            className="px-1"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(`/review/${p.shareToken}`, "_blank");
+                            }}
+                          >
+                            <Share2 size={13} /> Share
+                          </Button>
+                        )}
+                      </div>
+                    </Card>
+                  );
+                })
+              )}
             </div>
-          )}
+
+            {/* Right: selected project workspace */}
+            <div className="lg:col-span-8 space-y-4 min-h-[560px]">
+              {selectedProject ? (
+                <>
+                  <Card>
+                    <CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0 p-5">
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2.5 flex-wrap">
+                          <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">
+                            {selectedProject.name}
+                          </h2>
+                          <StatusBadge status={selectedProject.status} />
+                        </div>
+                        <p className="text-xs text-slate-500 mt-1.5">
+                          Client:{" "}
+                          <strong className="text-slate-800">{selectedProject.clientName}</strong>
+                          {selectedProject.clientEmail
+                            ? ` (${selectedProject.clientEmail})`
+                            : ""}
+                          {" · "}
+                          Designer:{" "}
+                          <strong className="text-slate-800">
+                            {selectedProject.designerName || "Designer"}
+                          </strong>
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        {selectedProject.shareToken && (
+                          <Button
+                            variant="outline"
+                            onClick={() =>
+                              window.open(`/review/${selectedProject.shareToken}`, "_blank")
+                            }
+                          >
+                            <Share2 size={14} /> Share Token
+                          </Button>
+                        )}
+                        <Button onClick={() => setShowUploadModal(true)}>
+                          <Upload size={14} /> Upload Canvas
+                        </Button>
+                      </div>
+                    </CardHeader>
+                  </Card>
+
+                  <Card className="p-5 space-y-4">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                      Project Canvases ({selectedProject.canvases?.length || 0})
+                    </h3>
+
+                    {(selectedProject.canvases?.length || 0) === 0 ? (
+                      <div className="py-16 text-center text-slate-400 space-y-2 border border-dashed border-slate-200 rounded-2xl">
+                        <FileImage size={36} className="mx-auto text-slate-300" />
+                        <p className="text-sm font-semibold text-slate-600">No canvases yet</p>
+                        <p className="text-xs">Upload a proof canvas to get started.</p>
+                        <Button className="mt-2" onClick={() => setShowUploadModal(true)}>
+                          <Upload size={14} /> Upload Canvas
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {selectedProject.canvases?.map((c) => {
+                          const thumb = c.latestVersion?.thumbnailUrl
+                            ? `${backendHost}${c.latestVersion.thumbnailUrl}`
+                            : "/placeholder.png";
+                          const fullImageUrl = c.latestVersion?.watermarkedImageUrl
+                            ? `${backendHost}${c.latestVersion.watermarkedImageUrl}`
+                            : thumb;
+                          const isCollageLike =
+                            c.canvasType === "collage" || c.canvasType === "diagram";
+                          const isChangesReq = c.status === "changes_requested";
+                          const latestRemark =
+                            c.remarks && c.remarks.length > 0 ? c.remarks[0] : null;
+
+                          return (
+                            <Card
+                              key={c.id}
+                              onClick={() => {
+                                setTargetCanvas(c);
+                                setShowEditCanvasModal(true);
+                              }}
+                              className={`p-3.5 space-y-3 cursor-pointer transition hover:shadow-md ${
+                                isChangesReq
+                                  ? "border-amber-400 ring-2 ring-amber-400/20 bg-amber-50/20"
+                                  : "hover:border-slate-300"
+                              }`}
+                            >
+                              <div className="aspect-[4/3] bg-slate-50 rounded-xl overflow-hidden relative group border border-slate-100">
+                                <img
+                                  src={thumb}
+                                  alt={c.name}
+                                  className={`w-full h-full ${
+                                    isCollageLike ? "object-contain bg-white" : "object-cover"
+                                  }`}
+                                />
+                                <div className="absolute inset-0 bg-slate-950/45 opacity-0 group-hover:opacity-100 transition flex items-center justify-center backdrop-blur-[1px]">
+                                  <Button
+                                    variant="secondary"
+                                    size="sm"
+                                    className="bg-white/95 hover:bg-white shadow"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setFullscreenCanvas({
+                                        url: fullImageUrl,
+                                        name: c.name,
+                                        version: c.latestVersion?.versionNumber || 1,
+                                        projectName: selectedProject?.name,
+                                        status: c.status,
+                                        canvasType: c.canvasType,
+                                        date: new Date(c.updatedAt).toLocaleDateString(),
+                                      });
+                                    }}
+                                    title="View Fullscreen Proof Sheet"
+                                  >
+                                    <Maximize2 size={15} /> Fullscreen
+                                  </Button>
+                                </div>
+                                <span className="absolute top-2 right-2 bg-slate-900/85 text-white text-[10px] font-mono font-bold px-2 py-0.5 rounded-md backdrop-blur-sm shadow">
+                                  v{c.latestVersion?.versionNumber || 1}
+                                </span>
+                                {c.watermarkEnabled && (
+                                  <Badge
+                                    variant="purple"
+                                    className="absolute bottom-2 left-2 text-[9px] px-1.5 py-0.5 shadow-sm"
+                                  >
+                                    Watermarked
+                                  </Badge>
+                                )}
+                              </div>
+
+                              <div>
+                                <div className="flex items-center justify-between gap-2">
+                                  <h4
+                                    className="font-extrabold text-sm text-slate-900 truncate"
+                                    title={c.name}
+                                  >
+                                    {c.name}
+                                  </h4>
+                                  <StatusBadge status={c.status} />
+                                </div>
+                                <p className="text-[11px] text-slate-500 mt-0.5 font-medium capitalize">
+                                  Type: {c.canvasType}
+                                </p>
+
+                                {isChangesReq && latestRemark && (
+                                  <div className="mt-2.5 p-2.5 rounded-xl bg-amber-100/80 border border-amber-300 text-amber-900 text-xs space-y-1">
+                                    <span className="font-bold flex items-center gap-1 text-[11px] uppercase tracking-wide">
+                                      <MessageSquare size={12} className="text-amber-700" /> Client
+                                      Requested Changes:
+                                    </span>
+                                    <p className="italic text-[11px] text-amber-950 line-clamp-2">
+                                      &quot;{latestRemark.remark}&quot;
+                                    </p>
+                                  </div>
+                                )}
+                              </div>
+
+                              <div className="flex items-center justify-between border-t border-slate-100 pt-2.5 text-xs">
+                                <span className="text-indigo-600 font-bold flex items-center gap-1">
+                                  <Edit size={13} />{" "}
+                                  {isChangesReq
+                                    ? "View Changes & Upload Revision"
+                                    : "Edit Canvas / Revisions"}
+                                </span>
+                                <Button
+                                  variant="destructive"
+                                  size="sm"
+                                  className="h-auto py-1 px-1.5"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    promptDeleteCanvas(c.id, c.name);
+                                  }}
+                                >
+                                  <Trash2 size={14} /> Delete
+                                </Button>
+                              </div>
+                            </Card>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </Card>
+                </>
+              ) : (
+                <Card className="min-h-[560px] flex flex-col items-center justify-center text-slate-400 py-24 text-center">
+                  <FolderKanban size={48} className="mb-3 text-slate-300" />
+                  <h3 className="font-bold text-slate-700">No Project Selected</h3>
+                  <p className="text-xs mt-1">Select a project from the directory to manage canvases.</p>
+                </Card>
+              )}
+            </div>
+          </div>
         </div>
       )}
 
@@ -550,34 +752,37 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
 
       {/* TAB 4: DIAGRAM BLUEPRINTS */}
       {activeTab === "diagrams" && (
-        <div className="space-y-6">
-          <div className="flex items-center justify-between bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="space-y-5">
+          <Card className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-base font-extrabold text-slate-900">Diagram Layout Blueprints</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Manage system-wide technical blueprint templates and diagram layouts with photos.</p>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Manage system-wide technical blueprint templates and diagram layouts with photos.
+              </p>
             </div>
-            <button
+            <Button
               onClick={() => {
                 setEditingDiagram(null);
                 setDiagramForm({ name: "", description: "" });
                 setDiagramImageFile(null);
                 setShowDiagramModal(true);
               }}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition cursor-pointer"
             >
               <Plus size={16} /> Add Diagram Blueprint
-            </button>
-          </div>
+            </Button>
+          </Card>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {diagrams.map((d) => {
               const photoUrl = d.previewUrl ? `${backendHost}${d.previewUrl}` : null;
               return (
-                <div key={d.id} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4 flex flex-col justify-between">
+                <Card key={d.id} className="p-5 space-y-4 flex flex-col justify-between">
                   <div className="space-y-3">
                     {photoUrl ? (
                       <div
-                        onClick={() => setFullscreenCanvas({ url: photoUrl, name: d.name, version: 1 })}
+                        onClick={() =>
+                          setFullscreenCanvas({ url: photoUrl, name: d.name, version: 1 })
+                        }
                         className="w-full aspect-[16/9] bg-slate-100 rounded-xl overflow-hidden relative group border cursor-pointer"
                       >
                         <img src={photoUrl} alt={d.name} className="w-full h-full object-cover" />
@@ -586,41 +791,41 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
                         </div>
                       </div>
                     ) : (
-                      <div className="w-full h-32 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center border border-purple-100">
+                      <div className="w-full h-32 bg-violet-50 text-violet-600 rounded-xl flex items-center justify-center border border-violet-100">
                         <Layers size={36} />
                       </div>
                     )}
 
                     <div>
                       <h3 className="font-extrabold text-slate-900 text-sm">{d.name}</h3>
-                      {d.description && <p className="text-xs text-slate-500 mt-1">{d.description}</p>}
+                      {d.description && (
+                        <p className="text-xs text-slate-500 mt-1">{d.description}</p>
+                      )}
                     </div>
                   </div>
 
                   <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                    <button
-                      onClick={() => handleOpenEditDiagram(d)}
-                      className="text-indigo-600 hover:text-indigo-800 text-xs font-bold flex items-center gap-1.5 cursor-pointer transition"
-                    >
+                    <Button variant="link" size="sm" className="px-0" onClick={() => handleOpenEditDiagram(d)}>
                       <Edit size={13} /> Edit Blueprint
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      size="sm"
                       disabled={deletingDiagramId === d.id}
                       onClick={() => promptDeleteDiagram(d)}
-                      className="text-rose-600 hover:text-rose-700 text-xs font-bold flex items-center gap-1.5 cursor-pointer disabled:opacity-50 transition"
                     >
                       {deletingDiagramId === d.id ? (
                         <>
-                          <Loader2 size={13} className="animate-spin text-rose-600" /> Deleting...
+                          <Loader2 size={13} className="animate-spin" /> Deleting...
                         </>
                       ) : (
                         <>
                           <Trash2 size={13} /> Delete
                         </>
                       )}
-                    </button>
+                    </Button>
                   </div>
-                </div>
+                </Card>
               );
             })}
           </div>
@@ -635,14 +840,14 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
               <h3 className="font-extrabold text-lg text-slate-900">
                 {editingDiagram ? "Edit Diagram Blueprint" : "Add Diagram Blueprint"}
               </h3>
-              <button onClick={() => setShowDiagramModal(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
+              <Button onClick={() => setShowDiagramModal(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
                 <X size={18} />
-              </button>
+              </Button>
             </div>
             <form onSubmit={handleSaveDiagram} className="py-4 space-y-4">
               <div>
                 <label className="text-xs font-bold text-slate-700">Blueprint Title</label>
-                <input
+                <Input
                   required
                   value={diagramForm.name}
                   onChange={(e) => setDiagramForm({ ...diagramForm, name: e.target.value })}
@@ -653,7 +858,7 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
 
               <div>
                 <label className="text-xs font-bold text-slate-700">Description (Optional)</label>
-                <textarea
+                <Textarea
                   rows={2}
                   value={diagramForm.description}
                   onChange={(e) => setDiagramForm({ ...diagramForm, description: e.target.value })}
@@ -664,7 +869,7 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
 
               <div>
                 <label className="text-xs font-bold text-slate-700">Diagram Photo</label>
-                <input
+                <Input
                   type="file"
                   accept="image/png, image/jpeg, image/webp"
                   onChange={(e) => setDiagramImageFile(e.target.files?.[0] || null)}
@@ -672,14 +877,14 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
                 />
               </div>
 
-              <button
+              <Button
                 disabled={savingDiagram || !diagramForm.name.trim()}
                 type="submit"
                 className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xs shadow-sm transition flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
               >
                 {savingDiagram ? <Loader2 size={16} className="animate-spin" /> : null}
                 {savingDiagram ? "Saving Blueprint..." : editingDiagram ? "Update Diagram Blueprint" : "Create Diagram Blueprint"}
-              </button>
+              </Button>
             </form>
           </div>
         </div>
@@ -691,14 +896,14 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl animate-in fade-in zoom-in duration-200 my-auto max-h-[90vh] flex flex-col">
             <div className="flex items-center justify-between border-b pb-3 flex-shrink-0">
               <h3 className="font-extrabold text-lg text-slate-900">Upload Design Canvases</h3>
-              <button onClick={() => setShowUploadModal(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
+              <Button onClick={() => setShowUploadModal(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
                 <X size={18} />
-              </button>
+              </Button>
             </div>
             <form onSubmit={handleUploadCanvas} className="overflow-y-auto flex-1 py-3 space-y-4 pr-1">
               <div>
                 <label className="text-xs font-bold text-slate-700">Canvas Name / Title</label>
-                <input
+                <Input
                   required
                   value={canvasForm.name}
                   onChange={(e) => setCanvasForm({ ...canvasForm, name: e.target.value })}
@@ -709,7 +914,7 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="text-xs font-bold text-slate-700">Canvas Type</label>
-                  <select
+                  <Select
                     value={canvasForm.canvasType}
                     onChange={(e) => setCanvasForm({ ...canvasForm, canvasType: e.target.value as any })}
                     className="w-full border rounded-xl p-2.5 text-xs bg-white cursor-pointer"
@@ -717,13 +922,13 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
                     <option value="individual">Individual Canvas</option>
                     <option value="collage">Auto Collage Grid</option>
                     <option value="diagram">Diagram Blueprint</option>
-                  </select>
+                  </Select>
                 </div>
 
                 {canvasForm.canvasType === "diagram" && (
                   <div>
                     <label className="text-xs font-bold text-slate-700">Blueprint Layout</label>
-                    <select
+                    <Select
                       value={canvasForm.diagramTemplateId}
                       onChange={(e) => setCanvasForm({ ...canvasForm, diagramTemplateId: e.target.value })}
                       className="w-full border rounded-xl p-2.5 text-xs bg-white cursor-pointer"
@@ -734,14 +939,14 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
                           {d.name}
                         </option>
                       ))}
-                    </select>
+                    </Select>
                   </div>
                 )}
               </div>
 
               <div>
                 <label className="text-xs font-bold text-slate-700">Select Image File(s)</label>
-                <input
+                <Input
                   type="file"
                   multiple
                   accept="image/png, image/jpeg, image/webp"
@@ -761,13 +966,13 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
                 <div className="space-y-2 pt-1 border-t border-slate-100">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-slate-700">Selected Files ({selectedFiles.length})</span>
-                    <button
+                    <Button
                       type="button"
                       onClick={() => setSelectedFiles([])}
                       className="text-[11px] font-bold text-rose-600 hover:underline cursor-pointer"
                     >
                       Clear All
-                    </button>
+                    </Button>
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-56 overflow-y-auto p-2 bg-slate-50 rounded-2xl border border-slate-200">
                     {selectedFiles.map((file, idx) => {
@@ -777,22 +982,22 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
                           <div className="relative aspect-square w-full bg-slate-100 rounded-lg overflow-hidden group border border-slate-100">
                             <img src={fileUrl} alt={file.name} className="w-full h-full object-cover" />
                             <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-1.5 backdrop-blur-[1px]">
-                              <button
+                              <Button
                                 type="button"
                                 onClick={() => setFullscreenCanvas({ url: fileUrl, name: file.name, version: 1 })}
                                 className="p-1.5 bg-white/90 text-slate-800 rounded-lg hover:bg-white hover:text-indigo-600 transition shadow cursor-pointer"
                                 title="View Fullscreen Preview"
                               >
                                 <Eye size={14} />
-                              </button>
-                              <button
+                              </Button>
+                              <Button
                                 type="button"
                                 onClick={() => setSelectedFiles((prev) => prev.filter((_, i) => i !== idx))}
                                 className="p-1.5 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition shadow cursor-pointer"
                                 title="Remove File"
                               >
                                 <Trash2 size={14} />
-                              </button>
+                              </Button>
                             </div>
                           </div>
                           <div className="mt-2 px-0.5">
@@ -810,14 +1015,14 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
                 </div>
               )}
 
-              <button
+              <Button
                 disabled={uploadingCanvas || selectedFiles.length === 0}
                 type="submit"
                 className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
               >
                 {uploadingCanvas ? <Loader2 size={16} className="animate-spin" /> : null}
                 {uploadingCanvas ? "Uploading..." : "Upload Canvases"}
-              </button>
+              </Button>
             </form>
           </div>
         </div>
@@ -829,9 +1034,9 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl animate-in fade-in zoom-in duration-200 my-auto max-h-[90vh] flex flex-col">
             <div className="flex items-center justify-between border-b pb-3 flex-shrink-0">
               <h3 className="font-extrabold text-lg text-slate-900">Manage Canvas: {targetCanvas.name}</h3>
-              <button onClick={() => setShowEditCanvasModal(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
+              <Button onClick={() => setShowEditCanvasModal(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
                 <X size={18} />
-              </button>
+              </Button>
             </div>
             <div className="overflow-y-auto flex-1 py-4 space-y-4">
               {targetCanvas.remarks && targetCanvas.remarks.length > 0 && (
@@ -848,7 +1053,7 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
 
               <form onSubmit={handleUploadRevision} className="space-y-3 pt-2">
                 <label className="text-xs font-bold text-slate-700">Upload Revision Image File</label>
-                <input
+                <Input
                   type="file"
                   required
                   accept="image/png, image/jpeg, image/webp"
@@ -856,14 +1061,14 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
                   className="mt-1 block w-full text-xs text-slate-500 cursor-pointer"
                 />
 
-                <button
+                <Button
                   disabled={uploadingRevision || !revisionFile}
                   type="submit"
                   className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
                 >
                   {uploadingRevision ? <Loader2 size={16} className="animate-spin" /> : <RefreshCw size={14} />}
                   {uploadingRevision ? "Uploading..." : `Submit Revision V${(targetCanvas.latestVersion?.versionNumber || 1) + 1}`}
-                </button>
+                </Button>
               </form>
             </div>
           </div>
@@ -876,9 +1081,9 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
           onClick={() => setFullscreenCanvas(null)}
           className="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4 cursor-pointer"
         >
-          <button onClick={() => setFullscreenCanvas(null)} className="absolute top-5 right-5 text-white bg-slate-800 p-3 rounded-full cursor-pointer z-50">
+          <Button onClick={() => setFullscreenCanvas(null)} className="absolute top-5 right-5 text-white bg-slate-800 p-3 rounded-full cursor-pointer z-50">
             <X size={24} />
-          </button>
+          </Button>
           <img src={fullscreenCanvas.url} alt={fullscreenCanvas.name} className="max-h-[92vh] max-w-[94vw] object-contain rounded-xl shadow-2xl" />
         </div>
       )}
@@ -904,15 +1109,15 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
             </div>
 
             <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
-              <button
+              <Button
                 type="button"
                 disabled={deleteModal.deleting}
                 onClick={() => setDeleteModal({ isOpen: false, title: "", description: "", id: null, deleting: false, onConfirm: async () => {} })}
                 className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition disabled:opacity-50 cursor-pointer"
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
                 type="button"
                 disabled={deleteModal.deleting}
                 onClick={() => deleteModal.onConfirm()}
@@ -921,7 +1126,7 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
               >
                 {deleteModal.deleting ? <Loader2 size={14} className="animate-spin text-white" /> : <Trash2 size={14} className="text-white" />}
                 {deleteModal.deleting ? "Deleting..." : "Delete Permanently"}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -935,21 +1140,21 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
           }}
           className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 sm:p-6 overflow-y-auto"
         >
-          <button
+          <Button
             onClick={() => setFullscreenCanvas(null)}
             className="fixed top-5 right-5 text-white bg-slate-800/80 hover:bg-slate-700 p-3 rounded-full transition cursor-pointer z-50 shadow-xl border border-slate-700"
           >
             <X size={22} />
-          </button>
+          </Button>
 
           {/* Architectural Proof Sheet Container */}
-          <div className="bg-white border-4 border-slate-900 rounded-2xl shadow-2xl max-w-5xl w-full flex flex-col justify-between overflow-hidden my-auto animate-in fade-in zoom-in duration-200">
-            {/* High-Res Image Canvas Box */}
-            <div className="relative bg-slate-100 p-6 flex items-center justify-center min-h-[420px] max-h-[70vh] overflow-hidden">
+          <div className="bg-white border-4 border-slate-900 rounded-2xl shadow-2xl max-w-6xl w-full flex flex-col justify-between overflow-hidden my-auto animate-in fade-in zoom-in duration-200">
+            {/* High-Res Image Canvas Box — collage fills available space while keeping aspect ratio */}
+            <div className="relative bg-slate-100 p-4 sm:p-5 flex items-center justify-center min-h-[420px] max-h-[75vh] overflow-hidden">
               <img
                 src={fullscreenCanvas.url}
                 alt={fullscreenCanvas.name}
-                className="max-h-[65vh] w-auto object-contain rounded shadow-lg"
+                className="w-full h-full max-h-[70vh] object-contain rounded shadow-lg"
               />
               <span className="absolute top-4 right-4 bg-slate-900/90 text-white text-xs font-mono font-bold px-3 py-1 rounded-md backdrop-blur-sm shadow">
                 PROOF SHEET V{fullscreenCanvas.version}
@@ -989,7 +1194,7 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
                 <div className="col-span-3 p-3 flex flex-col justify-between">
                   <div>
                     <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">CLIENT APPROVAL STATUS:</span>
-                    <div className="mt-1">{getStatusBadge(fullscreenCanvas.status || "pending")}</div>
+                    <div className="mt-1"><StatusBadge status={fullscreenCanvas.status || "pending"} /></div>
                   </div>
                   <div className="mt-2 border-t border-slate-200 pt-1">
                     <span className="font-bold text-slate-500 text-[10px] block uppercase">TYPE: {fullscreenCanvas.canvasType || "COLLAGE"}</span>

@@ -30,14 +30,19 @@ export function getAuthDatabase(): Pool {
       password: requireEnv("AUTH_DB_PASSWORD"),
       database: requireEnv("AUTH_DB_NAME"),
       waitForConnections: true,
-      connectionLimit: 20,
+      // Higher pool for parallel queries over high-latency remote MySQL
+      connectionLimit: Number(process.env.AUTH_DB_CONNECTION_LIMIT ?? "20"),
       maxIdle: 10,
-      idleTimeout: 60000,
+      idleTimeout: 60_000,
       queueLimit: 0,
       enableKeepAlive: true,
       keepAliveInitialDelay: 0,
+      // Fail fast instead of hanging ~minutes on dead remote links
+      connectTimeout: Number(process.env.AUTH_DB_CONNECT_TIMEOUT_MS ?? "8000"),
       namedPlaceholders: false,
       multipleStatements: false,
+      // Slightly prefer server-side prepared statements reuse
+      dateStrings: false,
     });
   }
 
@@ -45,10 +50,16 @@ export function getAuthDatabase(): Pool {
     connectionLogged = true;
     void pool
       .getConnection()
-      .then((connection) => {
+      .then(async (connection) => {
         console.log(
           `[auth-db] Connected to MySQL database "${requireEnv("AUTH_DB_NAME")}" at ${requireEnv("AUTH_DB_HOST")}:${process.env.AUTH_DB_PORT ?? "3306"}`,
         );
+        // Warm one more connection so the first parallel request isn't cold
+        try {
+          await connection.query("SELECT 1");
+        } catch {
+          // ignore warm-up failure
+        }
         connection.release();
       })
       .catch((error: unknown) => {
@@ -115,13 +126,17 @@ export async function ensureCanvasCollageSchema(): Promise<void> {
       // Column exists
     }
 
-    // Add indexes for hosted MySQL queries acceleration
+    // Indexes for hosted MySQL (high RTT — keep queries index-friendly)
     const indexQueries = [
       `CREATE INDEX idx_canvases_project ON canvases(project_id)`,
       `CREATE INDEX idx_versions_canvas ON canvas_versions(canvas_id)`,
+      `CREATE INDEX idx_versions_canvas_ver ON canvas_versions(canvas_id, version_number)`,
       `CREATE INDEX idx_remarks_canvas ON canvas_remarks(canvas_id)`,
       `CREATE INDEX idx_diagram_images_cv ON diagram_images(canvas_id, version_id)`,
       `CREATE INDEX idx_history_canvas ON canvas_status_history(canvas_id)`,
+      `CREATE INDEX idx_projects_designer ON projects(designer_id)`,
+      `CREATE INDEX idx_projects_client ON projects(client_id)`,
+      `CREATE INDEX idx_project_shares_project ON project_shares(project_id)`,
     ];
 
     for (const idxSql of indexQueries) {

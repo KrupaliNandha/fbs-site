@@ -49,6 +49,18 @@ export async function loginWithRole(
   };
 }
 
+/** Short-TTL cache: remote MySQL RTT is ~300–2000ms per query; avoid re-loading user on every API call. */
+const USER_CACHE_TTL_MS = 60_000;
+const userCache = new Map<number, { user: AuthUser; expiresAt: number }>();
+
+export function invalidateUserCache(userId?: number) {
+  if (userId == null) {
+    userCache.clear();
+    return;
+  }
+  userCache.delete(userId);
+}
+
 export async function getUserFromToken(token: string): Promise<AuthUser | null> {
   const payload = verifyAuthToken(token);
 
@@ -56,12 +68,19 @@ export async function getUserFromToken(token: string): Promise<AuthUser | null> 
     return null;
   }
 
+  const cached = userCache.get(payload.sub);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.user;
+  }
+
   const user = await getUserById(payload.sub);
 
   if (!user?.isActive) {
+    userCache.delete(payload.sub);
     return null;
   }
 
+  userCache.set(payload.sub, { user, expiresAt: Date.now() + USER_CACHE_TTL_MS });
   return user;
 }
 

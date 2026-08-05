@@ -80,8 +80,9 @@ export default function Footer() {
               <Image
                 src="/images/brand/fbs-prints-logo.webp"
                 alt="FBS Prints logo"
-                width={90}
-                height={80}
+                width={92}
+                height={82}
+                className="w-[92px] h-auto"
               />
               <h3 className="text-xl font-bold mt-4">FBS Prints</h3>
               <p className="text-primary-dark/70 mt-3">

@@ -29,6 +29,8 @@ export type ProjectModel = {
   description?: string | null;
   status: "pending" | "in_review" | "changes_requested" | "approved";
   shareToken?: string;
+  /** Latest canvas thumbnail for list/card previews */
+  previewThumbnailUrl?: string | null;
   createdAt: string;
   updatedAt: string;
   canvases?: CanvasModel[];
@@ -131,9 +133,16 @@ async function req<T>(url: string, init?: RequestInit): Promise<T> {
     headers,
   });
 
-  const data = await res.json().catch(() => ({}));
+  const data = await res.json().catch(() => ({} as Record<string, unknown>));
   if (!res.ok) {
-    throw new Error(data.message || "API request failed");
+    const raw = (data as { message?: unknown })?.message;
+    const message =
+      typeof raw === "string"
+        ? raw
+        : raw && typeof raw === "object"
+          ? JSON.stringify(raw)
+          : "API request failed";
+    throw new Error(message);
   }
   return data as T;
 }

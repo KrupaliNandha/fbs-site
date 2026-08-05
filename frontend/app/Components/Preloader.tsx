@@ -39,9 +39,9 @@ export default function Preloader({
       <Image
         src="/images/brand/fbs-prints-logo.webp"
         alt="FBS Prints logo"
-        width={100}
-        height={80}
-        className="animate-bounce"
+        width={102}
+        height={82}
+        className="animate-bounce w-[102px] h-auto"
       />
     </div>
   );

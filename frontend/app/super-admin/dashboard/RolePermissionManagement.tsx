@@ -5,6 +5,7 @@ import { Save, SlidersHorizontal } from "lucide-react";
 import { ROLE_LABELS } from "@/app/lib/auth/roles";
 import type { AuthRole, Permission } from "@/app/lib/auth/types";
 import { authApi } from "@/app/lib/client/auth-api";
+import { Button, Card, Input, Label } from "@/app/Components/ui";
 
 type RoleRecord = {
   slug: AuthRole;
@@ -88,7 +89,7 @@ export function RolePermissionManagement() {
   }
 
   return (
-    <section className="mt-6 rounded-lg border border-black/10 bg-white p-5 shadow-sm">
+    <Card className="mt-6 p-5 shadow-sm">
       <div className="mb-5 flex items-start justify-between gap-4">
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="text-primary" size={22} />
@@ -104,55 +105,56 @@ export function RolePermissionManagement() {
       </div>
 
       {error ? (
-        <p className="mb-4 rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
+        <p className="mb-4 rounded-xl bg-red-50 border border-red-100 px-3 py-2 text-sm text-red-700">
           {error}
         </p>
       ) : null}
 
       {notice ? (
-        <p className="mb-4 rounded-md bg-green-50 px-3 py-2 text-sm text-green-700">
+        <p className="mb-4 rounded-xl bg-green-50 border border-green-100 px-3 py-2 text-sm text-green-700">
           {notice}
         </p>
       ) : null}
 
       <div className="grid gap-4 lg:grid-cols-3">
         {roles.map((role) => (
-          <div key={role.slug} className="rounded-lg border border-black/10 p-4">
+          <Card key={role.slug} className="p-4 shadow-none">
             <div className="mb-3 flex items-center justify-between gap-3">
               <h3 className="font-bold text-primary-dark">
                 {ROLE_LABELS[role.slug]}
               </h3>
-              <button
+              <Button
                 type="button"
+                variant="outline"
+                size="sm"
                 onClick={() => void saveRole(role.slug)}
                 disabled={role.slug === "super_admin" || savingRole === role.slug}
-                className="inline-flex min-h-9 items-center gap-2 rounded-md border border-black/15 px-2 text-xs font-semibold text-primary-dark transition hover:bg-black/5 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <Save size={15} />
                 {savingRole === role.slug ? "Saving" : "Save"}
-              </button>
+              </Button>
             </div>
 
             <div className="space-y-2">
               {permissions.map((permission) => (
-                <label
+                <Label
                   key={`${role.slug}-${permission}`}
-                  className="flex items-center gap-2 text-sm text-primary-dark/75"
+                  className="flex items-center gap-2 font-medium text-primary-dark/75 cursor-pointer"
                 >
-                  <input
+                  <Input
                     type="checkbox"
                     checked={(drafts[role.slug] ?? []).includes(permission)}
                     disabled={role.slug === "super_admin"}
                     onChange={() => togglePermission(role.slug, permission)}
-                    className="h-4 w-4 accent-primary"
+                    className="h-4 w-4 accent-primary shadow-none"
                   />
                   <span>{permission}</span>
-                </label>
+                </Label>
               ))}
             </div>
-          </div>
+          </Card>
         ))}
       </div>
-    </section>
+    </Card>
   );
 }

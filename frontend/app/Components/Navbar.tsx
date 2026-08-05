@@ -132,11 +132,11 @@ export default function Navbar() {
             <Image
               src="/images/brand/fbs-prints-logo.webp"
               alt="FBS Prints logo"
-              width={160}
-              height={60}
+              width={162}
+              height={62}
               priority
-              style={{ height: "70px", width: "auto" }}
-              className="h-12 sm:h-14 md:h-[70px] w-auto"
+              style={{ height: "72px", width: "auto" }}
+              className="h-[50px] sm:h-[58px] md:h-[72px] w-auto"
             />
           </Link>
 
@@ -271,9 +271,9 @@ export default function Navbar() {
             <Image
               src="/images/brand/fbs-prints-logo.webp"
               alt="FBS Prints logo"
-              width={130}
-              height={50}
-              className="h-10 w-auto"
+              width={132}
+              height={52}
+              className="h-[42px] w-auto"
             />
           </Link>
           <button

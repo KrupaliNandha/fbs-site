@@ -13,6 +13,8 @@ export type ProjectRecord = {
   description?: string | null;
   status: "pending" | "in_review" | "changes_requested" | "approved";
   shareToken?: string;
+  /** Latest canvas thumbnail for list/card previews */
+  previewThumbnailUrl?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -63,7 +65,15 @@ export async function listProjects(params: {
         projects.status,
         project_shares.share_token,
         projects.created_at,
-        projects.updated_at
+        projects.updated_at,
+        (
+          SELECT cv.thumbnail_url
+          FROM canvases c
+          INNER JOIN canvas_versions cv ON cv.canvas_id = c.id
+          WHERE c.project_id = projects.id
+          ORDER BY c.id DESC, cv.version_number DESC
+          LIMIT 1
+        ) AS preview_thumbnail_url
       FROM projects
       JOIN clients ON clients.id = projects.client_id
       JOIN users ON users.id = projects.designer_id
@@ -85,6 +95,9 @@ export async function listProjects(params: {
     description: row.description ? String(row.description) : null,
     status: row.status as ProjectRecord["status"],
     shareToken: row.share_token ? String(row.share_token) : undefined,
+    previewThumbnailUrl: row.preview_thumbnail_url
+      ? String(row.preview_thumbnail_url)
+      : null,
     createdAt: new Date(row.created_at).toISOString(),
     updatedAt: new Date(row.updated_at).toISOString(),
   }));

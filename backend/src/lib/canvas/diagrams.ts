@@ -1,6 +1,20 @@
 import { query, execute } from "../db.js";
 import type { RowDataPacket, ResultSetHeader } from "mysql2/promise";
 
+/** mysql2 may return JSON columns as already-parsed objects or as strings */
+function parseJsonField(value: unknown): Record<string, unknown> | null {
+  if (value == null || value === "") return null;
+  if (typeof value === "object") return value as Record<string, unknown>;
+  if (typeof value === "string") {
+    try {
+      return JSON.parse(value) as Record<string, unknown>;
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
 export type DiagramTemplateRecord = {
   id: number;
   name: string;
@@ -65,7 +79,7 @@ export async function listDiagramTemplates(): Promise<DiagramTemplateRecord[]> {
     name: String(row.name),
     description: row.description ? String(row.description) : null,
     previewUrl: row.preview_url ? String(row.preview_url) : null,
-    templateStructure: row.template_structure ? JSON.parse(String(row.template_structure)) : null,
+    templateStructure: parseJsonField(row.template_structure),
     createdAt: new Date(row.created_at).toISOString(),
     updatedAt: new Date(row.updated_at).toISOString(),
   }));
@@ -101,7 +115,7 @@ export async function createDiagramTemplate(data: {
     name: String(row.name),
     description: row.description ? String(row.description) : null,
     previewUrl: row.preview_url ? String(row.preview_url) : null,
-    templateStructure: row.template_structure ? JSON.parse(String(row.template_structure)) : null,
+    templateStructure: parseJsonField(row.template_structure),
     createdAt: new Date(row.created_at).toISOString(),
     updatedAt: new Date(row.updated_at).toISOString(),
   };
@@ -149,7 +163,7 @@ export async function updateDiagramTemplate(
     name: String(row.name),
     description: row.description ? String(row.description) : null,
     previewUrl: row.preview_url ? String(row.preview_url) : null,
-    templateStructure: row.template_structure ? JSON.parse(String(row.template_structure)) : null,
+    templateStructure: parseJsonField(row.template_structure),
     createdAt: new Date(row.created_at).toISOString(),
     updatedAt: new Date(row.updated_at).toISOString(),
   };
@@ -171,7 +185,7 @@ export async function getDiagramTemplateById(id: number): Promise<DiagramTemplat
     name: String(row.name),
     description: row.description ? String(row.description) : null,
     previewUrl: row.preview_url ? String(row.preview_url) : null,
-    templateStructure: row.template_structure ? JSON.parse(String(row.template_structure)) : null,
+    templateStructure: parseJsonField(row.template_structure),
     createdAt: new Date(row.created_at).toISOString(),
     updatedAt: new Date(row.updated_at).toISOString(),
   };

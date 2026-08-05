@@ -38,6 +38,52 @@ body {
   overflow-x: hidden;
 }
 
+/* Portal dashboards (designer / user / superadmin) — larger base type */
+.portal-dashboard {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Bump common small Tailwind text utilities inside portals */
+.portal-dashboard .text-\[9px\] {
+  font-size: 11px !important;
+}
+.portal-dashboard .text-\[10px\] {
+  font-size: 12px !important;
+}
+.portal-dashboard .text-\[10\.5px\] {
+  font-size: 12.5px !important;
+}
+.portal-dashboard .text-\[11px\] {
+  font-size: 13px !important;
+}
+.portal-dashboard .text-\[12px\] {
+  font-size: 14px !important;
+}
+.portal-dashboard .text-\[13px\] {
+  font-size: 15px !important;
+}
+.portal-dashboard .text-xs {
+  font-size: 0.875rem !important; /* 14px */
+  line-height: 1.35rem !important;
+}
+.portal-dashboard .text-sm {
+  font-size: 1rem !important; /* 16px */
+  line-height: 1.5rem !important;
+}
+.portal-dashboard .text-base {
+  font-size: 1.125rem !important; /* 18px */
+}
+.portal-dashboard .text-lg {
+  font-size: 1.25rem !important; /* 20px */
+}
+.portal-dashboard .text-xl {
+  font-size: 1.4rem !important;
+}
+.portal-dashboard .text-2xl {
+  font-size: 1.65rem !important;
+}
+
 @keyframes floatSoft {
   0%,
   100% {

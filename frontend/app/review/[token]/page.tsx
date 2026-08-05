@@ -8,9 +8,17 @@ import {
   type CanvasModel,
 } from "@/app/lib/client/canvas-api";
 import {
-  CheckCircle2,
+  Button,
+  Badge,
+  Card,
+  CardHeader,
+  Input,
+  Textarea,
+  StatusBadge,
+} from "@/app/Components/ui";
+import {
   AlertCircle,
-  Clock,
+  CheckCircle2,
   ZoomIn,
   Layers,
   FileImage,
@@ -18,15 +26,18 @@ import {
   History,
   MessageSquare,
   X,
-  Share2,
   Loader2,
   Lock,
   ShieldCheck,
-  List,
   ArrowLeft,
   RefreshCw,
+  Maximize2,
 } from "lucide-react";
-import { getStoredToken, getStoredUser, getDashboardPathFromToken } from "@/app/lib/auth/token";
+import {
+  getStoredToken,
+  getStoredUser,
+  getDashboardPathFromToken,
+} from "@/app/lib/auth/token";
 
 export default function SecureCanvasReviewPage() {
   const params = useParams();
@@ -41,20 +52,22 @@ export default function SecureCanvasReviewPage() {
   const [canvases, setCanvases] = useState<CanvasModel[]>([]);
   const [selectedCanvas, setSelectedCanvas] = useState<CanvasModel | null>(null);
 
-  // Private Client Login Verification State
   const [isVerified, setIsVerified] = useState(false);
   const [clientEmailInput, setClientEmailInput] = useState("");
   const [loginError, setLoginError] = useState("");
 
-  // Zoom / Lightbox modal state
-  const [zoomImage, setZoomImage] = useState<string | null>(null);
+  const [fullscreenCanvas, setFullscreenCanvas] = useState<{
+    url: string;
+    name: string;
+    version: number;
+    projectName?: string;
+    status?: string;
+    canvasType?: string;
+    date?: string;
+  } | null>(null);
 
-  // Per-Image Remark & Submission State (Keyed by imageId for collage sub-images, or 0 for single canvas image)
   const [subImageRemarks, setSubImageRemarks] = useState<Record<number, string>>({});
   const [submittingImageId, setSubmittingImageId] = useState<number | null>(null);
-
-  // Canvas Selector view mode
-  const [canvasListViewMode, setCanvasListViewMode] = useState<"grid" | "list">("grid");
 
   const backendHost = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
@@ -67,12 +80,17 @@ export default function SecureCanvasReviewPage() {
       setProject(data.project);
       setCanvases(data.canvases);
 
-      // Check existing JWT token, logged-in user session, or client verification
       const localJwt = getStoredToken();
       const currentUser = getStoredUser();
-      const storedAuth = typeof window !== "undefined" ? sessionStorage.getItem(`client_auth_${token}`) : null;
+      const storedAuth =
+        typeof window !== "undefined" ? sessionStorage.getItem(`client_auth_${token}`) : null;
 
-      if (localJwt || currentUser || (storedAuth && storedAuth.toLowerCase() === data.project.clientEmail.toLowerCase())) {
+      if (
+        localJwt ||
+        currentUser ||
+        (storedAuth &&
+          storedAuth.toLowerCase() === data.project.clientEmail.toLowerCase())
+      ) {
         setIsVerified(true);
       }
 
@@ -92,58 +110,79 @@ export default function SecureCanvasReviewPage() {
   useEffect(() => {
     setMounted(true);
     loadReviewData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  // Global ESC key listener for zoom lightbox modal
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        setZoomImage(null);
-      }
+      if (e.key === "Escape") setFullscreenCanvas(null);
     }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  function openFullscreenProof(c: CanvasModel) {
+    const thumb = c.latestVersion?.thumbnailUrl
+      ? `${backendHost}${c.latestVersion.thumbnailUrl}`
+      : "/placeholder.png";
+    const fullImageUrl = c.latestVersion?.watermarkedImageUrl
+      ? `${backendHost}${c.latestVersion.watermarkedImageUrl}`
+      : thumb;
+    setFullscreenCanvas({
+      url: fullImageUrl,
+      name: c.name,
+      version: c.latestVersion?.versionNumber || 1,
+      projectName: project?.name,
+      status: c.status,
+      canvasType: c.canvasType,
+      date: new Date(c.updatedAt).toLocaleDateString(),
+    });
+  }
+
   function handleVerifyClientLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoginError("");
-
     if (!project) return;
 
     if (clientEmailInput.trim().toLowerCase() === project.clientEmail.toLowerCase()) {
       sessionStorage.setItem(`client_auth_${token}`, clientEmailInput.trim().toLowerCase());
       setIsVerified(true);
     } else {
-      setLoginError("Verification failed: Email address does not match client records for this proof.");
+      setLoginError(
+        "Verification failed: Email address does not match client records for this proof.",
+      );
     }
   }
 
-  // Handle Per-Image Action (Approving or Requesting Changes on an individual photo)
   async function handleImageAction(
-    imageId: number | null, // null for single image canvas
+    canvas: CanvasModel,
+    imageId: number | null,
     statusAction: "approved" | "changes_requested",
+    remarkKey: number,
   ) {
-    if (!selectedCanvas || !selectedCanvas.latestVersion) return;
-    const key = imageId || 0;
-    const inputRemark = subImageRemarks[key]?.trim() || "";
+    if (!canvas.latestVersion) return;
+    const inputRemark = subImageRemarks[remarkKey]?.trim() || "";
 
     if (statusAction === "changes_requested" && !inputRemark) {
       alert("Please type a remark explaining what changes are needed for this image.");
       return;
     }
 
-    setSubmittingImageId(key);
+    setSubmittingImageId(remarkKey);
     try {
-      await canvasApi.addRemark(selectedCanvas.id, {
-        versionId: selectedCanvas.latestVersion.id,
+      await canvasApi.addRemark(canvas.id, {
+        versionId: canvas.latestVersion.id,
         imageId: imageId || undefined,
         userName: project?.clientName || "Client Reviewer",
-        remark: inputRemark || (statusAction === "approved" ? "Approved photo." : "Requested changes for this photo."),
+        remark:
+          inputRemark ||
+          (statusAction === "approved"
+            ? "Approved photo."
+            : "Requested changes for this photo."),
         statusAction,
       });
 
-      setSubImageRemarks((prev) => ({ ...prev, [key]: "" }));
+      setSubImageRemarks((prev) => ({ ...prev, [remarkKey]: "" }));
       await loadReviewData();
     } catch (err) {
       alert(err instanceof Error ? err.message : "Failed to update image review status.");
@@ -152,80 +191,199 @@ export default function SecureCanvasReviewPage() {
     }
   }
 
-  function getStatusBadge(status: string, isCompact: boolean = false) {
-    if (isCompact) {
-      switch (status) {
-        case "approved":
-          return (
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700 border border-emerald-200 shrink-0 whitespace-nowrap leading-none">
-              <CheckCircle2 size={11} /> Approved
-            </span>
-          );
-        case "changes_requested":
-          return (
-            <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-700 border border-amber-200 shrink-0 whitespace-nowrap leading-none">
-              <AlertCircle size={11} /> Changes
-            </span>
-          );
-        default:
-          return (
-            <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-bold text-blue-700 border border-blue-200 shrink-0 whitespace-nowrap leading-none">
-              <Clock size={11} /> Pending
-            </span>
-          );
-      }
-    }
-
-    switch (status) {
-      case "approved":
+  function getCanvasTypeBadge(type: string) {
+    switch (type) {
+      case "collage":
         return (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 border border-emerald-200 shrink-0 whitespace-nowrap">
-            <CheckCircle2 size={13} /> Approved
+          <span className="inline-flex items-center gap-1 rounded-full bg-violet-50 text-violet-700 border border-violet-100 px-2 py-0.5 text-[11px] font-semibold">
+            <LayoutGrid size={11} /> Auto Collage
           </span>
         );
-      case "changes_requested":
+      case "diagram":
         return (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700 border border-amber-200 shrink-0 whitespace-nowrap">
-            <AlertCircle size={13} /> Changes Requested
+          <span className="inline-flex items-center gap-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100 px-2 py-0.5 text-[11px] font-semibold">
+            <Layers size={11} /> Diagram Layout
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700 border border-blue-200 shrink-0 whitespace-nowrap">
-            <Clock size={13} /> Pending Review
+          <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200 px-2 py-0.5 text-[11px] font-semibold">
+            <FileImage size={11} /> Individual Canvas
           </span>
         );
     }
   }
 
-  function getCanvasTypeBadge(type: string) {
-    switch (type) {
-      case "collage":
-        return (
-          <span className="inline-flex items-center gap-1 rounded bg-purple-50 px-2 py-0.5 text-xs font-medium text-purple-700">
-            <LayoutGrid size={12} /> Auto Collage
-          </span>
-        );
-      case "diagram":
-        return (
-          <span className="inline-flex items-center gap-1 rounded bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
-            <Layers size={12} /> Diagram Layout
-          </span>
-        );
-      default:
-        return (
-          <span className="inline-flex items-center gap-1 rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">
-            <FileImage size={12} /> Individual Canvas
-          </span>
-        );
+  function splitDiagramTiles(c: CanvasModel) {
+    const tiles = c.diagramImages || [];
+    if (c.canvasType !== "diagram" || tiles.length === 0) {
+      return { blueprint: null as (typeof tiles)[0] | null, photoTiles: tiles };
     }
+
+    const blueprintIndex = tiles.findIndex((img) => {
+      const caption = (img.caption || "").toLowerCase();
+      return (
+        caption.includes("blueprint") ||
+        caption.includes("diagram layout") ||
+        caption.includes("diagram blueprint")
+      );
+    });
+
+    const idx =
+      blueprintIndex >= 0 ? blueprintIndex : c.diagramTemplateId ? 0 : -1;
+
+    if (idx < 0) {
+      return { blueprint: null as (typeof tiles)[0] | null, photoTiles: tiles };
+    }
+
+    return {
+      blueprint: tiles[idx],
+      photoTiles: tiles.filter((_, i) => i !== idx),
+    };
+  }
+
+  function renderTileReviewCard(
+    c: CanvasModel,
+    img: NonNullable<CanvasModel["diagramImages"]>[number],
+    label: string,
+    options?: { isBlueprint?: boolean },
+  ) {
+    const imgUrl = `${backendHost}${img.watermarkedImageUrl}`;
+    const currentRemarkText = subImageRemarks[img.id] || "";
+    const isSubmitting = submittingImageId === img.id;
+    const isBlueprint = options?.isBlueprint === true;
+
+    return (
+      <Card
+        key={img.id}
+        className={`p-3 space-y-2 flex flex-col justify-between transition ${
+          isBlueprint
+            ? "border-indigo-300 bg-indigo-50/20 ring-1 ring-indigo-200"
+            : img.status === "approved"
+              ? "border-emerald-400 bg-emerald-50/10 ring-1 ring-emerald-400/20"
+              : img.status === "changes_requested"
+                ? "border-amber-400 bg-amber-50/10 ring-1 ring-amber-400/20"
+                : ""
+        }`}
+      >
+        <div className="space-y-2">
+          <div className="flex items-center justify-between gap-1 border-b border-slate-100 pb-1.5 min-w-0">
+            <span className="font-bold text-[11px] text-slate-800 truncate min-w-0" title={label}>
+              {label}
+            </span>
+            {!isBlueprint && (
+              <StatusBadge status={img.status} compact pendingLabel="pending" />
+            )}
+          </div>
+
+          <div className="relative aspect-[4/3] bg-slate-50 rounded-xl overflow-hidden group/tile border border-slate-100">
+            <img src={imgUrl} alt={label} className="w-full h-full object-contain" />
+            <Button
+              type="button"
+              onClick={() =>
+                setFullscreenCanvas({
+                  url: imgUrl,
+                  name: label,
+                  version: c.latestVersion?.versionNumber || 1,
+                  projectName: project?.name,
+                  status: isBlueprint ? c.status : img.status,
+                  canvasType: c.canvasType,
+                  date: new Date(c.updatedAt).toLocaleDateString(),
+                })
+              }
+              className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover/tile:opacity-100 transition flex items-center justify-center text-white font-bold text-[10.5px] gap-1 backdrop-blur-[1px] cursor-pointer"
+            >
+              <ZoomIn size={13} /> Zoom
+            </Button>
+          </div>
+
+          {img.remarks && img.remarks.length > 0 && (
+            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+              <span className="text-[9.5px] font-extrabold text-slate-500 uppercase tracking-wide flex items-center gap-1">
+                <MessageSquare size={10} /> Remarks ({img.remarks.length})
+              </span>
+              <div className="space-y-1 max-h-16 overflow-y-auto">
+                {img.remarks.map((r) => {
+                  const isDesigner = r.statusAction === "comment";
+                  return (
+                    <div
+                      key={r.id}
+                      className={`text-[10.5px] border-t border-slate-200/50 pt-1 ${
+                        isDesigner ? "text-indigo-900" : "text-slate-700"
+                      }`}
+                    >
+                      <strong className={isDesigner ? "text-indigo-800" : "text-slate-800"}>
+                        {r.userName || (isDesigner ? "Designer" : "Client")}
+                        {isDesigner ? " (Designer)" : ""}:
+                      </strong>{" "}
+                      &quot;{r.remark}&quot;
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {!isBlueprint && (
+          <div className="space-y-1.5 border-t border-slate-100 pt-2">
+            <Textarea
+              rows={2}
+              value={currentRemarkText}
+              onChange={(e) =>
+                setSubImageRemarks({ ...subImageRemarks, [img.id]: e.target.value })
+              }
+              placeholder={`Remarks for ${label}...`}
+              className="w-full rounded-xl border border-slate-200 p-2 text-[10.5px] focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition resize-none bg-white"
+            />
+            <div className="grid grid-cols-2 gap-1.5">
+              <Button
+                type="button"
+                disabled={isSubmitting}
+                size="sm"
+                className="bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 shadow-none"
+                onClick={() => handleImageAction(c, img.id, "changes_requested", img.id)}
+              >
+                {isSubmitting ? (
+                  <Loader2 size={11} className="animate-spin" />
+                ) : (
+                  <AlertCircle size={11} />
+                )}
+                Request Changes
+              </Button>
+              <Button
+                type="button"
+                disabled={isSubmitting}
+                size="sm"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
+                onClick={() => handleImageAction(c, img.id, "approved", img.id)}
+              >
+                {isSubmitting ? (
+                  <Loader2 size={11} className="animate-spin" />
+                ) : (
+                  <CheckCircle2 size={11} />
+                )}
+                Approve
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {isBlueprint && (
+          <p className="text-[10px] text-indigo-700 font-medium border-t border-indigo-100 pt-2">
+            Diagram blueprint is reference layout only. Use overall proof feedback or photo tiles
+            below for changes.
+          </p>
+        )}
+      </Card>
+    );
   }
 
   if (!mounted || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
         <div className="text-center space-y-3">
-          <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto" />
+          <Loader2 size={36} className="mx-auto text-indigo-600 animate-spin" />
           <p className="text-sm font-medium text-slate-600">Loading design review details...</p>
         </div>
       </div>
@@ -235,30 +393,30 @@ export default function SecureCanvasReviewPage() {
   if (error || !project) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#f8fafc] p-6">
-        <div className="max-w-md w-full rounded-2xl bg-white border border-slate-200 p-8 text-center shadow-sm">
-          <AlertCircle size={48} className="mx-auto text-amber-500 mb-4" />
-          <h1 className="text-xl font-bold text-slate-900">Review Link Unavailable</h1>
-          <p className="mt-2 text-sm text-slate-600">{error || "This review link may be invalid or expired."}</p>
-        </div>
+        <Card className="max-w-md w-full p-8 text-center space-y-3">
+          <AlertCircle size={48} className="mx-auto text-amber-500" />
+          <h1 className="text-xl font-extrabold text-slate-900">Review Link Unavailable</h1>
+          <p className="text-sm text-slate-600">
+            {error || "This review link may be invalid or expired."}
+          </p>
+        </Card>
       </div>
     );
   }
 
-  // PRIVATE CLIENT LOGIN VERIFICATION GATEWAY
   if (!isVerified) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6 font-sans">
-        <div className="max-w-md w-full bg-white rounded-3xl p-8 shadow-2xl space-y-6 border border-slate-100">
+        <Card className="max-w-md w-full p-8 space-y-6 shadow-2xl border-slate-100">
           <div className="text-center space-y-2">
             <div className="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
               <Lock size={28} />
             </div>
-            <span className="text-[11px] font-extrabold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
-              Private Client Access
-            </span>
+            <Badge variant="info">Private Client Access</Badge>
             <h1 className="text-2xl font-black text-slate-900 mt-1">{project.name}</h1>
             <p className="text-xs text-slate-500">
-              This proof review page is confidential. Please enter your registered client email address to view and review images.
+              This proof review page is confidential. Please enter your registered client email
+              address to view and review images.
             </p>
           </div>
 
@@ -267,13 +425,13 @@ export default function SecureCanvasReviewPage() {
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Client Email Address
               </label>
-              <input
+              <Input
                 required
                 type="email"
                 value={clientEmailInput}
                 onChange={(e) => setClientEmailInput(e.target.value)}
                 placeholder="Enter client email..."
-                className="w-full rounded-xl border border-slate-300 p-3 text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 outline-none transition"
+                className="h-11 text-sm"
               />
             </div>
 
@@ -284,403 +442,565 @@ export default function SecureCanvasReviewPage() {
               </div>
             )}
 
-            <button
-              type="submit"
-              className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-extrabold text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer"
-            >
+            <Button type="submit" className="w-full h-11 text-sm">
               <ShieldCheck size={18} /> Unlock Canvas Review
-            </button>
+            </Button>
           </form>
-        </div>
+        </Card>
       </div>
     );
   }
 
-  const activeMainImage = selectedCanvas?.latestVersion?.watermarkedImageUrl
-    ? `${backendHost}${selectedCanvas.latestVersion.watermarkedImageUrl}`
-    : "/placeholder.png";
-
-  const hasSubImages = selectedCanvas?.diagramImages && selectedCanvas.diagramImages.length > 0;
   const currentUser = typeof window !== "undefined" ? getStoredUser() : null;
 
+  function historyDotClass(status: string) {
+    switch (status) {
+      case "approved":
+        return "bg-emerald-500";
+      case "changes_requested":
+        return "bg-rose-500";
+      default:
+        return "bg-indigo-500";
+    }
+  }
+
+  function historyTitleClass(status: string) {
+    switch (status) {
+      case "approved":
+        return "text-emerald-700";
+      case "changes_requested":
+        return "text-rose-600";
+      default:
+        return "text-indigo-700";
+    }
+  }
+
+  const activeCanvas = selectedCanvas || canvases[0] || null;
+  const activeRemarkKey = activeCanvas ? -activeCanvas.id : 0;
+  const isSubmittingOverall = submittingImageId === activeRemarkKey;
+  const overallPlaceholder =
+    activeCanvas?.canvasType === "diagram"
+      ? "Overall feedback for this diagram proof (layout, placement, specs)..."
+      : activeCanvas?.canvasType === "collage"
+        ? "Overall feedback for this collage proof..."
+        : "Type feedback or required changes for this canvas...";
+
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col font-sans">
-      {/* Top Header Bar */}
-      <header className="sticky top-0 z-30 bg-white border-b border-slate-200/80 px-6 py-4 shadow-sm">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2 flex-wrap">
-              {currentUser && (
-                <button
-                  onClick={() => {
-                    const targetPath = getDashboardPathFromToken() || "/user/dashboard";
-                    router.push(targetPath);
-                  }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition cursor-pointer shadow-sm border border-slate-200 mr-1"
-                  title="Back to My Projects Dashboard"
-                >
-                  <ArrowLeft size={14} /> Back to Projects
-                </button>
-              )}
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-full">
-                Canvas Details & Approval
+    <div className="min-h-screen bg-[#f4f6fb] text-slate-900 flex flex-col font-sans antialiased">
+      {/* Thin top bar */}
+      <header className="sticky top-0 z-30 bg-white border-b border-slate-200/90">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2 flex-wrap min-w-0">
+            {currentUser ? (
+              <Button
+                type="button"
+                onClick={() => {
+                  const targetPath = getDashboardPathFromToken() || "/user/dashboard";
+                  router.push(targetPath);
+                }}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer"
+              >
+                <ArrowLeft size={14} /> Back to Projects
+              </Button>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500">
+                <ShieldCheck size={14} className="text-indigo-500" /> Secure Review
               </span>
-              <span className="text-xs text-slate-500">• Verified Client Link</span>
-            </div>
-            <h1 className="text-2xl font-bold text-slate-900 mt-1">{project.name}</h1>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Client: <strong className="text-slate-700">{project.clientName}</strong> ({project.clientEmail}) • Designer:{" "}
-              <strong className="text-slate-700">{project.designerName}</strong>
-            </p>
+            )}
+            <span className="hidden sm:inline text-slate-300">|</span>
+            <span className="inline-flex items-center rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100 px-2.5 py-0.5 text-[11px] font-bold">
+              Canvas Details &amp; Approval
+            </span>
+            <span className="inline-flex items-center rounded-full bg-slate-50 text-slate-500 border border-slate-200 px-2.5 py-0.5 text-[11px] font-medium">
+              Verified Client Link
+            </span>
           </div>
 
-          <div className="flex items-center gap-3">
-            {getStatusBadge(project.status)}
-            <button
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <StatusBadge status={project.status} pendingLabel="pending" />
+            <Button
+              variant="outline"
+              size="sm"
               disabled={isRefreshing}
               onClick={async () => {
                 setIsRefreshing(true);
                 await loadReviewData();
                 setIsRefreshing(false);
               }}
-              className="inline-flex items-center gap-2 text-xs font-semibold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 px-3.5 py-2 rounded-lg transition cursor-pointer disabled:opacity-50"
+              className="h-8 rounded-full bg-white"
               title="Refresh Proof Data"
             >
-              <RefreshCw size={14} className={isRefreshing ? "animate-spin text-indigo-600" : ""} />
-              {isRefreshing ? "Refreshing..." : "Refresh"}
-            </button>
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(window.location.href);
-                alert("Canvas link copied to clipboard!");
-              }}
-              className="inline-flex items-center gap-2 text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-2 rounded-lg transition cursor-pointer"
-            >
-              <Share2 size={14} /> Copy Link
-            </button>
+              <RefreshCw
+                size={13}
+                className={isRefreshing ? "animate-spin text-indigo-600" : ""}
+              />
+              Refresh
+            </Button>
           </div>
         </div>
       </header>
 
-      {/* Main Standalone Canvas Workspace */}
-      <div className="flex-1 max-w-7xl w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Main Column: Unified Proof Sheet Canvas + Per-Image Review Controls */}
-        <div className="lg:col-span-8 space-y-6">
-          <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-6 space-y-6">
-            {selectedCanvas ? (
-              <>
-                {/* Canvas Title Bar */}
-                <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-                  <div className="flex items-center gap-2">
-                    <h2 className="text-lg font-bold text-slate-900">{selectedCanvas.name}</h2>
-                    {getCanvasTypeBadge(selectedCanvas.canvasType)}
-                    <span className="text-xs text-slate-400 font-mono">
-                      (v{selectedCanvas.latestVersion?.versionNumber || 1})
-                    </span>
-                  </div>
-                  <div>{getStatusBadge(selectedCanvas.status)}</div>
-                </div>
-
-                {/* UNIFIED PRIMARY PROOF SHEET CANVAS CARD */}
-                <div
-                  className={`border-2 border-slate-900 rounded-2xl bg-white shadow-md overflow-hidden flex flex-col justify-between ${
-                    selectedCanvas.status === "approved"
-                      ? "ring-4 ring-emerald-400/20"
-                      : selectedCanvas.status === "changes_requested"
-                      ? "ring-4 ring-amber-400/20"
-                      : ""
-                  }`}
-                >
-                  {/* High-Res Proof Sheet Frame */}
-                  <div className="relative flex items-center justify-center bg-slate-900/5 p-4 group min-h-[380px]">
-                    <img
-                      src={activeMainImage}
-                      alt={selectedCanvas.name}
-                      className="max-h-[520px] w-auto object-contain rounded"
-                    />
-
-                    {selectedCanvas.watermarkEnabled && (
-                      <div className="absolute bottom-3 left-3 bg-indigo-900/90 text-white text-[10px] font-bold px-2.5 py-1 rounded backdrop-blur-sm shadow">
-                        Protected Review Proof • Watermark Active
-                      </div>
-                    )}
-
-                    <button
-                      onClick={() => setZoomImage(activeMainImage)}
-                      className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-medium text-sm gap-2 backdrop-blur-[2px] cursor-pointer"
-                    >
-                      <ZoomIn size={20} /> View Proof Fullscreen
-                    </button>
-                  </div>
-
-                  {/* Architectural Title Block Footer Table */}
-                  <div className="border-t-2 border-slate-900 bg-white">
-                    <div className="grid grid-cols-12 border-b border-slate-800 text-[10px] divide-x-2 divide-slate-800 font-sans">
-                      {/* Company Logo & Address */}
-                      <div className="col-span-3 p-2.5 bg-slate-50 flex flex-col justify-between">
-                        <div>
-                          <div className="flex items-center gap-1.5 font-black text-slate-900 tracking-tight text-xs">
-                            <span className="bg-amber-400 text-slate-950 px-1 rounded text-[10px]">FBS</span>
-                            SIGNS & PRINTING
-                          </div>
-                          <p className="text-[9px] font-bold text-slate-600 mt-1 leading-tight uppercase">
-                            750 WARRENVILLE RD<br />LISLE, IL 60532
-                          </p>
-                        </div>
-                        <p className="text-[9px] font-mono text-indigo-700 font-bold mt-1">WWW.FBSSIGNS.COM</p>
-                      </div>
-
-                      {/* Project & Canvas Title */}
-                      <div className="col-span-3 p-2.5 flex flex-col justify-between">
-                        <div>
-                          <span className="font-extrabold text-slate-500 uppercase text-[8px] tracking-wider block">PROJECT NAME:</span>
-                          <span className="font-black text-slate-900 text-xs block truncate" title={project?.name}>{project?.name || "PROJECT PROOF"}</span>
-                        </div>
-                        <div className="mt-1">
-                          <span className="font-extrabold text-slate-500 uppercase text-[8px] tracking-wider block">CANVAS NAME:</span>
-                          <span className="font-bold text-indigo-900 text-[11px] block truncate" title={selectedCanvas.name}>{selectedCanvas.name}</span>
-                        </div>
-                      </div>
-
-                      {/* Status & Approval */}
-                      <div className="col-span-3 p-2.5 flex flex-col justify-between">
-                        <div>
-                          <span className="font-extrabold text-slate-500 uppercase text-[8px] tracking-wider block">CLIENT APPROVAL:</span>
-                          <div className="mt-0.5">{getStatusBadge(selectedCanvas.status)}</div>
-                        </div>
-                        <div className="mt-1 border-t border-slate-200 pt-1">
-                          <span className="font-bold text-slate-500 text-[9px] block uppercase">TYPE: {selectedCanvas.canvasType}</span>
-                        </div>
-                      </div>
-
-                      {/* Legal Disclaimer */}
-                      <div className="col-span-3 p-2.5 bg-slate-50 flex flex-col justify-between text-[8px] leading-tight text-slate-600">
-                        <p className="italic text-[8px] leading-tight text-slate-500">
-                          This design is the original and unpublished work of FBS SIGNS and may not be reproduced, copied or exhibited without express written permission.
-                        </p>
-                        <div className="pt-1 border-t border-slate-300 font-mono text-[8px] font-bold text-slate-800 flex justify-between">
-                          <span>SCALE: N.T.S.</span>
-                          <span>{new Date(selectedCanvas.updatedAt).toLocaleDateString()}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* PER-IMAGE APPROVAL WORKFLOW SECTION */}
-                <div className="space-y-6 pt-2">
-                  {hasSubImages ? (
-                    <>
-                      <div className="p-3.5 bg-indigo-50/80 border border-indigo-200 rounded-2xl flex items-center justify-between text-xs text-indigo-950 shadow-sm">
-                        <span className="font-bold flex items-center gap-2">
-                          <LayoutGrid size={16} className="text-indigo-600" /> Per-Image Review & Approval Workflow
-                        </span>
-                        <span className="text-[11px] text-indigo-700 font-medium">
-                          Review, approve, or request changes on each photo tile inside this collage below
-                        </span>
-                      </div>
-
-                      {/* SUB-IMAGE PHOTO TILES GRID */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-                        {selectedCanvas.diagramImages!.map((img, idx) => {
-                          const imgUrl = `${backendHost}${img.watermarkedImageUrl}`;
-                          const currentRemarkText = subImageRemarks[img.id] || "";
-                          const isSubmitting = submittingImageId === img.id;
-
-                          return (
-                            <div
-                              key={img.id}
-                              className={`border-2 rounded-xl p-3 bg-white shadow-xs space-y-2 flex flex-col justify-between transition ${
-                                img.status === "approved"
-                                  ? "border-emerald-400 bg-emerald-50/10 ring-1 ring-emerald-400/20"
-                                  : img.status === "changes_requested"
-                                  ? "border-amber-400 bg-amber-50/10 ring-1 ring-amber-400/20"
-                                  : "border-slate-200 hover:border-slate-300"
-                              }`}
-                            >
-                              <div className="space-y-2">
-                                {/* Photo Tile Header */}
-                                <div className="flex items-center justify-between gap-1 border-b border-slate-100 pb-1.5 min-w-0">
-                                  <span className="font-bold text-[11px] text-slate-800 truncate min-w-0" title={img.caption || `Photo #${idx + 1}`}>
-                                    Photo #{idx + 1}: {img.caption || `Tile ${idx + 1}`}
-                                  </span>
-                                  {getStatusBadge(img.status, true)}
-                                </div>
-
-                                {/* Photo Thumbnail Frame */}
-                                <div className="relative aspect-[4/3] bg-slate-100/70 rounded-lg overflow-hidden group border border-slate-200/80">
-                                  <img
-                                    src={imgUrl}
-                                    alt={img.caption || `Photo ${idx + 1}`}
-                                    className="w-full h-full object-contain"
-                                  />
-                                  <button
-                                    onClick={() => setZoomImage(imgUrl)}
-                                    className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold text-[10.5px] gap-1 backdrop-blur-[1px] cursor-pointer"
-                                  >
-                                    <ZoomIn size={13} /> Zoom
-                                  </button>
-                                </div>
-
-                                {/* Remarks for this sub-image tile */}
-                                {img.remarks && img.remarks.length > 0 && (
-                                  <div className="p-2 rounded-lg bg-slate-50 border border-slate-200/60 space-y-1">
-                                    <span className="text-[9.5px] font-extrabold text-slate-500 uppercase tracking-wide flex items-center gap-1">
-                                      <MessageSquare size={10} /> Photo Remarks ({img.remarks.length})
-                                    </span>
-                                    <div className="space-y-1 max-h-20 overflow-y-auto">
-                                      {img.remarks.map((r) => (
-                                        <div key={r.id} className="text-[10.5px] text-slate-700 border-t border-slate-200/50 pt-1">
-                                          <strong className="text-slate-800">{r.userName || "Client"}:</strong> "{r.remark}"
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-
-                              {/* Per-Photo Action Form */}
-                              <div className="space-y-1.5 border-t border-slate-100 pt-2 mt-1.5">
-                                <textarea
-                                  rows={1.5}
-                                  value={currentRemarkText}
-                                  onChange={(e) =>
-                                    setSubImageRemarks({ ...subImageRemarks, [img.id]: e.target.value })
-                                  }
-                                  placeholder={`Remarks for Photo #${idx + 1}...`}
-                                  className="w-full rounded-lg border border-slate-200 p-2 text-[10.5px] focus:outline-none focus:ring-1 focus:ring-indigo-500/30 focus:border-indigo-600 transition resize-none"
-                                />
-
-                                <div className="grid grid-cols-2 gap-1.5">
-                                  <button
-                                    disabled={isSubmitting}
-                                    onClick={() => handleImageAction(img.id, "changes_requested")}
-                                    className="w-full py-1.5 px-1 rounded-lg border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold text-[10px] transition flex items-center justify-center gap-1 cursor-pointer disabled:opacity-50"
-                                  >
-                                    {isSubmitting ? <Loader2 size={11} className="animate-spin" /> : <AlertCircle size={11} />}
-                                    Request Changes
-                                  </button>
-
-                                  <button
-                                    disabled={isSubmitting}
-                                    onClick={() => handleImageAction(img.id, "approved")}
-                                    className="w-full py-1.5 px-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] shadow-2xs transition flex items-center justify-center gap-1 cursor-pointer disabled:opacity-50"
-                                  >
-                                    {isSubmitting ? <Loader2 size={11} className="animate-spin" /> : <CheckCircle2 size={11} />}
-                                    Approve Photo
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </>
-                  ) : (
-                    /* SINGLE STANDALONE CANVAS REMARK FORM */
-                    <div className="space-y-4 pt-2">
-                      {/* Remarks History for Single Canvas */}
-                      {selectedCanvas.remarks && selectedCanvas.remarks.length > 0 && (
-                        <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                          <span className="text-xs font-extrabold text-slate-600 uppercase tracking-wide flex items-center gap-1.5">
-                            <MessageSquare size={14} className="text-indigo-600" /> Canvas Review Remarks ({selectedCanvas.remarks.length})
-                          </span>
-                          <div className="space-y-2 max-h-40 overflow-y-auto">
-                            {selectedCanvas.remarks.map((r) => (
-                              <div key={r.id} className="text-xs text-slate-700 border-t border-slate-200 pt-2">
-                                <strong className="text-slate-900">{r.userName || "Client"}:</strong> "{r.remark}"
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Single Canvas Review Controls */}
-                      <div className="p-4 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-sm">
-                        <span className="text-xs font-bold text-slate-800 block">Add Feedback & Submit Decision</span>
-                        <textarea
-                          rows={3}
-                          value={subImageRemarks[0] || ""}
-                          onChange={(e) => setSubImageRemarks({ ...subImageRemarks, 0: e.target.value })}
-                          placeholder="Type your feedback or required changes for this canvas proof..."
-                          className="w-full rounded-xl border border-slate-200 p-3 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition"
-                        />
-
-                        <div className="grid grid-cols-2 gap-3">
-                          <button
-                            disabled={submittingImageId === 0}
-                            onClick={() => handleImageAction(null, "changes_requested")}
-                            className="w-full py-2.5 rounded-xl border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold text-xs transition flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
-                          >
-                            {submittingImageId === 0 ? <Loader2 size={14} className="animate-spin" /> : <AlertCircle size={14} />}
-                            Request Changes
-                          </button>
-
-                          <button
-                            disabled={submittingImageId === 0}
-                            onClick={() => handleImageAction(null, "approved")}
-                            className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
-                          >
-                            {submittingImageId === 0 ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
-                            Approve Canvas Proof
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </>
-            ) : (
-              <div className="flex-1 flex flex-col items-center justify-center text-slate-400 py-12">
-                <FileImage size={40} className="mb-2" />
-                <p>No canvas selected</p>
-              </div>
-            )}
+      <div className="flex-1 max-w-[1280px] w-full mx-auto px-4 sm:px-6 py-5 sm:py-6 space-y-5">
+        {/* Project title */}
+        <div className="min-w-0">
+          <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 min-w-0">
+            <h1 className="text-2xl sm:text-[1.65rem] font-extrabold text-slate-900 tracking-tight truncate">
+              {project.name}
+            </h1>
+            <p className="text-xs sm:text-[13px] text-slate-500 truncate">
+              Client:{" "}
+              <strong className="text-slate-700 font-semibold">{project.clientName}</strong>
+              {project.clientEmail ? (
+                <span className="text-slate-400"> ({project.clientEmail})</span>
+              ) : null}
+              <span className="text-slate-300 mx-1.5">·</span>
+              Designer:{" "}
+              <strong className="text-slate-700 font-semibold">
+                {project.designerName || "Designer"}
+              </strong>
+            </p>
           </div>
         </div>
 
-        {/* Right Sidebar Column: Revision Activity & Remarks Audit */}
-        <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-5">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-              <History size={16} className="text-indigo-600" />
-              <h3 className="text-sm font-bold text-slate-900">Activity & Status History</h3>
+        {/* Main workspace: canvases left · overall feedback + history right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+          {/* LEFT — project canvases */}
+          <div className="lg:col-span-8 space-y-4">
+            <div className="rounded-2xl bg-white border border-slate-200/90 shadow-sm p-4 sm:p-5 space-y-4">
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="text-[11px] font-bold uppercase tracking-[0.08em] text-indigo-600">
+                  Project Canvases ({canvases.length})
+                </h3>
+                <p className="text-[11px] text-slate-400 font-medium">
+                  Review &amp; approve on each canvas
+                </p>
+              </div>
+
+              {canvases.length === 0 ? (
+                <div className="py-16 text-center text-slate-400 space-y-2 border border-dashed border-slate-200 rounded-2xl bg-slate-50/50">
+                  <FileImage size={40} className="mx-auto text-slate-300" />
+                  <p className="text-sm font-semibold text-slate-600">
+                    No canvases available for review
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {canvases.map((c) => {
+                    const thumb = c.latestVersion?.thumbnailUrl
+                      ? `${backendHost}${c.latestVersion.thumbnailUrl}`
+                      : "/placeholder.png";
+                    const isSelected = activeCanvas?.id === c.id;
+                    const isChangesReq = c.status === "changes_requested";
+                    const isDiagram = c.canvasType === "diagram";
+                    const isCollage = c.canvasType === "collage";
+                    const isComposite = isDiagram || isCollage;
+                    const tiles = c.diagramImages || [];
+                    const hasSubImages = tiles.length > 0;
+                    const { blueprint, photoTiles } = splitDiagramTiles(c);
+
+                    return (
+                      <div
+                        key={c.id}
+                        onClick={() => setSelectedCanvas(c)}
+                        className={`rounded-2xl border bg-white p-4 sm:p-5 space-y-4 transition cursor-pointer ${
+                          isSelected
+                            ? "border-indigo-300 shadow-[0_0_0_3px_rgba(99,102,241,0.12)]"
+                            : isChangesReq
+                              ? "border-amber-300 shadow-[0_0_0_3px_rgba(251,191,36,0.12)]"
+                              : "border-slate-200 hover:border-slate-300 hover:shadow-sm"
+                        }`}
+                      >
+                        {/* Canvas header */}
+                        <div className="flex items-start justify-between gap-3 flex-wrap">
+                          <div className="min-w-0 space-y-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <h4
+                                className="font-extrabold text-[15px] text-slate-900 truncate"
+                                title={c.name}
+                              >
+                                {c.name}
+                              </h4>
+                              {getCanvasTypeBadge(c.canvasType)}
+                              <span className="text-[11px] text-slate-400 font-mono font-semibold">
+                                v{c.latestVersion?.versionNumber || 1}
+                              </span>
+                            </div>
+                            <p className="text-[12px] text-slate-500">
+                              {isDiagram
+                                ? "Diagram proof (blueprint layout + photos composited together)"
+                                : isCollage
+                                  ? "Auto collage of photo tiles — review each photo separately"
+                                  : "Individual canvas proof"}
+                            </p>
+                          </div>
+                          <StatusBadge status={c.status} pendingLabel="pending" />
+                        </div>
+
+                        {/* Preview */}
+                        <div className="rounded-xl bg-[#eef2ff]/80 border border-indigo-100/80 p-2.5 sm:p-3">
+                          <div className="relative aspect-[16/10] max-h-[320px] bg-white rounded-lg overflow-hidden group border border-slate-100">
+                            <img
+                              src={thumb}
+                              alt={c.name}
+                              className={`w-full h-full ${
+                                isComposite ? "object-contain" : "object-cover"
+                              }`}
+                            />
+                            <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center backdrop-blur-[1px]">
+                              <Button
+                                variant="secondary"
+                                size="sm"
+                                className="bg-white/95 hover:bg-white shadow"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  openFullscreenProof(c);
+                                }}
+                              >
+                                <Maximize2 size={15} /> Fullscreen
+                              </Button>
+                            </div>
+                            <span className="absolute top-2.5 right-2.5 bg-slate-900/85 text-white text-[10px] font-mono font-bold px-2 py-0.5 rounded-md shadow">
+                              v{c.latestVersion?.versionNumber || 1}
+                            </span>
+                            {isDiagram && (
+                              <span className="absolute top-2.5 left-2.5 inline-flex items-center gap-1 rounded-full bg-white/95 text-indigo-700 border border-indigo-100 text-[10px] font-bold px-2 py-0.5 shadow-sm">
+                                <Layers size={11} /> Diagram Composite
+                              </span>
+                            )}
+                            {c.watermarkEnabled && (
+                              <span className="absolute bottom-2.5 left-2.5 inline-flex items-center rounded-full bg-violet-100 text-violet-800 border border-violet-200 text-[9px] font-bold px-2 py-0.5 uppercase tracking-wide">
+                                Watermarked
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Diagram info + components (overall approve lives in right sidebar) */}
+                        {isDiagram && hasSubImages ? (
+                          <div className="space-y-4" onClick={(e) => e.stopPropagation()}>
+                            <div className="p-3 rounded-xl bg-indigo-50/80 border border-indigo-100 text-xs text-indigo-950 space-y-1">
+                              <span className="font-bold flex items-center gap-1.5 text-indigo-800">
+                                <Layers size={14} className="text-indigo-600" /> Diagram review
+                              </span>
+                              <p className="text-[11px] text-indigo-800/90 leading-relaxed">
+                                This proof includes a <strong>diagram blueprint</strong> (layout
+                                reference) plus photo tiles. Use{" "}
+                                <strong>Overall Feedback</strong> on the right for the full proof,
+                                and request changes on individual photos when needed.
+                              </p>
+                            </div>
+
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between gap-2 flex-wrap text-xs">
+                                <span className="font-bold text-indigo-900 flex items-center gap-1.5">
+                                  <Layers size={14} /> Diagram components
+                                </span>
+                                <span className="text-[11px] text-slate-500">
+                                  {blueprint ? "1 blueprint" : "No blueprint"} · {photoTiles.length}{" "}
+                                  photo{photoTiles.length === 1 ? "" : "s"}
+                                </span>
+                              </div>
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {blueprint &&
+                                  renderTileReviewCard(c, blueprint, "Blueprint", {
+                                    isBlueprint: true,
+                                  })}
+                                {photoTiles.map((img, idx) =>
+                                  renderTileReviewCard(
+                                    c,
+                                    img,
+                                    `Photo #${idx + 1}: ${img.caption || `Tile ${idx + 1}`}`,
+                                  ),
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ) : isCollage && hasSubImages ? (
+                          <div className="space-y-3" onClick={(e) => e.stopPropagation()}>
+                            <div className="flex items-center justify-between gap-2 flex-wrap text-xs">
+                              <span className="font-bold text-violet-800 flex items-center gap-1.5">
+                                <LayoutGrid size={14} className="text-violet-600" /> Collage photo
+                                review
+                              </span>
+                              <span className="text-[11px] text-slate-500">
+                                Approve or request changes on each photo
+                              </span>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              {tiles.map((img, idx) =>
+                                renderTileReviewCard(
+                                  c,
+                                  img,
+                                  `Photo #${idx + 1}: ${img.caption || `Tile ${idx + 1}`}`,
+                                ),
+                              )}
+                            </div>
+                          </div>
+                        ) : null}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* RIGHT — Overall Feedback + Activity */}
+          <div className="lg:col-span-4 space-y-4 sticky top-[4.25rem]">
+            {/* Overall Feedback card */}
+            <div className="rounded-2xl bg-white border border-slate-200/90 shadow-sm p-4 sm:p-5 space-y-3">
+              <div>
+                <h3 className="text-sm font-extrabold text-slate-900">Overall Feedback</h3>
+                <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">
+                  {activeCanvas?.canvasType === "diagram"
+                    ? "Overall feedback for this diagram proof (layout, placement, specs)..."
+                    : "Share feedback or approve this canvas proof as a whole."}
+                </p>
+              </div>
+
+              {activeCanvas?.latestVersion ? (
+                <>
+                  <Textarea
+                    rows={3}
+                    value={subImageRemarks[activeRemarkKey] || ""}
+                    onChange={(e) =>
+                      setSubImageRemarks({
+                        ...subImageRemarks,
+                        [activeRemarkKey]: e.target.value,
+                      })
+                    }
+                    placeholder={overallPlaceholder}
+                    className="w-full rounded-xl border border-slate-200 p-3 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition resize-none bg-white"
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button
+                      type="button"
+                      disabled={isSubmittingOverall}
+                      className="h-10 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 shadow-none rounded-full"
+                      onClick={() =>
+                        handleImageAction(
+                          activeCanvas,
+                          null,
+                          "changes_requested",
+                          activeRemarkKey,
+                        )
+                      }
+                    >
+                      {isSubmittingOverall ? (
+                        <Loader2 size={14} className="animate-spin" />
+                      ) : (
+                        <AlertCircle size={14} />
+                      )}
+                      Request Changes
+                    </Button>
+                    <Button
+                      type="button"
+                      disabled={isSubmittingOverall}
+                      className="h-10 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm rounded-full"
+                      onClick={() =>
+                        handleImageAction(activeCanvas, null, "approved", activeRemarkKey)
+                      }
+                    >
+                      {isSubmittingOverall ? (
+                        <Loader2 size={14} className="animate-spin" />
+                      ) : (
+                        <CheckCircle2 size={14} />
+                      )}
+                      Approve
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <p className="text-xs text-slate-400 italic py-2">
+                  Select a canvas to leave overall feedback.
+                </p>
+              )}
             </div>
 
-            {selectedCanvas && (
-              <div className="space-y-4">
-                <div className="relative border-l-2 border-slate-200 ml-3 pl-4 space-y-4">
-                  {selectedCanvas.history && selectedCanvas.history.length > 0 ? (
-                    selectedCanvas.history.map((h) => (
-                      <div key={h.id} className="relative">
-                        <div className="absolute -left-[23px] top-1 w-3.5 h-3.5 rounded-full bg-indigo-600 border-2 border-white" />
-                        <p className="text-xs font-bold text-slate-800">{h.newStatus.replace("_", " ").toUpperCase()}</p>
-                        <p className="text-xs text-slate-500">{h.note}</p>
-                        <span className="text-[10px] text-slate-400">
-                          {new Date(h.createdAt).toLocaleString()} • {h.actorName}
-                        </span>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-xs text-slate-400 italic">No status activity recorded yet.</p>
-                  )}
-                </div>
+            {/* Activity & Status History */}
+            <div className="rounded-2xl bg-white border border-slate-200/90 shadow-sm p-4 sm:p-5 space-y-4">
+              <div className="flex items-center gap-2">
+                <History size={15} className="text-slate-400" />
+                <h3 className="text-sm font-extrabold text-slate-900">
+                  Activity &amp; Status History
+                </h3>
               </div>
-            )}
+
+              {activeCanvas ? (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between gap-2 pb-1">
+                    <p
+                      className="text-[13px] font-bold text-slate-800 truncate"
+                      title={activeCanvas.name}
+                    >
+                      {activeCanvas.name}
+                    </p>
+                    <StatusBadge
+                      status={activeCanvas.status}
+                      compact
+                      pendingLabel="pending"
+                    />
+                  </div>
+
+                  <div className="relative pl-1">
+                    {activeCanvas.history && activeCanvas.history.length > 0 ? (
+                      <div className="space-y-0">
+                        {[...activeCanvas.history].reverse().map((h, idx, arr) => (
+                          <div key={h.id} className="relative flex gap-3 pb-5 last:pb-0">
+                            {idx < arr.length - 1 && (
+                              <div className="absolute left-[7px] top-4 bottom-0 w-px bg-slate-200" />
+                            )}
+                            <div
+                              className={`relative z-10 mt-1 w-[15px] h-[15px] rounded-full border-2 border-white shadow-sm flex-shrink-0 ${historyDotClass(h.newStatus)}`}
+                            />
+                            <div className="min-w-0 flex-1 -mt-0.5">
+                              <p
+                                className={`text-[13px] font-bold capitalize ${historyTitleClass(h.newStatus)}`}
+                              >
+                                {h.newStatus.replace(/_/g, " ")}
+                              </p>
+                              {h.note && (
+                                <div className="mt-1.5 rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-1.5 text-[12px] text-slate-600 leading-snug">
+                                  {h.note}
+                                </div>
+                              )}
+                              <p className="text-[11px] text-slate-400 mt-1">
+                                {new Date(h.createdAt).toLocaleString()} ·{" "}
+                                {h.actorName || "System"}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-slate-400 italic py-3">
+                        No status activity recorded yet.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <p className="text-xs text-slate-400 italic py-4 text-center">
+                  Select a canvas to view its activity.
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Fullscreen Lightbox Modal */}
-      {zoomImage && (
-        <div className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
-          <button
-            onClick={() => setZoomImage(null)}
-            className="absolute top-5 right-5 text-white bg-slate-800 hover:bg-slate-700 p-2.5 rounded-full transition cursor-pointer"
+      {/* Fullscreen proof sheet */}
+      {fullscreenCanvas && (
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setFullscreenCanvas(null);
+          }}
+          className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 sm:p-6 overflow-y-auto"
+        >
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={() => setFullscreenCanvas(null)}
+            className="fixed top-5 right-5 z-50 bg-slate-800/90 hover:bg-slate-700 text-white border-slate-700 rounded-full h-11 w-11"
           >
-            <X size={20} />
-          </button>
-          <img src={zoomImage} alt="Fullscreen View" className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-2xl" />
+            <X size={22} />
+          </Button>
+
+          <div className="bg-white border-4 border-slate-900 rounded-2xl shadow-2xl max-w-6xl w-full flex flex-col overflow-hidden my-auto">
+            <div className="relative bg-slate-100 p-4 sm:p-5 flex items-center justify-center min-h-[420px] max-h-[75vh] overflow-hidden">
+              <img
+                src={fullscreenCanvas.url}
+                alt={fullscreenCanvas.name}
+                className="w-full h-full max-h-[70vh] object-contain rounded shadow-lg"
+              />
+              <span className="absolute top-4 right-4 bg-slate-900/90 text-white text-xs font-mono font-bold px-3 py-1 rounded-md backdrop-blur-sm shadow">
+                PROOF SHEET V{fullscreenCanvas.version}
+              </span>
+            </div>
+
+            <div className="border-t-4 border-slate-900 bg-white">
+              <div className="grid grid-cols-12 border-b-2 border-slate-800 text-xs divide-x-2 divide-slate-800 font-sans">
+                <div className="col-span-3 p-3 bg-slate-50 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-1.5 font-black text-slate-900 tracking-tight text-sm">
+                      <span className="bg-amber-400 text-slate-950 px-1.5 py-0.5 rounded text-xs">
+                        FBS
+                      </span>
+                      SIGNS &amp; PRINTING
+                    </div>
+                    <p className="text-[10px] font-bold text-slate-600 mt-1.5 leading-tight uppercase">
+                      750 WARRENVILLE RD
+                      <br />
+                      LISLE, IL 60532
+                    </p>
+                  </div>
+                  <p className="text-[10px] font-mono text-indigo-700 font-bold mt-2">
+                    WWW.FBSSIGNS.COM
+                  </p>
+                </div>
+
+                <div className="col-span-3 p-3 flex flex-col justify-between">
+                  <div>
+                    <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">
+                      PROJECT NAME:
+                    </span>
+                    <span
+                      className="font-black text-slate-900 text-sm block truncate"
+                      title={fullscreenCanvas.projectName}
+                    >
+                      {fullscreenCanvas.projectName || "PROJECT PROOF"}
+                    </span>
+                  </div>
+                  <div className="mt-2">
+                    <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">
+                      CANVAS TITLE:
+                    </span>
+                    <span
+                      className="font-bold text-indigo-900 text-xs block truncate"
+                      title={fullscreenCanvas.name}
+                    >
+                      {fullscreenCanvas.name}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="col-span-3 p-3 flex flex-col justify-between">
+                  <div>
+                    <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">
+                      CLIENT APPROVAL STATUS:
+                    </span>
+                    <div className="mt-1">
+                      <StatusBadge
+                        status={fullscreenCanvas.status || "pending"}
+                        pendingLabel="pending"
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-2 border-t border-slate-200 pt-1">
+                    <span className="font-bold text-slate-500 text-[10px] block uppercase">
+                      TYPE: {fullscreenCanvas.canvasType || "INDIVIDUAL"}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="col-span-3 p-3 bg-slate-50 flex flex-col justify-between text-[9px] leading-tight text-slate-600">
+                  <p className="italic text-[9px] leading-tight text-slate-500">
+                    This design is the original and unpublished work of FBS SIGNS and may not be
+                    reproduced, copied or exhibited in any fashion without express written
+                    permission.
+                  </p>
+                  <div className="pt-2 border-t border-slate-300 font-mono text-[9px] font-bold text-slate-800 flex justify-between">
+                    <span>SCALE: N.T.S.</span>
+                    <span>
+                      DATE: {fullscreenCanvas.date || new Date().toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

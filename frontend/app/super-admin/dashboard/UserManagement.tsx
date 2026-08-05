@@ -5,6 +5,7 @@ import { Edit, Plus, RefreshCw, ShieldCheck, Trash2 } from "lucide-react";
 import { ROLE_LABELS } from "@/app/lib/auth/roles";
 import type { AuthRole, AuthUser, UserPayload } from "@/app/lib/auth/types";
 import { authApi } from "@/app/lib/client/auth-api";
+import { Button, Card, Input, Label, Select, Badge } from "@/app/Components/ui";
 
 type UserFormState = {
   id?: number;
@@ -173,7 +174,7 @@ export function UserManagement({
 
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(320px,380px)_1fr]">
-      <section className="rounded-lg border border-black/10 bg-white p-5 shadow-sm">
+      <Card className="p-5 shadow-sm">
         <div className="mb-4 flex items-center gap-2">
           <ShieldCheck className="text-primary" size={22} />
           <h2 className="text-lg font-bold text-primary-dark">
@@ -182,71 +183,71 @@ export function UserManagement({
         </div>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
-          <label className="block">
-            <span className="text-sm font-medium text-primary-dark">Name</span>
-            <input
+          <div className="space-y-1.5">
+            <Label>Name</Label>
+            <Input
               value={form.name}
               onChange={(event) => setForm({ ...form, name: event.target.value })}
-              className="mt-1 min-h-11 w-full rounded-md border border-black/15 px-3 outline-none focus:border-primary"
+              className="h-11 text-sm"
               required
             />
-          </label>
+          </div>
 
-          <label className="block">
-            <span className="text-sm font-medium text-primary-dark">Email</span>
-            <input
+          <div className="space-y-1.5">
+            <Label>Email</Label>
+            <Input
               type="email"
               value={form.email}
               onChange={(event) => setForm({ ...form, email: event.target.value })}
-              className="mt-1 min-h-11 w-full rounded-md border border-black/15 px-3 outline-none focus:border-primary"
+              className="h-11 text-sm"
               required
             />
-          </label>
+          </div>
 
-          <label className="block">
-            <span className="text-sm font-medium text-primary-dark">Role</span>
-            <select
+          <div className="space-y-1.5">
+            <Label>Role</Label>
+            <Select
               value={form.role}
               onChange={(event) =>
                 setForm({ ...form, role: event.target.value as AuthRole })
               }
-              className="mt-1 min-h-11 w-full rounded-md border border-black/15 px-3 outline-none focus:border-primary"
+              className="h-11 text-sm"
             >
               <option value="designer">{ROLE_LABELS.designer}</option>
               <option value="user">{ROLE_LABELS.user}</option>
               {canManageSuperAdmins ? (
                 <option value="super_admin">{ROLE_LABELS.super_admin}</option>
               ) : null}
-            </select>
-          </label>
+            </Select>
+          </div>
 
-          <label className="block">
-            <span className="text-sm font-medium text-primary-dark">
+          <div className="space-y-1.5">
+            <Label>
               Password{form.id ? " (leave blank to keep current)" : ""}
-            </span>
-            <input
+            </Label>
+            <Input
               type="password"
               value={form.password}
               onChange={(event) =>
                 setForm({ ...form, password: event.target.value })
               }
-              className="mt-1 min-h-11 w-full rounded-md border border-black/15 px-3 outline-none focus:border-primary"
+              className="h-11 text-sm"
               required={!form.id}
               autoComplete="new-password"
             />
-          </label>
+          </div>
 
-          <label className="flex items-center gap-3 text-sm font-medium text-primary-dark">
-            <input
+          <Label className="flex items-center gap-3 font-medium cursor-pointer">
+            <Input
               type="checkbox"
               checked={form.isActive}
               onChange={(event) =>
                 setForm({ ...form, isActive: event.target.checked })
               }
-              className="h-4 w-4 accent-primary"
+              className="h-4 w-4 accent-primary shadow-none border-slate-300"
             />
             Active account
-          </label>
+          </Label>
 
           {editingUser ? (
             <p className="text-xs text-primary-dark/60">
@@ -255,55 +256,47 @@ export function UserManagement({
           ) : null}
 
           {error ? (
-            <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
+            <p className="rounded-xl bg-red-50 border border-red-100 px-3 py-2 text-sm text-red-700">
               {error}
             </p>
           ) : null}
 
           {notice ? (
-            <p className="rounded-md bg-green-50 px-3 py-2 text-sm text-green-700">
+            <p className="rounded-xl bg-green-50 border border-green-100 px-3 py-2 text-sm text-green-700">
               {notice}
             </p>
           ) : null}
 
           <div className="flex gap-2">
-            <button
+            <Button
               type="submit"
               disabled={isSaving}
-              className="inline-flex min-h-10 flex-1 items-center justify-center gap-2 rounded-md bg-primary px-3 text-sm font-semibold text-white transition hover:bg-primary/90 disabled:opacity-60"
+              className="flex-1 h-10 bg-primary hover:bg-primary/90 text-sm"
             >
               <Plus size={17} />
               {isSaving ? "Saving..." : form.id ? "Save" : "Create"}
-            </button>
+            </Button>
             {form.id ? (
-              <button
-                type="button"
-                onClick={resetForm}
-                className="min-h-10 rounded-md border border-black/15 px-3 text-sm font-semibold text-primary-dark transition hover:bg-black/5"
-              >
+              <Button type="button" variant="outline" onClick={resetForm} className="h-10 text-sm">
                 Cancel
-              </button>
+              </Button>
             ) : null}
           </div>
         </form>
-      </section>
+      </Card>
 
-      <section className="overflow-hidden rounded-lg border border-black/10 bg-white shadow-sm">
-        <div className="flex items-center justify-between gap-4 border-b border-black/10 p-5">
+      <Card className="overflow-hidden shadow-sm p-0">
+        <div className="flex items-center justify-between gap-4 border-b border-slate-100 p-5">
           <div>
             <h2 className="text-lg font-bold text-primary-dark">All Users</h2>
             <p className="text-sm text-primary-dark/60">
               Manage account access, roles, and status.
             </p>
           </div>
-          <button
-            type="button"
-            onClick={() => void loadUsers()}
-            className="inline-flex min-h-10 items-center gap-2 rounded-md border border-black/15 px-3 text-sm font-semibold text-primary-dark transition hover:bg-black/5"
-          >
+          <Button type="button" variant="outline" onClick={() => void loadUsers()}>
             <RefreshCw size={17} />
             Refresh
-          </button>
+          </Button>
         </div>
 
         <div className="overflow-x-auto">
@@ -343,32 +336,30 @@ export function UserManagement({
                         .join(", ")}
                     </td>
                     <td className="px-5 py-4">
-                      <span
-                        className={`rounded-full px-2 py-1 text-xs font-semibold ${
-                          user.isActive
-                            ? "bg-green-50 text-green-700"
-                            : "bg-black/5 text-primary-dark/60"
-                        }`}
-                      >
+                      <Badge variant={user.isActive ? "success" : "secondary"}>
                         {user.isActive ? "Active" : "Inactive"}
-                      </span>
+                      </Badge>
                     </td>
                     <td className="px-5 py-4">
                       <div className="flex flex-wrap gap-2">
-                        <button
+                        <Button
                           type="button"
+                          variant="outline"
+                          size="sm"
                           onClick={() => startEdit(user)}
                           disabled={
                             user.roles.includes("super_admin") &&
                             !canManageSuperAdmins
                           }
-                          className="inline-flex min-h-9 items-center gap-2 rounded-md border border-black/15 px-2 text-xs font-semibold text-primary-dark transition hover:bg-black/5 cursor-pointer"
                         >
                           <Edit size={15} />
                           Edit
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                           type="button"
+                          size="sm"
+                          variant="secondary"
+                          className="border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
                           onClick={async () => {
                             const newPass = window.prompt(`Set new password for ${user.email}:`);
                             if (!newPass) return;
@@ -383,35 +374,37 @@ export function UserManagement({
                             user.roles.includes("super_admin") &&
                             !canManageSuperAdmins
                           }
-                          className="inline-flex min-h-9 items-center gap-1 rounded-md border border-indigo-200 bg-indigo-50 px-2 text-xs font-semibold text-indigo-700 transition hover:bg-indigo-100 cursor-pointer disabled:opacity-50"
                         >
                           Reset Pass
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                           type="button"
+                          variant="outline"
+                          size="sm"
                           onClick={() => void toggleActive(user)}
                           disabled={
                             (user.id === currentUserId && user.isActive) ||
                             (user.roles.includes("super_admin") &&
                               !canManageSuperAdmins)
                           }
-                          className="min-h-9 rounded-md border border-black/15 px-2 text-xs font-semibold text-primary-dark transition hover:bg-black/5 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           {user.isActive ? "Deactivate" : "Activate"}
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                           type="button"
+                          variant="destructive"
+                          size="sm"
+                          className="border border-red-200"
                           onClick={() => void removeUser(user)}
                           disabled={
                             user.id === currentUserId ||
                             (user.roles.includes("super_admin") &&
                               !canManageSuperAdmins)
                           }
-                          className="inline-flex min-h-9 items-center gap-2 rounded-md border border-red-200 px-2 text-xs font-semibold text-red-700 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           <Trash2 size={15} />
                           Delete
-                        </button>
+                        </Button>
                       </div>
                     </td>
                   </tr>
@@ -420,7 +413,7 @@ export function UserManagement({
             </tbody>
           </table>
         </div>
-      </section>
+      </Card>
     </div>
   );
 }

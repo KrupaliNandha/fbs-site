@@ -2,6 +2,20 @@ import { query, execute, withTransaction, ensureCanvasCollageSchema } from "../d
 import type { RowDataPacket, ResultSetHeader } from "mysql2/promise";
 import { deleteUploadFilesByUrls } from "./watermark.js";
 
+/** mysql2 may return JSON columns as already-parsed objects or as strings */
+function parseJsonField(value: unknown): Record<string, unknown> | null {
+  if (value == null || value === "") return null;
+  if (typeof value === "object") return value as Record<string, unknown>;
+  if (typeof value === "string") {
+    try {
+      return JSON.parse(value) as Record<string, unknown>;
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
 export type CanvasVersionRecord = {
   id: number;
   canvasId: number;
@@ -70,16 +84,48 @@ export type CanvasRecord = {
   diagramImages?: DiagramImageRecord[];
 };
 
-export async function listProjectCanvases(projectId: number): Promise<CanvasRecord[]> {
+export type ListProjectCanvasesOptions = {
+  /** Include canvas_status_history (used by client review Activity panel). Default false for dashboards. */
+  includeHistory?: boolean;
+};
+
+/**
+ * Load canvases for a project with latest version + remarks + diagram tiles.
+ * Optimized for high-latency remote MySQL:
+ *  - one joined query for canvases + latest version (avoids loading full version history)
+ *  - one parallel round-trip for remarks + diagram images (+ optional history)
+ */
+export async function listProjectCanvases(
+  projectId: number,
+  options: ListProjectCanvasesOptions = {},
+): Promise<CanvasRecord[]> {
+  const includeHistory = options.includeHistory === true;
+  // Single round-trip: canvases + latest version only (not all revisions)
+  // Derived max-version join is cheaper on remote MySQL than a correlated subquery.
   const [canvasRows] = await query<RowDataPacket[]>(
     `
-      SELECT 
-        id, project_id, name, canvas_type, diagram_template_id,
-        watermark_enabled, watermark_text, status, created_by,
-        created_at, updated_at
-      FROM canvases
-      WHERE project_id = ?
-      ORDER BY id ASC
+      SELECT
+        c.id, c.project_id, c.name, c.canvas_type, c.diagram_template_id,
+        c.watermark_enabled, c.watermark_text, c.status, c.created_by,
+        c.created_at, c.updated_at,
+        lv.id AS version_id,
+        lv.version_number,
+        lv.original_image_url,
+        lv.watermarked_image_url,
+        lv.thumbnail_url,
+        lv.metadata AS version_metadata,
+        lv.uploaded_by,
+        lv.created_at AS version_created_at
+      FROM canvases c
+      LEFT JOIN (
+        SELECT canvas_id, MAX(version_number) AS max_ver
+        FROM canvas_versions
+        GROUP BY canvas_id
+      ) latest ON latest.canvas_id = c.id
+      LEFT JOIN canvas_versions lv
+        ON lv.canvas_id = c.id AND lv.version_number = latest.max_ver
+      WHERE c.project_id = ?
+      ORDER BY c.id ASC
     `,
     [projectId],
   );
@@ -88,52 +134,41 @@ export async function listProjectCanvases(projectId: number): Promise<CanvasReco
 
   const canvasIds = canvasRows.map((r) => Number(r.id));
   const placeholders = canvasIds.map(() => "?").join(",");
+  const latestVersionIds = canvasRows
+    .map((r) => (r.version_id != null ? Number(r.version_id) : null))
+    .filter((id): id is number => id != null);
 
-  const [
-    [versionRows],
-    [remarkRows],
-    [diagRows],
-    [historyRows]
-  ] = await Promise.all([
-    query<RowDataPacket[]>(
-      `SELECT id, canvas_id, version_number, original_image_url, watermarked_image_url, thumbnail_url, metadata, uploaded_by, created_at
-       FROM canvas_versions WHERE canvas_id IN (${placeholders}) ORDER BY version_number DESC`,
-      canvasIds
-    ),
-    query<RowDataPacket[]>(
-      `SELECT id, canvas_id, version_id, image_id, user_id, user_name, remark, status_action, created_at
-       FROM canvas_remarks WHERE canvas_id IN (${placeholders}) ORDER BY id DESC`,
-      canvasIds
-    ),
-    query<RowDataPacket[]>(
-      `SELECT id, canvas_id, version_id, original_image_url, watermarked_image_url, thumbnail_url, caption, status, sort_order, created_at
-       FROM diagram_images WHERE canvas_id IN (${placeholders}) ORDER BY sort_order ASC, id ASC`,
-      canvasIds
-    ),
-    query<RowDataPacket[]>(
-      `SELECT id, canvas_id, actor_user_id, actor_name, old_status, new_status, note, created_at
-       FROM canvas_status_history WHERE canvas_id IN (${placeholders}) ORDER BY id ASC`,
-      canvasIds
-    )
+  // Second round-trip only: remarks + diagram tiles for latest versions
+  const remarksPromise = query<RowDataPacket[]>(
+    `SELECT id, canvas_id, version_id, image_id, user_id, user_name, remark, status_action, created_at
+     FROM canvas_remarks WHERE canvas_id IN (${placeholders}) ORDER BY id DESC`,
+    canvasIds,
+  );
+
+  const diagPromise =
+    latestVersionIds.length > 0
+      ? query<RowDataPacket[]>(
+          `SELECT id, canvas_id, version_id, original_image_url, watermarked_image_url, thumbnail_url, caption, status, sort_order, created_at
+           FROM diagram_images
+           WHERE canvas_id IN (${placeholders}) AND version_id IN (${latestVersionIds.map(() => "?").join(",")})
+           ORDER BY sort_order ASC, id ASC`,
+          [...canvasIds, ...latestVersionIds],
+        )
+      : Promise.resolve([[] as RowDataPacket[], []] as Awaited<ReturnType<typeof query<RowDataPacket[]>>>);
+
+  const historyPromise = includeHistory
+    ? query<RowDataPacket[]>(
+        `SELECT id, canvas_id, actor_user_id, actor_name, old_status, new_status, note, created_at
+         FROM canvas_status_history WHERE canvas_id IN (${placeholders}) ORDER BY id ASC`,
+        canvasIds,
+      )
+    : Promise.resolve([[] as RowDataPacket[], []] as Awaited<ReturnType<typeof query<RowDataPacket[]>>>);
+
+  const [[remarkRows], [diagRows], [historyRows]] = await Promise.all([
+    remarksPromise,
+    diagPromise,
+    historyPromise,
   ]);
-
-  // Group versions by canvas_id
-  const versionsByCanvas: Record<number, CanvasVersionRecord[]> = {};
-  for (const v of versionRows) {
-    const cid = Number(v.canvas_id);
-    if (!versionsByCanvas[cid]) versionsByCanvas[cid] = [];
-    versionsByCanvas[cid].push({
-      id: Number(v.id),
-      canvasId: cid,
-      versionNumber: Number(v.version_number),
-      originalImageUrl: String(v.original_image_url),
-      watermarkedImageUrl: String(v.watermarked_image_url),
-      thumbnailUrl: String(v.thumbnail_url),
-      metadata: v.metadata ? JSON.parse(String(v.metadata)) : null,
-      uploadedBy: Number(v.uploaded_by),
-      createdAt: new Date(v.created_at).toISOString(),
-    });
-  }
 
   // Group remarks by canvas_id
   const remarksByCanvas: Record<number, CanvasRemarkRecord[]> = {};
@@ -197,10 +232,25 @@ export async function listProjectCanvases(projectId: number): Promise<CanvasReco
 
   return canvasRows.map((row) => {
     const canvasId = Number(row.id);
-    const versions = versionsByCanvas[canvasId] || [];
     const remarks = remarksByCanvas[canvasId] || [];
     const history = historyByCanvas[canvasId] || [];
-    const latestVersion = versions[0];
+
+    let latestVersion: CanvasVersionRecord | undefined;
+    if (row.version_id != null) {
+      latestVersion = {
+        id: Number(row.version_id),
+        canvasId,
+        versionNumber: Number(row.version_number),
+        originalImageUrl: String(row.original_image_url || ""),
+        watermarkedImageUrl: String(row.watermarked_image_url || ""),
+        thumbnailUrl: String(row.thumbnail_url || ""),
+        metadata: parseJsonField(row.version_metadata),
+        uploadedBy: Number(row.uploaded_by || 0),
+        createdAt: row.version_created_at
+          ? new Date(row.version_created_at).toISOString()
+          : new Date().toISOString(),
+      };
+    }
 
     const diagramImages = latestVersion
       ? diagramImagesByCanvasVersion[`${canvasId}_${latestVersion.id}`] || []
@@ -219,7 +269,8 @@ export async function listProjectCanvases(projectId: number): Promise<CanvasReco
       createdAt: new Date(row.created_at).toISOString(),
       updatedAt: new Date(row.updated_at).toISOString(),
       latestVersion,
-      versions,
+      // Keep array for API compatibility; only latest is loaded (full history not needed by dashboards)
+      versions: latestVersion ? [latestVersion] : [],
       remarks,
       history,
       diagramImages,
@@ -585,6 +636,101 @@ export async function updateCanvasInfo(
   }
 }
 
+/**
+ * Create a new canvas version (V+1) for a designer edit and reassign
+ * all diagram tiles from the current version to the new one so the
+ * proof sheet version badge updates and history is preserved.
+ */
+async function bumpCanvasVersionForEdit(
+  connection: {
+    execute: <T = any>(sql: string, params?: any[]) => Promise<[T, any]>;
+  },
+  canvasId: number,
+  currentVersionId: number,
+  uploadedBy: number | null,
+  note: string,
+): Promise<{ newVersionId: number; nextVer: number }> {
+  const [verRows] = await connection.execute<RowDataPacket[]>(
+    `SELECT MAX(version_number) AS max_ver FROM canvas_versions WHERE canvas_id = ?`,
+    [canvasId],
+  );
+  const nextVer = Number(verRows[0]?.max_ver || 0) + 1;
+
+  const [curRows] = await connection.execute<RowDataPacket[]>(
+    `SELECT original_image_url, watermarked_image_url, thumbnail_url FROM canvas_versions WHERE id = ?`,
+    [currentVersionId],
+  );
+  const cur = curRows[0] || {};
+
+  const [insertResult] = await connection.execute<ResultSetHeader>(
+    `
+      INSERT INTO canvas_versions (
+        canvas_id, version_number, original_image_url,
+        watermarked_image_url, thumbnail_url, metadata, uploaded_by
+      ) VALUES (?, ?, ?, ?, ?, ?, ?)
+    `,
+    [
+      canvasId,
+      nextVer,
+      cur.original_image_url || "",
+      cur.watermarked_image_url || "",
+      cur.thumbnail_url || "",
+      JSON.stringify({ note }),
+      uploadedBy,
+    ],
+  );
+  const newVersionId = Number(insertResult.insertId);
+
+  // Move all photo tiles to the new version (image IDs stay the same so remarks still attach)
+  await connection.execute(
+    `UPDATE diagram_images SET version_id = ? WHERE canvas_id = ? AND version_id = ?`,
+    [newVersionId, canvasId, currentVersionId],
+  );
+
+  const [canvasRows] = await connection.execute(
+    `SELECT status FROM canvases WHERE id = ?`,
+    [canvasId],
+  );
+  const oldStatus = String(canvasRows[0]?.status || "pending_review");
+
+  await connection.execute(
+    `UPDATE canvases SET status = 'pending_review', updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
+    [canvasId],
+  );
+
+  await connection.execute(
+    `
+      INSERT INTO canvas_status_history (
+        canvas_id, actor_user_id, actor_name, old_status, new_status, note
+      ) VALUES (?, ?, 'Designer', ?, 'pending_review', ?)
+    `,
+    [canvasId, uploadedBy, oldStatus, `Uploaded Revision V${nextVer} — ${note}`],
+  );
+
+  // Keep parent project status in sync (e.g. leave changes_requested → in_review)
+  const [projRow] = await connection.execute<RowDataPacket[]>(
+    `SELECT project_id FROM canvases WHERE id = ?`,
+    [canvasId],
+  );
+  const projectId = Number(projRow[0]?.project_id);
+  if (projectId) {
+    const [allC] = await connection.execute<RowDataPacket[]>(
+      `SELECT status FROM canvases WHERE project_id = ?`,
+      [projectId],
+    );
+    const projStatuses = allC.map((r) => String(r.status));
+    let overall: "pending" | "in_review" | "changes_requested" | "approved" = "in_review";
+    if (projStatuses.length > 0 && projStatuses.every((s) => s === "approved")) {
+      overall = "approved";
+    } else if (projStatuses.some((s) => s === "changes_requested")) {
+      overall = "changes_requested";
+    }
+    await connection.execute(`UPDATE projects SET status = ? WHERE id = ?`, [overall, projectId]);
+  }
+
+  return { newVersionId, nextVer };
+}
+
 export async function updateCanvasSubImage(
   imageId: number,
   data: {
@@ -592,8 +738,9 @@ export async function updateCanvasSubImage(
     watermarkedImageUrl?: string;
     thumbnailUrl?: string;
     caption?: string;
+    uploadedBy?: number | null;
   },
-): Promise<void> {
+): Promise<{ canvasId: number; versionId: number }> {
   return withTransaction(async (connection) => {
     // 1. Get current image row info
     const [imgRows] = await connection.execute<RowDataPacket[]>(
@@ -601,10 +748,30 @@ export async function updateCanvasSubImage(
       [imageId],
     );
     if (imgRows.length === 0) throw new Error("Sub-image tile not found.");
-    const { canvas_id: canvasId, version_id: versionId } = imgRows[0];
+    let canvasId = Number(imgRows[0].canvas_id);
+    let versionId = Number(imgRows[0].version_id);
 
-    const updates: string[] = ["status = 'pending_review'"];
+    const fileReplaced = Boolean(data.originalImageUrl || data.watermarkedImageUrl);
+
+    // 2. Designer replaced a tile → bump proof version (V1 → V2 …)
+    if (fileReplaced) {
+      const bumped = await bumpCanvasVersionForEdit(
+        connection,
+        canvasId,
+        versionId,
+        data.uploadedBy ?? null,
+        "Replaced photo tile",
+      );
+      versionId = bumped.newVersionId;
+    }
+
+    // 3. Apply tile updates. File replace always clears changes_requested highlight.
+    const updates: string[] = [];
     const params: any[] = [];
+
+    if (fileReplaced) {
+      updates.push("status = 'pending_review'");
+    }
 
     if (data.originalImageUrl) {
       updates.push("original_image_url = ?");
@@ -623,23 +790,51 @@ export async function updateCanvasSubImage(
       params.push(data.caption);
     }
 
-    params.push(imageId);
-    await connection.execute(`UPDATE diagram_images SET ${updates.join(", ")} WHERE id = ?`, params);
+    if (updates.length > 0) {
+      params.push(imageId);
+      await connection.execute(`UPDATE diagram_images SET ${updates.join(", ")} WHERE id = ?`, params);
+    }
 
-    // 2. Reset overall canvas status if needed
+    // 4. Recompute overall canvas status from remaining tile statuses
     const [subRows] = await connection.execute<RowDataPacket[]>(
       `SELECT status FROM diagram_images WHERE canvas_id = ? AND version_id = ?`,
       [canvasId, versionId],
     );
     const statuses = subRows.map((r) => String(r.status));
     let newStatus = "pending_review";
-    if (statuses.every((s) => s === "approved")) {
+    if (statuses.length > 0 && statuses.every((s) => s === "approved")) {
       newStatus = "approved";
     } else if (statuses.some((s) => s === "changes_requested")) {
       newStatus = "changes_requested";
     }
 
-    await connection.execute(`UPDATE canvases SET status = ? WHERE id = ?`, [newStatus, canvasId]);
+    await connection.execute(
+      `UPDATE canvases SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
+      [newStatus, canvasId],
+    );
+
+    // Sync parent project status after tile-level recompute
+    const [projRow] = await connection.execute<RowDataPacket[]>(
+      `SELECT project_id FROM canvases WHERE id = ?`,
+      [canvasId],
+    );
+    const projectId = Number(projRow[0]?.project_id);
+    if (projectId) {
+      const [allC] = await connection.execute<RowDataPacket[]>(
+        `SELECT status FROM canvases WHERE project_id = ?`,
+        [projectId],
+      );
+      const projStatuses = allC.map((r) => String(r.status));
+      let overall: "pending" | "in_review" | "changes_requested" | "approved" = "in_review";
+      if (projStatuses.length > 0 && projStatuses.every((s) => s === "approved")) {
+        overall = "approved";
+      } else if (projStatuses.some((s) => s === "changes_requested")) {
+        overall = "changes_requested";
+      }
+      await connection.execute(`UPDATE projects SET status = ? WHERE id = ?`, [overall, projectId]);
+    }
+
+    return { canvasId, versionId };
   });
 }
 
@@ -651,13 +846,24 @@ export async function addCanvasSubImage(
     watermarkedImageUrl: string;
     thumbnailUrl: string;
     caption?: string;
+    uploadedBy?: number | null;
   },
-): Promise<number> {
+): Promise<{ id: number; versionId: number }> {
   return withTransaction(async (connection) => {
-    // 1. Check existing count of sub-images
+    // Bump version so designer edits advance V1 → V2 …
+    const bumped = await bumpCanvasVersionForEdit(
+      connection,
+      canvasId,
+      versionId,
+      data.uploadedBy ?? null,
+      "Added photo tile",
+    );
+    const activeVersionId = bumped.newVersionId;
+
+    // 1. Check existing count of sub-images on the new version (tiles already moved)
     const [existingRows] = await connection.execute<RowDataPacket[]>(
       `SELECT COUNT(*) as count FROM diagram_images WHERE canvas_id = ? AND version_id = ?`,
-      [canvasId, versionId],
+      [canvasId, activeVersionId],
     );
     const existingCount = Number(existingRows[0]?.count || 0);
 
@@ -665,7 +871,7 @@ export async function addCanvasSubImage(
     if (existingCount === 0) {
       const [verRows] = await connection.execute<RowDataPacket[]>(
         `SELECT original_image_url, watermarked_image_url, thumbnail_url FROM canvas_versions WHERE id = ?`,
-        [versionId],
+        [activeVersionId],
       );
       if (verRows.length > 0 && verRows[0].original_image_url) {
         await connection.execute(
@@ -676,7 +882,7 @@ export async function addCanvasSubImage(
           `,
           [
             canvasId,
-            versionId,
+            activeVersionId,
             verRows[0].original_image_url,
             verRows[0].watermarked_image_url || verRows[0].original_image_url,
             verRows[0].thumbnail_url || verRows[0].original_image_url,
@@ -687,7 +893,7 @@ export async function addCanvasSubImage(
 
     const [sortRows] = await connection.execute<RowDataPacket[]>(
       `SELECT COALESCE(MAX(sort_order), 0) as max_sort FROM diagram_images WHERE canvas_id = ? AND version_id = ?`,
-      [canvasId, versionId],
+      [canvasId, activeVersionId],
     );
     const nextSort = Number(sortRows[0]?.max_sort || 0) + 1;
 
@@ -699,7 +905,7 @@ export async function addCanvasSubImage(
       `,
       [
         canvasId,
-        versionId,
+        activeVersionId,
         data.originalImageUrl,
         data.watermarkedImageUrl,
         data.thumbnailUrl,
@@ -709,22 +915,36 @@ export async function addCanvasSubImage(
     );
 
     await connection.execute(
-      `UPDATE canvases SET status = 'pending_review', canvas_type = 'collage' WHERE id = ?`,
+      `UPDATE canvases SET status = 'pending_review', canvas_type = 'collage', updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
       [canvasId],
     );
 
-    return res.insertId;
+    return { id: res.insertId, versionId: activeVersionId };
   });
 }
 
-export async function deleteCanvasSubImage(imageId: number): Promise<void> {
+export async function deleteCanvasSubImage(
+  imageId: number,
+  uploadedBy?: number | null,
+): Promise<{ canvasId: number; versionId: number } | null> {
   return withTransaction(async (connection) => {
     const [imgRows] = await connection.execute<RowDataPacket[]>(
       `SELECT canvas_id, version_id FROM diagram_images WHERE id = ?`,
       [imageId],
     );
-    if (imgRows.length === 0) return;
-    const { canvas_id: canvasId, version_id: versionId } = imgRows[0];
+    if (imgRows.length === 0) return null;
+    const canvasId = Number(imgRows[0].canvas_id);
+    let versionId = Number(imgRows[0].version_id);
+
+    // Bump version before deleting so the proof sheet advances
+    const bumped = await bumpCanvasVersionForEdit(
+      connection,
+      canvasId,
+      versionId,
+      uploadedBy ?? null,
+      "Removed photo tile",
+    );
+    versionId = bumped.newVersionId;
 
     await connection.execute(`DELETE FROM diagram_images WHERE id = ?`, [imageId]);
 
@@ -742,7 +962,32 @@ export async function deleteCanvasSubImage(imageId: number): Promise<void> {
         newStatus = "changes_requested";
       }
     }
-    await connection.execute(`UPDATE canvases SET status = ? WHERE id = ?`, [newStatus, canvasId]);
+    await connection.execute(
+      `UPDATE canvases SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
+      [newStatus, canvasId],
+    );
+
+    const [projRow] = await connection.execute<RowDataPacket[]>(
+      `SELECT project_id FROM canvases WHERE id = ?`,
+      [canvasId],
+    );
+    const projectId = Number(projRow[0]?.project_id);
+    if (projectId) {
+      const [allC] = await connection.execute<RowDataPacket[]>(
+        `SELECT status FROM canvases WHERE project_id = ?`,
+        [projectId],
+      );
+      const projStatuses = allC.map((r) => String(r.status));
+      let overall: "pending" | "in_review" | "changes_requested" | "approved" = "in_review";
+      if (projStatuses.length > 0 && projStatuses.every((s) => s === "approved")) {
+        overall = "approved";
+      } else if (projStatuses.some((s) => s === "changes_requested")) {
+        overall = "changes_requested";
+      }
+      await connection.execute(`UPDATE projects SET status = ? WHERE id = ?`, [overall, projectId]);
+    }
+
+    return { canvasId, versionId };
   });
 }
 
