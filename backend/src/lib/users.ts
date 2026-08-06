@@ -4,6 +4,7 @@ import { AuthError } from "./errors.js";
 import { ROLE_PERMISSIONS, isAuthRole } from "./roles.js";
 import { hashPassword, validatePasswordStrength } from "./password.js";
 import type { AuthRole, AuthUser, Permission, UserPayload } from "./types.js";
+import { syncSingleUserToClient } from "./canvas/clients.js";
 
 type UserRow = RowDataPacket & {
   id: number;
@@ -347,6 +348,8 @@ export async function createUser(
       throw new AuthError("Unable to load created user.", 500);
     }
 
+    await syncSingleUserToClient(user.name, user.email);
+
     return user;
   } catch (error) {
     if (isDuplicateEntryError(error)) {
@@ -436,6 +439,8 @@ export async function updateUser(
     if (!updatedUser) {
       throw new AuthError("Unable to load updated user.", 500);
     }
+
+    await syncSingleUserToClient(updatedUser.name, updatedUser.email);
 
     return updatedUser;
   } catch (error) {

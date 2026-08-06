@@ -36,7 +36,7 @@ export function AuthGuard({ requiredRole, children }: AuthGuardProps) {
 
       // Check role directly from stored JWT token payload
       const tokenRole = getRoleFromToken(token);
-      if (tokenRole && tokenRole !== requiredRole && requiredRole !== "super_admin") {
+      if (tokenRole && tokenRole !== requiredRole && tokenRole !== "super_admin") {
         if (isMounted) {
           router.push(getDashboardPathFromRole(tokenRole));
         }
@@ -50,7 +50,7 @@ export function AuthGuard({ requiredRole, children }: AuthGuardProps) {
           throw new Error("Unauthenticated");
         }
 
-        if (!res.user.roles.includes(requiredRole)) {
+        if (!res.user.roles.includes(requiredRole) && !res.user.roles.includes("super_admin")) {
           const userRole = res.user.roles[0];
           if (isMounted) {
             router.push(getDashboardPathFromRole(userRole));

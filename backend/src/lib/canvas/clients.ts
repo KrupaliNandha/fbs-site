@@ -12,12 +12,62 @@ export type ClientRecord = {
   updatedAt: string;
 };
 
+export async function syncUsersToClients(): Promise<void> {
+  try {
+    await execute(`
+      INSERT INTO clients (name, email, phone, created_at, updated_at)
+      SELECT DISTINCT
+        u.name, 
+        u.email, 
+        '', 
+        u.created_at, 
+        u.updated_at
+      FROM users u
+      JOIN user_roles ur ON ur.user_id = u.id
+      JOIN roles r ON r.id = ur.role_id
+      LEFT JOIN clients c ON LOWER(c.email) = LOWER(u.email)
+      WHERE r.slug = 'user' AND c.id IS NULL
+    `);
+  } catch (err) {
+    console.error("Error auto-syncing users to clients:", err);
+  }
+}
+
+export async function syncSingleUserToClient(name: string, email: string): Promise<void> {
+  try {
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanName = name.trim();
+    if (!cleanEmail) return;
+
+    const [existing] = await query<RowDataPacket[]>(
+      `SELECT id FROM clients WHERE LOWER(email) = ? LIMIT 1`,
+      [cleanEmail]
+    );
+
+    if (!existing || existing.length === 0) {
+      await execute(
+        `INSERT INTO clients (name, email, phone) VALUES (?, ?, '')`,
+        [cleanName, cleanEmail]
+      );
+    } else {
+      await execute(
+        `UPDATE clients SET name = ? WHERE LOWER(email) = ?`,
+        [cleanName, cleanEmail]
+      );
+    }
+  } catch (err) {
+    console.error("Error syncing single user to client:", err);
+  }
+}
+
 export async function listClients(params: {
   designerId?: number;
   search?: string;
   page?: number;
   limit?: number;
+  excludeNonUsers?: boolean;
 }): Promise<{ clients: ClientRecord[]; total: number; page: number; totalPages: number }> {
+  await syncUsersToClients();
   const page = Math.max(1, params.page || 1);
   const limit = Math.max(1, Math.min(100, params.limit || 10));
   const offset = (page - 1) * limit;
@@ -28,6 +78,18 @@ export async function listClients(params: {
   if (params.designerId) {
     whereConditions.push("(clients.designer_id = ? OR clients.designer_id IS NULL)");
     queryParams.push(params.designerId);
+  }
+
+  if (params.excludeNonUsers) {
+    whereConditions.push(`
+      clients.email NOT IN (
+        SELECT DISTINCT LOWER(u.email)
+        FROM users u
+        JOIN user_roles ur ON ur.user_id = u.id
+        JOIN roles r ON r.id = ur.role_id
+        WHERE r.slug IN ('super_admin', 'designer')
+      )
+    `);
   }
 
   if (params.search?.trim()) {

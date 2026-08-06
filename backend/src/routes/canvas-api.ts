@@ -187,8 +187,9 @@ canvasRouter.get("/clients", requireAuth(), async (req, res) => {
     const limit = req.query.limit ? Number(req.query.limit) : 10;
 
     const designerId = user.roles.includes("super_admin") ? undefined : user.id;
+    const excludeNonUsers = !user.roles.includes("super_admin");
 
-    const result = await listClients({ designerId, search, page, limit });
+    const result = await listClients({ designerId, search, page, limit, excludeNonUsers });
     res.json(result);
   } catch (err) {
     res.status(500).json({ message: err instanceof Error ? err.message : "Error listing clients." });
@@ -275,16 +276,18 @@ canvasRouter.get("/projects", requireAuth(), async (req, res) => {
 canvasRouter.post("/projects", requireAuth(), async (req, res) => {
   try {
     const user = (req as any).user as AuthUser;
-    const { clientId, name, description } = req.body;
+    const { clientId, name, description, designerId } = req.body;
 
     if (!clientId || !name) {
       res.status(400).json({ message: "Client ID and project name are required." });
       return;
     }
 
+    const assignedDesignerId = designerId ? Number(designerId) : user.id;
+
     const project = await createProject({
       clientId: Number(clientId),
-      designerId: user.id,
+      designerId: assignedDesignerId,
       name,
       description,
     });
