@@ -35,7 +35,7 @@ class ApiClientError extends Error {
 }
 
 function apiUrl(path: string) {
-  const base = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "";
+  const base = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "http://localhost:4000";
   return `${base}${path}`;
 }
 

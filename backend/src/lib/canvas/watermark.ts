@@ -43,6 +43,8 @@ export function buildWatermarkSvgPattern(
   );
   const patternH = Math.max(fontSize * 3.5, Math.floor(height / 5), 140);
 
+  const strokeWidth = Math.max(2, Math.round(fontSize * 0.08));
+
   const svg = `
     <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -53,19 +55,32 @@ export function buildWatermarkSvgPattern(
           patternUnits="userSpaceOnUse"
           patternTransform="rotate(-28 ${width / 2} ${height / 2})"
         >
-          <!-- Single centered label per cell — large cell = clear spacing between repeats -->
+          <!-- Layer 1: Sharp, high-contrast dark border stroke -->
           <text
             x="${patternW / 2}"
             y="${patternH / 2}"
-            font-family="Arial, Helvetica, sans-serif"
+            font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif"
             font-size="${fontSize}"
-            font-weight="700"
-            fill="rgba(255, 255, 255, 0.22)"
-            stroke="rgba(0, 0, 0, 0.12)"
-            stroke-width="0.8"
+            font-weight="800"
+            fill="none"
+            stroke="rgba(0, 0, 0, 0.65)"
+            stroke-width="${strokeWidth}"
+            stroke-linejoin="round"
             text-anchor="middle"
             dominant-baseline="middle"
-            letter-spacing="1.5"
+            letter-spacing="2"
+          >${safeText}</text>
+          <!-- Layer 2: Clean, sharp semi-transparent white text fill -->
+          <text
+            x="${patternW / 2}"
+            y="${patternH / 2}"
+            font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif"
+            font-size="${fontSize}"
+            font-weight="800"
+            fill="rgba(255, 255, 255, 0.45)"
+            text-anchor="middle"
+            dominant-baseline="middle"
+            letter-spacing="2"
           >${safeText}</text>
         </pattern>
       </defs>

@@ -8,7 +8,10 @@ import { canvasRouter } from "./routes/canvas-api.js";
 import { UPLOADS_DIR, ensureUploadDirs } from "./lib/canvas/watermark.js";
 
 function getAllowedOrigins(): string[] {
-  const raw = process.env.CORS_ORIGINS ?? "http://localhost:3000";
+  const raw = process.env.CORS_ORIGINS;
+  if (!raw) {
+    return [];
+  }
   return raw
     .split(",")
     .map((origin) => origin.trim().replace(/\/+$/, ""))
