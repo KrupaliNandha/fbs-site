@@ -60,18 +60,18 @@ export function LoginForm({ role, title }: LoginFormProps) {
   }
 
   return (
-    <main className="min-h-dvh bg-[#f7f8fb] px-5 py-10 flex items-center justify-center">
-      <Card className="w-full max-w-md p-6 shadow-sm">
+    <main className="min-h-dvh bg-slate-100/90 px-5 py-10 flex items-center justify-center portal-dashboard">
+      <Card className="w-full max-w-md p-6 sm:p-8 shadow-sm border border-slate-200 rounded-2xl bg-white">
         <div className="mb-6">
-          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+          <p className="text-xs font-extrabold uppercase tracking-wider text-slate-500">
             FBS Prints
           </p>
-          <h1 className="mt-2 text-2xl font-bold text-primary-dark">{title}</h1>
+          <h1 className="mt-1.5 text-2xl font-black text-slate-900">{title}</h1>
         </div>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="space-y-1.5">
-            <Label htmlFor="login-email">Email</Label>
+            <Label htmlFor="login-email" className="text-xs font-bold text-slate-700">Email</Label>
             <div className="relative">
               <Mail
                 size={16}
@@ -81,16 +81,17 @@ export function LoginForm({ role, title }: LoginFormProps) {
                 id="login-email"
                 type="email"
                 autoComplete="email"
+                placeholder="name@example.com"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                className="h-11 pl-9 text-sm"
+                className="h-11 pl-9 text-sm border-slate-200 focus:border-slate-400 focus:ring-slate-400/20"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="login-password">Password</Label>
+            <Label htmlFor="login-password" className="text-xs font-bold text-slate-700">Password</Label>
             <div className="relative">
               <Lock
                 size={16}
@@ -100,16 +101,17 @@ export function LoginForm({ role, title }: LoginFormProps) {
                 id="login-password"
                 type="password"
                 autoComplete="current-password"
+                placeholder="••••••••"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                className="h-11 pl-9 text-sm"
+                className="h-11 pl-9 text-sm border-slate-200 focus:border-slate-400 focus:ring-slate-400/20"
                 required
               />
             </div>
           </div>
 
           {error ? (
-            <p className="rounded-xl bg-red-50 border border-red-100 px-3 py-2 text-sm text-red-700">
+            <p className="rounded-xl bg-slate-100 border border-slate-200 px-3 py-2 text-xs font-medium text-red-600">
               {error}
             </p>
           ) : null}
@@ -117,7 +119,7 @@ export function LoginForm({ role, title }: LoginFormProps) {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full h-11 text-sm bg-primary hover:bg-primary/90"
+            className="w-full h-11 text-sm bg-slate-900 hover:bg-black text-white font-bold rounded-xl"
           >
             {isSubmitting ? "Signing in..." : "Sign in"}
           </Button>
@@ -128,7 +130,7 @@ export function LoginForm({ role, title }: LoginFormProps) {
             Don&apos;t have an account or password yet?{" "}
             <a
               href="/user/register"
-              className="font-bold text-indigo-600 hover:underline"
+              className="font-bold text-slate-900 hover:underline"
             >
               Create Account / Set Password
             </a>

@@ -38,13 +38,13 @@ export default function UserRegisterPage() {
   }
 
   return (
-    <main className="min-h-dvh bg-[#f7f8fb] px-5 py-10 flex items-center justify-center">
-      <Card className="w-full max-w-md p-6 shadow-sm">
+    <main className="min-h-dvh bg-slate-100/90 px-5 py-10 flex items-center justify-center portal-dashboard">
+      <Card className="w-full max-w-md p-6 sm:p-8 shadow-sm border border-slate-200 rounded-2xl bg-white">
         <div className="mb-6">
-          <p className="text-xs font-bold uppercase tracking-wider text-indigo-600">
+          <p className="text-xs font-extrabold uppercase tracking-wider text-slate-500">
             FBS Prints Portal
           </p>
-          <h1 className="mt-1 text-2xl font-bold text-slate-900">Create Account</h1>
+          <h1 className="mt-1 text-2xl font-black text-slate-900">Create Account</h1>
           <p className="text-xs text-slate-500 mt-1">
             Register your email and set up your password to manage your projects.
           </p>
@@ -52,7 +52,7 @@ export default function UserRegisterPage() {
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="space-y-1.5">
-            <Label htmlFor="reg-name">Full Name</Label>
+            <Label htmlFor="reg-name" className="text-xs font-bold text-slate-700">Full Name</Label>
             <div className="relative">
               <UserIcon
                 size={16}
@@ -64,14 +64,14 @@ export default function UserRegisterPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="John Doe"
-                className="h-11 pl-9"
+                className="h-11 pl-9 border-slate-200 focus:border-slate-400 focus:ring-slate-400/20"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="reg-email">Email Address</Label>
+            <Label htmlFor="reg-email" className="text-xs font-bold text-slate-700">Email Address</Label>
             <div className="relative">
               <Mail
                 size={16}
@@ -84,14 +84,14 @@ export default function UserRegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="user@example.com"
-                className="h-11 pl-9"
+                className="h-11 pl-9 border-slate-200 focus:border-slate-400 focus:ring-slate-400/20"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="reg-password">Create Password</Label>
+            <Label htmlFor="reg-password" className="text-xs font-bold text-slate-700">Create Password</Label>
             <div className="relative">
               <Lock
                 size={16}
@@ -104,14 +104,14 @@ export default function UserRegisterPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="h-11 pl-9"
+                className="h-11 pl-9 border-slate-200 focus:border-slate-400 focus:ring-slate-400/20"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="reg-confirm">Confirm Password</Label>
+            <Label htmlFor="reg-confirm" className="text-xs font-bold text-slate-700">Confirm Password</Label>
             <div className="relative">
               <Lock
                 size={16}
@@ -124,19 +124,19 @@ export default function UserRegisterPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className="h-11 pl-9"
+                className="h-11 pl-9 border-slate-200 focus:border-slate-400 focus:ring-slate-400/20"
                 required
               />
             </div>
           </div>
 
           {error ? (
-            <p className="rounded-xl bg-rose-50 border border-rose-200 px-3 py-2 text-xs font-medium text-rose-700">
+            <p className="rounded-xl bg-slate-100 border border-slate-200 px-3 py-2 text-xs font-medium text-red-600">
               {error}
             </p>
           ) : null}
 
-          <Button type="submit" disabled={isSubmitting} className="w-full h-11">
+          <Button type="submit" disabled={isSubmitting} className="w-full h-11 bg-slate-900 hover:bg-black text-white font-bold rounded-xl">
             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : null}
             {isSubmitting ? "Creating Account..." : "Create Account & Sign In"}
           </Button>
@@ -144,7 +144,7 @@ export default function UserRegisterPage() {
 
         <div className="mt-6 text-center text-xs text-slate-500">
           Already have an account?{" "}
-          <Link href="/user/login" className="font-bold text-indigo-600 hover:underline">
+          <Link href="/user/login" className="font-bold text-slate-900 hover:underline">
             Sign In
           </Link>
         </div>
