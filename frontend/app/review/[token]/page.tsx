@@ -256,15 +256,14 @@ export default function SecureCanvasReviewPage() {
     return (
       <Card
         key={img.id}
-        className={`p-3 space-y-2 flex flex-col justify-between transition ${
-          isBlueprint
+        className={`p-3 space-y-2 flex flex-col justify-between transition ${isBlueprint
             ? "border-indigo-300 bg-indigo-50/20 ring-1 ring-indigo-200"
             : img.status === "approved"
               ? "border-emerald-400 bg-emerald-50/10 ring-1 ring-emerald-400/20"
               : img.status === "changes_requested"
                 ? "border-amber-400 bg-amber-50/10 ring-1 ring-amber-400/20"
                 : ""
-        }`}
+          }`}
       >
         <div className="space-y-2">
           <div className="flex items-center justify-between gap-1 border-b border-slate-100 pb-1.5 min-w-0">
@@ -276,10 +275,9 @@ export default function SecureCanvasReviewPage() {
             )}
           </div>
 
-          <div className="relative aspect-[4/3] bg-slate-50 rounded-xl overflow-hidden group/tile border border-slate-100">
-            <img src={imgUrl} alt={label} className="w-full h-full object-contain" />
-            <Button
-              type="button"
+          <div className="relative aspect-[4/3] bg-slate-50 rounded-xl overflow-hidden group/tile border border-slate-100 flex items-center justify-center">
+            <img src={imgUrl} alt={label} className="w-full h-full object-contain p-1" />
+            <div
               onClick={() =>
                 setFullscreenCanvas({
                   url: imgUrl,
@@ -291,10 +289,12 @@ export default function SecureCanvasReviewPage() {
                   date: new Date(c.updatedAt).toLocaleDateString(),
                 })
               }
-              className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover/tile:opacity-100 transition flex items-center justify-center text-white font-bold text-[10.5px] gap-1 backdrop-blur-[1px] cursor-pointer"
+              className="absolute inset-0 bg-slate-950/45 opacity-0 group-hover/tile:opacity-100 transition flex items-center justify-center backdrop-blur-[1px] cursor-pointer"
             >
-              <ZoomIn size={13} /> Zoom
-            </Button>
+              <span className="inline-flex items-center gap-1.5 bg-white/95 hover:bg-white text-slate-900 px-3 py-1.5 rounded-full text-xs font-bold shadow-md transition transform group-hover/tile:scale-105">
+                <ZoomIn size={14} className="text-indigo-600" /> Zoom
+              </span>
+            </div>
           </div>
 
           {img.remarks && img.remarks.length > 0 && (
@@ -308,9 +308,8 @@ export default function SecureCanvasReviewPage() {
                   return (
                     <div
                       key={r.id}
-                      className={`text-[10.5px] border-t border-slate-200/50 pt-1 ${
-                        isDesigner ? "text-indigo-900" : "text-slate-700"
-                      }`}
+                      className={`text-[10.5px] border-t border-slate-200/50 pt-1 ${isDesigner ? "text-indigo-900" : "text-slate-700"
+                        }`}
                     >
                       <strong className={isDesigner ? "text-indigo-800" : "text-slate-800"}>
                         {r.userName || (isDesigner ? "Designer" : "Client")}
@@ -341,29 +340,29 @@ export default function SecureCanvasReviewPage() {
                 type="button"
                 disabled={isSubmitting}
                 size="sm"
-                className="bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 shadow-none"
+                className="h-8 px-1.5 text-[10.5px] font-bold bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 shadow-none rounded-xl flex items-center justify-center gap-1 min-w-0"
                 onClick={() => handleImageAction(c, img.id, "changes_requested", img.id)}
               >
                 {isSubmitting ? (
-                  <Loader2 size={11} className="animate-spin" />
+                  <Loader2 size={11} className="animate-spin flex-shrink-0" />
                 ) : (
-                  <AlertCircle size={11} />
+                  <AlertCircle size={11} className="flex-shrink-0 text-amber-600" />
                 )}
-                Request Changes
+                <span className="truncate">Request Changes</span>
               </Button>
               <Button
                 type="button"
                 disabled={isSubmitting}
                 size="sm"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
+                className="h-8 px-1.5 text-[10.5px] font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm rounded-xl flex items-center justify-center gap-1 min-w-0"
                 onClick={() => handleImageAction(c, img.id, "approved", img.id)}
               >
                 {isSubmitting ? (
-                  <Loader2 size={11} className="animate-spin" />
+                  <Loader2 size={11} className="animate-spin flex-shrink-0" />
                 ) : (
-                  <CheckCircle2 size={11} />
+                  <CheckCircle2 size={11} className="flex-shrink-0" />
                 )}
-                Approve
+                <span className="truncate">Approve</span>
               </Button>
             </div>
           </div>
@@ -486,37 +485,66 @@ export default function SecureCanvasReviewPage() {
         : "Type feedback or required changes for this canvas...";
 
   return (
-    <div className="min-h-screen bg-[#f4f6fb] text-slate-900 flex flex-col font-sans antialiased">
+    <div className="min-h-screen bg-slate-100/90 text-slate-900 flex flex-col font-sans antialiased portal-dashboard">
       {/* Thin top bar */}
-      <header className="sticky top-0 z-30 bg-white border-b border-slate-200/90">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2 flex-wrap min-w-0">
-            {currentUser ? (
-              <Button
-                type="button"
-                onClick={() => {
-                  const targetPath = getDashboardPathFromToken() || "/user/dashboard";
-                  router.push(targetPath);
-                }}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer"
-              >
-                <ArrowLeft size={14} /> Back to Projects
-              </Button>
-            ) : (
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500">
-                <ShieldCheck size={14} className="text-indigo-500" /> Secure Review
+      <header className="sticky top-0 z-30 bg-white border-b border-slate-200/90 shadow-sm">
+        <div className="max-w-[1280px] mx-auto px-3 sm:px-6 py-2 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3">
+          {/* Top row / Left section */}
+          <div className="flex items-center justify-between sm:justify-start gap-2 flex-wrap min-w-0">
+            <div className="flex items-center gap-2 min-w-0">
+              {currentUser ? (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const targetPath = getDashboardPathFromToken() || "/user/dashboard";
+                    router.push(targetPath);
+                  }}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 h-8 px-2.5 rounded-xl border-slate-200 cursor-pointer flex-shrink-0"
+                >
+                  <ArrowLeft size={14} /> Back to Projects
+                </Button>
+              ) : (
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-xl flex-shrink-0">
+                  <ShieldCheck size={14} className="text-indigo-600 flex-shrink-0" /> Secure Review
+                </span>
+              )}
+              <span className="hidden md:inline text-slate-300">|</span>
+              <span className="hidden sm:inline-flex items-center rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-100 px-2.5 py-1 text-[11px] font-bold whitespace-nowrap">
+                Canvas Details &amp; Approval
               </span>
-            )}
-            <span className="hidden sm:inline text-slate-300">|</span>
-            <span className="inline-flex items-center rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100 px-2.5 py-0.5 text-[11px] font-bold">
-              Canvas Details &amp; Approval
-            </span>
-            <span className="inline-flex items-center rounded-full bg-slate-50 text-slate-500 border border-slate-200 px-2.5 py-0.5 text-[11px] font-medium">
-              Verified Client Link
-            </span>
+              <span className="hidden md:inline-flex items-center rounded-xl bg-slate-50 text-slate-500 border border-slate-200 px-2.5 py-1 text-[11px] font-medium whitespace-nowrap">
+                Verified Client Link
+              </span>
+            </div>
+
+            {/* Mobile actions (status badge + refresh) stay aligned on the right of top row on mobile */}
+            <div className="flex sm:hidden items-center gap-1.5 flex-shrink-0 ml-auto">
+              <StatusBadge status={project.status} pendingLabel="pending" />
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={isRefreshing}
+                onClick={async () => {
+                  setIsRefreshing(true);
+                  await loadReviewData();
+                  setIsRefreshing(false);
+                }}
+                className="h-7 px-2 rounded-xl bg-white text-[11px] font-semibold flex-shrink-0"
+                title="Refresh Proof Data"
+              >
+                <RefreshCw
+                  size={12}
+                  className={isRefreshing ? "animate-spin text-indigo-600" : ""}
+                />
+                Refresh
+              </Button>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Desktop right actions */}
+          <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
             <StatusBadge status={project.status} pendingLabel="pending" />
             <Button
               variant="outline"
@@ -527,7 +555,7 @@ export default function SecureCanvasReviewPage() {
                 await loadReviewData();
                 setIsRefreshing(false);
               }}
-              className="h-8 rounded-full bg-white"
+              className="h-8 px-3 rounded-xl bg-white text-xs font-semibold flex-shrink-0"
               title="Refresh Proof Data"
             >
               <RefreshCw
@@ -542,24 +570,26 @@ export default function SecureCanvasReviewPage() {
 
       <div className="flex-1 max-w-[1280px] w-full mx-auto px-4 sm:px-6 py-5 sm:py-6 space-y-5">
         {/* Project title */}
-        <div className="min-w-0">
-          <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 min-w-0">
-            <h1 className="text-2xl sm:text-[1.65rem] font-extrabold text-slate-900 tracking-tight truncate">
-              {project.name}
-            </h1>
-            <p className="text-xs sm:text-[13px] text-slate-500 truncate">
+        <div className="min-w-0 space-y-1">
+          <h1 className="text-2xl sm:text-[1.75rem] font-extrabold text-slate-900 tracking-tight">
+            {project.name}
+          </h1>
+          <p className="text-xs sm:text-[13px] text-slate-500 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+            <span>
               Client:{" "}
-              <strong className="text-slate-700 font-semibold">{project.clientName}</strong>
-              {project.clientEmail ? (
-                <span className="text-slate-400"> ({project.clientEmail})</span>
-              ) : null}
-              <span className="text-slate-300 mx-1.5">·</span>
+              <strong className="text-slate-800 font-semibold">{project.clientName}</strong>
+            </span>
+            {project.clientEmail ? (
+              <span className="text-slate-400"> ({project.clientEmail})</span>
+            ) : null}
+            <span className="text-slate-300">·</span>
+            <span>
               Designer:{" "}
-              <strong className="text-slate-700 font-semibold">
+              <strong className="text-slate-800 font-semibold">
                 {project.designerName || "Designer"}
               </strong>
-            </p>
-          </div>
+            </span>
+          </p>
         </div>
 
         {/* Main workspace: canvases left · overall feedback + history right */}
@@ -602,13 +632,12 @@ export default function SecureCanvasReviewPage() {
                       <div
                         key={c.id}
                         onClick={() => setSelectedCanvas(c)}
-                        className={`rounded-2xl border bg-white p-4 sm:p-5 space-y-4 transition cursor-pointer ${
-                          isSelected
+                        className={`rounded-2xl border bg-white p-4 sm:p-5 space-y-4 transition cursor-pointer ${isSelected
                             ? "border-indigo-300 shadow-[0_0_0_3px_rgba(99,102,241,0.12)]"
                             : isChangesReq
                               ? "border-amber-300 shadow-[0_0_0_3px_rgba(251,191,36,0.12)]"
                               : "border-slate-200 hover:border-slate-300 hover:shadow-sm"
-                        }`}
+                          }`}
                       >
                         {/* Canvas header */}
                         <div className="flex items-start justify-between gap-3 flex-wrap">
@@ -637,38 +666,36 @@ export default function SecureCanvasReviewPage() {
                         </div>
 
                         {/* Preview */}
-                        <div className="rounded-xl bg-[#eef2ff]/80 border border-indigo-100/80 p-2.5 sm:p-3">
-                          <div className="relative aspect-[16/10] max-h-[320px] bg-white rounded-lg overflow-hidden group border border-slate-100">
+                        <div className="rounded-xl bg-slate-50 border border-slate-200/80 p-2 sm:p-3">
+                          <div className="relative h-[200px] sm:h-[300px] md:h-[380px] bg-white rounded-lg overflow-hidden group border border-slate-200/60 flex items-center justify-center p-2">
                             <img
                               src={thumb}
                               alt={c.name}
-                              className={`w-full h-full ${
-                                isComposite ? "object-contain" : "object-cover"
-                              }`}
+                              className="w-full h-full object-contain mx-auto rounded drop-shadow-sm"
                             />
                             <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center backdrop-blur-[1px]">
                               <Button
                                 variant="secondary"
                                 size="sm"
-                                className="bg-white/95 hover:bg-white shadow"
+                                className="bg-white/95 hover:bg-white shadow cursor-pointer font-semibold text-xs"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   openFullscreenProof(c);
                                 }}
                               >
-                                <Maximize2 size={15} /> Fullscreen
+                                <Maximize2 size={14} /> Fullscreen Proof
                               </Button>
                             </div>
-                            <span className="absolute top-2.5 right-2.5 bg-slate-900/85 text-white text-[10px] font-mono font-bold px-2 py-0.5 rounded-md shadow">
+                            <span className="absolute top-2 right-2 bg-slate-900/85 text-white text-[9.5px] sm:text-[10px] font-mono font-bold px-1.5 sm:px-2 py-0.5 rounded-md shadow">
                               v{c.latestVersion?.versionNumber || 1}
                             </span>
                             {isDiagram && (
-                              <span className="absolute top-2.5 left-2.5 inline-flex items-center gap-1 rounded-full bg-white/95 text-indigo-700 border border-indigo-100 text-[10px] font-bold px-2 py-0.5 shadow-sm">
-                                <Layers size={11} /> Diagram Composite
+                              <span className="absolute top-2 left-2 inline-flex items-center gap-1 rounded-full bg-white/95 text-indigo-700 border border-indigo-100 text-[9.5px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 shadow-sm">
+                                <Layers size={10} /> Diagram
                               </span>
                             )}
                             {c.watermarkEnabled && (
-                              <span className="absolute bottom-2.5 left-2.5 inline-flex items-center rounded-full bg-violet-100 text-violet-800 border border-violet-200 text-[9px] font-bold px-2 py-0.5 uppercase tracking-wide">
+                              <span className="absolute bottom-2 left-2 inline-flex items-center rounded-full bg-slate-100/90 text-slate-600 border border-slate-200 text-[8.5px] sm:text-[9px] font-bold px-1.5 sm:px-2 py-0.5 uppercase tracking-wide">
                                 Watermarked
                               </span>
                             )}
@@ -739,6 +766,79 @@ export default function SecureCanvasReviewPage() {
                             </div>
                           </div>
                         ) : null}
+
+                        {/* Direct Canvas Action Bar for Individual & overall canvas approval */}
+                        {(!hasSubImages || !isComposite) && (
+                          <div
+                            className="pt-3 border-t border-slate-200/80 space-y-2.5"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <div className="flex items-center justify-between gap-2 flex-wrap text-xs">
+                              <span className="font-bold text-slate-700 flex items-center gap-1.5">
+                                <CheckCircle2 size={14} className="text-indigo-600" /> Canvas Review Action
+                              </span>
+                              <StatusBadge status={c.status} pendingLabel="pending" />
+                            </div>
+
+                            <Textarea
+                              rows={2}
+                              value={subImageRemarks[c.id] || ""}
+                              onChange={(e) =>
+                                setSubImageRemarks({
+                                  ...subImageRemarks,
+                                  [c.id]: e.target.value,
+                                })
+                              }
+                              placeholder={`Feedback or change requests for "${c.name}"...`}
+                              className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition resize-none bg-white"
+                            />
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
+                              <Button
+                                type="button"
+                                disabled={submittingImageId === c.id}
+                                size="sm"
+                                className="w-full h-9 px-3 text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 shadow-none rounded-xl flex items-center justify-center gap-1.5 cursor-pointer min-w-0"
+                                onClick={() =>
+                                  handleImageAction(
+                                    c,
+                                    null,
+                                    "changes_requested",
+                                    c.id,
+                                  )
+                                }
+                              >
+                                {submittingImageId === c.id ? (
+                                  <Loader2 size={13} className="animate-spin text-amber-700 flex-shrink-0" />
+                                ) : (
+                                  <AlertCircle size={13} className="text-amber-700 flex-shrink-0" />
+                                )}
+                                <span className="truncate">Request Changes</span>
+                              </Button>
+                              <Button
+                                type="button"
+                                disabled={submittingImageId === c.id}
+                                size="sm"
+                                className="w-full h-9 px-3 text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm rounded-xl flex items-center justify-center gap-1.5 cursor-pointer min-w-0"
+                                onClick={() =>
+                                  handleImageAction(
+                                    c,
+                                    null,
+                                    "approved",
+                                    c.id,
+                                  )
+                                }
+                              >
+                                {submittingImageId === c.id ? (
+                                  <Loader2 size={13} className="animate-spin text-white flex-shrink-0" />
+                                ) : (
+                                  <CheckCircle2 size={13} className="flex-shrink-0" />
+                                )}
+                                <span className="truncate">Approve Canvas</span>
+                              </Button>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     );
                   })}
@@ -778,7 +878,7 @@ export default function SecureCanvasReviewPage() {
                     <Button
                       type="button"
                       disabled={isSubmittingOverall}
-                      className="h-10 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 shadow-none rounded-full"
+                      className="h-10 px-2 sm:px-4 text-[11px] sm:text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 shadow-none rounded-xl flex items-center justify-center gap-1.5 min-w-0"
                       onClick={() =>
                         handleImageAction(
                           activeCanvas,
@@ -789,26 +889,26 @@ export default function SecureCanvasReviewPage() {
                       }
                     >
                       {isSubmittingOverall ? (
-                        <Loader2 size={14} className="animate-spin" />
+                        <Loader2 size={14} className="animate-spin flex-shrink-0" />
                       ) : (
-                        <AlertCircle size={14} />
+                        <AlertCircle size={14} className="flex-shrink-0 text-amber-600" />
                       )}
-                      Request Changes
+                      <span className="truncate">Request Changes</span>
                     </Button>
                     <Button
                       type="button"
                       disabled={isSubmittingOverall}
-                      className="h-10 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm rounded-full"
+                      className="h-10 px-2 sm:px-4 text-[11px] sm:text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm rounded-xl flex items-center justify-center gap-1.5 min-w-0"
                       onClick={() =>
                         handleImageAction(activeCanvas, null, "approved", activeRemarkKey)
                       }
                     >
                       {isSubmittingOverall ? (
-                        <Loader2 size={14} className="animate-spin" />
+                        <Loader2 size={14} className="animate-spin flex-shrink-0" />
                       ) : (
-                        <CheckCircle2 size={14} />
+                        <CheckCircle2 size={14} className="flex-shrink-0" />
                       )}
-                      Approve
+                      <span className="truncate">Approve</span>
                     </Button>
                   </div>
                 </>
@@ -897,63 +997,73 @@ export default function SecureCanvasReviewPage() {
           onClick={(e) => {
             if (e.target === e.currentTarget) setFullscreenCanvas(null);
           }}
-          className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 sm:p-6 overflow-y-auto"
+          className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-2 sm:p-6 overflow-y-auto"
         >
-          <Button
-            variant="secondary"
-            size="icon"
-            onClick={() => setFullscreenCanvas(null)}
-            className="fixed top-5 right-5 z-50 bg-slate-800/90 hover:bg-slate-700 text-white border-slate-700 rounded-full h-11 w-11"
-          >
-            <X size={22} />
-          </Button>
+          <div className="bg-white border-2 sm:border-4 border-slate-900 rounded-2xl shadow-2xl max-w-6xl w-full flex flex-col overflow-hidden my-auto animate-in fade-in zoom-in duration-200">
+            {/* Modal Top Bar Header */}
+            <div className="bg-slate-900 text-white px-3 sm:px-5 py-2.5 flex items-center justify-between gap-2 border-b-2 border-slate-900 flex-shrink-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="bg-amber-400 text-slate-950 px-2 py-0.5 rounded text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider flex-shrink-0">
+                  PROOF SHEET V{fullscreenCanvas.version}
+                </span>
+                <h3 className="font-bold text-xs sm:text-sm truncate text-slate-200 min-w-0">
+                  {fullscreenCanvas.name}
+                </h3>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setFullscreenCanvas(null)}
+                className="text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg h-8 px-2.5 text-xs flex items-center gap-1 flex-shrink-0 cursor-pointer"
+              >
+                <X size={16} /> <span className="hidden sm:inline">Close</span>
+              </Button>
+            </div>
 
-          <div className="bg-white border-4 border-slate-900 rounded-2xl shadow-2xl max-w-6xl w-full flex flex-col overflow-hidden my-auto">
-            <div className="relative bg-slate-100 p-4 sm:p-5 flex items-center justify-center min-h-[420px] max-h-[75vh] overflow-hidden">
+            {/* High-Res Image Canvas Box */}
+            <div className="relative bg-slate-100 p-2 sm:p-5 flex items-center justify-center min-h-[260px] sm:min-h-[420px] max-h-[58vh] sm:max-h-[72vh] overflow-hidden">
               <img
                 src={fullscreenCanvas.url}
                 alt={fullscreenCanvas.name}
-                className="w-full h-full max-h-[70vh] object-contain rounded shadow-lg"
+                className="max-w-full max-h-[56vh] sm:max-h-[70vh] w-auto h-auto object-contain rounded shadow-md mx-auto"
               />
-              <span className="absolute top-4 right-4 bg-slate-900/90 text-white text-xs font-mono font-bold px-3 py-1 rounded-md backdrop-blur-sm shadow">
-                PROOF SHEET V{fullscreenCanvas.version}
-              </span>
             </div>
 
-            <div className="border-t-4 border-slate-900 bg-white">
-              <div className="grid grid-cols-12 border-b-2 border-slate-800 text-xs divide-x-2 divide-slate-800 font-sans">
-                <div className="col-span-3 p-3 bg-slate-50 flex flex-col justify-between">
+            {/* Responsive Blueprint Title Block Footer */}
+            <div className="border-t-2 sm:border-t-4 border-slate-900 bg-white w-full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full text-xs divide-y sm:divide-y-0 lg:divide-x-2 divide-slate-800 font-sans">
+                {/* Block 1: Brand Info */}
+                <div className="p-2.5 sm:p-3.5 bg-slate-50 flex flex-col justify-between border-b sm:border-b-0 border-r-0 sm:border-r border-slate-800 lg:border-r-0">
                   <div>
-                    <div className="flex items-center gap-1.5 font-black text-slate-900 tracking-tight text-sm">
-                      <span className="bg-amber-400 text-slate-950 px-1.5 py-0.5 rounded text-xs">
+                    <div className="flex items-center gap-1.5 font-black text-slate-900 tracking-tight text-xs sm:text-sm">
+                      <span className="bg-amber-400 text-slate-950 px-1.5 py-0.5 rounded text-[10px] sm:text-xs">
                         FBS
                       </span>
-                      SIGNS &amp; PRINTING
+                      <span className="truncate">SIGNS &amp; PRINTING</span>
                     </div>
-                    <p className="text-[10px] font-bold text-slate-600 mt-1.5 leading-tight uppercase">
-                      750 WARRENVILLE RD
-                      <br />
-                      LISLE, IL 60532
+                    <p className="text-[9.5px] sm:text-[10px] font-bold text-slate-600 mt-1 leading-tight uppercase">
+                      750 WARRENVILLE RD<br />LISLE, IL 60532
                     </p>
                   </div>
-                  <p className="text-[10px] font-mono text-indigo-700 font-bold mt-2">
+                  <p className="text-[9.5px] font-mono text-indigo-700 font-bold mt-1.5">
                     WWW.FBSSIGNS.COM
                   </p>
                 </div>
 
-                <div className="col-span-3 p-3 flex flex-col justify-between">
+                {/* Block 2: Project & Canvas Titles */}
+                <div className="p-2.5 sm:p-3.5 flex flex-col justify-between">
                   <div>
                     <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">
                       PROJECT NAME:
                     </span>
                     <span
-                      className="font-black text-slate-900 text-sm block truncate"
+                      className="font-black text-slate-900 text-xs sm:text-sm block truncate"
                       title={fullscreenCanvas.projectName}
                     >
                       {fullscreenCanvas.projectName || "PROJECT PROOF"}
                     </span>
                   </div>
-                  <div className="mt-2">
+                  <div className="mt-1.5 sm:mt-2">
                     <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">
                       CANVAS TITLE:
                     </span>
@@ -966,7 +1076,8 @@ export default function SecureCanvasReviewPage() {
                   </div>
                 </div>
 
-                <div className="col-span-3 p-3 flex flex-col justify-between">
+                {/* Block 3: Status & Canvas Type */}
+                <div className="p-2.5 sm:p-3.5 flex flex-col justify-between border-b sm:border-b-0 border-r-0 sm:border-r border-slate-800 lg:border-r-0">
                   <div>
                     <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">
                       CLIENT APPROVAL STATUS:
@@ -978,20 +1089,19 @@ export default function SecureCanvasReviewPage() {
                       />
                     </div>
                   </div>
-                  <div className="mt-2 border-t border-slate-200 pt-1">
-                    <span className="font-bold text-slate-500 text-[10px] block uppercase">
+                  <div className="mt-1.5 sm:mt-2 border-t border-slate-200 pt-1">
+                    <span className="font-bold text-slate-500 text-[9.5px] sm:text-[10px] block uppercase">
                       TYPE: {fullscreenCanvas.canvasType || "INDIVIDUAL"}
                     </span>
                   </div>
                 </div>
 
-                <div className="col-span-3 p-3 bg-slate-50 flex flex-col justify-between text-[9px] leading-tight text-slate-600">
-                  <p className="italic text-[9px] leading-tight text-slate-500">
-                    This design is the original and unpublished work of FBS SIGNS and may not be
-                    reproduced, copied or exhibited in any fashion without express written
-                    permission.
+                {/* Block 4: Legal & Metadata */}
+                <div className="p-2.5 sm:p-3.5 bg-slate-50 flex flex-col justify-between text-[9px] sm:text-[9.5px] leading-tight text-slate-600">
+                  <p className="italic text-[9px] sm:text-[9.5px] leading-tight text-slate-500">
+                    This design is original work of FBS SIGNS and may not be reproduced without express written permission.
                   </p>
-                  <div className="pt-2 border-t border-slate-300 font-mono text-[9px] font-bold text-slate-800 flex justify-between">
+                  <div className="pt-2 border-t border-slate-300 font-mono text-[9px] sm:text-[9.5px] font-bold text-slate-800 flex justify-between gap-1 flex-wrap">
                     <span>SCALE: N.T.S.</span>
                     <span>
                       DATE: {fullscreenCanvas.date || new Date().toLocaleDateString()}

@@ -873,7 +873,7 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
                   type="file"
                   accept="image/png, image/jpeg, image/webp"
                   onChange={(e) => setDiagramImageFile(e.target.files?.[0] || null)}
-                  className="mt-1 block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer"
+                  className="mt-1 cursor-pointer"
                 />
               </div>
 
@@ -958,7 +958,7 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
                     }
                     setSelectedFiles((prev) => [...prev, ...newFiles]);
                   }}
-                  className="mt-1 block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer"
+                  className="mt-1 cursor-pointer"
                 />
               </div>
 
@@ -1138,77 +1138,116 @@ function SuperAdminContent({ superAdminUser }: { superAdminUser: any }) {
           onClick={(e) => {
             if (e.target === e.currentTarget) setFullscreenCanvas(null);
           }}
-          className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 sm:p-6 overflow-y-auto"
+          className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-2 sm:p-6 overflow-y-auto"
         >
-          <Button
-            onClick={() => setFullscreenCanvas(null)}
-            className="fixed top-5 right-5 text-white bg-slate-800/80 hover:bg-slate-700 p-3 rounded-full transition cursor-pointer z-50 shadow-xl border border-slate-700"
-          >
-            <X size={22} />
-          </Button>
-
           {/* Architectural Proof Sheet Container */}
-          <div className="bg-white border-4 border-slate-900 rounded-2xl shadow-2xl max-w-6xl w-full flex flex-col justify-between overflow-hidden my-auto animate-in fade-in zoom-in duration-200">
-            {/* High-Res Image Canvas Box — collage fills available space while keeping aspect ratio */}
-            <div className="relative bg-slate-100 p-4 sm:p-5 flex items-center justify-center min-h-[420px] max-h-[75vh] overflow-hidden">
+          <div className="bg-white border-2 sm:border-4 border-slate-900 rounded-2xl shadow-2xl max-w-6xl w-full flex flex-col overflow-hidden my-auto animate-in fade-in zoom-in duration-200">
+            {/* Modal Top Bar Header */}
+            <div className="bg-slate-900 text-white px-3 sm:px-5 py-2.5 flex items-center justify-between gap-2 border-b-2 border-slate-900 flex-shrink-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="bg-amber-400 text-slate-950 px-2 py-0.5 rounded text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider flex-shrink-0">
+                  PROOF SHEET V{fullscreenCanvas.version}
+                </span>
+                <h3 className="font-bold text-xs sm:text-sm truncate text-slate-200 min-w-0">
+                  {fullscreenCanvas.name}
+                </h3>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setFullscreenCanvas(null)}
+                className="text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg h-8 px-2.5 text-xs flex items-center gap-1 flex-shrink-0 cursor-pointer"
+              >
+                <X size={16} /> <span className="hidden sm:inline">Close</span>
+              </Button>
+            </div>
+
+            {/* High-Res Image Canvas Box */}
+            <div className="relative bg-slate-100 p-2 sm:p-5 flex items-center justify-center min-h-[260px] sm:min-h-[420px] max-h-[58vh] sm:max-h-[72vh] overflow-hidden">
               <img
                 src={fullscreenCanvas.url}
                 alt={fullscreenCanvas.name}
-                className="w-full h-full max-h-[70vh] object-contain rounded shadow-lg"
+                className="max-w-full max-h-[56vh] sm:max-h-[70vh] w-auto h-auto object-contain rounded shadow-md mx-auto"
               />
-              <span className="absolute top-4 right-4 bg-slate-900/90 text-white text-xs font-mono font-bold px-3 py-1 rounded-md backdrop-blur-sm shadow">
-                PROOF SHEET V{fullscreenCanvas.version}
-              </span>
             </div>
 
-            {/* Architectural Title Block Footer Table */}
-            <div className="border-t-4 border-slate-900 bg-white">
-              <div className="grid grid-cols-12 border-b-2 border-slate-800 text-xs divide-x-2 divide-slate-800 font-sans">
-                {/* Col 1: FBS SIGNS Brand & Company Address */}
-                <div className="col-span-3 p-3 bg-slate-50 flex flex-col justify-between">
+            {/* Responsive Blueprint Title Block Footer */}
+            <div className="border-t-2 sm:border-t-4 border-slate-900 bg-white w-full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full text-xs divide-y sm:divide-y-0 lg:divide-x-2 divide-slate-800 font-sans">
+                {/* Block 1: Brand Info */}
+                <div className="p-2.5 sm:p-3.5 bg-slate-50 flex flex-col justify-between border-b sm:border-b-0 border-r-0 sm:border-r border-slate-800 lg:border-r-0">
                   <div>
-                    <div className="flex items-center gap-1.5 font-black text-slate-900 tracking-tight text-sm">
-                      <span className="bg-amber-400 text-slate-950 px-1.5 py-0.5 rounded text-xs">FBS</span>
-                      SIGNS & PRINTING
+                    <div className="flex items-center gap-1.5 font-black text-slate-900 tracking-tight text-xs sm:text-sm">
+                      <span className="bg-amber-400 text-slate-950 px-1.5 py-0.5 rounded text-[10px] sm:text-xs">
+                        FBS
+                      </span>
+                      <span className="truncate">SIGNS &amp; PRINTING</span>
                     </div>
-                    <p className="text-[10px] font-bold text-slate-600 mt-1.5 leading-tight uppercase">
+                    <p className="text-[9.5px] sm:text-[10px] font-bold text-slate-600 mt-1 leading-tight uppercase">
                       750 WARRENVILLE RD<br />LISLE, IL 60532
                     </p>
                   </div>
-                  <p className="text-[10px] font-mono text-indigo-700 font-bold mt-2">WWW.FBSSIGNS.COM</p>
-                </div>
-
-                {/* Col 2: Project & Canvas Titles */}
-                <div className="col-span-3 p-3 flex flex-col justify-between">
-                  <div>
-                    <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">PROJECT NAME:</span>
-                    <span className="font-black text-slate-900 text-sm block truncate" title={fullscreenCanvas.projectName}>{fullscreenCanvas.projectName || "PROJECT PROOF"}</span>
-                  </div>
-                  <div className="mt-2">
-                    <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">CANVAS TITLE:</span>
-                    <span className="font-bold text-indigo-900 text-xs block truncate" title={fullscreenCanvas.name}>{fullscreenCanvas.name}</span>
-                  </div>
-                </div>
-
-                {/* Col 3: Approvals & Specifications */}
-                <div className="col-span-3 p-3 flex flex-col justify-between">
-                  <div>
-                    <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">CLIENT APPROVAL STATUS:</span>
-                    <div className="mt-1"><StatusBadge status={fullscreenCanvas.status || "pending"} /></div>
-                  </div>
-                  <div className="mt-2 border-t border-slate-200 pt-1">
-                    <span className="font-bold text-slate-500 text-[10px] block uppercase">TYPE: {fullscreenCanvas.canvasType || "COLLAGE"}</span>
-                  </div>
-                </div>
-
-                {/* Col 4: Architectural Legal Disclaimer */}
-                <div className="col-span-3 p-3 bg-slate-50 flex flex-col justify-between text-[9px] leading-tight text-slate-600">
-                  <p className="italic text-[9px] leading-tight text-slate-500">
-                    This design is the original and unpublished work of FBS SIGNS and may not be reproduced, copied or exhibited in any fashion without express written permission.
+                  <p className="text-[9.5px] font-mono text-indigo-700 font-bold mt-1.5">
+                    WWW.FBSSIGNS.COM
                   </p>
-                  <div className="pt-2 border-t border-slate-300 font-mono text-[9px] font-bold text-slate-800 flex justify-between">
+                </div>
+
+                {/* Block 2: Project & Canvas Titles */}
+                <div className="p-2.5 sm:p-3.5 flex flex-col justify-between">
+                  <div>
+                    <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">
+                      PROJECT NAME:
+                    </span>
+                    <span
+                      className="font-black text-slate-900 text-xs sm:text-sm block truncate"
+                      title={fullscreenCanvas.projectName}
+                    >
+                      {fullscreenCanvas.projectName || "PROJECT PROOF"}
+                    </span>
+                  </div>
+                  <div className="mt-1.5 sm:mt-2">
+                    <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">
+                      CANVAS TITLE:
+                    </span>
+                    <span
+                      className="font-bold text-indigo-900 text-xs block truncate"
+                      title={fullscreenCanvas.name}
+                    >
+                      {fullscreenCanvas.name}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Block 3: Status & Canvas Type */}
+                <div className="p-2.5 sm:p-3.5 flex flex-col justify-between border-b sm:border-b-0 border-r-0 sm:border-r border-slate-800 lg:border-r-0">
+                  <div>
+                    <span className="font-extrabold text-slate-400 uppercase text-[9px] tracking-wider block">
+                      CLIENT APPROVAL STATUS:
+                    </span>
+                    <div className="mt-1">
+                      <StatusBadge
+                        status={fullscreenCanvas.status || "pending"}
+                        pendingLabel="pending"
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-1.5 sm:mt-2 border-t border-slate-200 pt-1">
+                    <span className="font-bold text-slate-500 text-[9.5px] sm:text-[10px] block uppercase">
+                      TYPE: {fullscreenCanvas.canvasType || "INDIVIDUAL"}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Block 4: Legal & Metadata */}
+                <div className="p-2.5 sm:p-3.5 bg-slate-50 flex flex-col justify-between text-[9px] sm:text-[9.5px] leading-tight text-slate-600">
+                  <p className="italic text-[9px] sm:text-[9.5px] leading-tight text-slate-500">
+                    This design is original work of FBS SIGNS and may not be reproduced without express written permission.
+                  </p>
+                  <div className="pt-2 border-t border-slate-300 font-mono text-[9px] sm:text-[9.5px] font-bold text-slate-800 flex justify-between gap-1 flex-wrap">
                     <span>SCALE: N.T.S.</span>
-                    <span>DATE: {fullscreenCanvas.date || new Date().toLocaleDateString()}</span>
+                    <span>
+                      DATE: {fullscreenCanvas.date || new Date().toLocaleDateString()}
+                    </span>
                   </div>
                 </div>
               </div>

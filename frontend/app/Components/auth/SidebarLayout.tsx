@@ -208,10 +208,10 @@ export function SidebarLayout({
   );
 
   return (
-    <div className="portal-dashboard min-h-screen bg-white text-black flex font-sans antialiased">
+    <div className="portal-dashboard h-screen max-h-screen overflow-hidden bg-white text-black flex font-sans antialiased">
       {/* Desktop sidebar */}
       <aside
-        className={`hidden lg:flex sticky top-0 h-screen bg-gray-600 text-slate-100 border-r border-white/10 flex-col justify-between transition-all duration-300 z-40 shadow-sm ${
+        className={`hidden lg:flex h-screen bg-gray-600 text-slate-100 border-r border-white/10 flex-col justify-between transition-all duration-300 z-40 shadow-sm flex-shrink-0 ${
           collapsed ? "w-20" : "w-72"
         }`}
       >
@@ -237,9 +237,9 @@ export function SidebarLayout({
       )}
 
       {/* MAIN WORKSPACE */}
-      <div className="flex-1 flex flex-col min-w-0 w-full">
+      <div className="flex-1 flex flex-col min-w-0 w-full h-screen max-h-screen overflow-hidden">
         {/* Mobile top bar with logo */}
-        <div className="lg:hidden sticky top-0 z-30 bg-white border-b border-slate-200 px-3 sm:px-4 py-2.5 flex items-center justify-between gap-3 shadow-sm">
+        <div className="lg:hidden flex-shrink-0 bg-white border-b border-slate-200 px-3 sm:px-4 py-2.5 flex items-center justify-between gap-3 shadow-sm z-30">
           <Button
             type="button"
             variant="secondary"
@@ -272,7 +272,7 @@ export function SidebarLayout({
         </div>
 
         {/* Desktop top header bar */}
-        <header className="hidden lg:flex sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 px-6 xl:px-8 py-4 items-center justify-between gap-4">
+        <header className="hidden lg:flex flex-shrink-0 bg-white/90 backdrop-blur-md border-b border-slate-200 px-6 xl:px-8 py-4 items-center justify-between gap-4 z-30">
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
@@ -294,7 +294,7 @@ export function SidebarLayout({
         </header>
 
         {/* Mobile page title strip */}
-        <div className="lg:hidden px-4 sm:px-5 pt-3 pb-1">
+        <div className="lg:hidden flex-shrink-0 px-4 sm:px-5 pt-3 pb-1">
           <span className="text-xs font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">
             {roleName} Portal
           </span>
@@ -304,8 +304,8 @@ export function SidebarLayout({
           <p className="text-sm text-slate-500 mt-0.5">{subtitle}</p>
         </div>
 
-        {/* Content Container */}
-        <main className="flex-1 p-4 sm:p-5 lg:p-6 xl:p-8 overflow-y-auto w-full max-w-[1400px] mx-auto">
+        {/* Content Container — scrollable viewport area */}
+        <main className="flex-1 overflow-y-auto p-4 sm:p-5 lg:p-6 xl:p-8 w-full max-w-[1400px] mx-auto">
           {children}
         </main>
       </div>
