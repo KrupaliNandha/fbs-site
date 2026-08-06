@@ -11,7 +11,7 @@ function getAllowedOrigins(): string[] {
   const raw = process.env.CORS_ORIGINS ?? "http://localhost:3000";
   return raw
     .split(",")
-    .map((origin) => origin.trim())
+    .map((origin) => origin.trim().replace(/\/+$/, ""))
     .filter(Boolean);
 }
 
@@ -27,8 +27,8 @@ export function createApp() {
   app.use(
     cors({
       origin(origin, callback) {
-        // Allow non-browser tools (no Origin) and configured frontend origins.
-        if (!origin || allowedOrigins.includes(origin)) {
+        const cleanOrigin = origin ? origin.replace(/\/+$/, "") : null;
+        if (!cleanOrigin || allowedOrigins.includes(cleanOrigin)) {
           callback(null, true);
           return;
         }
