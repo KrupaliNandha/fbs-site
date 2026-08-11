@@ -3,8 +3,21 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import servicesData from "../../../data/web-design.json";
 import WebDesignDetails from "./WebDesignDetails";
-import { absoluteUrl, siteConfig } from "@/app/lib/seo";
+import {
+  absoluteUrl,
+  buildAreaServedSchema,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  organizationId,
+  siteConfig,
+  toAbsoluteImageUrl,
+} from "@/app/lib/seo";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
+
+interface Faq {
+  q: string;
+  a: string;
+}
 
 interface Service {
   slug: string;
@@ -14,6 +27,7 @@ interface Service {
   description: string;
   features: string[];
   highlight: string;
+  faqs?: Faq[];
 }
 
 const services = servicesData as Service[];
@@ -48,7 +62,7 @@ export async function generateMetadata({
 
   const baseUrl = await getRequestBaseUrl();
   const canonical = absoluteUrl(`/services/web-design/${service.slug}`, baseUrl);
-  const image = service.img.startsWith("http") ? service.img : absoluteUrl(service.img, baseUrl);
+  const image = toAbsoluteImageUrl(service.img, baseUrl);
 
   return {
     title: `${service.title} | FBS Prints`,
@@ -99,33 +113,17 @@ export default async function Page({
 
   const baseUrl = await getRequestBaseUrl();
   const canonical = absoluteUrl(`/services/web-design/${service.slug}`, baseUrl);
-  const image = service.img.startsWith("http") ? service.img : absoluteUrl(service.img, baseUrl);
+  const image = toAbsoluteImageUrl(service.img, baseUrl);
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": `${canonical}#breadcrumb`,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: absoluteUrl("/", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Web Design",
-        item: absoluteUrl("/services/web-design", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: service.title,
-        item: canonical,
-      },
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: "Home", path: "/" },
+      { name: "Web Design", path: "/services/web-design" },
+      { name: service.title, path: `/services/web-design/${service.slug}` },
     ],
-  };
+    canonical,
+    baseUrl,
+  );
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -137,9 +135,17 @@ export default async function Page({
     url: canonical,
     image,
     provider: {
-      "@id": `${absoluteUrl("/", baseUrl)}#organization`,
+      "@id": organizationId(baseUrl),
     },
+    areaServed: buildAreaServedSchema(),
   };
+
+  const faqSchema = service.faqs?.length
+    ? buildFaqSchema(
+        `${canonical}#faq`,
+        service.faqs.map((faq) => ({ question: faq.q, answer: faq.a })),
+      )
+    : null;
 
   return (
     <>
@@ -149,6 +155,11 @@ export default async function Page({
       <Script id={`web-design-service-${service.slug}`} type="application/ld+json">
         {JSON.stringify(serviceSchema)}
       </Script>
+      {faqSchema ? (
+        <Script id={`web-design-faq-${service.slug}`} type="application/ld+json">
+          {JSON.stringify(faqSchema)}
+        </Script>
+      ) : null}
       <WebDesignDetails service={service} />
     </>
   );

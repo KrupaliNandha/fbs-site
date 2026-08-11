@@ -1,11 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { CheckCircle2, ChevronDown } from "lucide-react";
 
 import seoServices from "../../../data/seo-services.json";
 import { iconMap } from "../../../Components/Iconsmap";
-import { absoluteUrl, siteConfig } from "@/app/lib/seo";
+import {
+  absoluteUrl,
+  buildAreaServedSchema,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  organizationId,
+  siteConfig,
+  toAbsoluteImageUrl,
+} from "@/app/lib/seo";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
 
 interface PageProps {
@@ -33,9 +42,7 @@ export async function generateMetadata({ params }: PageProps) {
 
   const baseUrl = await getRequestBaseUrl();
   const canonical = absoluteUrl(`/services/seo/${service.slug}`, baseUrl);
-  const image = service.heroImage.startsWith("http")
-    ? service.heroImage
-    : absoluteUrl(service.heroImage, baseUrl);
+  const image = toAbsoluteImageUrl(service.heroImage, baseUrl);
 
   return {
     title: `${service.title} | FBS Signs SEO Services`,
@@ -92,49 +99,22 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   const overviewParagraphs = service.overview.split("\n\n").filter(Boolean);
   const baseUrl = await getRequestBaseUrl();
   const canonical = absoluteUrl(`/services/seo/${service.slug}`, baseUrl);
-  const image = service.heroImage.startsWith("http")
-    ? service.heroImage
-    : absoluteUrl(service.heroImage, baseUrl);
+  const image = toAbsoluteImageUrl(service.heroImage, baseUrl);
 
-  // JSON-LD structured data for FAQ rich results in Google
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.a,
-      },
-    })),
-  };
+  const faqJsonLd = buildFaqSchema(
+    `${canonical}#faq`,
+    faqs.map((faq) => ({ question: faq.q, answer: faq.a })),
+  );
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": `${canonical}#breadcrumb`,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: absoluteUrl("/", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "SEO",
-        item: absoluteUrl("/services/seo", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: service.title,
-        item: canonical,
-      },
+  const breadcrumbJsonLd = buildBreadcrumbSchema(
+    [
+      { name: "Home", path: "/" },
+      { name: "SEO", path: "/services/seo" },
+      { name: service.title, path: `/services/seo/${service.slug}` },
     ],
-  };
+    canonical,
+    baseUrl,
+  );
 
   const serviceJsonLd = {
     "@context": "https://schema.org",
@@ -146,27 +126,27 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     url: canonical,
     image,
     provider: {
-      "@id": `${absoluteUrl("/", baseUrl)}#organization`,
+      "@id": organizationId(baseUrl),
     },
-    areaServed: [
-      { "@type": "State", name: "Illinois" },
-      { "@type": "Country", name: "United States" },
-    ],
+    areaServed: buildAreaServedSchema(),
   };
 
   return (
     <main>
-      <script
+      <Script
+        id={`seo-breadcrumb-${service.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <script
+      <Script
+        id={`seo-service-${service.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
       {/* JSON-LD for FAQ rich snippets */}
       {faqs.length > 0 && (
-        <script
+        <Script
+          id={`seo-faq-${service.slug}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />

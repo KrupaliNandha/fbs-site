@@ -52,143 +52,7 @@ export interface PortfolioItem {
   alsoKnownAs?: string[];
 }
 
-const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://www.yourdomain.com"
-).replace(/\/$/, "");
-
 const PORTFOLIO_ITEMS = portfolioData as PortfolioItem[];
-
-function buildSchema(item: PortfolioItem) {
-  const propertyValues = [
-    item.sizeRange && {
-      "@type": "PropertyValue",
-      name: "Size Range",
-      value: item.sizeRange,
-    },
-    item.warranty && {
-      "@type": "PropertyValue",
-      name: "Warranty",
-      value: item.warranty,
-    },
-    item.turnaroundDays && {
-      "@type": "PropertyValue",
-      name: "Turnaround Time",
-      value: `${item.turnaroundDays} business days`,
-    },
-    item.colorOptions && {
-      "@type": "PropertyValue",
-      name: "Color Options",
-      value: item.colorOptions,
-    },
-    ...(item.certifications ?? []).map((certification) => ({
-      "@type": "PropertyValue",
-      name: "Certification",
-      value: certification,
-    })),
-  ].filter(Boolean);
-
-  const averageRating = item.testimonials.length
-    ? item.testimonials.reduce((total, review) => total + review.rating, 0) /
-      item.testimonials.length
-    : null;
-
-  const product: Record<string, unknown> = {
-    "@type": "Product",
-    "@id": `${SITE_URL}${item.link}#product`,
-    name: item.title,
-    description: item.extendedOverview || item.description,
-    image: item.images.map((image) => `${SITE_URL}${image}`),
-    category: item.category,
-    url: `${SITE_URL}${item.link}`,
-    ...(item.alsoKnownAs?.length && { alternateName: item.alsoKnownAs }),
-    ...(item.material && { material: item.material }),
-    ...(propertyValues.length && { additionalProperty: propertyValues }),
-    ...(averageRating && {
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: averageRating.toFixed(1),
-        reviewCount: item.testimonials.length,
-        bestRating: 5,
-        worstRating: 1,
-      },
-      review: item.testimonials.map((review) => ({
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: review.rating,
-          bestRating: 5,
-        },
-        author: { "@type": "Person", name: review.author },
-        reviewBody: review.quote,
-      })),
-    }),
-  };
-
-  const graph: Record<string, unknown>[] = [
-    product,
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: SITE_URL,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Our Work",
-          item: `${SITE_URL}/our-work`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: item.title,
-          item: `${SITE_URL}${item.link}`,
-        },
-      ],
-    },
-  ];
-
-  if (item.faqs.length) {
-    graph.push({
-      "@type": "FAQPage",
-      mainEntity: item.faqs.map((faq) => ({
-        "@type": "Question",
-        name: faq.q,
-        acceptedAnswer: { "@type": "Answer", text: faq.a },
-      })),
-    });
-  }
-
-  if (item.glossaryTerms?.length) {
-    graph.push({
-      "@type": "DefinedTermSet",
-      name: `${item.title} Glossary`,
-      hasDefinedTerm: item.glossaryTerms.map((term) => ({
-        "@type": "DefinedTerm",
-        name: term.term,
-        description: term.definition,
-      })),
-    });
-  }
-
-  if (item.processSteps.length) {
-    graph.push({
-      "@type": "HowTo",
-      name: `How We Build Your ${item.title}`,
-      step: item.processSteps.map((step) => ({
-        "@type": "HowToStep",
-        position: step.step,
-        name: step.title,
-        text: step.detail,
-      })),
-    });
-  }
-
-  return { "@context": "https://schema.org", "@graph": graph };
-}
 
 function SectionTitle({
   first,
@@ -279,16 +143,10 @@ export default function OurWorkDetailClient({ item }: { item: PortfolioItem }) {
   const relatedItems = PORTFOLIO_ITEMS.filter((portfolioItem) =>
     item.relatedSlugs.includes(portfolioItem.slug)
   );
-  const schema = buildSchema(item);
   const currentImage = item.images[activeImage] || item.images[0];
 
   return (
     <main className="overflow-x-hidden">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
-
       <section className="mt-20 bg-linear-to-br from-white to-primary-light sm:mt-24 xl:mt-20">
         <div className="container py-6 sm:py-8 md:py-10">
           <nav

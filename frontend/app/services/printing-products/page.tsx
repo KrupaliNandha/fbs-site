@@ -36,63 +36,54 @@ export default function Page() {
     {
       id: 1,
       text: "Business Card",
-      // pricedes: "Starting at $ 9.99",
       Icon: TiBusinessCard,
       slug: "business-cards"
     },
     {
       id: 2,
       text: "Brochures",
-      // pricedes: "Starting at $ 9.99",
       Icon: FaRegNewspaper,
       slug: "brochures"
     },
     {
       id: 3,
       text: "Copy services",
-      // pricedes: "Starting at $ 9.99",
       Icon: ImFilesEmpty,
       slug: "copy-services"
     },
     {
       id: 4,
       text: "T-shirt Prints",
-      // pricedes: "Starting at $ 9.99",
       Icon: FaTshirt,
       slug: "t-shirt-prints"
     },
     {
       id: 5,
       text: "Calendars",
-      // pricedes: "Starting at $ 9.99",
       Icon: FaCalendarAlt,
       slug: "calendars"
     },
     {
       id: 6,
       text: "Banners",
-      // pricedes: "Starting at $ 9.99",
       Icon: FaSign,
       slug: "banners"
     },
     {
       id: 7,
       text: "Carbonless Forms",
-      // pricedes: "Starting at $ 9.99",
       Icon: RiBillLine,
       slug: "carbonless-forms"
     },
     {
       id: 8,
       text: "Carryout Menus",
-      // pricedes: "Starting at $ 9.99",
       Icon: RiBillLine,
       slug: "carryout-menus"
     },
     {
       id: 9,
       text: "Canvas",
-      // pricedes: "Starting at $ 9.99",
       Icon: FaRegFileImage,
       slug: "canvas"
     },
@@ -262,7 +253,6 @@ export default function Page() {
                         <h3 className="text-3xl text-black font-semibold">
                           {item.text}
                         </h3>
-                        {/* <p className="mt-2 text-black">{item.pricedes}</p> */}
                       </div>
                     </div>
 

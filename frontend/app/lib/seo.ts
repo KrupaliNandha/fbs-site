@@ -17,7 +17,7 @@ export type PublicPagePath =
 
 type BreadcrumbItem = {
   name: string;
-  path: PublicPagePath;
+  path: string;
 };
 
 type PageSeoConfig = {
@@ -48,14 +48,36 @@ export const siteConfig = {
     "Illinois signage company",
   ],
   ogImage: "/images/home/printing-branding-hero.webp",
+  logo: "/images/brand/fbs-prints-logo.webp",
   locale: "en_US",
   phone: "+1-855-222-1133",
   email: "info@fbsprints.com",
+  priceRange: "$$",
+  address: {
+    locality: "Naperville",
+    region: "IL",
+    country: "US",
+  },
+  geo: {
+    latitude: 41.7508,
+    longitude: -88.1535,
+  },
+  openingHours: {
+    days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "09:00",
+    closes: "18:00",
+  },
   serviceAreas: [
     { city: "Naperville", stateCode: "IL" },
     { city: "Schaumburg", stateCode: "IL" },
+    { city: "Chicago", stateCode: "IL" },
+    { city: "Aurora", stateCode: "IL" },
+    { city: "Joliet", stateCode: "IL" },
+    { city: "Elgin", stateCode: "IL" },
+    { city: "Bolingbrook", stateCode: "IL" },
+    { city: "Downers Grove", stateCode: "IL" },
   ],
-  // Add actual social profile URLs here when available  placeholder root domains hurt entity resolution
+  // Add only verified profile URLs here. Placeholder root domains hurt entity resolution.
   sameAs: [] as string[],
 } as const;
 
@@ -356,6 +378,72 @@ export function absoluteUrl(path = "", baseUrl = siteConfig.url) {
   return new URL(normalizedPath, baseUrl).toString();
 }
 
+export function organizationId(baseUrl = siteConfig.url) {
+  return `${absoluteUrl("/", baseUrl)}#organization`;
+}
+
+export function websiteId(baseUrl = siteConfig.url) {
+  return `${absoluteUrl("/", baseUrl)}#website`;
+}
+
+export function toAbsoluteImageUrl(imagePath: string | undefined, baseUrl = siteConfig.url) {
+  if (!imagePath) {
+    return absoluteUrl(siteConfig.logo, baseUrl);
+  }
+
+  return imagePath.startsWith("http")
+    ? imagePath
+    : absoluteUrl(imagePath.startsWith("/") ? imagePath : `/${imagePath}`, baseUrl);
+}
+
+export function buildAreaServedSchema() {
+  return [
+    ...siteConfig.serviceAreas.map((area) => ({
+      "@type": "City",
+      name: `${area.city}, ${area.stateCode}`,
+    })),
+    { "@type": "State", name: "Illinois" },
+    { "@type": "Country", name: "United States" },
+  ];
+}
+
+export function buildBreadcrumbSchema(
+  items: BreadcrumbItem[],
+  pageUrl: string,
+  baseUrl = siteConfig.url,
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${pageUrl}#breadcrumb`,
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path, baseUrl),
+    })),
+  };
+}
+
+export function buildFaqSchema(
+  id: string,
+  faqs: { question: string; answer: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": id,
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+}
+
 export function buildPageMetadata(path: PublicPagePath, baseUrl = siteConfig.url): Metadata {
   const page = pageSeo[path];
   const canonical = absoluteUrl(path, baseUrl);
@@ -405,8 +493,8 @@ export function buildPageMetadata(path: PublicPagePath, baseUrl = siteConfig.url
 }
 
 export function getGlobalSchemas(baseUrl = siteConfig.url) {
-  const orgId = `${absoluteUrl("/", baseUrl)}#organization`;
-  const siteId = `${absoluteUrl("/", baseUrl)}#website`;
+  const orgId = organizationId(baseUrl);
+  const siteId = websiteId(baseUrl);
 
   return [
     {
@@ -418,36 +506,33 @@ export function getGlobalSchemas(baseUrl = siteConfig.url) {
       url: absoluteUrl("/", baseUrl),
       logo: {
         "@type": "ImageObject",
-        url: absoluteUrl("/images/brand/fbs-prints-logo.webp", baseUrl),
+        url: absoluteUrl(siteConfig.logo, baseUrl),
       },
       image: absoluteUrl(siteConfig.ogImage, baseUrl),
       description: siteConfig.defaultDescription,
       email: siteConfig.email,
       telephone: siteConfig.phone,
-      priceRange: "$$",
+      priceRange: siteConfig.priceRange,
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Naperville",
-        addressRegion: "IL",
-        addressCountry: "US",
+        addressLocality: siteConfig.address.locality,
+        addressRegion: siteConfig.address.region,
+        addressCountry: siteConfig.address.country,
       },
       geo: {
         "@type": "GeoCoordinates",
-        latitude: 41.7508,
-        longitude: -88.1535,
+        latitude: siteConfig.geo.latitude,
+        longitude: siteConfig.geo.longitude,
       },
       openingHoursSpecification: [
         {
           "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          opens: "09:00",
-          closes: "18:00",
+          dayOfWeek: siteConfig.openingHours.days,
+          opens: siteConfig.openingHours.opens,
+          closes: siteConfig.openingHours.closes,
         },
       ],
-      areaServed: [
-        { "@type": "State", name: "Illinois" },
-        { "@type": "Country", name: "United States" },
-      ],
+      areaServed: buildAreaServedSchema(),
       knowsAbout: [
         "Business Signage",
         "LED Channel Letters",
@@ -475,34 +560,49 @@ export function getGlobalSchemas(baseUrl = siteConfig.url) {
         name: "Signage and Printing Services",
         itemListElement: [
           {
-            "@type": "OfferCatalog",
-            name: "Business Signage",
-            description:
-              "Custom business signs including LED channel letters, monument signs, pylon signs, vehicle wraps, window graphics, and banner stands.",
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Business Signage",
+              description:
+                "Custom business signs including LED channel letters, monument signs, pylon signs, vehicle wraps, window graphics, and banner stands.",
+            },
           },
           {
-            "@type": "OfferCatalog",
-            name: "Printing Products",
-            description:
-              "Business cards, brochures, flyers, banners, menus, and large-format printing.",
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Printing Products",
+              description:
+                "Business cards, brochures, flyers, banners, menus, and large-format printing.",
+            },
           },
           {
-            "@type": "OfferCatalog",
-            name: "Direct Mailing",
-            description:
-              "End-to-end EDDM direct mail campaigns including design, print, bundling, and delivery.",
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Direct Mailing",
+              description:
+                "End-to-end EDDM direct mail campaigns including design, print, bundling, and delivery.",
+            },
           },
           {
-            "@type": "OfferCatalog",
-            name: "Web Design",
-            description:
-              "Responsive business websites for stronger online visibility and lead conversion.",
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Web Design",
+              description:
+                "Responsive business websites for stronger online visibility and lead conversion.",
+            },
           },
           {
-            "@type": "OfferCatalog",
-            name: "SEO Services",
-            description:
-              "Technical SEO, local SEO, on-page optimization, and monthly reporting.",
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "SEO Services",
+              description:
+                "Technical SEO, local SEO, on-page optimization, and monthly reporting.",
+            },
           },
         ],
       },
@@ -518,14 +618,6 @@ export function getGlobalSchemas(baseUrl = siteConfig.url) {
       description: siteConfig.defaultDescription,
       publisher: { "@id": orgId },
       inLanguage: "en-US",
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: `${absoluteUrl("/", baseUrl)}?s={search_term_string}`,
-        },
-        "query-input": "required name=search_term_string",
-      },
     },
   ];
 }
@@ -535,8 +627,8 @@ export function getRouteSchemas(path: PublicPagePath, baseUrl = siteConfig.url) 
   const url = absoluteUrl(path, baseUrl);
   const pageId = `${url}#webpage`;
   const breadcrumbId = `${url}#breadcrumb`;
-  const orgId = `${absoluteUrl("/", baseUrl)}#organization`;
-  const siteId = `${absoluteUrl("/", baseUrl)}#website`;
+  const orgId = organizationId(baseUrl);
+  const siteId = websiteId(baseUrl);
 
   const faqSchemas: Partial<Record<PublicPagePath, object>> = {
     "/": {
@@ -659,17 +751,7 @@ export function getRouteSchemas(path: PublicPagePath, baseUrl = siteConfig.url) 
     },
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": breadcrumbId,
-    itemListElement: page.breadcrumbs.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      item: absoluteUrl(item.path, baseUrl),
-    })),
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema(page.breadcrumbs, url, baseUrl);
 
   const pageSchema = {
     "@context": "https://schema.org",
@@ -685,6 +767,7 @@ export function getRouteSchemas(path: PublicPagePath, baseUrl = siteConfig.url) 
     primaryImageOfPage: {
       "@type": "ImageObject",
       url: absoluteUrl(page.image, baseUrl),
+      caption: page.title,
     },
   };
 
@@ -706,10 +789,7 @@ export function getRouteSchemas(path: PublicPagePath, baseUrl = siteConfig.url) 
     url,
     image: absoluteUrl(page.image, baseUrl),
     provider: { "@id": orgId },
-    areaServed: [
-      { "@type": "State", name: "Illinois" },
-      { "@type": "Country", name: "United States" },
-    ],
+    areaServed: buildAreaServedSchema(),
   };
 
   return faqSchema

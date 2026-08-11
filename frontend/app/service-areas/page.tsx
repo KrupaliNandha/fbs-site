@@ -142,7 +142,7 @@ export default async function ServiceAreasListingPage() {
               <div className="w-12 h-1 bg-primary rounded-full mb-6" />
               <p className="text-primary-dark/70 mb-4 leading-relaxed">
                 We believe that strong physical branding goes hand-in-hand with a robust digital footprint.
-                That's why we don't just supply businesses with premium banners or illuminated signs;
+                That&apos;s why we don&apos;t just supply businesses with premium banners or illuminated signs;
                 we help you optimize your Google Business Profiles, run neighborhood direct mail marketing,
                 and build search authority in every city you serve.
               </p>

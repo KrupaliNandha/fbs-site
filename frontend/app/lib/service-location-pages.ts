@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 import locationPagesData from "@/app/data/location-pages.json";
-import { absoluteUrl, siteConfig, type PublicPagePath } from "@/app/lib/seo";
+import {
+  absoluteUrl,
+  buildAreaServedSchema,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  organizationId,
+  siteConfig,
+  toAbsoluteImageUrl,
+  type PublicPagePath,
+  websiteId,
+} from "@/app/lib/seo";
 
 type LocationMarket = {
   slug: string;
@@ -663,7 +673,7 @@ function createServiceLocationPage(
       `${location.city} ${service.name.toLowerCase()}`,
     ],
     heroTitle,
-    heroBadge: `${location.heroBadge} • ${service.badgeLabel}`,
+    heroBadge: `${location.heroBadge} - ${service.badgeLabel}`,
     heroDescription: service.heroDescription(location),
     supportTitle: service.supportTitle(location),
     supportDescription: service.supportDescription(location),
@@ -718,7 +728,7 @@ export function buildServiceLocationMetadata(
   baseUrl = siteConfig.url,
 ): Metadata {
   const canonical = absoluteUrl(page.path, baseUrl);
-  const image = absoluteUrl(page.service.image, baseUrl);
+  const image = toAbsoluteImageUrl(page.service.image, baseUrl);
 
   return {
     title: page.metaTitle,
@@ -768,35 +778,19 @@ export function getServiceLocationSchemas(
   baseUrl = siteConfig.url,
 ) {
   const url = absoluteUrl(page.path, baseUrl);
-  const image = absoluteUrl(page.service.image, baseUrl);
+  const image = toAbsoluteImageUrl(page.service.image, baseUrl);
   const breadcrumbId = `${url}#breadcrumb`;
   const faqId = `${url}#faq`;
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": breadcrumbId,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: absoluteUrl("/", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: page.service.routeLabel,
-        item: absoluteUrl(page.service.basePath, baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: page.heroTitle,
-        item: url,
-      },
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: "Home", path: "/" },
+      { name: page.service.routeLabel, path: page.service.basePath },
+      { name: page.heroTitle, path: page.path },
     ],
-  };
+    url,
+    baseUrl,
+  );
 
   const pageSchema = {
     "@context": "https://schema.org",
@@ -808,10 +802,10 @@ export function getServiceLocationSchemas(
     inLanguage: "en-US",
     dateModified: page.location.updatedAt,
     isPartOf: {
-      "@id": `${absoluteUrl("/", baseUrl)}#website`,
+      "@id": websiteId(baseUrl),
     },
     about: {
-      "@id": `${absoluteUrl("/", baseUrl)}#organization`,
+      "@id": organizationId(baseUrl),
     },
     breadcrumb: {
       "@id": breadcrumbId,
@@ -819,6 +813,7 @@ export function getServiceLocationSchemas(
     primaryImageOfPage: {
       "@type": "ImageObject",
       url: image,
+      caption: page.heroTitle,
     },
     mainEntity: {
       "@id": faqId,
@@ -835,12 +830,15 @@ export function getServiceLocationSchemas(
     url,
     image,
     provider: {
-      "@id": `${absoluteUrl("/", baseUrl)}#organization`,
+      "@id": organizationId(baseUrl),
     },
-    areaServed: {
-      "@type": "City",
-      name: page.location.city,
-    },
+    areaServed: [
+      {
+        "@type": "City",
+        name: `${page.location.city}, ${page.location.stateCode}`,
+      },
+      ...buildAreaServedSchema(),
+    ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: page.highlightsTitle,
@@ -856,19 +854,7 @@ export function getServiceLocationSchemas(
     },
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "@id": faqId,
-    mainEntity: page.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
+  const faqSchema = buildFaqSchema(faqId, page.faqs);
 
   return [breadcrumbSchema, pageSchema, serviceSchema, faqSchema];
 }

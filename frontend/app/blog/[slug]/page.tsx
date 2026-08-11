@@ -3,7 +3,13 @@ import Script from "next/script";
 import { notFound } from "next/navigation";
 import BlogDetailClient from "@/app/blog/[slug]/BlogDetailClient";
 import { blogPosts, getBlogPost } from "@/app/data/blog";
-import { absoluteUrl, siteConfig } from "@/app/lib/seo";
+import {
+  absoluteUrl,
+  buildBreadcrumbSchema,
+  organizationId,
+  siteConfig,
+  toAbsoluteImageUrl,
+} from "@/app/lib/seo";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
 
 type BlogDetailPageProps = {
@@ -34,7 +40,7 @@ export async function generateMetadata({
 
   const baseUrl = await getRequestBaseUrl();
   const canonical = absoluteUrl(`/blog/${post.slug}`, baseUrl);
-  const image = post.image.startsWith("http") ? post.image : absoluteUrl(post.image, baseUrl);
+  const image = toAbsoluteImageUrl(post.image, baseUrl);
 
   return {
     title: `${post.title} | FBS Prints Blog`,
@@ -92,33 +98,17 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   const baseUrl = await getRequestBaseUrl();
   const canonical = absoluteUrl(`/blog/${post.slug}`, baseUrl);
-  const image = post.image.startsWith("http") ? post.image : absoluteUrl(post.image, baseUrl);
+  const image = toAbsoluteImageUrl(post.image, baseUrl);
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": `${canonical}#breadcrumb`,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: absoluteUrl("/", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Blog",
-        item: absoluteUrl("/blog", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: post.title,
-        item: canonical,
-      },
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: "Home", path: "/" },
+      { name: "Blog", path: "/blog" },
+      { name: post.title, path: `/blog/${post.slug}` },
     ],
-  };
+    canonical,
+    baseUrl,
+  );
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -136,14 +126,13 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
     author: {
       "@type": "Organization",
       name: post.author.name,
-      url: absoluteUrl("/", baseUrl),
+      url: absoluteUrl("/about", baseUrl),
     },
     publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
+      "@id": organizationId(baseUrl),
       logo: {
         "@type": "ImageObject",
-        url: absoluteUrl("/images/brand/fbs-prints-logo.webp", baseUrl),
+        url: absoluteUrl(siteConfig.logo, baseUrl),
       },
     },
   };

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import * as LucideIcons from "lucide-react";
 import {
   CheckCircle2,
@@ -15,7 +16,15 @@ import {
   Tag,
 } from "lucide-react";
 import rawData from "../../../data/direct-mailing.json";
-import { absoluteUrl, siteConfig } from "@/app/lib/seo";
+import {
+  absoluteUrl,
+  buildAreaServedSchema,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  organizationId,
+  siteConfig,
+  toAbsoluteImageUrl,
+} from "@/app/lib/seo";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
 
 /* ---------------------------------------------------------------------- */
@@ -125,7 +134,7 @@ export async function generateMetadata({
 
   const baseUrl = await getRequestBaseUrl();
   const canonical = absoluteUrl(`/services/direct-mailing/${format.slug}`, baseUrl);
-  const image = format.img.startsWith("http") ? format.img : absoluteUrl(format.img, baseUrl);
+  const image = toAbsoluteImageUrl(format.img, baseUrl);
 
   return {
     title: `${format.title} | Direct Mail Formats | FBS Signs`,
@@ -213,33 +222,17 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
 
   const baseUrl = await getRequestBaseUrl();
   const canonical = absoluteUrl(`/services/direct-mailing/${format.slug}`, baseUrl);
-  const image = format.img.startsWith("http") ? format.img : absoluteUrl(format.img, baseUrl);
+  const image = toAbsoluteImageUrl(format.img, baseUrl);
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": `${canonical}#breadcrumb`,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: absoluteUrl("/", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Direct Mailing",
-        item: absoluteUrl("/services/direct-mailing", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: format.title,
-        item: canonical,
-      },
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: "Home", path: "/" },
+      { name: "Direct Mailing", path: "/services/direct-mailing" },
+      { name: format.title, path: `/services/direct-mailing/${format.slug}` },
     ],
-  };
+    canonical,
+    baseUrl,
+  );
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -251,28 +244,13 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
     url: canonical,
     image,
     provider: {
-      "@id": `${absoluteUrl("/", baseUrl)}#organization`,
+      "@id": organizationId(baseUrl),
     },
-    areaServed: [
-      { "@type": "State", name: "Illinois" },
-      { "@type": "Country", name: "United States" },
-    ],
+    areaServed: buildAreaServedSchema(),
   };
 
   const faqSchema = format.faqs.length > 0
-    ? {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "@id": `${canonical}#faq`,
-        mainEntity: format.faqs.map((faq) => ({
-          "@type": "Question",
-          name: faq.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: faq.answer,
-          },
-        })),
-      }
+    ? buildFaqSchema(`${canonical}#faq`, format.faqs)
     : null;
 
   const related = getRelatedFormats(format);
@@ -283,16 +261,19 @@ export default async function DirectMailFormatPage({ params }: PageProps) {
 
   return (
     <main className="bg-white mt-16">
-      <script
+      <Script
+        id={`direct-mail-breadcrumb-${format.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <script
+      <Script
+        id={`direct-mail-service-${format.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
       {faqSchema ? (
-        <script
+        <Script
+          id={`direct-mail-faq-${format.slug}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />

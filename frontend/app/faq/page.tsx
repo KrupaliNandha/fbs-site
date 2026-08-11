@@ -1,13 +1,48 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Link from "next/link";
+import {
+  absoluteUrl,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  siteConfig,
+  websiteId,
+} from "@/app/lib/seo";
+
+const canonical = absoluteUrl("/faq", siteConfig.url);
+const faqTitle = "FAQs About Business Signage & Printing | FBS Signs Illinois";
+const faqDescription =
+  "Answers to the most common questions about business signage, commercial printing, EDDM direct mail, vehicle wraps, and LED channel letters. FBS Signs serves Illinois and nationwide.";
 
 export const metadata: Metadata = {
-  title: "FAQs About Business Signage & Printing | FBS Signs Illinois",
-  description:
-    "Answers to the most common questions about business signage, commercial printing, EDDM direct mail, vehicle wraps, and LED channel letters. FBS Signs serves Illinois and nationwide.",
-  alternates: { canonical: "https://www.fbssigns.com/faq" },
+  title: faqTitle,
+  description: faqDescription,
+  alternates: { canonical },
   robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    url: canonical,
+    siteName: siteConfig.name,
+    title: faqTitle,
+    description:
+      "Answers to the most common questions about business signage, commercial printing, EDDM direct mail, vehicle wraps, and LED channel letters.",
+    images: [
+      {
+        url: absoluteUrl(siteConfig.ogImage, siteConfig.url),
+        width: 1200,
+        height: 630,
+        alt: "FBS Signs frequently asked questions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: faqTitle,
+    description:
+      "Answers to common questions about signage, printing, direct mail, vehicle wraps, and LED channel letters.",
+    images: [absoluteUrl(siteConfig.ogImage, siteConfig.url)],
+  },
 };
 
 const faqs = [
@@ -53,7 +88,7 @@ const faqs = [
     questions: [
       {
         q: "What printing products does FBS Signs offer?",
-        a: "FBS Signs offers a full range of commercial printing including business cards, brochures, flyers, posters, banners, calendars, menus, carbonless forms, door hangers, postcards, canvas prints, and large-format print materials. Minimum orders start at $9.99.",
+        a: "FBS Signs offers a full range of commercial printing including business cards, brochures, flyers, posters, banners, calendars, menus, carbonless forms, door hangers, postcards, canvas prints, and large-format print materials. Pricing depends on product type, quantity, material, finishing, and turnaround.",
       },
       {
         q: "What is large-format printing?",
@@ -118,17 +153,41 @@ const faqs = [
   },
 ];
 
-const faqSchema = {
+const faqItems = faqs.flatMap((cat) =>
+  cat.questions.map((item) => ({
+    question: item.q,
+    answer: item.a,
+  })),
+);
+
+const faqSchema = buildFaqSchema(`${canonical}#faq`, faqItems);
+
+const breadcrumbSchema = buildBreadcrumbSchema(
+  [
+    { name: "Home", path: "/" },
+    { name: "FAQs", path: "/faq" },
+  ],
+  canonical,
+  siteConfig.url,
+);
+
+const webPageSchema = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "@id": "https://www.fbssigns.com/faq#faq",
-  mainEntity: faqs.flatMap((cat) =>
-    cat.questions.map((item) => ({
-      "@type": "Question",
-      name: item.q,
-      acceptedAnswer: { "@type": "Answer", text: item.a },
-    }))
-  ),
+  "@type": "WebPage",
+  "@id": `${canonical}#webpage`,
+  name: "FAQs About Business Signage & Printing",
+  description: faqDescription,
+  url: canonical,
+  inLanguage: "en-US",
+  isPartOf: {
+    "@id": websiteId(siteConfig.url),
+  },
+  breadcrumb: {
+    "@id": `${canonical}#breadcrumb`,
+  },
+  mainEntity: {
+    "@id": `${canonical}#faq`,
+  },
 };
 
 export default function FaqPage() {
@@ -136,6 +195,12 @@ export default function FaqPage() {
     <>
       <Script id="faq-schema" type="application/ld+json">
         {JSON.stringify(faqSchema)}
+      </Script>
+      <Script id="faq-breadcrumb-schema" type="application/ld+json">
+        {JSON.stringify(breadcrumbSchema)}
+      </Script>
+      <Script id="faq-webpage-schema" type="application/ld+json">
+        {JSON.stringify(webPageSchema)}
       </Script>
 
       <main className="container section-padding">

@@ -5,7 +5,14 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { serviceAreas, getServiceArea } from "@/app/data/service-areas-data";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
-import { absoluteUrl, siteConfig } from "@/app/lib/seo";
+import {
+  absoluteUrl,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  organizationId,
+  siteConfig,
+  websiteId,
+} from "@/app/lib/seo";
 import { getLocationMarkets } from "@/app/lib/service-location-pages";
 
 interface PageProps {
@@ -82,52 +89,50 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
   const baseUrl = await getRequestBaseUrl();
   const canonical = absoluteUrl(`/service-areas/${area.slug}`, baseUrl);
 
-  // Schemas
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": `${canonical}#breadcrumb`,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: absoluteUrl("/", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Service Areas",
-        item: absoluteUrl("/service-areas", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: area.name,
-        item: canonical,
-      },
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: "Home", path: "/" },
+      { name: "Service Areas", path: "/service-areas" },
+      { name: area.name, path: `/service-areas/${area.slug}` },
     ],
-  };
+    canonical,
+    baseUrl,
+  );
 
-  const localBusinessSchema = {
+  const pageSchema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": `${canonical}#local-business`,
-    name: `FBS Signs - ${area.name} Service Area`,
+    "@type": "WebPage",
+    "@id": `${canonical}#webpage`,
+    name: `Signage, Printing & SEO in ${area.name}, IL`,
     description: `FBS Signs provides custom signage, printing products, direct mailing, web design, and SEO services for businesses in ${area.name}, Illinois.`,
     url: canonical,
-    telephone: "+1-855-222-1133",
-    image: absoluteUrl("/images/brand/fbs-prints-logo.webp", baseUrl),
-    logo: absoluteUrl("/images/brand/fbs-prints-logo.webp", baseUrl),
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: area.name,
-      addressRegion: area.stateCode,
-      addressCountry: "US",
+    inLanguage: "en-US",
+    dateModified: area.updatedAt,
+    isPartOf: {
+      "@id": websiteId(baseUrl),
+    },
+    about: {
+      "@id": organizationId(baseUrl),
+    },
+    breadcrumb: {
+      "@id": `${canonical}#breadcrumb`,
+    },
+  };
+
+  const serviceAreaSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${canonical}#service`,
+    name: `Signage, Printing, Direct Mail, Web Design, and SEO in ${area.name}, IL`,
+    serviceType: "Business signage, printing, direct mail, web design, and SEO",
+    description: `FBS Signs provides custom signage, printing products, direct mailing, web design, and SEO services for businesses in ${area.name}, Illinois.`,
+    url: canonical,
+    provider: {
+      "@id": organizationId(baseUrl),
     },
     areaServed: {
       "@type": "City",
-      name: area.name,
+      name: `${area.name}, ${area.stateCode}`,
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -177,19 +182,7 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
     }
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "@id": `${canonical}#faq`,
-    mainEntity: area.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
+  const faqSchema = buildFaqSchema(`${canonical}#faq`, area.faqs);
 
   const markets = getLocationMarkets();
   const matchingMarket = markets.find(
@@ -258,9 +251,14 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Script
-        id="service-area-localbusiness-schema"
+        id="service-area-page-schema"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+      <Script
+        id="service-area-service-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceAreaSchema) }}
       />
       <Script
         id="service-area-faq-schema"
@@ -371,7 +369,7 @@ export default async function CityServiceAreaPage({ params }: PageProps) {
               <div className="bg-white/85 p-6 rounded-2xl border border-primary-light/60 shadow-sm hover:shadow-md transition-shadow duration-300">
                 <h3 className="text-base font-bold text-primary-dark mb-2">How does FBS Signs handle zoning regulations for custom signage in {area.name}?</h3>
                 <p className="text-primary-dark/70 text-sm leading-relaxed">
-                  We manage the entire commercial sign permit and approval process directly with {area.name}'s building division and zoning board. Our custom exterior signs, channel letters, and monument graphics are engineered to meet all local zoning requirements.
+                  We manage the entire commercial sign permit and approval process directly with {area.name}&apos;s building division and zoning board. Our custom exterior signs, channel letters, and monument graphics are engineered to meet all local zoning requirements.
                 </p>
               </div>
               <div className="bg-white/85 p-6 rounded-2xl border border-primary-light/60 shadow-sm hover:shadow-md transition-shadow duration-300">

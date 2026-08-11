@@ -3,7 +3,14 @@ import Script from "next/script";
 import { notFound } from "next/navigation";
 import productDetailData from "@/app/data/product-detail.json";
 import { getProductFaqs } from "@/app/data/Product-faqs-data";
-import { absoluteUrl, siteConfig } from "@/app/lib/seo";
+import {
+  absoluteUrl,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  organizationId,
+  siteConfig,
+  toAbsoluteImageUrl,
+} from "@/app/lib/seo";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
 import SignageDetailPageClient from "./SignageDetailPageClient";
 
@@ -26,12 +33,7 @@ function getSignageProduct(slug: string) {
 }
 
 function resolveImageUrl(imagePath: string | undefined, baseUrl: string) {
-  if (!imagePath) {
-    return absoluteUrl("/images/brand/fbs-prints-logo.webp", baseUrl);
-  }
-
-  const normalized = imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
-  return absoluteUrl(normalized, baseUrl);
+  return toAbsoluteImageUrl(imagePath, baseUrl);
 }
 
 function createDescription(product: RawSignageProduct) {
@@ -132,31 +134,15 @@ export default async function SignageProductPage({
   const description = createDescription(product);
   const faqs = getProductFaqs(product.slug)?.faqs ?? [];
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": `${canonical}#breadcrumb`,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: absoluteUrl("/", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Signage",
-        item: absoluteUrl("/services/signage", baseUrl),
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: product.name,
-        item: canonical,
-      },
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: "Home", path: "/" },
+      { name: "Signage", path: "/services/signage" },
+      { name: product.name, path: `/services/signage/${product.slug}` },
     ],
-  };
+    canonical,
+    baseUrl,
+  );
 
   const productSchema = {
     "@context": "https://schema.org",
@@ -177,25 +163,13 @@ export default async function SignageProductPage({
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/NewCondition",
       seller: {
-        "@id": `${absoluteUrl("/", baseUrl)}#organization`,
+        "@id": organizationId(baseUrl),
       },
     },
   };
 
   const faqSchema = faqs.length > 0
-    ? {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "@id": `${canonical}#faq`,
-        mainEntity: faqs.map((faq) => ({
-          "@type": "Question",
-          name: faq.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: faq.answer,
-          },
-        })),
-      }
+    ? buildFaqSchema(`${canonical}#faq`, faqs)
     : null;
 
   return (

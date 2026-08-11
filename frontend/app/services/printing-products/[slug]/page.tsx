@@ -3,6 +3,16 @@ import Script from "next/script";
 import { notFound } from "next/navigation";
 import productsData from "@/app/data/printing-products-detail.json";
 import ProductDetailPageClient from "./ProductDetailPageClient";
+import {
+  absoluteUrl,
+  buildAreaServedSchema,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  organizationId,
+  siteConfig,
+  toAbsoluteImageUrl,
+} from "@/app/lib/seo";
+import { getRequestBaseUrl } from "@/app/lib/request-url";
 
 // Statically generate pages for all 9 printing products
 export function generateStaticParams() {
@@ -24,9 +34,9 @@ export async function generateMetadata({
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fbssigns.com";
-  const canonical = `${baseUrl}/services/printing-products/${product.slug}`;
-  const imageUrl = `${baseUrl}${product.image}`;
+  const baseUrl = await getRequestBaseUrl();
+  const canonical = absoluteUrl(`/services/printing-products/${product.slug}`, baseUrl);
+  const imageUrl = toAbsoluteImageUrl(product.image, baseUrl);
 
   return {
     title: product.title,
@@ -47,9 +57,9 @@ export async function generateMetadata({
     },
     openGraph: {
       type: "website",
-      locale: "en_US",
+      locale: siteConfig.locale,
       url: canonical,
-      siteName: "FBS Prints",
+      siteName: siteConfig.name,
       title: product.title,
       description: product.metaDescription,
       images: [
@@ -82,85 +92,52 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fbssigns.com";
-  const canonical = `${baseUrl}/services/printing-products/${product.slug}`;
-  const imageUrl = `${baseUrl}${product.image}`;
+  const baseUrl = await getRequestBaseUrl();
+  const canonical = absoluteUrl(`/services/printing-products/${product.slug}`, baseUrl);
+  const imageUrl = toAbsoluteImageUrl(product.image, baseUrl);
 
-  // 1. Breadcrumb Schema
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": `${canonical}#breadcrumb`,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: `${baseUrl}/`,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Services",
-        item: `${baseUrl}/#services`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Printing Products",
-        item: `${baseUrl}/services/printing-products`,
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: product.name,
-        item: canonical,
-      },
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: "Home", path: "/" },
+      { name: "Printing Products", path: "/services/printing-products" },
+      { name: product.name, path: `/services/printing-products/${product.slug}` },
     ],
-  };
+    canonical,
+    baseUrl,
+  );
 
-  // 2. Product & Offer Schema
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
     "@id": `${canonical}#product`,
     name: product.name,
-    image: imageUrl,
+    image: [imageUrl],
     description: product.description,
+    category: "Commercial Printing Product",
     brand: {
       "@type": "Brand",
-      name: "FBS Prints",
+      name: siteConfig.name,
     },
     offers: {
       "@type": "Offer",
       url: canonical,
       priceCurrency: "USD",
-      price: "9.99",
-      priceValidUntil: "2027-12-31",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        priceCurrency: "USD",
+        description:
+          "Custom quote based on product type, quantity, materials, finishing, and turnaround.",
+      },
       itemCondition: "https://schema.org/NewCondition",
       availability: "https://schema.org/InStock",
       seller: {
-        "@type": "LocalBusiness",
-        name: "FBS Prints",
-        url: baseUrl,
+        "@id": organizationId(baseUrl),
       },
+      areaServed: buildAreaServedSchema(),
     },
   };
 
-  // 3. FAQ Schema
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "@id": `${canonical}#faq`,
-    mainEntity: product.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
+  const faqSchema = buildFaqSchema(`${canonical}#faq`, product.faqs);
 
   const schemas = [breadcrumbSchema, productSchema, faqSchema];
 

@@ -518,14 +518,14 @@ export default function ProductDetailPageClient({
                     />
                   </div>
 
-                  {/* Price & Turnaround */}
+                  {/* Quote and turnaround */}
                   <div className="rounded-2xl border border-primary-light bg-linear-to-br from-white to-primary-light/40 p-4 sm:p-5">
                     <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4">
                       <span className="text-sm font-medium text-primary-dark/70">
-                        Estimated Pricing
+                        Pricing
                       </span>
                       <span className="text-lg font-bold text-primary-dark sm:text-xl">
-                        Starting at $9.99
+                        Custom quote
                       </span>
                     </div>
 
