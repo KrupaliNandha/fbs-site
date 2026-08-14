@@ -1,12 +1,14 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import Preloader from "./Preloader";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import BackToTop from "./BackToTop";
 import SmoothScroll from "./SmoothScroll";
+
+const Preloader = dynamic(() => import("./Preloader"), { ssr: false });
 
 export default function PreloaderWrapper({
   children,
