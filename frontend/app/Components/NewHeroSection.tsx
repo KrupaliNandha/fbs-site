@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 import {
   Play,
@@ -131,16 +132,16 @@ export default function NewHeroSection() {
             </p>
 
             <div className="flex w-full flex-wrap items-center justify-center gap-4 sm:w-auto lg:justify-start">
-              <button
-                type="button"
+              <Link
+                href="/services"
                 className="flex h-[58px] items-center gap-3 rounded-md px-6 text-sm font-semibold text-white shadow-md transition hover:brightness-110 sm:px-7 sm:text-base"
                 style={{ backgroundColor: "#E91580" }}
               >
                 <Printer size={18} />
                 Explore Services
-              </button>
-              <button
-                type="button"
+              </Link>
+              <Link
+                href="/our-work"
                 className="flex h-[58px] items-center gap-3 rounded-md border border-slate-500/70 bg-white/70 px-6 text-sm font-semibold text-slate-800 transition hover:bg-white sm:px-7 sm:text-base"
               >
                 <span
@@ -150,7 +151,7 @@ export default function NewHeroSection() {
                   <Play size={11} fill="white" color="white" />
                 </span>
                 View Our Work
-              </button>
+              </Link>
             </div>
 
             <div className="mt-10 flex items-center gap-2 sm:gap-6 xl:gap-8 overflow-visible">

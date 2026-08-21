@@ -41,7 +41,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
   const [isPageLoading, setIsPageLoading] = useState(false);
   const pageLoadingTimer = useRef<number | null>(null);
   const isFirstRender = useRef(true);
-  const shouldScrollOnUpdate = useRef(false);
+  const blogListingRef = useRef<HTMLElement | null>(null);
 
   const [currentPage, setCurrentPage] = useState(() => {
     if (typeof window === "undefined") {
@@ -84,9 +84,9 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
     return standardPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
   }, [standardPosts, startIndex]);
 
-  // Helper: scroll the grid section into view, accounting for sticky header offset
-  const scrollToGrid = (behavior: ScrollBehavior) => {
-    const element = document.getElementById("blog-posts-grid");
+  // Helper: scroll the blog listing section into view, accounting for sticky header offset
+  const scrollToBlogListing = (behavior: ScrollBehavior = "smooth") => {
+    const element = blogListingRef.current || document.getElementById("blog-listing");
 
     if (!element) {
       return;
@@ -95,10 +95,21 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
     const bodyRect = document.body.getBoundingClientRect().top;
     const elementRect = element.getBoundingClientRect().top;
     const elementPosition = elementRect - bodyRect;
-    const offsetPosition = elementPosition - SCROLL_OFFSET;
+    const targetY = Math.max(0, elementPosition - SCROLL_OFFSET);
 
+    // If Lenis smooth scroll is active globally, use Lenis for smooth animation
+    const lenis = typeof window !== "undefined" ? (window as any).__lenis : null;
+    if (lenis && typeof lenis.scrollTo === "function") {
+      lenis.scrollTo(targetY, {
+        immediate: behavior === "auto",
+        duration: 1.0,
+      });
+      return;
+    }
+
+    // Native window scroll fallback (for mobile/touch or when Lenis is inactive)
     window.scrollTo({
-      top: offsetPosition,
+      top: targetY,
       behavior,
     });
   };
@@ -114,39 +125,15 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
     );
   }, [normalizedCurrentPage]);
 
-  // Restore scroll position on initial mount (if a saved page > 1 was restored)
-  useEffect(() => {
-    if (normalizedCurrentPage <= 1) {
-      return;
-    }
-
-    const raf = requestAnimationFrame(() => {
-      scrollToGrid("auto");
-    });
-
-    return () => cancelAnimationFrame(raf);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Scroll to the grid AFTER the page content has actually re-rendered.
-  // This runs on every currentPage/filter change that goes through handlePageChange,
-  // (guarded by shouldScrollOnUpdate) so the measured position reflects the new layout,
-  // not the stale one from before the click.
+  // Automatically scroll to top of blog listing section whenever pagination page changes
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
 
-    if (!shouldScrollOnUpdate.current) {
-      return;
-    }
-
-    shouldScrollOnUpdate.current = false;
-
-    // Wait a frame so the DOM has committed the new page's layout before measuring.
     const raf = requestAnimationFrame(() => {
-      scrollToGrid("smooth");
+      scrollToBlogListing("smooth");
     });
 
     return () => cancelAnimationFrame(raf);
@@ -165,22 +152,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
       return;
     }
 
-    if (pageLoadingTimer.current) {
-      window.clearTimeout(pageLoadingTimer.current);
-    }
-
-    shouldScrollOnUpdate.current = true;
-    setIsPageLoading(true);
     setCurrentPage(page);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-
-    pageLoadingTimer.current = window.setTimeout(() => {
-      setIsPageLoading(false);
-      pageLoadingTimer.current = null;
-    }, 350);
   };
 
   const getPageNumbers = () => {
@@ -267,7 +239,7 @@ export default function BlogListClient({ posts }: BlogListClientProps) {
         </div>
       </section>
 
-      <section className="container section-padding" id="blog-posts-grid">
+      <section id="blog-listing" ref={blogListingRef} className="container section-padding">
         <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg flex flex-col lg:flex-row items-stretch lg:items-center gap-5 justify-between">
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
