@@ -18,6 +18,7 @@ export default function HomeVideoHover() {
           muted
           loop
           playsInline
+          preload="none"
           className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition duration-500"
           onMouseEnter={(e) => e.currentTarget.play()}
           onMouseLeave={(e) => {

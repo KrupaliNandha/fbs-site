@@ -1,14 +1,15 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import BackToTop from "./BackToTop";
 
 export default function PreloaderWrapper({
   children,
+  navbar,
+  footer,
 }: {
   children: React.ReactNode;
+  navbar: React.ReactNode;
+  footer: React.ReactNode;
 }) {
   const pathname = usePathname();
 
@@ -22,16 +23,11 @@ export default function PreloaderWrapper({
 
   return (
     <>
-      {!isAuthOrDashboardRoute && <Navbar />}
+      {!isAuthOrDashboardRoute && navbar}
 
       <main>{children}</main>
 
-      {!isAuthOrDashboardRoute && (
-        <>
-          <Footer />
-          <BackToTop />
-        </>
-      )}
+      {!isAuthOrDashboardRoute && footer}
     </>
   );
 }

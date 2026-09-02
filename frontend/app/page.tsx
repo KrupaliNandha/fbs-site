@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { RouteStructuredData } from "@/app/Components/RouteStructuredData";
-import HomeAosInit from "./Components/HomeAosInit";
 import HomeStats from "./Components/HomeStats";
 import HomeVideoHover from "./Components/HomeVideoHover";
 import HomeContactSection from "./Components/HomeContactSection";
@@ -44,7 +43,6 @@ export default function Home() {
   return (
     <>
       <RouteStructuredData path="/" />
-      <HomeAosInit />
       <NewHeroSection />
       <main>
         {/* Hero Section */}

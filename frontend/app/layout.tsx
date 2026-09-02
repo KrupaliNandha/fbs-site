@@ -6,6 +6,9 @@ import { GlobalStructuredData } from "@/app/Components/RouteStructuredData";
 import { BaseUrlProvider } from "./Components/BaseUrlProvider";
 import { getRequestBaseUrl } from "@/app/lib/request-url";
 import PreloaderWrapper from "./Components/PreloaderWrapper";
+import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer";
+import BackToTop from "./Components/BackToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,7 +65,17 @@ export default async function RootLayout({
       >
         <BaseUrlProvider baseUrl={baseUrl}>
           <GlobalStructuredData />
-          <PreloaderWrapper>{children}</PreloaderWrapper>
+          <PreloaderWrapper
+            navbar={<Navbar />}
+            footer={
+              <>
+                <Footer />
+                <BackToTop />
+              </>
+            }
+          >
+            {children}
+          </PreloaderWrapper>
         </BaseUrlProvider>
       </body>
     </html>
