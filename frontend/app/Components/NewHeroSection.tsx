@@ -1,8 +1,6 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import {
   Play,
   Printer,
@@ -65,15 +63,7 @@ const features = [
   },
 ];
 
-const SLIDE_COUNT = 5;
-
 export default function NewHeroSection() {
-  const [activeSlide, setActiveSlide] = useState(0);
-
-  const goPrev = () =>
-    setActiveSlide((prev) => (prev - 1 + SLIDE_COUNT) % SLIDE_COUNT);
-  const goNext = () => setActiveSlide((prev) => (prev + 1) % SLIDE_COUNT);
-
   return (
     <section className="w-full bg-white mt-16 md:mt-20">
       {/* ---------------- Hero ---------------- */}
@@ -85,8 +75,7 @@ export default function NewHeroSection() {
         <div className="pointer-events-none absolute inset-0 ">
           <Image
             src="/images/home/Pink_hero_bg.png"
-            alt=""
-            aria-hidden="true"
+            alt="Abstract pink background pattern framing the FBS Signs hero section"
             width={1448}
             height={1086}
             priority
@@ -202,8 +191,7 @@ export default function NewHeroSection() {
               {/* Plant — small accent tucked behind the mockup, upper-right */}
               <Image
                 src="/images/home/Home-port.png"
-                alt=""
-                aria-hidden="true"
+                alt="Decorative plant beside FBS Signs branded print materials"
                 width={1024}
                 height={1024}
                 className="hidden md:block absolute right-[-4%] top-[22%] z-10 h-[62%] w-[48%] 

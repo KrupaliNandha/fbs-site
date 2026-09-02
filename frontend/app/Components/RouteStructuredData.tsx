@@ -1,4 +1,3 @@
-import Script from "next/script";
 import {
   getGlobalSchemas,
   getRouteSchemas,
@@ -10,6 +9,10 @@ function schemaId(prefix: string, index: number) {
   return `${prefix}-${index}`;
 }
 
+function serializeSchema(schema: unknown) {
+  return JSON.stringify(schema).replace(/</g, "\\u003c");
+}
+
 export async function GlobalStructuredData() {
   const baseUrl = await getRequestBaseUrl();
   const schemas = getGlobalSchemas(baseUrl);
@@ -17,13 +20,12 @@ export async function GlobalStructuredData() {
   return (
     <>
       {schemas.map((schema, index) => (
-        <Script
+        <script
           key={schemaId("global-schema", index)}
           id={schemaId("global-schema", index)}
           type="application/ld+json"
-        >
-          {JSON.stringify(schema)}
-        </Script>
+          dangerouslySetInnerHTML={{ __html: serializeSchema(schema) }}
+        />
       ))}
     </>
   );
@@ -37,13 +39,12 @@ export async function RouteStructuredData({ path }: { path: PublicPagePath }) {
   return (
     <>
       {schemas.map((schema, index) => (
-        <Script
+        <script
           key={schemaId(prefix, index)}
           id={schemaId(prefix, index)}
           type="application/ld+json"
-        >
-          {JSON.stringify(schema)}
-        </Script>
+          dangerouslySetInnerHTML={{ __html: serializeSchema(schema) }}
+        />
       ))}
     </>
   );

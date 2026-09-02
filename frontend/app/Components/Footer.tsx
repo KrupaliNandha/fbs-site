@@ -37,10 +37,9 @@ export default function Footer() {
       <section className="relative h-[420px] flex items-center justify-center">
         <Image
           src="/images/brand/footer-cta-background.webp"
-          alt=""
+          alt="Colorful branded print materials behind the FBS Signs contact callout"
           fill
           className="object-cover"
-          priority
         />
         <div className="absolute inset-0 bg-black/60" />
 

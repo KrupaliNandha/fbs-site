@@ -1,14 +1,9 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import BackToTop from "./BackToTop";
-import SmoothScroll from "./SmoothScroll";
-
-const Preloader = dynamic(() => import("./Preloader"), { ssr: false });
 
 export default function PreloaderWrapper({
   children,
@@ -16,28 +11,6 @@ export default function PreloaderWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const [isLoading, setIsLoading] = useState(true);
-  const [navKey, setNavKey] = useState(0);
-  const isFirstRender = useRef(true);
-
-  // Combine pathname + search params so navigations that only change
-  // query strings (e.g. filters, tabs) also count as a "new page"
-  const routeKey = `${pathname}?${searchParams.toString()}`;
-
-  useEffect(() => {
-    // Skip re-triggering on the very first mount 
-    // isLoading is already true by default for the initial load.
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
-    // Route changed (client-side navigation)  force a fresh Preloader
-    // instance every time, even if isLoading was already true.
-    setIsLoading(true);
-    setNavKey((prev) => prev + 1);
-  }, [routeKey]);
 
   const isAuthOrDashboardRoute =
     pathname.startsWith("/admin") ||
@@ -49,22 +22,16 @@ export default function PreloaderWrapper({
 
   return (
     <>
-      {isLoading && (
-        <Preloader key={navKey} onFinish={() => setIsLoading(false)} />
+      {!isAuthOrDashboardRoute && <Navbar />}
+
+      <main>{children}</main>
+
+      {!isAuthOrDashboardRoute && (
+        <>
+          <Footer />
+          <BackToTop />
+        </>
       )}
-
-      <SmoothScroll>
-        {!isLoading && !isAuthOrDashboardRoute && <Navbar />}
-
-        <main>{children}</main>
-
-        {!isLoading && !isAuthOrDashboardRoute && (
-          <>
-            <Footer />
-            <BackToTop />
-          </>
-        )}
-      </SmoothScroll>
     </>
   );
 }

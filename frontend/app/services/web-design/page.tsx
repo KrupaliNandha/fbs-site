@@ -466,7 +466,7 @@ export default function Page() {
                   >
                     <Image
                       src="/icons/success.png"
-                      alt=""
+                      alt="Client success"
                       width={35}
                       height={35}
                       className="h-15 w-15"

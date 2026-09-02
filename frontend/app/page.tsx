@@ -127,7 +127,6 @@ export default function Home() {
                           src="/images/home/image.png"
                           alt="FBS Signs project showcase"
                           fill
-                          priority
                           className="object-cover"
                         />
                       </div>

@@ -359,16 +359,14 @@ export function resolveBaseUrl(host: string | null | undefined, protocol?: strin
     normalizedHost.startsWith("localhost:") ||
     normalizedHost.startsWith("127.0.0.1:");
 
-  if (!isLocalHost && !supportedHosts.includes(normalizedHost as (typeof supportedHosts)[number])) {
+  if (!isLocalHost) {
     return siteConfig.url;
   }
 
   const normalizedProtocol =
     protocol === "http" || protocol === "https"
       ? protocol
-      : isLocalHost
-        ? "http"
-        : "https";
+      : "http";
 
   return `${normalizedProtocol}://${normalizedHost}`;
 }
