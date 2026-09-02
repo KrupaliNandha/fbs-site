@@ -170,7 +170,9 @@ canvasRouter.get("/review/:token", async (req, res) => {
 
     // includeHistory: client review Activity panel needs status timeline
     const canvases = await listProjectCanvases(project.id, { includeHistory: true });
-    res.json({ project, canvases });
+    // The share token is the access credential for this public review page.
+    // Do not expose the client's email address to anonymous link visitors.
+    res.json({ project: { ...project, clientEmail: "" }, canvases });
   } catch (err) {
     res.status(500).json({ message: err instanceof Error ? err.message : "Error fetching review." });
   }

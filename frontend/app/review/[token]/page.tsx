@@ -9,10 +9,7 @@ import {
 } from "@/app/lib/client/canvas-api";
 import {
   Button,
-  Badge,
   Card,
-  CardHeader,
-  Input,
   Textarea,
   StatusBadge,
 } from "@/app/Components/ui";
@@ -27,14 +24,13 @@ import {
   MessageSquare,
   X,
   Loader2,
-  Lock,
+  LogIn,
   ShieldCheck,
   ArrowLeft,
   RefreshCw,
   Maximize2,
 } from "lucide-react";
 import {
-  getStoredToken,
   getStoredUser,
   getDashboardPathFromToken,
 } from "@/app/lib/auth/token";
@@ -51,10 +47,6 @@ export default function SecureCanvasReviewPage() {
   const [project, setProject] = useState<ProjectModel | null>(null);
   const [canvases, setCanvases] = useState<CanvasModel[]>([]);
   const [selectedCanvas, setSelectedCanvas] = useState<CanvasModel | null>(null);
-
-  const [isVerified, setIsVerified] = useState(false);
-  const [clientEmailInput, setClientEmailInput] = useState("");
-  const [loginError, setLoginError] = useState("");
 
   const [fullscreenCanvas, setFullscreenCanvas] = useState<{
     url: string;
@@ -79,20 +71,6 @@ export default function SecureCanvasReviewPage() {
       const data = await canvasApi.getPublicReview(token);
       setProject(data.project);
       setCanvases(data.canvases);
-
-      const localJwt = getStoredToken();
-      const currentUser = getStoredUser();
-      const storedAuth =
-        typeof window !== "undefined" ? sessionStorage.getItem(`client_auth_${token}`) : null;
-
-      if (
-        localJwt ||
-        currentUser ||
-        (storedAuth &&
-          storedAuth.toLowerCase() === data.project.clientEmail.toLowerCase())
-      ) {
-        setIsVerified(true);
-      }
 
       if (data.canvases.length > 0 && !selectedCanvas) {
         setSelectedCanvas(data.canvases[0]);
@@ -137,21 +115,6 @@ export default function SecureCanvasReviewPage() {
       canvasType: c.canvasType,
       date: new Date(c.updatedAt).toLocaleDateString(),
     });
-  }
-
-  function handleVerifyClientLogin(e: React.FormEvent) {
-    e.preventDefault();
-    setLoginError("");
-    if (!project) return;
-
-    if (clientEmailInput.trim().toLowerCase() === project.clientEmail.toLowerCase()) {
-      sessionStorage.setItem(`client_auth_${token}`, clientEmailInput.trim().toLowerCase());
-      setIsVerified(true);
-    } else {
-      setLoginError(
-        "Verification failed: Email address does not match client records for this proof.",
-      );
-    }
   }
 
   async function handleImageAction(
@@ -403,53 +366,6 @@ export default function SecureCanvasReviewPage() {
     );
   }
 
-  if (!isVerified) {
-    return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6 font-sans">
-        <Card className="max-w-md w-full p-8 space-y-6 shadow-2xl border-slate-100">
-          <div className="text-center space-y-2">
-            <div className="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
-              <Lock size={28} />
-            </div>
-            <Badge variant="info">Private Client Access</Badge>
-            <h1 className="text-2xl font-black text-slate-900 mt-1">{project.name}</h1>
-            <p className="text-xs text-slate-500">
-              This proof review page is confidential. Please enter your registered client email
-              address to view and review images.
-            </p>
-          </div>
-
-          <form onSubmit={handleVerifyClientLogin} className="space-y-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Client Email Address
-              </label>
-              <Input
-                required
-                type="email"
-                value={clientEmailInput}
-                onChange={(e) => setClientEmailInput(e.target.value)}
-                placeholder="Enter client email..."
-                className="h-11 text-sm"
-              />
-            </div>
-
-            {loginError && (
-              <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium flex items-start gap-2">
-                <AlertCircle size={16} className="text-rose-500 flex-shrink-0 mt-0.5" />
-                <span>{loginError}</span>
-              </div>
-            )}
-
-            <Button type="submit" className="w-full h-11 text-sm">
-              <ShieldCheck size={18} /> Unlock Canvas Review
-            </Button>
-          </form>
-        </Card>
-      </div>
-    );
-  }
-
   const currentUser = typeof window !== "undefined" ? getStoredUser() : null;
 
   function historyDotClass(status: string) {
@@ -507,7 +423,7 @@ export default function SecureCanvasReviewPage() {
                 </Button>
               ) : (
                 <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-xl flex-shrink-0">
-                  <ShieldCheck size={14} className="text-indigo-600 flex-shrink-0" /> Secure Review
+                  <ShieldCheck size={14} className="text-indigo-600 flex-shrink-0" /> Direct Review
                 </span>
               )}
               <span className="hidden md:inline text-slate-300">|</span>
@@ -515,12 +431,25 @@ export default function SecureCanvasReviewPage() {
                 Canvas Details &amp; Approval
               </span>
               <span className="hidden md:inline-flex items-center rounded-xl bg-slate-50 text-slate-500 border border-slate-200 px-2.5 py-1 text-[11px] font-medium whitespace-nowrap">
-                Verified Client Link
+                Anyone with this link can review
               </span>
             </div>
 
             {/* Mobile actions (status badge + refresh) stay aligned on the right of top row on mobile */}
             <div className="flex sm:hidden items-center gap-1.5 flex-shrink-0 ml-auto">
+              {!currentUser && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => router.push("/user/login")}
+                  className="h-7 px-2 rounded-xl bg-white text-[11px] font-semibold flex-shrink-0"
+                  title="Log in to view all of your proof history"
+                >
+                  <LogIn size={12} />
+                  History
+                </Button>
+              )}
               <StatusBadge status={project.status} pendingLabel="pending" />
               <Button
                 variant="outline"
@@ -545,6 +474,19 @@ export default function SecureCanvasReviewPage() {
 
           {/* Desktop right actions */}
           <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
+            {!currentUser && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => router.push("/user/login")}
+                className="h-8 px-3 rounded-xl bg-white text-xs font-semibold flex-shrink-0"
+                title="Log in to view all of your proof history"
+              >
+                <LogIn size={13} />
+                Log in for Proof History
+              </Button>
+            )}
             <StatusBadge status={project.status} pendingLabel="pending" />
             <Button
               variant="outline"
@@ -579,9 +521,6 @@ export default function SecureCanvasReviewPage() {
               Client:{" "}
               <strong className="text-slate-800 font-semibold">{project.clientName}</strong>
             </span>
-            {project.clientEmail ? (
-              <span className="text-slate-400"> ({project.clientEmail})</span>
-            ) : null}
             <span className="text-slate-300">·</span>
             <span>
               Designer:{" "}

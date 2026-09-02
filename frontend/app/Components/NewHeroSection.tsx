@@ -78,7 +78,6 @@ export default function NewHeroSection() {
             alt="Abstract pink background pattern framing the FBS Signs hero section"
             width={1448}
             height={1086}
-            priority
             className="absolute right-0 top-0 hidden h-full w-[56%] 
             object-cover object-left md:block xl:w-[54%]"
           />
